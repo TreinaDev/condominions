@@ -11,7 +11,18 @@
   </head>
 
   <body>
+    <nav>
+      <% if manager_signed_in? %>
+        <%= link_to 'Cadastrar novo administrador', new_manager_path %>
+        <%= current_manager.description %>
+        <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete} %>
+      <% else %>
+        <%= link_to 'Entrar como administrador', new_manager_session_path %>
+      <% end %>
+    </nav>
     <div class="container">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
       <%= yield %>
     </div>
   </body>

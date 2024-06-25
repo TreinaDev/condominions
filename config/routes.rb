@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
+  devise_for :managers
+  resources :managers, only: [:new, :create]
   resources :condos, only: [:new, :create, :show]
   root to: "home#index"
 end
