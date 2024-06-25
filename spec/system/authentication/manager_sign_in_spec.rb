@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Administrador se autentica' do
   it 'com sucesso' do
     Manager.create!(email: 'manager@email.com', password: 'senha123', full_name: 'João Almeida',
-                    registration_number: '012.345.678-01')
+                    registration_number: CPF.generate)
 
     visit root_path
     click_on 'Entrar como administrador'
@@ -19,7 +19,7 @@ describe 'Administrador se autentica' do
 
   it 'e faz logout' do
     manager = Manager.create!(email: 'manager@email.com', password: 'senha123', full_name: 'João Almeida',
-                              registration_number: '012.345.678-01')
+                              registration_number: CPF.generate)
 
     login_as(manager, scope: :manager)
     visit root_path

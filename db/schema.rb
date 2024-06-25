@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_25_184405) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_25_232012) do
   create_table "addresses", force: :cascade do |t|
     t.string "public_place"
     t.string "number"
@@ -53,6 +53,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_184405) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.index ["email"], name: "index_managers_on_email", unique: true
+    t.index ["registration_number"], name: "index_managers_on_registration_number", unique: true
     t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
   end
 

@@ -1,5 +1,14 @@
 <h1>Cadastrar Novo Administrador</h1>
 
+<% if @manager.errors.any? %>
+  <p>Verifique os erros abaixo:</p>
+  <ul>
+    <% @manager.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_for(@manager) do |f| %>
   <div>
     <%= f.label :full_name %>
