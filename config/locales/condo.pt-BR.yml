@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    models:
+      condo: 'Condomínio'
+    attributes:
+      condo:
+        name: 'Nome'
+        registration_number: 'CNPJ'
