@@ -1,3 +1,3 @@
 class UnitType < ApplicationRecord
-  belongs_to :tower
+  validates :description, :metreage, presence: true
 end
