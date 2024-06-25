@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_25_175543) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_25_222041) do
   create_table "addresses", force: :cascade do |t|
     t.string "public_place"
     t.string "number"
@@ -42,6 +42,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_175543) do
     t.index ["address_id"], name: "index_condos_on_address_id"
   end
 
+  create_table "floors", force: :cascade do |t|
+    t.integer "tower_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tower_id"], name: "index_floors_on_tower_id"
+  end
+
   create_table "managers", force: :cascade do |t|
     t.string "full_name"
     t.string "registration_number"
@@ -57,12 +64,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_175543) do
   end
 
   create_table "towers", force: :cascade do |t|
-    t.integer "floors"
+    t.integer "floor_quantity"
     t.string "name"
-    t.integer "condominium_id", null: false
+    t.integer "condo_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["condominium_id"], name: "index_towers_on_condominium_id"
+    t.integer "units_per_floor"
+    t.index ["condo_id"], name: "index_towers_on_condo_id"
   end
 
   create_table "unit_types", force: :cascade do |t|
@@ -75,16 +83,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_175543) do
   end
 
   create_table "units", force: :cascade do |t|
-    t.string "identifier"
-    t.integer "unit_type_id", null: false
+    t.integer "unit_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "floor_id", null: false
+    t.index ["floor_id"], name: "index_units_on_floor_id"
     t.index ["unit_type_id"], name: "index_units_on_unit_type_id"
   end
 
   add_foreign_key "common_areas", "condos", column: "condominium_id"
   add_foreign_key "condos", "addresses"
-  add_foreign_key "towers", "condos", column: "condominium_id"
+  add_foreign_key "floors", "towers"
+  add_foreign_key "towers", "condos"
   add_foreign_key "unit_types", "towers"
+  add_foreign_key "units", "floors"
   add_foreign_key "units", "unit_types"
 end

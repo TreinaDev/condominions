@@ -1,4 +1,4 @@
-require 'rails-helper'
+require 'rails_helper'
 
 describe 'Administrator registers condo tower' do
   it 'successfully' do
@@ -10,7 +10,7 @@ describe 'Administrator registers condo tower' do
                state: 'BA',
                zip: '42800000'
 
-    condo = condo
+    condo = Condo
       .create! name: 'Condomínio dos Rubis',
                registration_number: '82909116000102',
                address: address
@@ -20,7 +20,7 @@ describe 'Administrator registers condo tower' do
     fill_in 'Nome', with: 'Torre A'
     fill_in 'Quantidade de Andares', with: 5
     fill_in 'Apartamentos por Andar', with: 3
-    click_on 'Cadastrar Torre'
+    click_on 'Criar Torre'
 
     expect(page).to have_content 'Torre A'
     expect(page).to have_content 'Quantidade de Andares: 5'

@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  resources :condos, only: [:new, :create, :show]
+  resources :condos, only: [:new, :create, :show] do
+    resources :towers, only: [:new, :create]
+  end
+
+  resources :towers, only: [:show]
+
   root to: "home#index"
 end

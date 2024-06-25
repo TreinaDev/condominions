@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      tower: 'Torre'
+    attributes:
+      tower:
+        name: 'Nome'
+        floor_quantity: 'Quantidade de Andares'
+        units_per_floor: 'Apartamentos por Andar'
+        condor: 'Condomínio'
+        condor_id: 'Condomínio'

@@ -1,0 +1,26 @@
+<section>
+  <h1>Cadastar Torre</h1>
+
+  <%= form_with model: [@tower.condo, @tower] do |f| %>
+    
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div>
+      <%= f.label :floor_quantity %>
+      <%= f.number_field :floor_quantity %>
+    </div>
+
+    <div>
+      <%= f.label :units_per_floor %>
+      <%= f.number_field :units_per_floor %>
+    </div>  
+
+    <div>
+      <%= f.submit %>
+    </div>
+
+  <% end %>
+</section>
