@@ -1,3 +1,3 @@
 class CommonArea < ApplicationRecord
-  belongs_to :condominium
+  belongs_to :condo
 end
