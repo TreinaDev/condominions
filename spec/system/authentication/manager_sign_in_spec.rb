@@ -4,7 +4,7 @@ describe 'Administrador se autentica' do
   it 'com sucesso' do
     manager = Manager.create!(email: 'manager@email.com', password: 'senha123', full_name: 'João Almeida',
                               registration_number: CPF.generate)
-    manager.user_image.attach(io: File.open(Rails.root.join('spec/support/images/manager_photo.jpg')),
+    manager.user_image.attach(io: Rails.root.join('spec/support/images/manager_photo.jpg').open,
                               filename: 'manager_photo.jpg')
 
     visit root_path

@@ -16,10 +16,10 @@ class Manager < ApplicationRecord
   private
 
   def valid_registration_number
-    if !CPF.valid?(registration_number, strict: true)
-      errors.add :registration_number, 'deve ser válido'
-    else
+    if CPF.valid?(registration_number, strict: true)
       self.registration_number = CPF.new(registration_number).formatted
+    else
+      errors.add :registration_number, 'deve ser válido'
     end
   end
 end
