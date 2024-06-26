@@ -22,6 +22,7 @@ describe "Administrator registers condo's tower" do
     fill_in 'Apartamentos por Andar', with: 3
     click_on 'Criar Torre'
 
+    expect(page).to have_content 'Torre cadastrada com sucesso!'
     expect(page).to have_content 'Torre A'
     expect(page).to have_content 'Quantidade de Andares: 5'
     expect(page).to have_content 'Apartamentos por Andar: 3'

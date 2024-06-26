@@ -11,16 +11,13 @@ class TowersController < ApplicationController
 
     @tower = Tower.new tower_params
 
-    if @tower.save!
-      @tower.floor_quantity.times do
-        floor = Floor.create tower: @tower
-      end
-
+    if @tower.save
+      @tower.floor_quantity.times { Floor.create tower: @tower }
       return redirect_to @tower, notice: 'Torre cadastrada com sucesso!'
     end
 
     flash.now[:alert] = 'Não foi possível cadastrar a torre.'
-    render 'new'
+    render 'new', status: :unprocessable_entity
   end
 
   def show
