@@ -24,9 +24,28 @@ describe 'User manage unit types' do
       expect(page).to have_content('Descrição não pode ficar em branco')
       expect(page).to have_content('Metragem não pode ficar em branco')
     end
+
+    it 'metreage cannot be zero or less' do
+      visit new_unit_type_path
+
+      fill_in 'Descrição',	with: 'Apartamento de 2 quartos'
+      fill_in 'Metragem',	with: '0'
+      click_on 'Criar Tipo de unidade'
+
+      expect(page).to have_content('Erro ao cadastrar tipo de unidade')
+      expect(page).to have_content('Metragem não pode ser igual ou menor que zero')
+    end
   end
 
-  context 'User edit an unity type' do
+  context 'User edit an unit type' do
+    it 'from unit type details page' do
+      unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5)
+
+      visit unit_type_path(unit_type.id)
+
+      expect(page).to have_link('Editar')
+    end
+
     it 'succesfully' do
       unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5)
 
