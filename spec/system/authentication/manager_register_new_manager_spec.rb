@@ -12,6 +12,7 @@ describe 'Administrador cadastra novo administrador' do
     fill_in 'CPF', with: CPF.generate
     fill_in 'E-mail', with: 'admin@email.com'
     fill_in 'Senha', with: 'password'
+    attach_file 'Foto', Rails.root.join('spec/support/images/manager_photo.jpg')
     click_on 'Cadastrar'
 
     expect(page).to have_content 'Administrador cadastrado com sucesso.'

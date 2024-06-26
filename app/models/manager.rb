@@ -7,6 +7,8 @@ class Manager < ApplicationRecord
   validates :full_name, :registration_number, presence: true
   validates :registration_number, uniqueness: true
 
+  has_one_attached :user_image
+
   def description
     "#{full_name} - #{email}"
   end

@@ -11,6 +11,10 @@
 
 <%= form_for(@manager) do |f| %>
   <div>
+    <%= f.label :user_image %>
+    <%= f.file_field :user_image %>
+  </div>
+  <div>
     <%= f.label :full_name %>
     <%= f.text_field :full_name %>
   </div>
@@ -26,6 +30,5 @@
     <%= f.label :password %>
     <%= f.password_field :password %>
   </div>
-
   <%= f.submit 'Cadastrar' %>
 <% end %>

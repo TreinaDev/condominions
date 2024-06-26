@@ -8,6 +8,7 @@ gem 'bootsnap', require: false
 gem 'cpf_cnpj'
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'image_processing', '>= 1.2'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'puma', '~> 6.0'

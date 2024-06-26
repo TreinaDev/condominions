@@ -4,7 +4,7 @@ pt-BR:
       manager:
         full_name: Nome Completo
         registration_number: CPF
-        photo: Foto
+        user_image: Foto
         confirmation_sent_at: Confirmação enviada em
         confirmation_token: Token de confirmação
         confirmed_at: Confirmado em
