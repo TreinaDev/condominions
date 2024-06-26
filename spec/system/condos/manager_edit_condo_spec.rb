@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Administrador edita o condominio a partir do condominio' do
-  it 'com sucesso' do 
+  it 'com sucesso' do
     condo = create(:condo)
 
     visit condo_path(condo)

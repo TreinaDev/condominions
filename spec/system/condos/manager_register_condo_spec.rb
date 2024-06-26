@@ -1,10 +1,9 @@
 require 'rails_helper'
 
-describe 'Administrador cadastra o condominio a partir da página inicial' do 
-  it 'Com sucesso' do 
+describe 'Administrador cadastra o condominio a partir da página inicial' do
+  it 'Com sucesso' do
     visit new_condo_path
-    #click_on 'Cadastrar Condomínio'
-
+    # click_on 'Cadastrar Condomínio'
     fill_in 'Nome',	with: 'Condominio Teste'
     fill_in 'CNPJ', with: '38352640000133'
     fill_in 'Logradouro', with: 'Travessa João Edimar'

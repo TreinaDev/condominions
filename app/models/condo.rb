@@ -4,7 +4,7 @@ class Condo < ApplicationRecord
   validates :name, :registration_number, presence: true
   validates :registration_number, uniqueness: true
 
-  validate :validate_CNPJ
+  validate :validate_cnpj
 
   accepts_nested_attributes_for :address
 
@@ -13,12 +13,11 @@ class Condo < ApplicationRecord
     "#{address.public_place}, #{address.number}, #{address.neighborhood} - #{address.city}/#{address.state} - CEP: #{address.zip}"
   end
 
-  private 
+  private
 
-  def validate_CNPJ 
+  def validate_cnpj
     return if CNPJ.valid? registration_number
 
     errors.add(:registration_number, 'inválido')
   end
-
 end

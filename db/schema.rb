@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_25_175543) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_201555) do
   create_table "addresses", force: :cascade do |t|
     t.string "public_place"
     t.string "number"
@@ -40,6 +40,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_175543) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_condos_on_address_id"
+    t.index ["registration_number"], name: "index_condos_on_registration_number", unique: true
   end
 
   create_table "managers", force: :cascade do |t|
