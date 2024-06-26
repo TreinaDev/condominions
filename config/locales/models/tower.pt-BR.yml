@@ -1,4 +1,10 @@
 pt-BR:
+  notices:
+    tower:
+      created: 'Torre cadastrada com sucesso!'
+  alerts:    
+    tower:
+      not_created: 'Não foi possível cadastrar a torre.'
   activerecord:
     models:
       tower:
