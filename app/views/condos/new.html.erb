@@ -7,7 +7,7 @@
   </div>
   <div>
     <%= f.label :registration_number %>
-    <%= f.text_field :registration_number %>
+    <%= f.number_field :registration_number %>
   </div>
 
   <%= f.fields_for :address, @condo.address || Address.new do |address_f| %>
@@ -28,14 +28,25 @@
       <%= address_f.text_field :city %>
     </div>
     <div>
-      <%= address_f.label :state%>
-      <%= address_f.text_field :state%>
+      <%= address_f.label :state %>
+      <%= address_f.select :state, options_for_select(Address::STATES), {} %>
     </div>
     <div>
       <%= address_f.label :zip %>
-      <%= address_f.text_field :zip %>
+      <%= address_f.number_field :zip, in: 0..99999999 %>
     </div>
   <% end %>
 
   <%= f.submit 'Cadastrar' %>
 <% end %>
+
+<style>
+  input[type=number]::-webkit-inner-spin-button { 
+      -webkit-appearance: none;
+      
+  }
+  input[type=number] { 
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+</style>

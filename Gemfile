@@ -5,6 +5,7 @@ ruby '3.2.2'
 gem 'rails', '~> 7.1.2'
 
 gem 'bootsnap', require: false
+gem 'cpf_cnpj', '~> 0.5.0'
 gem 'cssbundling-rails'
 gem 'jbuilder'
 gem 'jsbundling-rails'

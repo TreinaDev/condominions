@@ -25,7 +25,20 @@ RSpec.describe Condo, type: :model do
         expect(condo.errors.full_messages).to include('CNPJ já está em uso')
       end
     end
-    
+
+    context "validate_CNPJ" do 
+      it 'Verdadeiro quando o CNPJ é Válido' do
+        condo = build(:condo, registration_number: '38352640000133')
+        condo.valid? 
+        expect(condo.errors.full_messages).not_to include('CNPJ inválido')
+      end
+
+      it 'Falso quando o CNPJ inválido' do
+        condo = build(:condo, registration_number: '38352640000134')
+        condo.valid? 
+        expect(condo.errors.full_messages).to include('CNPJ inválido')
+      end
+    end
   end
 
   describe '#full_address' do 

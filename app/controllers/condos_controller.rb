@@ -12,6 +12,7 @@ class CondosController < ApplicationController
     @condo = Condo.new(condo_params)
     
     if @condo.save
+      flash.alert = "Cadastrado com sucesso!"
       redirect_to @condo
     else
       render 'new'
