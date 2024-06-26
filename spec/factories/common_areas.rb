@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :common_area do
-    name { "MyString" }
-    description { "MyText" }
+    name { 'MyString' }
+    description { 'MyText' }
     max_occupancy { 1 }
-    rules { "MyText" }
+    rules { 'MyText' }
     condominium { nil }
   end
 end

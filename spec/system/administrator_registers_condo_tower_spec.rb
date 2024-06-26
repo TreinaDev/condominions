@@ -2,18 +2,16 @@ require 'rails_helper'
 
 describe "Administrator registers condo's tower" do
   it 'successfully' do
-    address = Address
-      .create! public_place: 'Rua dos Rubis',
-               number: '120',
-               neighborhood: 'Jardim dos Rubis',
-               city: 'Xique-Xique',
-               state: 'BA',
-               zip: '42800000'
+    address = Address.create! public_place: 'Rua dos Rubis',
+                              number: '120',
+                              neighborhood: 'Jardim dos Rubis',
+                              city: 'Xique-Xique',
+                              state: 'BA',
+                              zip: '42800000'
 
-    condo = Condo
-      .create! name: 'Condomínio dos Rubis',
-               registration_number: '82909116000102',
-               address: address
+    condo = Condo.create!(name: 'Condomínio dos Rubis',
+                          registration_number: '82909116000102',
+                          address:)
 
     visit new_condo_tower_path condo
 
@@ -22,6 +20,7 @@ describe "Administrator registers condo's tower" do
     fill_in 'Apartamentos por Andar', with: 3
     click_on 'Criar Torre'
 
+    expect(page).to have_content 'Torre cadastrada com sucesso!'
     expect(page).to have_content 'Torre A'
     expect(page).to have_content 'Quantidade de Andares: 5'
     expect(page).to have_content 'Apartamentos por Andar: 3'
@@ -29,18 +28,16 @@ describe "Administrator registers condo's tower" do
   end
 
   it 'and fails if there are blank fields' do
-    address = Address
-      .create! public_place: 'Rua dos Rubis',
-               number: '120',
-               neighborhood: 'Jardim dos Rubis',
-               city: 'Xique-Xique',
-               state: 'BA',
-               zip: '42800000'
+    address = Address.create! public_place: 'Rua dos Rubis',
+                              number: '120',
+                              neighborhood: 'Jardim dos Rubis',
+                              city: 'Xique-Xique',
+                              state: 'BA',
+                              zip: '42800000'
 
-    condo = Condo
-      .create! name: 'Condomínio dos Rubis',
-               registration_number: '82909116000102',
-               address: address
+    condo = Condo.create!(name: 'Condomínio dos Rubis',
+                          registration_number: '82909116000102',
+                          address:)
 
     visit new_condo_tower_path condo
 

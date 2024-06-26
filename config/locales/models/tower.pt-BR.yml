@@ -1,11 +1,19 @@
 pt-BR:
+  notices:
+    tower:
+      created: 'Torre cadastrada com sucesso!'
+  alerts:    
+    tower:
+      not_created: 'Não foi possível cadastrar a torre.'
   activerecord:
     models:
-      tower: 'Torre'
+      tower:
+        one: 'Torre'
+        other: 'Torres'
     attributes:
       tower:
         name: 'Nome'
         floor_quantity: 'Quantidade de Andares'
         units_per_floor: 'Apartamentos por Andar'
-        condor: 'Condomínio'
-        condor_id: 'Condomínio'
+        condo: 'Condomínio'
+        condo_id: 'Condomínio'
