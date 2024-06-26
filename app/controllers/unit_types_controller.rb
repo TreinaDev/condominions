@@ -1,8 +1,13 @@
 class UnitTypesController < ApplicationController
   before_action :set_unit_type, only: %i[edit update show]
+
+  def show; end
+
   def new
     @unit_type = UnitType.new
   end
+
+  def edit; end
 
   def create
     @unit_type = UnitType.new(unit_type_params)
@@ -14,8 +19,6 @@ class UnitTypesController < ApplicationController
     end
   end
 
-  def edit; end
-
   def update
     if @unit_type.update(unit_type_params)
       redirect_to @unit_type, notice: t('notices.unit_type.updated')
@@ -24,8 +27,6 @@ class UnitTypesController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
-
-  def show; end
 
   private
 
