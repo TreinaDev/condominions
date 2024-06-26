@@ -1,5 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe UnitType, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context 'Unit Type#' do
+    it 'missing description' do
+      unit_type = UnitType.new(description: '')
+      unit_type.valid?
+
+      expect(unit_type.errors.include?(:description)).to be true
+    end
+
+    it 'missing metreage' do
+      unit_type = UnitType.new(metreage: '')
+      unit_type.valid?
+
+      expect(unit_type.errors.include?(:metreage)).to be true
+    end
+  end
 end

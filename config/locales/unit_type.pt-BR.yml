@@ -2,16 +2,18 @@ pt-BR:
   notices:
     unit_type:
       created: 'Tipo de unidade cadastrado com sucesso'
+      updated: 'Tipo de unidade atualizado com sucesso'
   alerts:    
     unit_type:
       not_created: 'Erro ao cadastrar tipo de unidade'
+      not_updated: 'Erro ao atualizar tipo de unidade'
   description: 'Descrição'
   metreage: 'Metragem'
   activerecord:
     models:
       unit_type:
-      one: 'Tipo de unidade'
-      other: 'Tipo de unidades'
+        one: 'Tipo de unidade'
+        other: 'Tipo de unidades'
     attributes:
       unit_type:
         description: 'Descrição'
