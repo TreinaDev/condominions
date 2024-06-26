@@ -14,10 +14,6 @@ class TowersController < ApplicationController
     if @tower.save!
       @tower.floor_quantity.times do
         floor = Floor.create tower: @tower
-
-        @tower.units_per_floor.times do
-          unit = Unit.create! floor: floor
-        end
       end
 
       return redirect_to @tower, notice: 'Torre cadastrada com sucesso!'
