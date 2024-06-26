@@ -15,7 +15,22 @@ class CondosController < ApplicationController
       flash.alert = "Cadastrado com sucesso!"
       redirect_to @condo
     else
-      render 'new'
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @condo = Condo.find(params[:id])
+  end
+
+  def update 
+    @condo = Condo.find(params[:id])
+
+    if @condo.update(condo_params)
+      flash.alert = "Editado com sucesso!"
+      redirect_to @condo
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
   

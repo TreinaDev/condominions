@@ -12,7 +12,7 @@ RSpec.describe Address, type: :model do
       it 'falso quando o número estiver vazio' do
         address = build(:address, number: nil)
         address.valid?
-        expect(address.errors.full_messages).to include('N° não pode ficar em branco')
+        expect(address.errors.full_messages).to include('Nº não pode ficar em branco')
       end
 
       it 'falso quando o bairro estiver vazio' do

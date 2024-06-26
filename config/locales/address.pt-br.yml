@@ -5,7 +5,7 @@ pt-BR:
     attributes:
       address:
         public_place: 'Logradouro'
-        number: 'N°'
+        number: 'Nº'
         neighborhood: 'Bairro'
         city: 'Cidade'
         state: 'Estado'
