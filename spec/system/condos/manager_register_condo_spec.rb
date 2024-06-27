@@ -5,13 +5,13 @@ describe 'Manager register condo' do
     visit new_condo_path
     # click_on 'Cadastrar Condomínio'
     fill_in 'Nome',	with: 'Condominio Teste'
-    fill_in 'CNPJ', with: '38352640000133'
+    fill_in 'CNPJ', with: '38.352.640/0001-33'
     fill_in 'Logradouro', with: 'Travessa João Edimar'
     fill_in 'Nº', with: '29'
     fill_in 'Bairro', with: 'João Eduardo II'
     fill_in 'Cidade', with: 'Rio Branco'
     select 'AC', from: 'Estado'
-    fill_in 'CEP', with: '69911520'
+    fill_in 'CEP', with: '69911-520'
 
     click_on 'Salvar'
 

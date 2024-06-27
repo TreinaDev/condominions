@@ -9,13 +9,13 @@ describe 'Manager edits condo' do
     click_on 'Editar'
 
     fill_in 'Nome',	with: 'Condominio Editado'
-    fill_in 'CNPJ', with: '34474564000188'
+    fill_in 'CNPJ', with: '34.474.564/0001-88'
     fill_in 'Logradouro', with: 'Rua ST'
     fill_in 'Nº', with: '12'
     fill_in 'Bairro', with: 'Santa Terezinha'
     fill_in 'Cidade', with: 'Brusque'
     select 'SC', from: 'Estado'
-    fill_in 'CEP', with: '88352272'
+    fill_in 'CEP', with: '88352-272'
     click_on 'Salvar'
 
     expect(current_path).to eq condo_path(condo)
