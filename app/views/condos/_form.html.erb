@@ -34,18 +34,18 @@
           <%= address_f.label :city %>
           <%= address_f.text_field :city, class:"form-control"  %>
         </div>
-        <div class="form-group col-md-4 pe-3">
-          <%= address_f.label :state %>
-          <%= address_f.select :state, options_for_select(Address::STATES), class:"form-control" %>
-        </div>
         <div class="form-group col-md-2 pe-3">
+          <%= address_f.label :state %>
+          <%= address_f.select :state, options_for_select(Address::STATES), {}, class:"form-control form-select" %>
+        </div>
+        <div class="form-group col-md-4 pe-3">
           <%= address_f.label :zip %>
           <%= address_f.number_field :zip, in: 0..99999999, class:"form-control"  %>
         </div>
       </div>
     <% end %>
 
-    <%= f.submit 'Salvar' %>
+    <%= f.submit 'Salvar', class:"btn btn-primary" %>
 
   </div>
 

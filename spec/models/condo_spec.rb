@@ -3,16 +3,12 @@ require 'rails_helper'
 RSpec.describe Condo, type: :model do
   describe '#valid' do
     context 'presence' do
-      it 'falso quando o nome estiver vazio' do
-        condo = build(:condo, name: nil)
-        condo.valid?
-        expect(condo.errors.full_messages).to include('Nome não pode ficar em branco')
-      end
+      it 'falso quando campos estiverem em branco' do
+        condo = build(:condo, name: nil, registration_number: nil)
 
-      it 'falso quando o CNPJ estiver vazio' do
-        condo = build(:condo, registration_number: nil)
-        condo.valid?
-        expect(condo.errors.full_messages).to include('CNPJ não pode ficar em branco')
+        expect(condo).not_to be_valid
+        expect(condo.errors).to include(:name)
+        expect(condo.errors).to include(:registration_number)
       end
     end
 

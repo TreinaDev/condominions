@@ -1,7 +1,5 @@
 class Address < ApplicationRecord
-  STATES = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
-            'MS', 'MT', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN',
-            'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']
+  STATES = %w[AC AL AP AM BA CE DF ES GO MA MS MT MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO].freeze
   has_one :condo, dependent: :destroy
 
   validates :public_place, :number, :neighborhood, :city, :state, :zip, presence: true

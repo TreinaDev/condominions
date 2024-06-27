@@ -10,7 +10,10 @@ class Condo < ApplicationRecord
 
   def full_address
     address = self.address
-    "#{address.public_place}, #{address.number}, #{address.neighborhood} - #{address.city}/#{address.state} - CEP: #{address.zip}"
+    <<~HEREDOC.strip
+      #{address.public_place}, #{address.number}, #{address.neighborhood} - \
+      #{address.city}/#{address.state} - CEP: #{address.zip}
+    HEREDOC
   end
 
   private

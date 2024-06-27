@@ -1,15 +1,13 @@
 class CondosController < ApplicationController
-  def show
-    @condo = Condo.find(params[:id])
-  end
+  before_action :set_condo, only: %i[show edit update]
+
+  def show; end
 
   def new
     @condo = Condo.new
   end
 
-  def edit
-    @condo = Condo.find(params[:id])
-  end
+  def edit; end
 
   def create
     @condo = Condo.new(condo_params)
@@ -23,8 +21,6 @@ class CondosController < ApplicationController
   end
 
   def update
-    @condo = Condo.find(params[:id])
-
     if @condo.update(condo_params)
       flash.alert = 'Editado com sucesso!'
       redirect_to @condo
@@ -37,8 +33,10 @@ class CondosController < ApplicationController
 
   def condo_params
     params.require(:condo).permit(:name, :registration_number,
-                                  address_attributes: [:public_place, :number,
-                                                       :neighborhood, :city,
-                                                       :state, :zip])
+                                  address_attributes: %i[public_place number neighborhood city state zip])
+  end
+
+  def set_condo
+    @condo = Condo.find(params[:id])
   end
 end
