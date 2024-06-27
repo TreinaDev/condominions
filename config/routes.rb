@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   resources :condos, only: [:new, :create, :show, :edit, :update]
+  resources :unit_types, only: [:new, :create, :show, :edit, :update]
   root to: "home#index"
 end

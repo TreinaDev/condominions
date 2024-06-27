@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_26_201555) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_25_200919) do
   create_table "addresses", force: :cascade do |t|
     t.string "public_place"
     t.string "number"
@@ -68,11 +68,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_201555) do
 
   create_table "unit_types", force: :cascade do |t|
     t.text "description"
-    t.integer "metreage"
-    t.integer "tower_id", null: false
+    t.decimal "metreage", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tower_id"], name: "index_unit_types_on_tower_id"
   end
 
   create_table "units", force: :cascade do |t|
@@ -86,6 +84,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_26_201555) do
   add_foreign_key "common_areas", "condos", column: "condominium_id"
   add_foreign_key "condos", "addresses"
   add_foreign_key "towers", "condos", column: "condominium_id"
-  add_foreign_key "unit_types", "towers"
   add_foreign_key "units", "unit_types"
 end

@@ -1,8 +1,8 @@
-# Onde a biblioteca I18n deve procurar arquivos de tradução
+# Where the I18n library should search for translation files
 I18n.load_path += Dir[Rails.root.join('lib', 'locale', '*.{rb,yml}')]
 
-# Localidades permitidas disponíveis para a aplicação
-I18n.available_locales = [:en, :"pt-BR"]
+# Permitted locales available for the application
+I18n.available_locales = [:en, :'pt-BR']
 
-# Definir localidade padrão para algo diferente de :en
-I18n.default_locale = :"pt-BR"
+# Set default locale to something other than :en
+I18n.default_locale = :'pt-BR'

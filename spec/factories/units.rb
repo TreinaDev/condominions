@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :unit do
-    identifier { "MyString" }
+    identifier { 'MyString' }
     unit_type { nil }
   end
 end
