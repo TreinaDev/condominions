@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cola?Bora</title>
+    <title>Condominions</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,9 +11,25 @@
   </head>
 
   <body>
+    <nav class="navbar">
+      <% if manager_signed_in? %>
+        <div style="margin: 0 auto;">
+          <%= link_to 'Cadastrar novo administrador', new_manager_path, class: 'btn btn-outline-dark' %>
+          <% if current_manager.user_image.attached? %>
+            <img src="<%= url_for(current_manager.user_image)%>" style="width: 100px; height: 100px; border-radius: 50%" %>
+          <% else %>
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" style="width: 100px; border-radius: 50%">
+          <% end %>
+          <%= current_manager.description %>
+          <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete}, class: 'btn btn-danger' %>
+        </div>
+      <% else %>
+        <%= link_to 'Entrar como administrador', new_manager_session_path, class: 'btn btn-outline-dark' %>
+      <% end %>
+    </nav>
     <div class="container">
-      <%= notice %>
-      <%= alert %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
       <%= yield %>
     </div>
   </body>
