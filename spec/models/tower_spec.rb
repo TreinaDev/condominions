@@ -7,7 +7,7 @@ RSpec.describe Tower, type: :model do
 
       expect(tower).not_to be_valid
       expect(tower.errors.full_messages)
-        .to include('Nome não pode ficar em branco')
+        .to include 'Nome não pode ficar em branco'
     end
 
     it "Floor quantity can't be blank" do
@@ -15,7 +15,7 @@ RSpec.describe Tower, type: :model do
 
       expect(tower).not_to be_valid
       expect(tower.errors.full_messages)
-        .to include('Quantidade de Andares não pode ficar em branco')
+        .to include 'Quantidade de Andares não pode ficar em branco'
     end
 
     it "Units per floor can't be blank" do
@@ -23,7 +23,7 @@ RSpec.describe Tower, type: :model do
 
       expect(tower).not_to be_valid
       expect(tower.errors.full_messages)
-        .to include('Apartamentos por Andar não pode ficar em branco')
+        .to include 'Apartamentos por Andar não pode ficar em branco'
     end
 
     it 'Condo must be present' do
@@ -31,7 +31,7 @@ RSpec.describe Tower, type: :model do
 
       expect(tower).not_to be_valid
       expect(tower.errors.full_messages)
-        .to include('Condomínio é obrigatório(a)')
+        .to include 'Condomínio é obrigatório(a)'
     end
 
     it 'Floor quantity must be a number' do
@@ -39,7 +39,7 @@ RSpec.describe Tower, type: :model do
 
       expect(tower).not_to be_valid
       expect(tower.errors.full_messages)
-        .to include('Quantidade de Andares não é um número')
+        .to include 'Quantidade de Andares não é um número'
     end
 
     it 'Units per floor must be a number' do
@@ -47,7 +47,7 @@ RSpec.describe Tower, type: :model do
 
       expect(tower).not_to be_valid
       expect(tower.errors.full_messages)
-        .to include('Apartamentos por Andar não é um número')
+        .to include 'Apartamentos por Andar não é um número'
     end
 
     it 'Floor quantity must be a positive number' do
@@ -57,7 +57,7 @@ RSpec.describe Tower, type: :model do
       expect(no_floor_tower).not_to be_valid
       expect(one_floor_tower).to be_valid
       expect(no_floor_tower.errors.full_messages)
-        .to include('Quantidade de Andares deve ser maior que 0')
+        .to include 'Quantidade de Andares deve ser maior que 0'
     end
 
     it 'Units per floor must be a positive number' do
@@ -67,7 +67,7 @@ RSpec.describe Tower, type: :model do
       expect(no_unit_tower).not_to be_valid
       expect(one_unit_tower).to be_valid
       expect(no_unit_tower.errors.full_messages)
-        .to include('Apartamentos por Andar deve ser maior que 0')
+        .to include 'Apartamentos por Andar deve ser maior que 0'
     end
   end
 end
