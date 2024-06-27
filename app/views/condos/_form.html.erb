@@ -8,7 +8,8 @@
     </div>
     <div class="form-group col-md-6">
       <%= f.label :registration_number %>
-      <%= f.text_field :registration_number, class:"form-control", maxlength: "18", onkeyup:"RegistrationNumberPressed(event)" %>
+      <%= f.text_field :registration_number, class:"form-control", placeholder: "00.111.222/3333-44" ,
+          maxlength: "18", onkeyup:"RegistrationNumberPressed(event)" %>
     </div>
   </div>
   <div>
@@ -40,12 +41,12 @@
         </div>
         <div class="form-group col-md-4 pe-3">
           <%= address_f.label :zip %>
-          <%= address_f.text_field :zip, class:"form-control", maxlength: "9", onkeyup: "zipPressed(event)"  %>
+          <%= address_f.text_field :zip, class:"form-control", placeholder: "12345-678" ,maxlength: "9", onkeyup: "zipPressed(event)"  %>
         </div>
       </div>
     <% end %>
 
-    <%= f.submit 'Salvar', class:"btn btn-primary" %>
+    <%= f.submit 'Salvar', class:"btn btn-dark" %>
 
   </div>
 
