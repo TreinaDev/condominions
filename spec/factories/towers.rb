@@ -3,6 +3,6 @@ FactoryBot.define do
     floor_quantity { 5 }
     units_per_floor { 3 }
     name { 'Torre A' }
-    condo { build(:condo) }
+    condo { build :condo }
   end
 end
