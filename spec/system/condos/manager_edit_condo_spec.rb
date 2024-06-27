@@ -21,8 +21,8 @@ describe 'Administrador edita o condominio a partir do condominio' do
     expect(current_path).to eq condo_path(condo)
     expect(page).to have_content 'Editado com sucesso'
     expect(page).to have_content 'Condominio Editado'
-    expect(page).to have_content 'CNPJ: 34474564000188'
-    expect(page).to have_content 'Endereço: Rua ST, 12, Santa Terezinha - Brusque/SC - CEP: 88352272'
+    expect(page).to have_content 'CNPJ: 34.474.564/0001-88'
+    expect(page).to have_content 'Endereço: Rua ST, 12, Santa Terezinha - Brusque/SC - CEP: 88352-272'
   end
 
   it 'Com dados incompletos' do
@@ -37,8 +37,8 @@ describe 'Administrador edita o condominio a partir do condominio' do
     click_on 'Salvar'
 
     expect(current_path).to eq edit_condo_path(condo)
-    expect(page).to have_content 'CNPJ não pode ficar em branco'
+    expect(page).to have_content 'CNPJ deve estar no seguinte formato: XX.XXX.XXX/XXXX-XX'
     expect(page).to have_content 'Cidade não pode ficar em branco'
-    expect(page).to have_content 'CEP não pode ficar em branco'
+    expect(page).to have_content 'CEP deve estar no seguinte formato: XXXXX-XXX'
   end
 end

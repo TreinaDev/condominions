@@ -18,8 +18,8 @@ describe 'Administrador cadastra o condominio a partir da página inicial' do
     expect(current_path).to eq condo_path(Condo.last)
     expect(page).to have_content 'Cadastrado com sucesso'
     expect(page).to have_content 'Condominio Teste'
-    expect(page).to have_content 'CNPJ: 38352640000133'
-    expect(page).to have_content 'Endereço: Travessa João Edimar, 29, João Eduardo II - Rio Branco/AC - CEP: 69911520'
+    expect(page).to have_content 'CNPJ: 38.352.640/0001-33'
+    expect(page).to have_content 'Endereço: Travessa João Edimar, 29, João Eduardo II - Rio Branco/AC - CEP: 69911-520'
   end
 
   it 'Com dados incompletos' do
@@ -36,11 +36,11 @@ describe 'Administrador cadastra o condominio a partir da página inicial' do
 
     expect(current_path).to eq(new_condo_path)
     expect(page).to have_content 'Nome não pode ficar em branco'
-    expect(page).to have_content 'CNPJ não pode ficar em branco'
+    expect(page).to have_content 'CNPJ deve estar no seguinte formato: XX.XXX.XXX/XXXX-XX'
     expect(page).to have_content 'Logradouro não pode ficar em branco'
     expect(page).to have_content 'Nº não pode ficar em branco'
     expect(page).to have_content 'Bairro não pode ficar em branco'
     expect(page).to have_content 'Cidade não pode ficar em branco'
-    expect(page).to have_content 'CEP não pode ficar em branco'
+    expect(page).to have_content 'CEP deve estar no seguinte formato: XXXXX-XXX'
   end
 end

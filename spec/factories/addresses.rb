@@ -5,6 +5,6 @@ FactoryBot.define do
     neighborhood { 'João Eduardo II' }
     city { 'Rio Branco' }
     state { 'AC' }
-    zip { '69911520' }
+    zip { '69911-520' }
   end
 end

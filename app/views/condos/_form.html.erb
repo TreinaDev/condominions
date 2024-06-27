@@ -8,7 +8,7 @@
     </div>
     <div class="form-group col-md-6">
       <%= f.label :registration_number %>
-      <%= f.number_field :registration_number, class:"form-control" %>
+      <%= f.text_field :registration_number, class:"form-control", maxlength: "18", onkeyup:"RegistrationNumberPressed(event)" %>
     </div>
   </div>
   <div>
@@ -40,7 +40,7 @@
         </div>
         <div class="form-group col-md-4 pe-3">
           <%= address_f.label :zip %>
-          <%= address_f.number_field :zip, in: 0..99999999, class:"form-control"  %>
+          <%= address_f.text_field :zip, class:"form-control", maxlength: "9", onkeyup: "zipPressed(event)"  %>
         </div>
       </div>
     <% end %>
@@ -62,3 +62,36 @@
     appearance: textfield;
   }
 </style>
+
+<script>
+
+function RegistrationNumberPressed(event){
+  let button = event.target
+  button.value = RegistrationNumberMask(button.value)
+}
+
+function RegistrationNumberMask(value){
+  return value
+      .replace(/\D/g, '')
+      .replace(/(\d{2})(\d+)/, '$1.$2')
+      .replace(/(\d{3})(\d+)/, '$1.$2')
+      .replace(/(\d{3})(\d+)/, '$1/$2')
+      .replace(/(\d{4})(\d+)/, '$1-$2')
+      .replace(/(-\d{2})\d+$/, '$1')
+}
+
+
+function zipPressed(event){
+  let button = event.target
+  button.value = zipCodeMask(button.value)
+}
+
+function zipCodeMask(value){
+  return value
+      .replace(/\D/g, '')
+      .replace(/(\d{5})(\d)/, '$1-$2')
+      .replace(/(\d{5}-\d{3})/, '$1')
+      .replace(/(-\d{3})\d+$/, '$1')
+}
+
+</script>

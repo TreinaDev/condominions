@@ -1,10 +1,13 @@
 class Condo < ApplicationRecord
   belongs_to :address
 
-  validates :name, :registration_number, presence: true
+  validates :name, presence: true
   validates :registration_number, uniqueness: true
 
   validate :validate_cnpj
+  validates :registration_number, format: {
+    with: %r{\A\d{2}[\.]\d{3}[\.]\d{3}[\/]\d{4}-\d{2}\z},
+    message: 'deve estar no seguinte formato: XX.XXX.XXX/XXXX-XX' }
 
   accepts_nested_attributes_for :address
 
