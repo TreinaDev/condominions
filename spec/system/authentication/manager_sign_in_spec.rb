@@ -1,9 +1,8 @@
 require 'rails_helper'
 
-describe 'Administrador se autentica' do
-  it 'com sucesso' do
-    manager = Manager.create!(email: 'manager@email.com', password: 'senha123', full_name: 'João Almeida',
-                              registration_number: CPF.generate)
+describe 'Manager logs in' do
+  it 'successfully' do
+    manager = create(:manager, email: 'manager@email.com', password: 'senha123', full_name: 'João Almeida')
     manager.user_image.attach(io: Rails.root.join('spec/support/images/manager_photo.jpg').open,
                               filename: 'manager_photo.jpg')
 
@@ -20,9 +19,8 @@ describe 'Administrador se autentica' do
     expect(page).to have_content 'João Almeida - manager@email.com'
   end
 
-  it 'e faz logout' do
-    manager = Manager.create!(email: 'manager@email.com', password: 'senha123', full_name: 'João Almeida',
-                              registration_number: CPF.generate)
+  it 'and logs out' do
+    manager = create(:manager, email: 'manager@email.com', full_name: 'João Almeida')
 
     login_as(manager, scope: :manager)
     visit root_path

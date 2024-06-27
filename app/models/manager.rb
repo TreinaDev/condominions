@@ -1,8 +1,7 @@
 class Manager < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable
   validate :valid_registration_number
   validates :full_name, :registration_number, presence: true
   validates :registration_number, uniqueness: true

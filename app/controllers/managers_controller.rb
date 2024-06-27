@@ -8,7 +8,9 @@ class ManagersController < ApplicationController
   def create
     @manager = Manager.new(manager_params)
     if @manager.save
-      redirect_to root_path, notice: t('notices.manager.created')
+      redirect_to root_path, notice: <<~NOTICE
+        Administrador cadastrado com sucesso - Nome: #{@manager.full_name} | Email: #{@manager.email}
+      NOTICE
     else
       flash[:alert] = t('alerts.manager.not_created')
       render :new, status: :unprocessable_entity
