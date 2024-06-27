@@ -5,8 +5,10 @@ ruby '3.2.2'
 gem 'rails', '~> 7.1.2'
 
 gem 'bootsnap', require: false
-gem 'cpf_cnpj', '~> 0.5.0'
+gem 'cpf_cnpj'
 gem 'cssbundling-rails'
+gem 'devise'
+gem 'image_processing', '>= 1.2'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'puma', '~> 6.0'
