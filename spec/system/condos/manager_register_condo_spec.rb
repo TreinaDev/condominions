@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Administrador cadastra o condominio a partir da página inicial' do
-  it 'Com sucesso' do
+describe 'Manager register condo' do
+  it 'sucessfully' do
     visit new_condo_path
     # click_on 'Cadastrar Condomínio'
     fill_in 'Nome',	with: 'Condominio Teste'
@@ -22,7 +22,7 @@ describe 'Administrador cadastra o condominio a partir da página inicial' do
     expect(page).to have_content 'Endereço: Travessa João Edimar, 29, João Eduardo II - Rio Branco/AC - CEP: 69911-520'
   end
 
-  it 'Com dados incompletos' do
+  it 'with missing params' do
     visit new_condo_path
 
     fill_in 'Nome', with: ''
@@ -36,11 +36,11 @@ describe 'Administrador cadastra o condominio a partir da página inicial' do
 
     expect(current_path).to eq(new_condo_path)
     expect(page).to have_content 'Nome não pode ficar em branco'
-    expect(page).to have_content 'CNPJ deve estar no seguinte formato: XX.XXX.XXX/XXXX-XX'
+    expect(page).to have_content 'CNPJ inválido'
     expect(page).to have_content 'Logradouro não pode ficar em branco'
     expect(page).to have_content 'Nº não pode ficar em branco'
     expect(page).to have_content 'Bairro não pode ficar em branco'
     expect(page).to have_content 'Cidade não pode ficar em branco'
-    expect(page).to have_content 'CEP deve estar no seguinte formato: XXXXX-XXX'
+    expect(page).to have_content 'CEP inválido'
   end
 end

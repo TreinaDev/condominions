@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Administrador edita o condominio a partir do condominio' do
-  it 'com sucesso' do
+describe 'Manager edits condo' do
+  it 'sucessfully' do
     condo = create(:condo)
 
     visit condo_path(condo)
@@ -25,7 +25,7 @@ describe 'Administrador edita o condominio a partir do condominio' do
     expect(page).to have_content 'Endereço: Rua ST, 12, Santa Terezinha - Brusque/SC - CEP: 88352-272'
   end
 
-  it 'Com dados incompletos' do
+  it 'with missing params' do
     condo = create(:condo)
 
     visit condo_path(condo)
@@ -37,8 +37,8 @@ describe 'Administrador edita o condominio a partir do condominio' do
     click_on 'Salvar'
 
     expect(current_path).to eq edit_condo_path(condo)
-    expect(page).to have_content 'CNPJ deve estar no seguinte formato: XX.XXX.XXX/XXXX-XX'
+    expect(page).to have_content 'CNPJ inválido'
     expect(page).to have_content 'Cidade não pode ficar em branco'
-    expect(page).to have_content 'CEP deve estar no seguinte formato: XXXXX-XXX'
+    expect(page).to have_content 'CEP inválido'
   end
 end

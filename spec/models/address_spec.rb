@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Address, type: :model do
   describe '#valid' do
     context 'presence' do
-      it 'falso quando campos estiverem vazios' do
+      it 'false when params are empty' do
         address = build(:address, public_place: nil, number: nil, neighborhood: nil,
                                   city: nil, state: nil, zip: nil)
 
@@ -13,6 +13,21 @@ RSpec.describe Address, type: :model do
         expect(address.errors).to include(:neighborhood)
         expect(address.errors).to include(:city)
         expect(address.errors).to include(:state)
+      end
+    end
+
+    context 'format' do
+      it 'valid' do
+        address = build(:address, zip: '49042-300')
+
+        expect(address).to be_valid
+      end
+
+      it 'not valid' do
+        address = build(:address, zip: '49042300')
+
+        expect(address).not_to be_valid
+        expect(address.errors).to include(:zip)
       end
     end
   end
