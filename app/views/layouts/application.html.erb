@@ -10,8 +10,10 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <div class="container">
+  <body >
+    <%= render 'shared/navbar' %>
+
+    <div class="container" style= "margin-top:64px">
       <%= notice %>
       <%= alert %>
       <%= yield %>

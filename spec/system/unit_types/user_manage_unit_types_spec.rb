@@ -25,6 +25,18 @@ describe 'User manage unit types' do
       expect(page).to have_content('Metragem não pode ficar em branco')
     end
 
+    it 'and access from nav bar' do
+      visit root_path
+
+      within('nav') do
+        click_on class: 'navbar-toggler'
+        click_on 'Criar Tipo de unidade'
+      end
+
+      expect(current_path).to eq new_unit_type_path
+      expect(page).to have_content('Cadastrar um novo tipo de unidade')
+    end
+
     it 'metreage cannot be zero or less' do
       visit new_unit_type_path
 
