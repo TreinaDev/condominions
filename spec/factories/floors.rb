@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :floor do
-    tower { nil }
+    tower { build :tower }
   end
 end

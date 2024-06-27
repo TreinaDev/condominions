@@ -28,7 +28,12 @@ describe "Administrator registers condo's tower" do
     fill_in 'Apartamentos por Andar', with: ''
     click_on 'Criar Torre'
 
-    expect(page).to have_content 'Não foi possível cadastrar a torre.'
+    expect(page).to have_content 'Não foi possível cadastrar a torre'
+    expect(page).to have_content 'Nome não pode ficar em branco'
+    expect(page).to have_content 'Quantidade de Andares não pode ficar em branco'
+    expect(page).to have_content 'Apartamentos por Andar não pode ficar em branco'
+    expect(page).to have_content 'Quantidade de Andares não é um número'
+    expect(page).to have_content 'Apartamentos por Andar não é um número'
     expect(Tower.all.empty?).to be true
   end
 end

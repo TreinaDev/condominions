@@ -1,6 +1,8 @@
 <section>
   <h1>Cadastar Torre</h1>
 
+  <%= render 'shared/errors', model: @tower %>
+
   <%= form_with model: [@tower.condo, @tower] do |f| %>
     
     <div>
