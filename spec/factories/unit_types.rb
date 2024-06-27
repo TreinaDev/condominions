@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :unit_type do
-    description { 'MyText' }
-    metreage { 1 }
+    description { 'Apartamento de 1 quarto' }
+    metreage { 50.55 }
   end
 end
