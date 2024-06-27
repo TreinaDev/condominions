@@ -22,6 +22,9 @@ class TowersController < ApplicationController
   private
 
   def tower_params
-    params.require(:tower).permit(:name, :floor_quantity, :units_per_floor).merge! condo_id: params.require(:condo_id)
+    params.require(:tower)
+          .permit(:name, :floor_quantity, :units_per_floor)
+          .merge! condo_id: params
+          .require(:condo_id)
   end
 end
