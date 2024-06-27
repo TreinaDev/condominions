@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :condominium do
-    name { 'MyString' }
-    registration_number { 'MyString' }
-    address { nil }
+  factory :condo do
+    name { 'Condomínio dos Rubis' }
+    registration_number { '82909116000102' }
+    address { build :address }
   end
 end

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
 
   resources :towers, only: [:show]
+  resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
   root to: "home#index"
 end

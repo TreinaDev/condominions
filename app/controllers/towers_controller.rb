@@ -8,7 +8,7 @@ class TowersController < ApplicationController
   end
 
   def create
-    @tower = Tower.new tower_params
+    @tower = Tower.new tower_params.merge! condo_id: condo_id_param
 
     if @tower.save
       @tower.floor_quantity.times { Floor.create tower: @tower }
@@ -22,6 +22,11 @@ class TowersController < ApplicationController
   private
 
   def tower_params
-    params.require(:tower).permit(:name, :floor_quantity, :units_per_floor).merge! condo_id: params.require(:condo_id)
+    params.require(:tower)
+          .permit(:name, :floor_quantity, :units_per_floor)
+  end
+
+  def condo_id_param
+    params.require(:condo_id)
   end
 end

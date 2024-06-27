@@ -1,0 +1,15 @@
+<%= form_with(model: @unit_type) do |f| %>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description%>
+  </div>
+
+  <div>
+    <%= f.label :metreage %>
+    <%= f.number_field :metreage, step: 0.01%>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

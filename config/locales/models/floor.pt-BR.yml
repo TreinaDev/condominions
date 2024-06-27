@@ -1,0 +1,16 @@
+pt-BR:
+  notices:
+    floor:
+      created: 'Andar cadastrado com sucesso!'
+  alerts:    
+    floor:
+      not_created: 'Não foi possível cadastrar o andar.'
+  activerecord:
+    models:
+      floor:
+        one: 'Andar'
+        other: 'Andares'
+    attributes:
+      floor:
+        tower: 'Torre'
+        tower_id: 'Torre'
