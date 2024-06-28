@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
   root to: "home#index"
+
+  get '/signup_choice', to: 'home#signup'
 end

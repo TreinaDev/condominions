@@ -25,9 +25,11 @@ describe 'User manage unit types' do
       expect(page).to have_content('Metragem não pode ficar em branco')
     end
 
-    it 'and access from nav bar' do
-      visit root_path
+    it 'and access from navbar' do
+      user = create(:manager)
+      login_as user, scope: :manager
 
+      visit root_path
       within('nav') do
         click_on class: 'navbar-toggler'
         click_on 'Criar Tipo de unidade'

@@ -6,8 +6,11 @@ describe 'Manager registers new manager' do
 
     login_as(manager, scope: :manager)
     visit root_path
-    within('nav') { click_on 'Cadastrar novo administrador' }
-    save_page
+    within('nav') do
+      click_on class: 'navbar-toggler'
+      click_on 'Gerenciar usuarios'
+      click_on 'Cadastrar novo administrador'
+    end
     fill_in 'Nome Completo', with: 'Erika Campos'
     fill_in 'CPF', with: CPF.generate
     fill_in 'E-mail', with: 'admin@email.com'
@@ -23,7 +26,11 @@ describe 'Manager registers new manager' do
 
     login_as(manager, scope: :manager)
     visit root_path
-    within('nav') { click_on 'Cadastrar novo administrador' }
+    within('nav') do
+      click_on class: 'navbar-toggler'
+      click_on 'Gerenciar usuarios'
+      click_on 'Cadastrar novo administrador'
+    end
     fill_in 'Nome Completo', with: ''
     fill_in 'CPF', with: ''
     click_on 'Cadastrar'

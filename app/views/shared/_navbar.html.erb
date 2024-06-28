@@ -1,32 +1,55 @@
 <nav class="navbar fixed-top" style="background-color: #FDE879">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">CondoMinions</a>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color: #577998">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Gerenciamento</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <%= link_to 'CondoMinions', root_path, class:"navbar-brand" %>
+    <% if manager_signed_in? %>
+      <div style="margin: 0 auto;">
+        <% if current_manager.user_image.attached? %>
+          <img src="<%= url_for(current_manager.user_image)%>" style="width: 50px; height: 50px; border-radius: 50%" %>
+        <% else %>
+          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" style="width: 50px; height: 50px; border-radius: 50%">
+        <% end %>
+        <%= current_manager.description %>
+        <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete}, class: 'btn btn-danger' %>
       </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <%= link_to 'Criar Tipo de unidade', new_unit_type_path, class: 'nav-link custom-element' %>
-          </li>
-        </ul>
+    
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color: #577998">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Gerenciamento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Gerenciar usuarios
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #4c677f">
+                <li><%= link_to 'Cadastrar novo administrador', new_manager_path, class: "dropdown-item" %></li>
+                <li><hr class="nav-divider m-0"></li>
+                <li><a class="dropdown-item" href="#">Gerenciar morador</a></li>
+              </ul>
+            </li>
+            <li><hr class="nav-divider m-0"></li>
+            <li class="nav-item">
+              <%= link_to 'Criar Condominio', new_unit_type_path, class: 'nav-link custom-element text-white' %>
+            </li>
+            <li><hr class="nav-divider m-0"></li>
+            <li class="nav-item">
+              <%= link_to 'Criar Tipo de unidade', new_unit_type_path, class: 'nav-link custom-element text-white' %>
+            </li>
+            <li><hr class="nav-divider m-0"></li>
+            <li class="nav-item">
+              <%= link_to 'Criar Torre', new_unit_type_path, class: 'nav-link custom-element text-white' %>
+            </li>
+          </ul>
+        </div>
+
       </div>
-    </div>
+    <% end %>
   </div>
 </nav>
-
-<style>
-  .custom-element{
-    font-weight: bold;
-  }
-  .custom-element::before{
-    content: '+ ';
-  }
-</style>

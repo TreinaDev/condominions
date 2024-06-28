@@ -17,6 +17,7 @@ describe 'Manager logs in' do
     expect(page).to have_link 'Sair'
     expect(page).to have_css 'img[src*="manager_photo.jpg"]'
     expect(page).to have_content 'João Almeida - manager@email.com'
+    expect(page).to have_css '.navbar-toggler'
   end
 
   it 'and logs out' do
@@ -30,5 +31,6 @@ describe 'Manager logs in' do
     expect(page).to have_link 'Entrar como administrador'
     expect(page).not_to have_link 'Sair'
     expect(page).not_to have_content 'João Almeida - manager@email.com'
+    expect(page).not_to have_css '.navbar-toggler'
   end
 end
