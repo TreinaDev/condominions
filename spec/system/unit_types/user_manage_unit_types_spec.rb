@@ -64,7 +64,7 @@ describe 'User manage unit types' do
       unit_type = create(:unit_type)
 
       visit edit_unit_type_path(unit_type)
-      fill_in 'Descrição',	with: ''
+      fill_in 'Descrição', with: ''
       fill_in 'Metragem',	with: ''
       click_on 'Atualizar Tipo de unidade'
 

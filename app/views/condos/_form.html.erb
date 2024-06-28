@@ -1,0 +1,55 @@
+<%= render "shared/errors", model: @condo %>
+
+<%= form_with(model: @condo) do |f| %>
+  <div class="form-row d-flex p-2">
+    <div class="form-group col-md-6 pe-3">
+      <%= f.label :name %>
+      <%= f.text_field :name, class:"form-control" %>
+    </div>
+    <div class="form-group col-md-6" data-controller="form">
+      <%= f.label :registration_number %>
+      <%= f.text_field :registration_number, class:"form-control", placeholder: "00.111.222/3333-44" ,
+          maxlength: "18", :'data-action' => 'keyup->form#RegistrationNumberPressed' %>
+    </div>
+  </div>
+  <div>
+    <%= f.fields_for :address, @condo.address || Address.new do |address_f| %>
+    
+      <div class="form-row d-flex p-2">
+        <div class="form-group col-md-6 pe-3">
+          <%= address_f.label :public_place %>
+          <%= address_f.text_field :public_place, class:"form-control" %>
+        </div>
+        <div class="form-group col-md-2 pe-3">
+          <%= address_f.label :number %>
+          <%= address_f.text_field :number, class:"form-control" %>
+        </div>
+        <div class="form-group col-md-4 pe-3">
+          <%= address_f.label :neighborhood %>
+          <%= address_f.text_field :neighborhood, class:"form-control" %>
+        </div>
+      </div>
+
+      <div class="form-row d-flex p-2">
+        <div class="form-group col-md-6 pe-3">
+          <%= address_f.label :city %>
+          <%= address_f.text_field :city, class:"form-control"  %>
+        </div>
+        <div class="form-group col-md-2 pe-3">
+          <%= address_f.label :state %>
+          <%= address_f.select :state, options_for_select(Address::STATES), {}, 
+          class:"form-control form-select" %>
+        </div>
+        <div class="form-group col-md-4 pe-3" data-controller="form">
+          <%= address_f.label :zip %>
+          <%= address_f.text_field :zip, class:"form-control", placeholder: "12345-678" ,
+          maxlength: "9", :'data-action' => 'keyup->form#zipPressed' %>
+        </div>
+      </div>
+    <% end %>
+    <%= f.submit 'Salvar', class:"btn btn-dark" %>
+
+  </div>
+
+  
+<% end %>

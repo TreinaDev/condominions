@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_28_150121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_condos_on_address_id"
+    t.index ["registration_number"], name: "index_condos_on_registration_number", unique: true
   end
 
   create_table "floors", force: :cascade do |t|
