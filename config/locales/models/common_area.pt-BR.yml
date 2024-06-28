@@ -1,0 +1,21 @@
+pt-BR:
+  notices:
+    common_area:
+      created: 'Área comum cadastrada com sucesso'
+      updated: 'Área comum atualizada com sucesso'
+  alerts:    
+    common_area:
+      not_created: 'Não foi possível cadastrar área comum'
+      not_updated: 'Não foi possível atualizar área comum'
+      not_allowed: 'Você deve estar autenticado para continuar'
+  activerecord:
+    models:
+      common_area:
+        one: 'Área Comum'
+        other: 'Áreas Comuns'
+    attributes:
+      common_area:
+        name: 'Nome'
+        description: 'Descrição'
+        max_occupancy: 'Capacidade Máxima'
+        rules: 'Regras de Uso'
