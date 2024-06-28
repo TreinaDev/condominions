@@ -3,4 +3,9 @@
 <p>CNPJ: <%= @condo.registration_number %></p>
 <p>Endereço: <%= @condo.full_address %></p>
 
-<%= link_to 'Editar', edit_condo_path, class:"btn btn-dark" %>
+
+<% if manager_signed_in? %>
+  <%= link_to 'Editar', edit_condo_path, class:"btn btn-dark" %>
+<% end %>
+
+

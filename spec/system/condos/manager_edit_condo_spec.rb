@@ -1,9 +1,18 @@
 require 'rails_helper'
 
 describe 'Manager edits condo' do
+  it 'must be authenticated as manager' do
+    condo = create(:condo)
+    visit edit_condo_path(condo)
+
+    expect(current_path).to eq new_manager_session_path
+  end
+
   it 'sucessfully' do
+    manager = create(:manager)
     condo = create(:condo)
 
+    login_as(manager, scope: :manager)
     visit condo_path(condo)
 
     click_on 'Editar'
@@ -26,8 +35,10 @@ describe 'Manager edits condo' do
   end
 
   it 'with missing params' do
+    manager = create(:manager)
     condo = create(:condo)
 
+    login_as(manager, scope: :manager)
     visit condo_path(condo)
     click_on 'Editar'
 

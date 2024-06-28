@@ -1,4 +1,5 @@
 class CondosController < ApplicationController
+  before_action :authenticate_manager!, only: %i[new create edit update]
   before_action :set_condo, only: %i[show edit update]
 
   def show; end

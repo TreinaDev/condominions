@@ -1,9 +1,17 @@
 require 'rails_helper'
 
 describe 'Manager register condo' do
-  it 'sucessfully' do
+  it 'must be authenticated as manager' do
     visit new_condo_path
-    # click_on 'Cadastrar Condomínio'
+
+    expect(current_path).to eq new_manager_session_path
+  end
+
+  it 'sucessfully' do
+    manager = create(:manager)
+
+    login_as(manager, scope: :manager)
+    visit new_condo_path
     fill_in 'Nome',	with: 'Condominio Teste'
     fill_in 'CNPJ', with: '38.352.640/0001-33'
     fill_in 'Logradouro', with: 'Travessa João Edimar'
@@ -23,6 +31,9 @@ describe 'Manager register condo' do
   end
 
   it 'with missing params' do
+    manager = create(:manager)
+
+    login_as(manager, scope: :manager)
     visit new_condo_path
 
     fill_in 'Nome', with: ''
