@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :condos, only: [:new, :create, :show] do
+  resources :condos, only: [:new, :create, :show, :edit, :update] do
     resources :towers, only: [:new, :create]
   end
 

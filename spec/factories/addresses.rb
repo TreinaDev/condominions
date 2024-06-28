@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :address do
-    public_place { 'Rua dos Rubis' }
-    number { '120' }
-    neighborhood { 'Jardim dos Rubis' }
-    city { 'Xique-Xique' }
-    state { 'BA' }
-    zip { '42800000' }
+    public_place { 'Travessa João Edimar' }
+    number { '29' }
+    neighborhood { 'João Eduardo II' }
+    city { 'Rio Branco' }
+    state { 'AC' }
+    zip { '69911-520' }
   end
 end

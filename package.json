@@ -1,5 +1,5 @@
 {
-  "name":"condominions",
+  "name": "condominions",
   "private": "true",
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
