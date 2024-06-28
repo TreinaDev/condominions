@@ -12,10 +12,10 @@ describe "Administrator registers condo's tower" do
     click_on 'Criar Torre'
 
     expect(page).to have_content 'Torre cadastrada com sucesso!'
+    expect(page).to have_content 'Cadastrar Pavimento Tipo'
     expect(page).to have_content 'Torre A'
-    expect(page).to have_content 'Quantidade de Andares: 5'
-    expect(page).to have_content 'Apartamentos por Andar: 3'
     expect(Tower.last.floors.count).to eq 5
+    expect(Tower.last.floors.last.units.count).to eq 3
   end
 
   it 'and fails if there are blank fields' do

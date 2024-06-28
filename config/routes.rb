@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
 
   resources :condos, only: [:new, :create, :show] do
-    resources :towers, only: [:new, :create]
+    resources :towers, only: [:new, :create] do
+      member do
+        get :edit_floor_units
+        patch :update_floor_units
+      end
+    end
   end
 
   devise_for :managers
