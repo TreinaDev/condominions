@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :condo do
-    name { 'Condomínio dos Rubis' }
-    registration_number { '82909116000102' }
-    address { build :address }
+    name { 'Condominio Residencial Paineiras' }
+    registration_number { CNPJ.generate format: true }
+    address
   end
 end
