@@ -35,8 +35,8 @@ RSpec.describe Condo, type: :model do
       end
     end
 
-    context 'format' do
-      it 'valid' do
+    context 'Regitration number format' do
+      it 'valid: XX.XXX.XXX/XXXX-XX' do
         condo = build(:condo, registration_number: '38.352.640/0001-33')
 
         expect(condo).to be_valid
@@ -46,7 +46,7 @@ RSpec.describe Condo, type: :model do
         condo = build(:condo, registration_number: '38352640000133')
 
         expect(condo).not_to be_valid
-        expect(condo.errors).to include(:registration_number)
+        expect(condo.errors.full_messages).to include('CNPJ deve estar no seguinte formato: XX.XXX.XXX/XXXX-XX')
       end
     end
   end

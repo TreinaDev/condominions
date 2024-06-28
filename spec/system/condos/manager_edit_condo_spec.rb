@@ -52,4 +52,6 @@ describe 'Manager edits condo' do
     expect(page).to have_content 'Cidade não pode ficar em branco'
     expect(page).to have_content 'CEP inválido'
   end
+
+  
 end

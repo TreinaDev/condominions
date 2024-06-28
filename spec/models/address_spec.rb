@@ -16,8 +16,8 @@ RSpec.describe Address, type: :model do
       end
     end
 
-    context 'format' do
-      it 'valid' do
+    context 'ZIP format' do
+      it 'valid: XXXXX-XXX' do
         address = build(:address, zip: '49042-300')
 
         expect(address).to be_valid
@@ -27,7 +27,7 @@ RSpec.describe Address, type: :model do
         address = build(:address, zip: '49042300')
 
         expect(address).not_to be_valid
-        expect(address.errors).to include(:zip)
+        expect(address.errors.full_messages).to include('CEP deve estar no seguinte formato: XXXXX-XXX')
       end
     end
   end
