@@ -14,7 +14,7 @@ describe 'Manager' do
     it 'and is not authenticated' do
       condo = create(:condo, name: 'Condominio Criado')
 
-      patch(condo_path(condo), params: { condo: { name: 'Condominio Editado'} })
+      patch(condo_path(condo), params: { condo: { name: 'Condominio Editado' } })
 
       expect(response).to redirect_to(new_manager_session_path)
       expect(condo.name).to eq 'Condominio Criado'
