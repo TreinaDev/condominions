@@ -1,7 +1,7 @@
 pt-BR:
   notices:
     floor:
-      created: 'Andar cadastrado com sucesso!'
+      created: 'Pavimento Tipo cadastrado com sucesso!'
   alerts:    
     floor:
       not_created: 'Não foi possível cadastrar o andar.'
