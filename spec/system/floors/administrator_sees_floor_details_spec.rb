@@ -35,4 +35,15 @@ describe "Administrator sees floor's details" do
       expect(page).to have_content 'Unidade 25'
     end
   end
+
+  it "and returns to floor type registration if it isn't registered yet" do
+    tower = build :tower
+    tower.generate_floors
+    floor = tower.floors.first
+    floor.generate_units
+
+    visit tower_floor_path(tower, floor)
+
+    expect(current_path).to eq edit_floor_units_condo_tower_path(tower.condo, tower)
+  end
 end

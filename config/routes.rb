@@ -13,8 +13,11 @@ Rails.application.routes.draw do
   resources :managers, only: [:new, :create]
 
   resources :towers, only: [:show] do
-    resources :floors, only: [:show]
+    resources :floors, only: [:show] do
+      resources :units, only: [:show]
+    end
   end
+
   resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
   root to: "home#index"
