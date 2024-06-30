@@ -12,6 +12,15 @@ RSpec.describe Floor, type: :model do
     end
   end
 
+  describe '#print_identifier' do
+    it 'returns identifier description' do
+      tower = build :tower, units_per_floor: 4
+      tower.generate_floors
+
+      expect(tower.floors[2].print_identifier).to eq '3º Andar'
+    end
+  end
+
   describe '#valid?' do
     it 'Tower must be present' do
       floor = build :floor, tower: nil

@@ -5,4 +5,8 @@ class Floor < ApplicationRecord
   def generate_units
     tower.units_per_floor.times { Unit.create floor: self }
   end
+
+  def print_identifier
+    "#{tower.floors.index(self) + 1}º Andar"
+  end
 end

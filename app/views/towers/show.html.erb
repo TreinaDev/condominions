@@ -3,4 +3,9 @@
 
   <p>Quantidade de Andares: <%= @tower.floor_quantity %></p> 
   <p>Apartamentos por Andar: <%= @tower.units_per_floor %></p>
+
+  <h2>Andares</h2>
+  <% @tower.floors.each do |floor| %>
+    <p><%= floor.print_identifier %><p>
+  <% end %>
 </section>
