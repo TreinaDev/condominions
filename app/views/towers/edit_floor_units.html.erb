@@ -8,8 +8,8 @@
     <% @tower.units_per_floor.times do |index| %>
       <div id = <%= "unit-#{index + 1}" %>>
         <h3>Unidade Modelo <%= index + 1 %></h3>
-        <%= f.label "unit_types[#{index}]", "Tipo de Unidade" %>
-        <%= f.collection_select "unit_types[#{index}]", @unit_types, :id, :description, prompt: "Selecione o tipo de unidade" %>
+        <%= f.label "unit_types[#{index}]", 'Tipo de Unidade' %>
+        <%= f.collection_select "unit_types[#{index}]", @unit_types, :id, :description, prompt: 'Selecione o tipo de unidade' %>
       </div>
     <% end %>
 
