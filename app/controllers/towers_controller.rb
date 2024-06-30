@@ -25,26 +25,39 @@ class TowersController < ApplicationController
   end
 
   def update_floor_units
-    @tower.floors.each do |floor|
-      floor.units.each_with_index do |unit, index|
-        unit.update!(unit_type_id: params[:unit_types][index.to_s])
-      end
+    is_all_selected = true
+    unit_types = params.require :unit_types
+    unit_types.each_value { |value| is_all_selected = false if value.blank? }
+
+    if is_all_selected
+      update_units(unit_types)
+      return redirect_to @tower, notice: t('notices.floor.created')
     end
 
-    redirect_to @tower, notice: t('notices.floor.created')
+    @unit_types = UnitType.order :description
+    flash.now[:alert] = t('alerts.units.not_updated')
+    render 'edit_floor_units', status: :unprocessable_entity
   end
 
   private
+
+  def update_units(unit_types)
+    @tower.floors.each do |floor|
+      floor.units.each_with_index do |unit, index|
+        unit.update unit_type_id: unit_types[index.to_s]
+      end
+    end
+  end
 
   def set_tower
     @tower = Tower.find params[:id]
   end
 
   def tower_params
-    params.require(:tower).permit(:name, :floor_quantity, :units_per_floor)
+    params.require(:tower).permit :name, :floor_quantity, :units_per_floor
   end
 
   def condo_id_param
-    params.require(:condo_id)
+    params.require :condo_id
   end
 end
