@@ -1,3 +1,8 @@
-<h1>CondoMinions</h1>
-
-<%= link_to 'Entrar como administrador', new_manager_session_path %>
+<div class="container text-center" style="margin-top: 20%;">
+  <h1 class="mb-4">Bem-vindo ao CondoMinions!</h1>
+  <div class="d-flex justify-content-center">
+    <%= link_to 'Entrar como administrador', new_manager_session_path, class: "btn btn-dark btn-lg" %>
+    <div class="px-5"></div>
+    <%= link_to 'Entrar como morador', root_path, class: "btn btn-dark btn-lg"%>
+  </div>
+</div>
