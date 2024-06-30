@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   devise_for :managers
   resources :managers, only: [:new, :create]
 
-  resources :towers, only: [:show]
+  resources :towers, only: [:show] do
+    resources :floors, only: [:show]
+  end
   resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
   root to: "home#index"

@@ -6,6 +6,6 @@
 
   <h2>Andares</h2>
   <% @tower.floors.each do |floor| %>
-    <p><%= floor.print_identifier %><p>
+    <p><%= link_to("#{floor.identifier}º Andar", tower_floor_path(@tower, floor)) %><p>
   <% end %>
 </section>
