@@ -1,18 +1,24 @@
 <a id="readme-top"></a>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+<div align="center">
+
+  [![Contributors][contributors-shield]][contributors-url]
+  [![Stargazers][stars-shield]][stars-url]
+  [![Issues][issues-shield]][issues-url]
+  [![MIT License][license-shield]][license-url]
+  [![Status][status-shield]][status-url]
+
+</div>
+
 
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
 
-  <h2 align="center">CondoMinion</h2>
+  <h1 align="center">CondoMinion</h1>
 
-  <p align="center">
+  <p align="justify">
     Projeto desenvolvido na Vivência em Time do TreinaDev12.
     <br />
   </p>
@@ -40,6 +46,7 @@
         <li><a href="#execucao-da-aplicacao">Execução da aplicação</a></li>
         <li><a href="#estrutura-banco-de-dados">Estrutura banco de dados</a></li>
         <li><a href="#banco-de-dados">Banco de dados</a></li>
+        <li><a href="#banco-de-dados">Desenvolvedores</a></li>
       </ul>
     </li>
   </ol>
@@ -51,8 +58,7 @@
 <!-- Sobre o projeto -->
 ## Sobre o projeto
 
-Condominions consiste em um sistema que, integrado à aplicação [PagueAluguel](https://github.com/TreinaDev/pague-aluguel), pode ser utilizado por uma equipe administrativa e moradores para gerenciamento de imóveis e outras
-atividades dentro de um condomínio. 
+<p align="justify">Condominions consiste em um sistema que, integrado à aplicação <a href="(https://github.com/TreinaDev/pague-aluguel">PagueAluguel</a>, pode ser utilizado por uma equipe administrativa e moradores para gerenciamento de imóveis e outras atividades dentro de um condomínio.</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,7 +78,9 @@ atividades dentro de um condomínio.
 
 ## Funcionalidades
 
- Usuários administrativos podem ser cadastrados no sistema e usuários proprietários e moradores podem ser convidados por e-mail a se registrar.
+<p align="justify">Usuários administrativos podem ser cadastrados no sistema e usuários proprietários e moradores podem ser convidados por e-mail a se registrar.</p>
+
+<p align="justify">Usuários administrativos podem cadastrar um condomínio com endereço, podem cadastrar torres, tipos de unidade, unidade de um condomínio, andares e áreas comuns.</p>
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -86,7 +94,7 @@ atividades dentro de um condomínio.
 
 ### Pré-Requisitos
 
-Você vai precisar da versão 3.2.2 do Ruby, libvips e uma versão atual de NodeJS com Yarn instalado. Recomendamos sempre a instalação das versões LTS (Long Term Support).
+<p align="justify">Você vai precisar da versão 3.2.2 do Ruby, libvips e uma versão atual de NodeJS com Yarn instalado. Recomendamos sempre a instalação das versões LTS (Long Term Support).</p>
 
 #### Instalação do [libvips](https://github.com/libvips/libvips/wiki/Build-for-Ubuntu) no ubuntu:
 ```sh
@@ -134,6 +142,10 @@ Agora é possível acessar a aplicação a partir da rota http://localhost:3000/
 
 ## Estrutura do banco de dados
 
+![Estrutura do banco de dados](https://i.imgur.com/emiKwf5.png)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 <div id='banco-de-dados'/> 
@@ -158,6 +170,21 @@ Dados inseridos no seeds
 >>|Condominio Residencial Paineiras|62.810.952/2718-22| 1 | 
 
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<div id='desenvolvedores'/> 
+
+## Desenvolvedores
+
+[<img src="https://avatars.githubusercontent.com/u/86561064?v=4" width=115 > <br> <sub> Danilo Ribeiro </sub>](https://github.com/DaniloRibeiro07) | [<img src="https://avatars.githubusercontent.com/u/92957969?v=4" width=115 > <br> <sub> Lucas Lima </sub>](https://github.com/luckslima) | [<img src="https://avatars.githubusercontent.com/u/86455751?v=4" width=115 > <br> <sub> Lucas Oliveira </sub>](https://github.com/lucasobx)| [<img src="https://avatars.githubusercontent.com/u/90734901?v=4" width=115 > <br> <sub> Marcella Aleo </sub>](https://github.com/cellaaleo)| [<img src="https://avatars.githubusercontent.com/u/57259396?v=4" width=115 > <br> <sub> Rafael Salgado </sub>](https://github.com/RyanOxon)| [<img src="https://avatars.githubusercontent.com/u/75589284?v=4" width=115 > <br> <sub> Rulian Cruz </sub>](https://github.com/ruliancruz)| [<img src="https://avatars.githubusercontent.com/u/127916125?v=4" width=115 > <br> <sub> Thalyta Lima </sub>](https://github.com/thalytalima211)| [<img src="https://avatars.githubusercontent.com/u/88754301?v=4" width=115 > <br> <sub> Vinícius Peruzzi </sub>](https://github.com/Vinigperuzzi)|
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | 
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -169,14 +196,14 @@ Dados inseridos no seeds
 [issues-url]: https://github.com/TreinaDev/condominions
 [license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[status-shield]: https://img.shields.io/static/v1?label=Status&message=Development&color=yellow&style=for-the-badge
+[status-url]: https://github.com/TreinaDev/condominions
 [Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
 [Vue-url]: https://v2.vuejs.org/
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
 [Ruby.com]: https://img.shields.io/static/v1?label=Ruby&message=3.2.2&color=red&style=for-the-badge&logo=ruby
 [Ruby-url]: https://www.ruby-lang.org/en/news/2023/03/30/ruby-3-2-2-released/
-[RubyOnRails.com]: https://img.shields.io/static/v1?label=Ruby%20On%20Rails%20&message=7.1.2&color=red&style=for-the-badge&logo=ruby
+[RubyOnRails.com]: https://img.shields.io/static/v1?label=Ruby%20On%20Rails&message=7.1.2&color=red&style=for-the-badge&logo=rubyonrails
 [RubyOnRails-url]: https://rubyonrails.org/2023/11/10/Rails-7-1-2-has-been-released
+[EstruturaDoBancoDeDados-URL]: https://i.imgur.com/emiKwf5.png
