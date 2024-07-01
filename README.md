@@ -67,10 +67,10 @@
 
 ### Tecnologias
 
-* [![Ruby][Ruby.com]][Ruby-url]
-* [![RubyOnRails][RubyOnRails.com]][RubyOnRails-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+[![Ruby][Ruby.com]][Ruby-url]
+[![RubyOnRails][RubyOnRails.com]][RubyOnRails-url]
+[![Vue][Vue.js]][Vue-url]
+[![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,7 +107,7 @@ sudo apt install libvips
 
 No terminal, clone o projeto:
 ```sh
-https://github.com/TreinaDev/condominions.git
+git clone https://github.com/TreinaDev/condominions.git
 ```
 Entre na pasta do projeto:
 ```sh
@@ -116,6 +116,10 @@ cd condominions
 Instale as dependecias:
 ```sh
 bin/setup
+```
+IPara popular o banco de dados:
+```sh
+rails db:seed
 ```
 
 <div id='execucao-de-testes'/> 
