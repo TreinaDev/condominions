@@ -1,13 +1,6 @@
 <h1 class="mb-4">Cadastrar Novo Administrador</h1>
 
-<% if @manager.errors.any? %>
-  <p>Verifique os erros abaixo:</p>
-  <ul>
-    <% @manager.errors.full_messages.each do |error| %>
-      <li><%= error %></li>
-    <% end %>
-  </ul>
-<% end %>
+<%= render 'shared/errors', model: @manager %>
 
 <%= form_with(model: @manager, class: 'text-center') do |f| %>
   <div class="mb-3 row">
