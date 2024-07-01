@@ -1,7 +1,4 @@
 pt-BR:
-  notices:
-    manager:
-      created: 'Administrador cadastrado com sucesso.'
   alerts:    
     manager:
       not_created: 'Não foi possível cadastrar novo administrador'

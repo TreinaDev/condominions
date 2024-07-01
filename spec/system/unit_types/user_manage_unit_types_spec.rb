@@ -25,6 +25,20 @@ describe 'User manage unit types' do
       expect(page).to have_content('Metragem não pode ficar em branco')
     end
 
+    it 'and access from navbar' do
+      user = create(:manager)
+      login_as user, scope: :manager
+
+      visit root_path
+      within('nav') do
+        click_on id: 'side-menu'
+        click_on 'Criar Tipo de unidade'
+      end
+
+      expect(current_path).to eq new_unit_type_path
+      expect(page).to have_content('Cadastrar um novo tipo de unidade')
+    end
+
     it 'metreage cannot be zero or less' do
       visit new_unit_type_path
 
@@ -64,7 +78,7 @@ describe 'User manage unit types' do
       unit_type = create(:unit_type)
 
       visit edit_unit_type_path(unit_type)
-      fill_in 'Descrição',	with: ''
+      fill_in 'Descrição', with: ''
       fill_in 'Metragem',	with: ''
       click_on 'Atualizar Tipo de unidade'
 

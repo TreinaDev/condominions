@@ -1,6 +1,20 @@
 require 'rails_helper'
 
 describe 'Manager register condo' do
+  it 'and access from navbar' do
+    user = create(:manager)
+    login_as user, scope: :manager
+
+    visit root_path
+    within('nav') do
+      click_on id: 'side-menu'
+      click_on 'Criar Condominio'
+    end
+
+    expect(current_path).to eq new_condo_path
+    expect(page).to have_content('Cadastre um novo Condomínio:')
+  end
+
   it 'must be authenticated as manager' do
     visit new_condo_path
 

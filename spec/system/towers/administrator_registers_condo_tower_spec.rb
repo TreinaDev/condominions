@@ -1,6 +1,24 @@
 require 'rails_helper'
 
 describe "Administrator registers condo's tower" do
+  it 'and access from navbar' do
+    user = create(:manager)
+    condo = create(:condo, name: 'Condomínio dos rubinhos')
+    login_as user, scope: :manager
+
+    visit root_path
+    within 'nav' do
+      click_on id: 'side-menu'
+      click_on 'Criar Torre'
+    end
+    within '#condoSelectPopup' do
+      click_on 'Condomínio dos rubinhos'
+    end
+
+    expect(current_path).to eq new_condo_tower_path condo
+    expect(page).to have_content('Cadastrar Torre')
+  end
+
   it 'successfully' do
     condo = create(:condo)
 
