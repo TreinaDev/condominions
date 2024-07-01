@@ -12,7 +12,7 @@ describe "Administrator registers condo's tower" do
     click_on 'Criar Torre'
 
     expect(page).to have_content 'Torre cadastrada com sucesso!'
-    expect(page).to have_content 'Cadastrar Pavimento Tipo'
+    expect(page).to have_content 'Atualizar Pavimento Tipo'
     expect(page).to have_content 'Torre A'
     expect(Tower.last.floors.count).to eq 5
     expect(Tower.last.floors.last.units.count).to eq 3

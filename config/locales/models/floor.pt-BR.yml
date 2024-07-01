@@ -1,11 +1,11 @@
 pt-BR:
   notices:
     floor:
-      created: 'Pavimento Tipo cadastrado com sucesso!'
+      updated: 'Pavimento Tipo atualizado com sucesso!'
   alerts:    
     floor:
       not_created: 'Não foi possível cadastrar o andar.'
-      not_ready: 'Você deve cadastrar o pavimento tipo antes de acessar essa página'
+      not_ready: 'Você deve atualizar o pavimento tipo antes de acessar essa página'
   activerecord:
     models:
       floor:

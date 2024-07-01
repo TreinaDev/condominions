@@ -8,4 +8,6 @@
   <% @tower.floors.each do |floor| %>
     <p><%= link_to("#{floor.identifier}º Andar", tower_floor_path(@tower, floor)) %><p>
   <% end %>
+
+  <%= link_to 'Editar Pavimento Tipo', edit_floor_units_condo_tower_path(@tower.condo, @tower), class:"btn btn-dark" %>
 </section>

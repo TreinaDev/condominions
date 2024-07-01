@@ -31,7 +31,7 @@ class TowersController < ApplicationController
 
     if is_all_selected
       update_units(unit_types)
-      return redirect_to @tower, notice: t('notices.floor.created')
+      return redirect_to @tower, notice: t('notices.floor.updated')
     end
 
     @unit_types = UnitType.order :description
