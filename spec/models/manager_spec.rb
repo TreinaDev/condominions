@@ -9,8 +9,8 @@ RSpec.describe Manager, type: :model do
     end
   end
 
-  describe '#valid' do
-    it 'full name and registration number are mandatory' do
+  describe '#valid?' do
+    it 'missing params' do
       manager = Manager.new(full_name: '', registration_number: '')
 
       manager.valid?
