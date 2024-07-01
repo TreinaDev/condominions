@@ -36,20 +36,44 @@
             </li>
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
-              <%= link_to 'Criar Condominio', new_unit_type_path, class: 'nav-link custom-element text-white' %>
+              <%= link_to 'Criar Condominio', new_condo_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>
             </li>
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
-              <%= link_to 'Criar Tipo de unidade', new_unit_type_path, class: 'nav-link custom-element text-white' %>
+              <%= link_to 'Criar Tipo de unidade', new_unit_type_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>
             </li>
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
-              <%= link_to 'Criar Torre', new_unit_type_path, class: 'nav-link custom-element text-white' %>
+              <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Criar Torre</a>
             </li>
           </ul>
         </div>
-
       </div>
     <% end %>
   </div>
 </nav>
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Selecione o Condominio</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class='container text-center'>
+          <div class='row'>
+            <% Condo.all.each do |condo| %>
+              <div class='col'>
+                <%= button_to condo.name, new_condo_tower_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false }%>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
