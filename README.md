@@ -28,6 +28,7 @@
       <a href="#sobre-o-projeto">Sobre o projeto</a>
       <ul>
         <li><a href="#Tecnologias">Tecnologias</a></li>
+        <li><a href="#funcionalidade">Funcionalidade</a></li>
       </ul>
     </li>
     <li>
@@ -41,12 +42,6 @@
         <li><a href="#banco-de-dados">Banco de dados</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -95,7 +90,7 @@ Você vai precisar da versão 3.2.2 do Ruby, libvips e uma versão atual de Node
 
 #### Instalação do [libvips](https://github.com/libvips/libvips/wiki/Build-for-Ubuntu) no ubuntu:
 ```sh
-  sudo apt install libvips
+sudo apt install libvips
 ```
 
 <div id='instalacao'/> 
