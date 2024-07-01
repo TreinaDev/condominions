@@ -26,7 +26,7 @@ describe 'Adminstrator register floor type' do
       select 'Apartamento de 1 quarto', from: 'Tipo de Unidade'
     end
 
-    click_on 'Atualizar Pavimento Tipo'
+    click_on 'Cadastrar Pavimento Tipo'
 
     expect(current_path).to eq tower_path tower
     expect(page).to have_content 'Pavimento Tipo cadastrado com sucesso!'
@@ -56,7 +56,7 @@ describe 'Adminstrator register floor type' do
       select 'Selecione o tipo de unidade', from: 'Tipo de Unidade'
     end
 
-    click_on 'Atualizar Pavimento Tipo'
+    click_on 'Cadastrar Pavimento Tipo'
 
     expect(page).to have_content 'Defina o tipo de unidade para todas as unidades!'
   end

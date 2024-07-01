@@ -25,7 +25,7 @@ RSpec.describe Tower, type: :model do
       expect(tower.errors.include?(:condo)).to be true
     end
 
-    it 'Floor quantity must be a number' do
+    it 'Floor Quantity and Units per Floor must be numbers' do
       tower = build :tower, floor_quantity: 'ten', units_per_floor: 'five'
 
       expect(tower).not_to be_valid
@@ -37,9 +37,9 @@ RSpec.describe Tower, type: :model do
         .to include 'Apartamentos por Andar não é um número'
     end
 
-    it 'Floor quantity must be a positive number' do
-      no_floor_tower = build :tower, floor_quantity: 0
-      one_floor_tower = build :tower, floor_quantity: 1
+    it 'Floor quantity must be greater than 0' do
+      no_floor_tower = build :tower, floor_quantity: 0, units_per_floor: 0
+      one_floor_tower = build :tower, floor_quantity: 1, units_per_floor: 1
 
       expect(no_floor_tower).not_to be_valid
       expect(one_floor_tower).to be_valid
@@ -47,7 +47,7 @@ RSpec.describe Tower, type: :model do
         .to include 'Quantidade de Andares deve ser maior que 0'
     end
 
-    it 'Units per floor must be a positive number' do
+    it 'Units per floor must greater than 0' do
       no_unit_tower = build :tower, units_per_floor: 0
       one_unit_tower = build :tower, units_per_floor: 1
 
