@@ -1,0 +1,15 @@
+<h1><%= @tower.name %></h1>
+
+<h2><%= @floor.print_identifier %></h2>
+
+<% @floor.return_unit_types.each_with_index do |unit_type, index| %>
+  <div id = <%= "unit-type-#{index + 1}" %>>
+    <h3><%= unit_type.description %></h3>
+    
+    <% @floor.units.each do |unit| %>
+      <% if unit.unit_type == unit_type %>
+        <p><%= unit.print_identifier %></p>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,18 +1,26 @@
 Rails.application.routes.draw do
-
-  resources :condos, only: [:new, :create, :show, :edit, :update] do
-    resources :towers, only: [:new, :create]
-    resources :common_areas, only: [:new, :create]
-  end
+  root to: "home#index"
+  get '/signup_choice', to: 'home#signup'
 
   devise_for :managers
   resources :managers, only: [:new, :create]
-
-  resources :towers, only: [:show]
   resources :common_areas, only: [:show, :edit, :update]
   resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
-  root to: "home#index"
+  resources :condos, only: [:new, :create, :show, :edit, :update] do
+    resources :common_areas, only: [:new, :create]
 
-  get '/signup_choice', to: 'home#signup'
+    resources :towers, only: [:new, :create] do
+      member do
+        get :edit_floor_units
+        patch :update_floor_units
+      end
+    end
+  end
+
+  resources :towers, only: [:show] do
+    resources :floors, only: [:show] do
+      resources :units, only: [:show]
+    end
+  end
 end

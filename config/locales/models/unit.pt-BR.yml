@@ -1,0 +1,17 @@
+pt-BR:
+  notices:
+    unit:
+      updated: 'Unidade atualizada com sucesso'
+  alerts:    
+    unit:
+      not_updated: 'Erro ao atualizar a unidade'
+    units:
+      not_updated: 'Defina o tipo de unidade para todas as unidades!'
+  activerecord:
+    models:
+      unit:
+        one: 'Unidade'
+        other: 'Unidades'
+    attributes:
+      unit_type: 'Tipo de unidade'
+      unit_type_id: 'Tipo de unidade'

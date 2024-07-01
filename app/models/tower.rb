@@ -7,4 +7,15 @@ class Tower < ApplicationRecord
   validates :floor_quantity, :units_per_floor, numericality: {
     greater_than: 0, only_integer: true
   }
+
+  def generate_floors
+    floor_quantity.times { create_floor_with_units }
+  end
+
+  private
+
+  def create_floor_with_units
+    floor = Floor.create tower: self
+    floor.generate_units
+  end
 end
