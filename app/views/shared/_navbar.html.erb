@@ -1,0 +1,79 @@
+<nav class="navbar fixed-top" style="background-color: #FDE879">
+  <div class="container-fluid">
+    <%= link_to 'CondoMinions', root_path, class:"navbar-brand" %>
+    <% if manager_signed_in? %>
+      <div style="margin: 0 auto;">
+        <% if current_manager.user_image.attached? %>
+          <%= image_tag current_manager.user_image, alt: 'Image profile', style:"width: 50px; height: 50px; border-radius: 50%" %>
+        <% else %>
+          <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', style:"width: 50px; height: 50px; border-radius: 50%" %>
+        <% end %>
+        <%= current_manager.description %>
+        <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete}, class: 'btn btn-danger' %>
+      </div>
+    
+      <button class="navbar-toggler" id="side-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color: #577998">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Gerenciamento</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Gerenciar usuarios
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #4c677f">
+                <li><%= link_to 'Cadastrar novo administrador', new_manager_path, class: "dropdown-item" %></li>
+                <li><hr class="nav-divider m-0"></li>
+                <li><a class="dropdown-item" href="#">Gerenciar morador</a></li>
+              </ul>
+            </li>
+            <li><hr class="nav-divider m-0"></li>
+            <li class="nav-item">
+              <%= link_to 'Criar Condominio', new_condo_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>
+            </li>
+            <li><hr class="nav-divider m-0"></li>
+            <li class="nav-item">
+              <%= link_to 'Criar Tipo de unidade', new_unit_type_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>
+            </li>
+            <li><hr class="nav-divider m-0"></li>
+            <li class="nav-item">
+              <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopup">Criar Torre</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</nav>
+
+<div class="modal fade" id="condoSelectPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="condoSelectPopupLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condominio</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class='container text-center'>
+          <div class='row'>
+            <% Condo.all.each do |condo| %>
+              <div class='col'>
+                <%= button_to condo.name, new_condo_tower_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false }%>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
