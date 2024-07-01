@@ -9,6 +9,13 @@ class Tower < ApplicationRecord
   }
 
   def generate_floors
-    floor_quantity.times { (Floor.create tower: self).generate_units }
+    floor_quantity.times { create_floor_with_units }
+  end
+
+  private
+
+  def create_floor_with_units
+    floor = Floor.create tower: self
+    floor.generate_units
   end
 end

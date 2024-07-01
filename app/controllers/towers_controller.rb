@@ -25,11 +25,11 @@ class TowersController < ApplicationController
   end
 
   def update_floor_units
-    is_all_selected = true
+    is_all_unit_types_selected = true
     unit_types = params.require :unit_types
-    unit_types.each_value { |value| is_all_selected = false if value.blank? }
+    unit_types.each_value { |value| is_all_unit_types_selected = false if value.blank? }
 
-    if is_all_selected
+    if is_all_unit_types_selected
       update_units(unit_types)
       return redirect_to @tower, notice: t('notices.floor.updated')
     end
