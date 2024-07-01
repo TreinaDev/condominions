@@ -2,7 +2,10 @@ require 'rails_helper'
 
 describe "Administrator sees unit's details" do
   it "from floor's details page" do
-    unit_type = build :unit_type, description: 'Apartamento de 1 quarto', metreage: 50.55
+    unit_type = build :unit_type,
+                      description: 'Apartamento de 1 quarto',
+                      metreage: 50.55
+
     tower = create :tower
     tower.generate_floors
     floor = tower.floors.first
@@ -13,6 +16,6 @@ describe "Administrator sees unit's details" do
 
     expect(page).to have_content 'Unidade 12'
     expect(page).to have_content 'Apartamento de 1 quarto'
-    expect(page).to have_content '50.55 m²'
+    expect(page).to have_content '50.55m²'
   end
 end

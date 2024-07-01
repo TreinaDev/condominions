@@ -2,8 +2,14 @@ require 'rails_helper'
 
 describe "Administrator sees floor's details" do
   it "and sees a list of floor's apartments" do
-    first_unit_type =  create :unit_type, description: 'Apartamento de 1 quarto', metreage: 50.55
-    second_unit_type = create :unit_type, description: 'Apartamento de 2 quartos', metreage: 80.75
+    first_unit_type =  create :unit_type,
+                              description: 'Apartamento de 1 quarto',
+                              metreage: 50.55
+
+    second_unit_type = create :unit_type,
+                              description: 'Apartamento de 2 quartos',
+                              metreage: 80.75
+
     tower = create :tower, units_per_floor: 5, floor_quantity: 3
     tower.generate_floors
     floor = tower.floors[1]
@@ -45,5 +51,6 @@ describe "Administrator sees floor's details" do
     visit tower_floor_path(tower, floor)
 
     expect(current_path).to eq edit_floor_units_condo_tower_path(tower.condo, tower)
+    expect(page).to have_content 'Você deve cadastrar o pavimento tipo antes de acessar essa página'
   end
 end

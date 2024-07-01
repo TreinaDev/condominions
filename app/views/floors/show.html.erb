@@ -1,12 +1,12 @@
 <h1><%= @tower.name %></h1>
 
-<h3><%= @floor.identifier %>º Andar</h3>
+<h2><%= @floor.print_identifier %></h2>
 
 <% unit_types = @floor.return_unit_types %>
 
 <%= unit_types.each_with_index do |unit_type, index| %>
   <div id = <%= "unit-type-#{index + 1}" %>>
-    <h5> <%= unit_type.description %> </h5>
+    <h3> <%= unit_type.description %> </h3>
 
     <% @floor.units.each do |unit| %>
       <% if unit.unit_type == unit_type %>

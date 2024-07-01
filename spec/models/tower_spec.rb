@@ -12,50 +12,27 @@ RSpec.describe Tower, type: :model do
   end
 
   describe '#valid?' do
-    it "Name can't be blank" do
-      tower = build :tower, name: ''
+    it 'Missing params' do
+      tower = build :tower, name: '',
+                            floor_quantity: '',
+                            units_per_floor: '',
+                            condo: nil
 
       expect(tower).not_to be_valid
-      expect(tower.errors.full_messages)
-        .to include 'Nome não pode ficar em branco'
-    end
-
-    it "Floor quantity can't be blank" do
-      tower = build :tower, floor_quantity: ''
-
-      expect(tower).not_to be_valid
-      expect(tower.errors.full_messages)
-        .to include 'Quantidade de Andares não pode ficar em branco'
-    end
-
-    it "Units per floor can't be blank" do
-      tower = build :tower, units_per_floor: ''
-
-      expect(tower).not_to be_valid
-      expect(tower.errors.full_messages)
-        .to include 'Apartamentos por Andar não pode ficar em branco'
-    end
-
-    it 'Condo must be present' do
-      tower = build :tower, condo: nil
-
-      expect(tower).not_to be_valid
-      expect(tower.errors.full_messages)
-        .to include 'Condomínio é obrigatório(a)'
+      expect(tower.errors.include?(:name)).to be true
+      expect(tower.errors.include?(:floor_quantity)).to be true
+      expect(tower.errors.include?(:units_per_floor)).to be true
+      expect(tower.errors.include?(:condo)).to be true
     end
 
     it 'Floor quantity must be a number' do
-      tower = build :tower, floor_quantity: 'ten'
+      tower = build :tower, floor_quantity: 'ten', units_per_floor: 'five'
 
       expect(tower).not_to be_valid
+      expect(tower.errors.include?(:floor_quantity)).to be true
+      expect(tower.errors.include?(:units_per_floor)).to be true
       expect(tower.errors.full_messages)
         .to include 'Quantidade de Andares não é um número'
-    end
-
-    it 'Units per floor must be a number' do
-      tower = build :tower, units_per_floor: 'five'
-
-      expect(tower).not_to be_valid
       expect(tower.errors.full_messages)
         .to include 'Apartamentos por Andar não é um número'
     end

@@ -5,6 +5,7 @@ pt-BR:
   alerts:    
     floor:
       not_created: 'Não foi possível cadastrar o andar.'
+      not_ready: 'Você deve cadastrar o pavimento tipo antes de acessar essa página'
   activerecord:
     models:
       floor:

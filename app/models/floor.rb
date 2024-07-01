@@ -10,6 +10,10 @@ class Floor < ApplicationRecord
     tower.floors.index(self) + 1
   end
 
+  def print_identifier
+    "#{identifier}º Andar"
+  end
+
   def return_unit_types
     units.includes(:unit_type)
          .order('unit_types.description')
