@@ -31,7 +31,7 @@ describe 'User manage unit types' do
 
       visit root_path
       within('nav') do
-        click_on class: 'navbar-toggler'
+        click_on id: 'side-menu'
         click_on 'Criar Tipo de unidade'
       end
 

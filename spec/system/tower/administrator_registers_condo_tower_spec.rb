@@ -1,17 +1,17 @@
 require 'rails_helper'
 
 describe "Administrator registers condo's tower" do
-  it 'and acess from navbar' do
+  it 'and access from navbar' do
     user = create(:manager)
     condo = create(:condo, name: 'Condomínio dos rubinhos')
     login_as user, scope: :manager
 
     visit root_path
     within 'nav' do
-      click_on class: 'navbar-toggler'
+      click_on id: 'side-menu'
       click_on 'Criar Torre'
     end
-    within '.modal' do
+    within '#condoSelectPopup' do
       click_on 'Condomínio dos rubinhos'
     end
 

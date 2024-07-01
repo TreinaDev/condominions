@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe 'Manager register condo' do
-  it 'and acess from navbar' do
+  it 'and access from navbar' do
     user = create(:manager)
     login_as user, scope: :manager
 
     visit root_path
     within('nav') do
-      click_on class: 'navbar-toggler'
+      click_on id: 'side-menu'
       click_on 'Criar Condominio'
     end
 

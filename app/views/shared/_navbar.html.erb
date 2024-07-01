@@ -4,15 +4,15 @@
     <% if manager_signed_in? %>
       <div style="margin: 0 auto;">
         <% if current_manager.user_image.attached? %>
-          <img src="<%= url_for(current_manager.user_image)%>" style="width: 50px; height: 50px; border-radius: 50%" %>
+          <%= image_tag current_manager.user_image, alt: 'Image profile', style:"width: 50px; height: 50px; border-radius: 50%" %>
         <% else %>
-          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" style="width: 50px; height: 50px; border-radius: 50%">
+          <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', style:"width: 50px; height: 50px; border-radius: 50%" %>
         <% end %>
         <%= current_manager.description %>
         <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete}, class: 'btn btn-danger' %>
       </div>
     
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <button class="navbar-toggler" id="side-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -44,7 +44,7 @@
             </li>
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
-              <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Criar Torre</a>
+              <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopup">Criar Torre</a>
             </li>
           </ul>
         </div>
@@ -53,11 +53,11 @@
   </div>
 </nav>
 
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+<div class="modal fade" id="condoSelectPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="condoSelectPopupLabel" aria-hidden="true" >
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Selecione o Condominio</h1>
+        <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condominio</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

@@ -7,7 +7,7 @@ describe 'Manager registers new manager' do
     login_as(manager, scope: :manager)
     visit root_path
     within('nav') do
-      click_on class: 'navbar-toggler'
+      click_on id: 'side-menu'
       click_on 'Gerenciar usuarios'
       click_on 'Cadastrar novo administrador'
     end
@@ -27,7 +27,7 @@ describe 'Manager registers new manager' do
     login_as(manager, scope: :manager)
     visit root_path
     within('nav') do
-      click_on class: 'navbar-toggler'
+      click_on id: 'side-menu'
       click_on 'Gerenciar usuarios'
       click_on 'Cadastrar novo administrador'
     end
