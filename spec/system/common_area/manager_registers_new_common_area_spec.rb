@@ -50,7 +50,7 @@ describe 'Manager registers new common area' do
 
     visit common_area_path(common_area)
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq signup_choice_path
     expect(page).to have_content 'Você deve estar autenticado para continuar'
   end
 end
