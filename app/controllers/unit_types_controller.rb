@@ -1,5 +1,6 @@
 class UnitTypesController < ApplicationController
   before_action :set_unit_type, only: %i[edit update show]
+  before_action :authenticate_manager!
 
   def show; end
 
@@ -35,6 +36,6 @@ class UnitTypesController < ApplicationController
   end
 
   def unit_type_params
-    params.require(:unit_type).permit(:description, :metreage)
+    params.require(:unit_type).permit(:description, :metreage, :fraction)
   end
 end

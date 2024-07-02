@@ -3,11 +3,12 @@ require 'rails_helper'
 RSpec.describe UnitType, type: :model do
   context '#valid?' do
     it 'missing params' do
-      unit_type = UnitType.new(description: '', metreage: '')
+      unit_type = UnitType.new(description: '', metreage: '', fraction: '')
 
       expect(unit_type).not_to be_valid
       expect(unit_type.errors.include?(:description)).to be true
       expect(unit_type.errors.include?(:metreage)).to be true
+      expect(unit_type.errors.include?(:fraction)).to be true
     end
 
     context 'Metreage must be bigger than zero' do

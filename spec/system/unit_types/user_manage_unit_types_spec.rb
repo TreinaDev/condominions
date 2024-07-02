@@ -3,26 +3,43 @@ require 'rails_helper'
 describe 'User manage unit types' do
   context 'User register new unit type' do
     it 'sucessfully' do
-      visit new_unit_type_path
+      user = create(:manager)
+      create(:condo, name: 'Condomínio dos rubinhos')
+      login_as user, scope: :manager
 
+      visit root_path
+      within 'nav' do
+        click_on id: 'side-menu'
+        click_on 'Criar Tipo de Unidade'
+      end
       fill_in 'Descrição',	with: 'Apartamento de 2 quartos'
       fill_in 'Metragem',	with: '50'
+      fill_in 'Fração Ideal', with: '3'
       click_on 'Criar Tipo de unidade'
 
       expect(page).to have_content('Tipo de unidade cadastrado com sucesso')
       expect(current_path).to eq unit_type_path(UnitType.last)
       expect(page).to have_content('Descrição: Apartamento de 2 quartos')
       expect(page).to have_content('Metragem: 50.0m²')
+      expect(page).to have_content('Fração Ideal: 3%')
     end
 
     it 'with missing parameters' do
+      user = create(:manager)
+      login_as user, scope: :manager
       visit new_unit_type_path
+
+      within 'nav' do
+        click_on id: 'side-menu'
+        click_on 'Criar Tipo de Unidade'
+      end
 
       click_on 'Criar Tipo de unidade'
 
       expect(page).to have_content('Erro ao cadastrar tipo de unidade')
       expect(page).to have_content('Descrição não pode ficar em branco')
       expect(page).to have_content('Metragem não pode ficar em branco')
+      expect(page).to have_content('Fração Ideal não pode ficar em branco')
     end
 
     it 'and access from navbar' do
@@ -32,7 +49,7 @@ describe 'User manage unit types' do
       visit root_path
       within('nav') do
         click_on id: 'side-menu'
-        click_on 'Criar Tipo de unidade'
+        click_on 'Criar Tipo de Unidade'
       end
 
       expect(current_path).to eq new_unit_type_path
@@ -40,6 +57,8 @@ describe 'User manage unit types' do
     end
 
     it 'metreage cannot be zero or less' do
+      user = create(:manager)
+      login_as user, scope: :manager
       visit new_unit_type_path
 
       fill_in 'Descrição',	with: 'Apartamento de 2 quartos'
@@ -53,7 +72,9 @@ describe 'User manage unit types' do
 
   context 'User edit an unit type' do
     it 'from unit type details page' do
-      unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5)
+      user = create(:manager)
+      login_as user, scope: :manager
+      unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5, fraction: 3)
 
       visit unit_type_path(unit_type)
 
@@ -61,31 +82,39 @@ describe 'User manage unit types' do
     end
 
     it 'succesfully' do
-      unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5)
+      user = create(:manager)
+      login_as user, scope: :manager
+      unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5, fraction: 3)
 
       visit edit_unit_type_path(unit_type)
       fill_in 'Descrição',	with: 'Apartamento de 2 quartos'
       fill_in 'Metragem',	with: '50'
+      fill_in 'Fração Ideal',	with: '2'
       click_on 'Atualizar Tipo de unidade'
 
       expect(current_path).to eq unit_type_path(unit_type)
       expect(page).to have_content('Tipo de unidade atualizado com sucesso')
       expect(page).to have_content('Descrição: Apartamento de 2 quartos')
       expect(page).to have_content('Metragem: 50.0m²')
+      expect(page).to have_content('Fração Ideal: 2%')
     end
 
     it 'with missing params' do
+      user = create(:manager)
+      login_as user, scope: :manager
       unit_type = create(:unit_type)
 
       visit edit_unit_type_path(unit_type)
       fill_in 'Descrição', with: ''
       fill_in 'Metragem',	with: ''
+      fill_in 'Fração Ideal',	with: ''
       click_on 'Atualizar Tipo de unidade'
 
       expect(current_path).to eq edit_unit_type_path(unit_type)
       expect(page).to have_content('Erro ao atualizar tipo de unidade')
       expect(page).to have_content('Descrição não pode ficar em branco')
       expect(page).to have_content('Metragem não pode ficar em branco')
+      expect(page).to have_content('Fração Ideal não pode ficar em branco')
     end
   end
 end
