@@ -1,0 +1,15 @@
+pt-BR:
+  owner: 'Proprietário'
+  tenant: 'Inquilino'
+  activerecord:
+    models:
+      resident:
+        one: 'Morador'
+        other: 'Moradores'
+    attributes:
+      resident:
+        full_name: 'Nome Completo'
+        registration_number: 'CPF'
+        email: 'E-mail'
+        password: 'Senha'
+        resident_type: 'Tipo de Morador'

@@ -1,0 +1,24 @@
+<h1 class="mb-4">Cadastrar Morador</h1>
+
+<%= form_with model: @resident do |f| %>
+  <div>
+    <%= f.label :full_name %>
+    <%= f.text_field :full_name %>
+  </div>
+  <div>
+    <%= f.label :registration_number %>
+    <%= f.text_field :registration_number %>
+  </div>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <div>
+    <%= f.label :resident_type %>
+    <%= f.select :resident_type, Resident.resident_types.keys.map { |type| [t(type).capitalize, type] } %>
+  </div>
+  <div>
+    <%= f.label :condo %>
+    <%= f.collection_select :condo_id, @condos, :id, :name %> 
+  </div>
+<% end %>
