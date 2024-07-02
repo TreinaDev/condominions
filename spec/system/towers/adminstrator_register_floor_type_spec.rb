@@ -1,13 +1,26 @@
 require 'rails_helper'
 
 describe 'Adminstrator edit floor type' do
+  it 'only if authenticated' do
+    tower = create :tower
+    tower.generate_floors
+    create :unit_type, description: 'Apartamento de 1 quarto'
+    create :unit_type, description: 'Apartamento de 2 quartos'
+
+    visit edit_floor_units_condo_tower_path(tower.condo, tower)
+
+    expect(current_path).to eq new_manager_session_path
+  end
+
   it 'from the tower details page' do
+    user = create :manager
     tower = create :tower
     tower.generate_floors
 
     create :unit_type, description: 'Apartamento de 1 quarto'
     create :unit_type, description: 'Apartamento de 2 quartos'
 
+    login_as user, scope: :manager
     visit tower_path tower
     click_on 'Editar Pavimento Tipo'
 
@@ -15,28 +28,30 @@ describe 'Adminstrator edit floor type' do
   end
 
   it 'successfully' do
+    user = create :manager
     tower = create :tower
     tower.generate_floors
 
     create :unit_type, description: 'Apartamento de 1 quarto'
     create :unit_type, description: 'Apartamento de 2 quartos'
 
+    login_as user, scope: :manager
     visit edit_floor_units_condo_tower_path(tower.condo, tower)
 
     within '#unit-1' do
-      select 'Apartamento de 2 quartos', from: 'Tipo de Unidade'
+      select 'Apartamento de 2 quartos', from: 'Unidade modelo 1'
     end
 
     within '#unit-2' do
-      select 'Apartamento de 1 quarto', from: 'Tipo de Unidade'
+      select 'Apartamento de 1 quarto', from: 'Unidade modelo 2'
     end
 
     within '#unit-3' do
-      select 'Apartamento de 2 quartos', from: 'Tipo de Unidade'
+      select 'Apartamento de 2 quartos', from: 'Unidade modelo 3'
     end
 
     within '#unit-4' do
-      select 'Apartamento de 1 quarto', from: 'Tipo de Unidade'
+      select 'Apartamento de 1 quarto', from: 'Unidade modelo 4'
     end
 
     click_on 'Atualizar Pavimento Tipo'
@@ -49,24 +64,26 @@ describe 'Adminstrator edit floor type' do
   end
 
   it 'and fails if there is unselected unit types' do
+    user = create :manager
     tower = create :tower
     tower.generate_floors
 
     create :unit_type, description: 'Apartamento de 1 quarto'
     create :unit_type, description: 'Apartamento de 2 quartos'
 
+    login_as user, scope: :manager
     visit edit_floor_units_condo_tower_path(tower.condo, tower)
 
     within '#unit-1' do
-      select 'Selecione o tipo de unidade', from: 'Tipo de Unidade'
+      select 'Tipo de Unidade', from: 'Unidade modelo 1'
     end
 
     within '#unit-2' do
-      select 'Selecione o tipo de unidade', from: 'Tipo de Unidade'
+      select 'Tipo de Unidade', from: 'Unidade modelo 2'
     end
 
     within '#unit-3' do
-      select 'Selecione o tipo de unidade', from: 'Tipo de Unidade'
+      select 'Tipo de Unidade', from: 'Unidade modelo 3'
     end
 
     click_on 'Atualizar Pavimento Tipo'

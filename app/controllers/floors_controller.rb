@@ -1,5 +1,6 @@
 class FloorsController < ApplicationController
   before_action :assure_floor_type_registration, only: [:show]
+  before_action :authenticate_manager!, only: [:show]
 
   def show
     @tower = Tower.find params[:tower_id]

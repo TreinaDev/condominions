@@ -1,5 +1,6 @@
 class TowersController < ApplicationController
   before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
+  before_action :authenticate_manager!, only: %i[show new edit_floor_units]
 
   def show; end
 
