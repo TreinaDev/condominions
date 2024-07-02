@@ -1,28 +1,28 @@
 <section>
-  <h1>Cadastrar Torre</h1>
-
   <%= render 'shared/errors', model: @tower %>
-
+  <h1>Cadastrar Torre</h1>
+  
   <%= form_with model: [@tower.condo, @tower] do |f| %>
+    <div class="form-row p-2">
+      <div class="form-group col-md-6 pe-3">
+        <%= f.label :name %>
+        <%= f.text_field :name, class:"form-control", placeholder: "Torre A" %>
+      </div>
+    </div>
     
-    <div>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
+    <div class="form-row d-flex p-2">
+      <div class="form-group col-md-3 pe-3">
+        <%= f.label :floor_quantity %>
+        <%= f.number_field :floor_quantity, class:"form-control", min: 1, step: 1 %>
+      </div>
+      <div class="form-group col-md-3 pe-3">
+        <%= f.label :units_per_floor %>
+        <%= f.number_field :units_per_floor, class:"form-control", min: 1, step: 1 %>
+      </div>
     </div>
 
-    <div>
-      <%= f.label :floor_quantity %>
-      <%= f.number_field :floor_quantity %>
+    <div class="form-group">
+      <%= f.submit class:"btn btn-dark" %>
     </div>
-
-    <div>
-      <%= f.label :units_per_floor %>
-      <%= f.number_field :units_per_floor %>
-    </div>  
-
-    <div>
-      <%= f.submit %>
-    </div>
-
   <% end %>
 </section>

@@ -1,20 +1,21 @@
 <section>
-  <h1>Atualizar Pavimento Tipo da <%= @tower.name %></h1>
-
   <%= render 'shared/errors', model: @tower %>
+  <h1>Atualizar Pavimento Tipo da <%= @tower.name %></h1>
 
   <%= form_with url: update_floor_units_condo_tower_path(@tower.condo, @tower), method: :patch do |f| %>
     
-    <% @tower.units_per_floor.times do |index| %>
-      <div id = <%= "unit-#{index + 1}" %>>
-        <h3>Unidade Modelo <%= index + 1 %></h3>
-        <%= f.label "unit_types[#{index}]", 'Tipo de Unidade' %>
-        <%= f.collection_select "unit_types[#{index}]", @unit_types, :id, :description, prompt: 'Selecione o tipo de unidade' %>
-      </div>
-    <% end %>
+    <div class="form-group p-2">
+      <% @tower.units_per_floor.times do |index| %>
+        <div id = "<%= "unit-#{index + 1}" %>" class="mt-2">
+          <%= f.label "unit_types[#{index}]", "Unidade modelo #{index + 1}" %>
+          <%= f.collection_select "unit_types[#{index}]", @unit_types, :id, :description,
+              { prompt: "Tipo de Unidade" }, { :class => "form-control form-select" } %>
+        </div>
+      <% end %>
+    </div>
 
     <div>
-      <%= f.submit 'Atualizar Pavimento Tipo' %>
+      <%= f.submit 'Atualizar Pavimento Tipo', class: "btn btn-dark" %>
     </div>
 
   <% end %>
