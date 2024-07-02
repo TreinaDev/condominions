@@ -2,13 +2,26 @@ class CondosController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create edit update]
   before_action :set_condo, only: %i[show edit update]
 
-  def show; end
+  add_breadcrumb 'Home', :root_path
+  add_breadcrumb 'Condomínios', :condos_path, only: %i[show edit]
+
+  def index
+    @condos = Condo.all
+  end
+
+  def show
+    add_breadcrumb @condo.name.to_s, condo_path(@condo)
+  end
 
   def new
+    add_breadcrumb 'Cadastrar'
     @condo = Condo.new
   end
 
-  def edit; end
+  def edit
+    add_breadcrumb @condo.name.to_s, condo_path(@condo)
+    add_breadcrumb 'Editar'
+  end
 
   def create
     @condo = Condo.new(condo_params)

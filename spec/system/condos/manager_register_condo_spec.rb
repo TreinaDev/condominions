@@ -11,6 +11,11 @@ describe 'Manager register condo' do
       click_on 'Criar Condominio'
     end
 
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Cadastrar'
+    end
+
     expect(current_path).to eq new_condo_path
     expect(page).to have_content('Cadastre um novo Condomínio:')
   end
@@ -38,6 +43,12 @@ describe 'Manager register condo' do
     click_on 'Salvar'
 
     expect(current_path).to eq condo_path(Condo.last)
+
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Condominio Teste'
+    end
     expect(page).to have_content 'Cadastrado com sucesso'
     expect(page).to have_content 'Condominio Teste'
     expect(page).to have_content 'CNPJ: 38.352.640/0001-33'

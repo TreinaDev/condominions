@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :common_areas, only: [:show, :edit, :update]
   resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
-  resources :condos, only: [:new, :create, :show, :edit, :update] do
+  resources :condos, only: [:index, :new, :create, :show, :edit, :update] do
     resources :common_areas, only: [:new, :create]
 
     resources :towers, only: [:new, :create] do
