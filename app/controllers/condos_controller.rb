@@ -14,18 +14,18 @@ class CondosController < ApplicationController
     @condo = Condo.new(condo_params)
 
     if @condo.save
-      flash.alert = 'Cadastrado com sucesso!'
-      redirect_to @condo
+      redirect_to @condo, notice: t('notices.condo.created')
     else
+      flash.now[:alert] = t('alerts.condo.not_created')
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
     if @condo.update(condo_params)
-      flash.alert = 'Editado com sucesso!'
-      redirect_to @condo
+      redirect_to @condo, notice: t('notices.condo.updated')
     else
+      flash.now[:alert] = t('alerts.condo.not_updated')
       render :edit, status: :unprocessable_entity
     end
   end

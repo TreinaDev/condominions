@@ -28,7 +28,7 @@ describe 'Manager edits condo' do
     click_on 'Salvar'
 
     expect(current_path).to eq condo_path(condo)
-    expect(page).to have_content 'Editado com sucesso'
+    expect(page).to have_content 'Condomínio atualizado com sucesso'
     expect(page).to have_content 'Condominio Editado'
     expect(page).to have_content 'CNPJ: 34.474.564/0001-88'
     expect(page).to have_content 'Endereço: Rua ST, 12, Santa Terezinha - Brusque/SC - CEP: 88352-272'

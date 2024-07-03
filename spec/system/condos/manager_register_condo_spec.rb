@@ -38,7 +38,7 @@ describe 'Manager register condo' do
     click_on 'Salvar'
 
     expect(current_path).to eq condo_path(Condo.last)
-    expect(page).to have_content 'Cadastrado com sucesso'
+    expect(page).to have_content 'Condomínio cadastrado com sucesso'
     expect(page).to have_content 'Condominio Teste'
     expect(page).to have_content 'CNPJ: 38.352.640/0001-33'
     expect(page).to have_content 'Endereço: Travessa João Edimar, 29, João Eduardo II - Rio Branco/AC - CEP: 69911-520'

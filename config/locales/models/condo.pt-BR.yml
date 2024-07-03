@@ -1,0 +1,20 @@
+pt-BR:
+  notices:
+    condo:
+      created: 'Condomínio cadastrado com sucesso'
+      updated: 'Condomínio atualizado com sucesso'
+  alerts:    
+    condo:
+      not_created: 'Erro ao cadastrar Condomínio'
+      not_updated: 'Erro ao atualizar Condomínio'
+  name: 'Nome'
+  registration_number: 'CNPJ'
+  activerecord:
+    models:
+      condo:
+        one: 'Condomínio'
+        other: 'Condomínios'
+    attributes:
+      condo:
+        name: 'Nome'
+        registration_number: 'CNPJ'
