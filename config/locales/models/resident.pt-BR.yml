@@ -1,6 +1,8 @@
 pt-BR:
   owner: 'Proprietário'
   tenant: 'Inquilino'
+  not_confirmed: 'Não Confirmado'
+  confirmed: 'Confirmado'
   activerecord:
     models:
       resident:
@@ -13,3 +15,7 @@ pt-BR:
         email: 'E-mail'
         password: 'Senha'
         resident_type: 'Tipo de Morador'
+        condo_id: 'Condomínio'
+        tower_id: 'Torre'
+        floor: 'Andar'
+        unit: 'Unidade'

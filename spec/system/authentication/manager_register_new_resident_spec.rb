@@ -19,15 +19,16 @@ describe 'Manager registers new resident' do
     fill_in 'Nome Completo', with: 'Adroaldo Junior'
     fill_in 'CPF',	with: CPF.generate(format: true)
     fill_in 'E-mail',	with: 'adroaldo@email.com'
+    fill_in 'Senha', with: 'senha123'
     select 'Proprietário', from: 'Tipo de Morador'
     select 'Condominio Certo', from: 'Condomínio'
     select 'Torre correta', from: 'Torre'
     select '5', from: 'Andar'
     select '3', from: 'Unidade'
-    click_on 'Cadastrar'
+    click_on 'Enviar'
 
     expect(page).to have_content 'Convite enviado com sucesso para Adroaldo Junior (adroaldo@email.com)'
     expect(Resident.last.full_name).to eq 'Adroaldo Junior'
-    expect(Resident.last.status).to eq 'Não confirmado'
+    expect(Resident.last.status).to eq 'not_confirmed'
   end
 end

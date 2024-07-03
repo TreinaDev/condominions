@@ -14,11 +14,32 @@
     <%= f.email_field :email %>
   </div>
   <div>
+    <%= f.label :password %>
+    <%= f.text_field :password %>
+  </div>
+  <div>
     <%= f.label :resident_type %>
     <%= f.select :resident_type, Resident.resident_types.keys.map { |type| [t(type).capitalize, type] } %>
   </div>
-  <div>
-    <%= f.label :condo %>
-    <%= f.collection_select :condo_id, @condos, :id, :name %> 
+
+  <div data-controller="resident" data-condo-json="<%= @condos_json %>">
+    <div>
+      <%= f.label :condo_id %>
+      <%= f.collection_select :condo_id, @condos, :id, :name, {}, :'data-resident-target' => "condo", :'data-action' => "change->resident#changeCondo" %> 
+    </div>
+    <div>
+      <%= f.label :tower_id %>
+      <%= f.collection_select :tower_id, {}, {}, {}, {}, :'data-resident-target' => "tower", :'data-action' => "change->resident#changeTower" %> 
+    </div>
+    <div>
+      <%= f.label :floor %>
+      <%= f.collection_select :floor, {}, {}, {}, {}, :'data-resident-target' => "floor" %> 
+    </div>
+    <div>
+      <%= f.label :unit %>
+      <%= f.collection_select :unit, {}, {}, {}, {}, :'data-resident-target' => "unit" %> 
+    </div>
   </div>
+
+  <%= f.submit "Enviar" %>
 <% end %>
