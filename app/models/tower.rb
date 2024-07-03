@@ -8,6 +8,8 @@ class Tower < ApplicationRecord
     greater_than: 0, only_integer: true
   }
 
+  enum status: { incompleted: 0, completed: 5 }
+
   def generate_floors
     floor_quantity.times { create_floor_with_units }
   end

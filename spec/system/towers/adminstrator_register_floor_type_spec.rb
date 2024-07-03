@@ -90,4 +90,29 @@ describe 'Adminstrator edit floor type' do
 
     expect(page).to have_content 'Defina o tipo de unidade para todas as unidades'
   end
+
+  context 'see a warning if registration is not complete' do
+    it 'on root path' do
+      user = create :manager
+      condo = create :condo, name: 'Condomínio A'
+      tower = create :tower, condo:, name: 'Torre B'
+      tower.generate_floors
+
+      login_as user, scope: :manager
+      visit root_path
+
+      expect(page).to have_content <<~HEREDOC.strip
+        Cadastro da #{tower.name} do #{condo.name} incompleto, por favor, Atualize o pavimento tipo.
+      HEREDOC
+    end
+
+    it 'and go to floor type registration page after clicked the warning link' do
+    end
+
+    it 'on tower details page' do
+    end
+
+    it 'only if authenticated' do
+    end
+  end
 end

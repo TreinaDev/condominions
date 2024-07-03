@@ -74,7 +74,6 @@ describe "Administrator sees floor's details" do
     tower = build :tower
     tower.generate_floors
     floor = tower.floors.first
-    floor.generate_units
 
     login_as user, scope: :manager
     visit tower_floor_path(tower, floor)
