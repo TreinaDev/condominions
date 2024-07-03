@@ -6,7 +6,7 @@ describe 'Manager' do
       condo = create(:condo)
 
       post(condo_unit_types_path(condo), params: { unit_type: { description: 'Apartamento Duplex',
-                                                   metreage: 60, fraction: 3 } })
+                                                                metreage: 60, fraction: 3 } })
       expect(response).to redirect_to(new_manager_session_path)
       expect(UnitType.all).to eq []
     end
