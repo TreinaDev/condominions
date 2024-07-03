@@ -25,6 +25,21 @@ RSpec.describe UnitType, type: :model do
         expect(unit_type.errors.include?(:metreage)).to be true
       end
     end
+
+    context 'fraction must be bigger than zero' do
+      it 'fraction equal zero' do
+        unit_type = UnitType.new(fraction: 0)
+        unit_type.valid?
+
+        expect(unit_type.errors.include?(:fraction)).to be true
+      end
+      it 'fraction less than zero' do
+        unit_type = UnitType.new(fraction: -1)
+        unit_type.valid?
+
+        expect(unit_type.errors.include?(:fraction)).to be true
+      end
+    end
   end
 
   context 'formatted text' do
