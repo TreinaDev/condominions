@@ -36,10 +36,10 @@ RSpec.describe UnitType, type: :model do
     end
 
     it 'show metreage value with square meter (m²)' do
-      unit_type = create(:unit_type, fraction: 10)
+      unit_type = create(:unit_type, fraction: 10.12345)
       styled_text = unit_type.fraction_to_percentage
 
-      expect(styled_text).to eq("10%")
+      expect(styled_text).to eq("10.12345%")
     end
   end
 end

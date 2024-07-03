@@ -24,7 +24,7 @@ describe 'User manage unit types' do
       expect(current_path).to eq condo_unit_type_path(Condo.last, UnitType.last)
       expect(page).to have_content('Descrição: Apartamento de 2 quartos')
       expect(page).to have_content('Metragem: 50.0m²')
-      expect(page).to have_content('Fração Ideal: 3%')
+      expect(page).to have_content('Fração Ideal: 3.0%')
     end
 
     it 'with missing parameters' do
@@ -58,6 +58,7 @@ describe 'User manage unit types' do
 
       expect(current_path).to eq new_condo_unit_type_path(condo)
       expect(page).to have_content('Cadastrar um novo tipo de unidade')
+      expect(page).to have_content('Fração Ideal (Valor em porcentagem)')
     end
 
     it 'metreage cannot be zero or less' do
@@ -103,7 +104,7 @@ describe 'User manage unit types' do
       expect(page).to have_content('Tipo de unidade atualizado com sucesso')
       expect(page).to have_content('Descrição: Apartamento de 2 quartos')
       expect(page).to have_content('Metragem: 50.0m²')
-      expect(page).to have_content('Fração Ideal: 2%')
+      expect(page).to have_content('Fração Ideal: 2.0%')
     end
 
     it 'with missing params' do

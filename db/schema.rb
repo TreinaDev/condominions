@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_03_193313) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_03_200141) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -115,7 +115,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_193313) do
     t.decimal "metreage", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "fraction"
+    t.decimal "fraction", precision: 10, scale: 5
     t.integer "condo_id", null: false
     t.index ["condo_id"], name: "index_unit_types_on_condo_id"
   end
