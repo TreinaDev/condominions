@@ -2,13 +2,13 @@ class Tower < ApplicationRecord
   belongs_to :condo
   has_many :floors, dependent: :destroy
 
+  enum status: { incomplete: 0, complete: 5 }
+
   validates :name, :floor_quantity, :units_per_floor, presence: true
 
   validates :floor_quantity, :units_per_floor, numericality: {
     greater_than: 0, only_integer: true
   }
-
-  enum status: { incompleted: 0, completed: 5 }
 
   def generate_floors
     floor_quantity.times { create_floor_with_units }

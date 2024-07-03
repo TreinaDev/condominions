@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Adminstrator edit floor type' do
+describe 'Administrator edit floor type' do
   it 'only if authenticated' do
     tower = create :tower
     tower.generate_floors
@@ -29,7 +29,8 @@ describe 'Adminstrator edit floor type' do
 
   it 'successfully' do
     user = create :manager
-    tower = create :tower
+    condo = create :condo, name: 'Condomínio A'
+    tower = create :tower, condo:, name: 'Torre A'
     tower.generate_floors
 
     create :unit_type, description: 'Apartamento de 1 quarto'
@@ -61,6 +62,9 @@ describe 'Adminstrator edit floor type' do
     expect(page).to have_content 'Torre A'
     expect(tower.floors.first.units.first.unit_type.description).to eq 'Apartamento de 2 quartos'
     expect(tower.floors.first.units.last.unit_type.description).to eq 'Apartamento de 1 quarto'
+    expect(page).not_to have_link <<~HEREDOC.strip
+      Cadastro do(a) #{tower.name} do(a) #{tower.condo.name} incompleto(a), por favor, atualize o pavimento tipo
+    HEREDOC
   end
 
   it 'and fails if there is unselected unit types' do
@@ -101,18 +105,54 @@ describe 'Adminstrator edit floor type' do
       login_as user, scope: :manager
       visit root_path
 
-      expect(page).to have_content <<~HEREDOC.strip
-        Cadastro da #{tower.name} do #{condo.name} incompleto, por favor, Atualize o pavimento tipo.
+      expect(page).to have_link <<~HEREDOC.strip
+        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
       HEREDOC
     end
 
     it 'and go to floor type registration page after clicked the warning link' do
+      user = create :manager
+      condo = create :condo, name: 'Condomínio A'
+      tower = create :tower, condo:, name: 'Torre B'
+      tower.generate_floors
+
+      login_as user, scope: :manager
+      visit root_path
+      click_on <<~HEREDOC.strip
+        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
+      HEREDOC
+
+      expect(current_path).to eq edit_floor_units_condo_tower_path(condo, tower)
+      expect(page).to have_content 'Atualizar Pavimento Tipo do(a) Torre B'
+      expect(page).not_to have_link <<~HEREDOC.strip
+        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
+      HEREDOC
     end
 
     it 'on tower details page' do
+      user = create :manager
+      condo = create :condo, name: 'Condomínio A'
+      tower = create :tower, condo:, name: 'Torre B'
+      tower.generate_floors
+
+      login_as user, scope: :manager
+      visit tower_path tower
+
+      expect(page).to have_link <<~HEREDOC.strip
+        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
+      HEREDOC
     end
 
     it 'only if authenticated' do
+      condo = create :condo, name: 'Condomínio A'
+      tower = create :tower, condo:, name: 'Torre B'
+      tower.generate_floors
+
+      visit root_path
+
+      expect(page).not_to have_link <<~HEREDOC.strip
+        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
+      HEREDOC
     end
   end
 end

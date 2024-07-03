@@ -1,6 +1,6 @@
 <section>
   <%= render 'shared/errors', model: @tower %>
-  <h1>Atualizar Pavimento Tipo da <%= @tower.name %></h1>
+  <h1>Atualizar Pavimento Tipo do(a) <%= @tower.name %></h1>
 
   <%= form_with url: update_floor_units_condo_tower_path(@tower.condo, @tower), method: :patch do |f| %>
     

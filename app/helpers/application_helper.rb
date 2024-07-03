@@ -2,25 +2,25 @@ module ApplicationHelper
   def flash_messages
     messages = ''
     %i[notice info warning alert].each do |type|
-      messages += formated_flash(type, flash[type]) if flash[type]
+      messages += formatted_flash(type, flash[type]) if flash[type]
     end
 
-    messages.html_safe
+    sanitize messages
   end
 
   private
 
-  def formated_flash(type, messages)
+  def formatted_flash(type, messages)
     if type == :notice
-      "<div class=\"alert alert-success\" role='alert'>#{splited_messages(messages)}</div>"
+      "<div class=\"alert alert-success\" role='alert'>#{splitted_messages(messages)}</div>"
     elsif type == :alert
-      "<div class=\"alert alert-danger\" role='alert'>#{splited_messages(messages)}</div>"
+      "<div class=\"alert alert-danger\" role='alert'>#{splitted_messages(messages)}</div>"
     else
-      "<div class=\"alert alert-#{type}\" role='alert'>#{splited_messages(messages)}</div>"
+      "<div class=\"alert alert-#{type}\" role='alert'>#{splitted_messages(messages)}</div>"
     end
   end
 
-  def splited_messages(messages)
+  def splitted_messages(messages)
     messages.chomp.gsub("\n", '<br>')
   end
 end

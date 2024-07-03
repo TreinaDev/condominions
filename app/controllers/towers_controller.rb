@@ -48,6 +48,8 @@ class TowersController < ApplicationController
         unit.update unit_type_id: unit_types[index.to_s]
       end
     end
+
+    @tower.complete!
   end
 
   def set_tower
