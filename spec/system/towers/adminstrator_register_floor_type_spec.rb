@@ -71,6 +71,14 @@ describe 'Adminstrator edit floor type' do
 
     click_on 'Atualizar Pavimento Tipo'
 
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Condominio Residencial Paineiras'
+      expect(page).to have_content 'Torres'
+      expect(page).to have_content 'Torre A'
+      expect(page).to have_content 'Pavimento Tipo'
+    end
     expect(page).to have_content 'Defina o tipo de unidade para todas as unidades'
   end
 end

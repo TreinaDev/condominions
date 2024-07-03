@@ -10,7 +10,8 @@ describe "Administrator sees floor's details" do
                               description: 'Apartamento de 2 quartos',
                               metreage: 80.75
 
-    tower = create :tower, units_per_floor: 5, floor_quantity: 3
+    condo = create :condo, name: 'Condominio Residencial Paineiras'
+    tower = create(:tower, name: 'Torre A', units_per_floor: 5, floor_quantity: 3, condo:)
     tower.generate_floors
     floor = tower.floors[1]
     floor.generate_units
@@ -23,6 +24,15 @@ describe "Administrator sees floor's details" do
 
     visit tower_path tower
     click_on '2º Andar'
+
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Condominio Residencial Paineiras'
+      expect(page).to have_content 'Torres'
+      expect(page).to have_content 'Torre A'
+      expect(page).to have_content '2º Andar'
+    end
 
     expect(current_path).to eq tower_floor_path(tower, floor)
     expect(page).to have_content 'Torre A'
@@ -50,6 +60,14 @@ describe "Administrator sees floor's details" do
 
     visit tower_floor_path(tower, floor)
 
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Condominio Residencial Paineiras'
+      expect(page).to have_content 'Torres'
+      expect(page).to have_content 'Torre A'
+      expect(page).to have_content 'Pavimento Tipo'
+    end
     expect(current_path).to eq edit_floor_units_condo_tower_path(tower.condo, tower)
     expect(page).to have_content 'Você deve atualizar o pavimento tipo antes de acessar essa página'
   end

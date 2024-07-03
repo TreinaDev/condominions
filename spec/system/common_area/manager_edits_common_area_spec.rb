@@ -1,6 +1,24 @@
 require 'rails_helper'
 
 describe 'Manager edits common area' do
+  it 'and sees breadcrumb' do
+    manager = create(:manager)
+    create :condo, name: 'Condominio Residencial Paineiras'
+    common_area = create :common_area, name: 'Churrasqueira'
+
+    login_as manager, scope: :manager
+    visit edit_common_area_path common_area
+
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Condominio Residencial Paineiras'
+      expect(page).to have_content 'Áreas Comuns'
+      expect(page).to have_content 'Churrasqueira'
+      expect(page).to have_content 'Editar'
+    end
+  end
+
   it 'succesfully' do
     manager = create(:manager)
     common_area = create(:common_area)
@@ -32,6 +50,15 @@ describe 'Manager edits common area' do
     fill_in 'Capacidade Máxima', with: ''
     fill_in 'Descrição', with: ''
     click_on 'Salvar'
+
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Condominio Residencial Paineiras'
+      expect(page).to have_content 'Áreas Comuns'
+      expect(page).to have_content 'Salão de Festas'
+      expect(page).to have_content 'Editar'
+    end
 
     expect(page).to have_content 'Não foi possível atualizar área comum'
     expect(page).to have_content 'Nome não pode ficar em branco'

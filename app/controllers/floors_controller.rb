@@ -1,11 +1,25 @@
 class FloorsController < ApplicationController
   before_action :assure_floor_type_registration, only: [:show]
+  before_action :set_tower, only: %i[show]
 
-  def show
+  add_breadcrumb 'Home', :root_path
+  add_breadcrumb 'Condomínios', :condos_path, only: %i[show]
+  before_action :set_breadcrumbs_for_details, only: %i[show]
+
+  def show; end
+
+  private
+
+  def set_tower
     @tower = Tower.find params[:tower_id]
   end
 
-  private
+  def set_breadcrumbs_for_details
+    add_breadcrumb @tower.condo.name.to_s, condo_path(@tower.condo)
+    add_breadcrumb 'Torres', condo_towers_path(@tower.condo)
+    add_breadcrumb @tower.name.to_s, @tower
+    add_breadcrumb @floor.print_identifier
+  end
 
   def assure_floor_type_registration
     @floor = Floor.find params[:id]

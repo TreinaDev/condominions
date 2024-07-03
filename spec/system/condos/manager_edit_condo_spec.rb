@@ -51,7 +51,7 @@ describe 'Manager edits condo' do
 
   it 'with missing params' do
     manager = create(:manager)
-    condo = create(:condo)
+    condo = create :condo, name: 'Condominio Residencial Paineiras'
 
     login_as(manager, scope: :manager)
     visit condo_path(condo)
@@ -62,6 +62,12 @@ describe 'Manager edits condo' do
     fill_in 'CEP', with: ''
     click_on 'Salvar'
 
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Condominio Residencial Paineiras'
+      expect(page).to have_content 'Editar'
+    end
     expect(current_path).to eq edit_condo_path(condo)
     expect(page).to have_content 'CNPJ inválido'
     expect(page).to have_content 'Cidade não pode ficar em branco'

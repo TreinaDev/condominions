@@ -15,6 +15,13 @@ describe "Administrator registers condo's tower" do
       click_on 'Condomínio dos rubinhos'
     end
 
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Condomínio dos rubinhos'
+      expect(page).to have_content 'Torres'
+      expect(page).to have_content 'Cadastrar'
+    end
     expect(current_path).to eq new_condo_tower_path condo
     expect(page).to have_content('Cadastrar Torre')
   end
@@ -46,6 +53,13 @@ describe "Administrator registers condo's tower" do
     fill_in 'Apartamentos por Andar', with: ''
     click_on 'Criar Torre'
 
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Condominio Residencial Paineiras'
+      expect(page).to have_content 'Torres'
+      expect(page).to have_content 'Cadastrar'
+    end
     expect(page).to have_content 'Não foi possível cadastrar a torre'
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'Quantidade de Andares não pode ficar em branco'

@@ -13,6 +13,7 @@ describe 'Manager register condo' do
 
     within 'ol.breadcrumb' do
       expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
       expect(page).to have_content 'Cadastrar'
     end
 
@@ -70,6 +71,11 @@ describe 'Manager register condo' do
     fill_in 'CEP', with: ''
     click_on 'Salvar'
 
+    within 'ol.breadcrumb' do
+      expect(page).to have_content 'Home'
+      expect(page).to have_content 'Condomínios'
+      expect(page).to have_content 'Cadastrar'
+    end
     expect(current_path).to eq(new_condo_path)
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'CNPJ inválido'
