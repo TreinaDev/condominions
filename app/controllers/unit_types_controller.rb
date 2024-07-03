@@ -14,8 +14,10 @@ class UnitTypesController < ApplicationController
 
   def create
     @unit_type = UnitType.new(unit_type_params)
+    @condo = Condo.find(params[:condo_id])
+    @unit_type.condo = @condo
+
     if @unit_type.save
-      @condo = Condo.find(params[:condo_id])
       redirect_to condo_unit_type_path(@condo, @unit_type), notice: t('notices.unit_type.created')
     else
       flash.now[:alert] = t('alerts.unit_type.not_created')

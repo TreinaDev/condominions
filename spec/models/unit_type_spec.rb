@@ -26,4 +26,20 @@ RSpec.describe UnitType, type: :model do
       end
     end
   end
+
+  context 'formatted text' do
+    it 'show metreage value with square meter (m²)' do
+      unit_type = create(:unit_type, metreage: 12.45)
+      styled_text = unit_type.metreage_to_square_meters
+
+      expect(styled_text).to eq("12.45m²")
+    end
+
+    it 'show metreage value with square meter (m²)' do
+      unit_type = create(:unit_type, fraction: 10)
+      styled_text = unit_type.fraction_to_percentage
+
+      expect(styled_text).to eq("10%")
+    end
+  end
 end

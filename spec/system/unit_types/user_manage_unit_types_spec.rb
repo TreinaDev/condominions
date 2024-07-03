@@ -80,7 +80,7 @@ describe 'User manage unit types' do
       condo = create(:condo, name: 'Condomínio dos rubinhos')
       user = create(:manager)
       login_as user, scope: :manager
-      unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5, fraction: 3)
+      unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5, fraction: 3, condo: condo)
 
       visit condo_unit_type_path(condo, unit_type)
 
@@ -91,7 +91,7 @@ describe 'User manage unit types' do
       condo = create(:condo, name: 'Condomínio dos rubinhos')
       user = create(:manager)
       login_as user, scope: :manager
-      unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5, fraction: 3)
+      unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5, fraction: 3, condo: condo)
 
       visit edit_condo_unit_type_path(condo, unit_type)
       fill_in 'Descrição',	with: 'Apartamento de 2 quartos'
