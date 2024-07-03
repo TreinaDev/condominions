@@ -38,7 +38,7 @@ RSpec.describe Manager, type: :model do
       manager = Manager.new(registration_number: '48151872071')
       manager.valid?
       expect(manager.errors).to include(:registration_number)
-      expect(manager.errors.full_messages).to include("CPF deve estar no seguinte formato: XXX.XXX.XXX-XX")
+      expect(manager.errors.full_messages).to include('CPF deve estar no seguinte formato: XXX.XXX.XXX-XX')
     end
   end
 end

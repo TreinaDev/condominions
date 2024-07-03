@@ -7,7 +7,7 @@ class Resident < ApplicationRecord
   belongs_to :unit
 
   enum resident_type: { owner: 0, tenant: 1 }
-  enum status: { not_confirmed: 0, confirmed: 1}
+  enum status: { not_confirmed: 0, confirmed: 1 }
 
   private
 

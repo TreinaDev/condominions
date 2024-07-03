@@ -22,7 +22,7 @@ RSpec.describe Resident, type: :model do
       resident = build(:resident, registration_number: '48151872071')
       resident.valid?
       expect(resident.errors).to include(:registration_number)
-      expect(resident.errors.full_messages).to include("CPF deve estar no seguinte formato: XXX.XXX.XXX-XX")
+      expect(resident.errors.full_messages).to include('CPF deve estar no seguinte formato: XXX.XXX.XXX-XX')
     end
   end
 end
