@@ -90,7 +90,7 @@
           <div class='row'>
             <% Condo.all.each do |condo| %>
               <div class='col'>
-                <%= button_to condo.name, new_unit_type_path, method: :get, class:'btn btn-dark', data: { turbo: false }%>
+                <%= button_to condo.name, new_condo_unit_type_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false }%>
               </div>
             <% end %>
           </div>
