@@ -6,10 +6,10 @@
       <%= f.label :name %>
       <%= f.text_field :name, class:"form-control" %>
     </div>
-    <div class="form-group col-md-6" data-controller="form">
+    <div class="form-group col-md-6" data-controller="mask">
       <%= f.label :registration_number %>
       <%= f.text_field :registration_number, class:"form-control", placeholder: "00.111.222/3333-44" ,
-          maxlength: "18", :'data-action' => 'keyup->form#RegistrationNumberPressed' %>
+          maxlength: "18", :'data-action' => 'keyup->mask#RegistrationNumberPressed' %>
     </div>
   </div>
   <div>
@@ -40,10 +40,10 @@
           <%= address_f.select :state, options_for_select(Address::STATES), {}, 
           class:"form-control form-select" %>
         </div>
-        <div class="form-group col-md-4 pe-3" data-controller="form">
+        <div class="form-group col-md-4 pe-3" data-controller="mask">
           <%= address_f.label :zip %>
           <%= address_f.text_field :zip, class:"form-control", placeholder: "12345-678" ,
-          maxlength: "9", :'data-action' => 'keyup->form#zipPressed' %>
+          maxlength: "9", :'data-action' => 'keyup->mask#zipPressed' %>
         </div>
       </div>
     <% end %>

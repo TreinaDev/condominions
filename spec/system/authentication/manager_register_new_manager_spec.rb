@@ -12,7 +12,7 @@ describe 'Manager registers new manager' do
       click_on 'Cadastrar novo administrador'
     end
     fill_in 'Nome Completo', with: 'Erika Campos'
-    fill_in 'CPF', with: CPF.generate
+    fill_in 'CPF', with: CPF.generate(format: true)
     fill_in 'E-mail', with: 'admin@email.com'
     fill_in 'Senha', with: 'password'
     attach_file 'Foto', Rails.root.join('spec/support/images/manager_photo.jpg')

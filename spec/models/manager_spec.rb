@@ -19,7 +19,7 @@ RSpec.describe Manager, type: :model do
     end
 
     it 'registration number must be unique' do
-      unique_registration_number = CPF.generate
+      unique_registration_number = CPF.generate(format: true)
       create(:manager, registration_number: unique_registration_number)
       manager = Manager.new(registration_number: unique_registration_number)
 
@@ -34,11 +34,11 @@ RSpec.describe Manager, type: :model do
       expect(manager.errors).to include(:registration_number)
     end
 
-    it 'registration number must be formatted with dashes and dots' do
+    it 'registration number must be formatted' do
       manager = Manager.new(registration_number: '48151872071')
       manager.valid?
-      expect(manager.errors).not_to include(:registration_number)
-      expect(manager.registration_number).to eq '481.518.720-71'
+      expect(manager.errors).to include(:registration_number)
+      expect(manager.errors.full_messages).to include("CPF deve estar no seguinte formato: XXX.XXX.XXX-XX")
     end
   end
 end
