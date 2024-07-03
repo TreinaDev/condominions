@@ -12,15 +12,15 @@ module ApplicationHelper
 
   def formatted_flash(type, messages)
     if type == :notice
-      "<div class=\"alert alert-success\" role='alert'>#{splitted_messages(messages)}</div>"
+      "<div class=\"alert alert-success\" role='alert'>#{split_messages(messages)}</div>"
     elsif type == :alert
-      "<div class=\"alert alert-danger\" role='alert'>#{splitted_messages(messages)}</div>"
+      "<div class=\"alert alert-danger\" role='alert'>#{split_messages(messages)}</div>"
     else
-      "<div class=\"alert alert-#{type}\" role='alert'>#{splitted_messages(messages)}</div>"
+      "<div class=\"alert alert-#{type}\" role='alert'>#{split_messages(messages)}</div>"
     end
   end
 
-  def splitted_messages(messages)
+  def split_messages(messages)
     messages.chomp.gsub("\n", '<br>')
   end
 end

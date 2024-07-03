@@ -2,24 +2,9 @@ require 'rails_helper'
 
 describe "Administrator sees floor's details" do
   it 'only if authenticated' do
-    first_unit_type =  create :unit_type,
-                              description: 'Apartamento de 1 quarto',
-                              metreage: 50.55
-
-    second_unit_type = create :unit_type,
-                              description: 'Apartamento de 2 quartos',
-                              metreage: 80.75
-
     tower = create :tower, units_per_floor: 5, floor_quantity: 3
     tower.generate_floors
     floor = tower.floors[1]
-    floor.generate_units
-
-    floor.units[0].update unit_type: second_unit_type
-    floor.units[1].update unit_type: first_unit_type
-    floor.units[2].update unit_type: second_unit_type
-    floor.units[3].update unit_type: first_unit_type
-    floor.units[4].update unit_type: second_unit_type
 
     visit tower_floor_path(tower, floor)
 
@@ -39,7 +24,6 @@ describe "Administrator sees floor's details" do
     tower = create :tower, units_per_floor: 5, floor_quantity: 3
     tower.generate_floors
     floor = tower.floors[1]
-    floor.generate_units
 
     floor.units[0].update unit_type: second_unit_type
     floor.units[1].update unit_type: first_unit_type

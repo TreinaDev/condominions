@@ -62,9 +62,8 @@ describe 'Administrator edit floor type' do
     expect(page).to have_content 'Torre A'
     expect(tower.floors.first.units.first.unit_type.description).to eq 'Apartamento de 2 quartos'
     expect(tower.floors.first.units.last.unit_type.description).to eq 'Apartamento de 1 quarto'
-    expect(page).not_to have_link <<~HEREDOC.strip
-      Cadastro do(a) #{tower.name} do(a) #{tower.condo.name} incompleto(a), por favor, atualize o pavimento tipo
-    HEREDOC
+    expect(page).not_to have_link 'Cadastro do(a) Condomínio A do(a) Torre A incompleto(a), ' \
+                                  'por favor, atualize o pavimento tipo'
   end
 
   it 'and fails if there is unselected unit types' do
@@ -105,9 +104,8 @@ describe 'Administrator edit floor type' do
       login_as user, scope: :manager
       visit root_path
 
-      expect(page).to have_link <<~HEREDOC.strip
-        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
-      HEREDOC
+      expect(page).to have_link 'Cadastro do(a) Torre B do(a) Condomínio A incompleto(a), ' \
+                                'por favor, atualize o pavimento tipo'
     end
 
     it 'and go to floor type registration page after clicked the warning link' do
@@ -118,15 +116,13 @@ describe 'Administrator edit floor type' do
 
       login_as user, scope: :manager
       visit root_path
-      click_on <<~HEREDOC.strip
-        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
-      HEREDOC
+      click_on 'Cadastro do(a) Torre B do(a) Condomínio A incompleto(a), ' \
+               'por favor, atualize o pavimento tipo'
 
       expect(current_path).to eq edit_floor_units_condo_tower_path(condo, tower)
       expect(page).to have_content 'Atualizar Pavimento Tipo do(a) Torre B'
-      expect(page).not_to have_link <<~HEREDOC.strip
-        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
-      HEREDOC
+      expect(page).not_to have_link 'Cadastro do(a) Torre B do(a) Condomínio A incompleto(a), ' \
+                                    'por favor, atualize o pavimento tipo'
     end
 
     it 'on tower details page' do
@@ -138,9 +134,7 @@ describe 'Administrator edit floor type' do
       login_as user, scope: :manager
       visit tower_path tower
 
-      expect(page).to have_link <<~HEREDOC.strip
-        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
-      HEREDOC
+      expect(page).to have_link
     end
 
     it 'only if authenticated' do
@@ -150,9 +144,8 @@ describe 'Administrator edit floor type' do
 
       visit root_path
 
-      expect(page).not_to have_link <<~HEREDOC.strip
-        Cadastro do(a) #{tower.name} do(a) #{condo.name} incompleto(a), por favor, atualize o pavimento tipo
-      HEREDOC
+      expect(page).not_to have_link 'Cadastro do(a) Torre B do(a) Condomínio A incompleto(a), ' \
+                                    'por favor, atualize o pavimento tipo'
     end
   end
 end

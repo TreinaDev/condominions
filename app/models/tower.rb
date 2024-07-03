@@ -14,6 +14,11 @@ class Tower < ApplicationRecord
     floor_quantity.times { create_floor_with_units }
   end
 
+  def warning_html_message
+    "Cadastro do(a) <strong>#{name}</strong> do(a) <strong>#{condo.name}</strong> " \
+      'incompleto(a), por favor, atualize o pavimento tipo.'
+  end
+
   private
 
   def create_floor_with_units
