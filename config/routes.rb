@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   devise_for :managers
   devise_for :residents
   resources :managers, only: [:new, :create]
-  resources :residents, only: [:new, :create]
+  resources :residents, only: [:new, :create] do 
+    get 'find_towers', on: :collection 
+  end
   resources :common_areas, only: [:show, :edit, :update]
   resources :unit_types, only: [:new, :create, :show, :edit, :update]
 

@@ -8,6 +8,12 @@ describe 'Manager registers new resident' do
     create(:tower, 'condo' => condo, name: 'Torre errada')
     create(:tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 10, units_per_floor: 5)
 
+    mail = double('mail', deliver: true)
+    mailer_double = double('ResidentMailer', notify_new_resident: mail)
+
+    allow(ResidentMailer).to receive(:with).and_return(mailer_double)
+    allow(mailer_double).to receive(:notify_new_resident).and_return(mail)
+
     login_as(manager, scope: :manager)
     visit root_path
     within('nav') do
@@ -30,5 +36,6 @@ describe 'Manager registers new resident' do
     expect(page).to have_content 'Convite enviado com sucesso para Adroaldo Junior (adroaldo@email.com)'
     expect(Resident.last.full_name).to eq 'Adroaldo Junior'
     expect(Resident.last.status).to eq 'not_confirmed'
+    expect(mail).to have_received(:deliver).once
   end
 end

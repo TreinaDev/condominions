@@ -2,22 +2,21 @@ class ResidentsController < ApplicationController
   def new
     @resident = Resident.new
     @condos = Condo.all
-    @condos_json = Condo.all.to_json(only: %i[id name],
-                                     include: { towers: { only: %i[name id
-                                                                   floor_quantity units_per_floor] } })
   end
 
   def create
     @condos = Condo.all
-    @condos_json = Condo.all.to_json(only: %i[id name],
-                                     include: { towers: { only: %i[name id
-                                                                   floor_quantity units_per_floor] } })
+
     @resident = Resident.new(resident_params)
     if @resident.save
       redirect_to root_path, notice: "Convite enviado com sucesso para #{@resident.full_name} (#{@resident.email})"
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def find_towers
+    render json: Condo.find(params[:id]).towers.to_json(only: %i[id name units_per_floor floor_quantity])
   end
 
   private
