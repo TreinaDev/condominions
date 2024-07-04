@@ -6,38 +6,38 @@ RSpec.describe UnitType, type: :model do
       unit_type = UnitType.new(description: '', metreage: '', fraction: '')
 
       expect(unit_type).not_to be_valid
-      expect(unit_type.errors.include?(:description)).to be true
-      expect(unit_type.errors.include?(:metreage)).to be true
-      expect(unit_type.errors.include?(:fraction)).to be true
+      expect(unit_type.errors).to include(:description)
+      expect(unit_type.errors).to include(:metreage)
+      expect(unit_type.errors).to include(:fraction)
     end
 
     context 'Metreage must be bigger than zero' do
       it 'metreage equal zero' do
         unit_type = UnitType.new(metreage: 0)
-        unit_type.valid?
 
-        expect(unit_type.errors.include?(:metreage)).to be true
+        expect(unit_type).not_to be_valid
+        expect(unit_type.errors).to include(:metreage)
       end
       it 'metreage less than zero' do
         unit_type = UnitType.new(metreage: -1)
-        unit_type.valid?
 
-        expect(unit_type.errors.include?(:metreage)).to be true
+        expect(unit_type).not_to be_valid
+        expect(unit_type.errors).to include(:metreage)
       end
     end
 
-    context 'fraction must be bigger than zero' do
+    context 'Fraction must be bigger than zero' do
       it 'fraction equal zero' do
         unit_type = UnitType.new(fraction: 0)
-        unit_type.valid?
 
-        expect(unit_type.errors.include?(:fraction)).to be true
+        expect(unit_type).not_to be_valid
+        expect(unit_type.errors).to include(:fraction)
       end
       it 'fraction less than zero' do
         unit_type = UnitType.new(fraction: -1)
-        unit_type.valid?
 
-        expect(unit_type.errors.include?(:fraction)).to be true
+        expect(unit_type).not_to be_valid
+        expect(unit_type.errors).to include(:fraction)
       end
     end
   end
@@ -50,7 +50,7 @@ RSpec.describe UnitType, type: :model do
       expect(styled_text).to eq('12.45m²')
     end
 
-    it 'show metreage value with square meter (m²)' do
+    it 'show fraction value with percentage symbol (%)' do
       unit_type = create(:unit_type, fraction: 10.12345)
       styled_text = unit_type.fraction_to_percentage
 

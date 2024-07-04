@@ -4,7 +4,7 @@ describe 'User manage unit types' do
   context 'User register new unit type' do
     it 'sucessfully' do
       user = create(:manager)
-      create(:condo, name: 'Condomínio dos rubinhos')
+      condo = create(:condo, name: 'Condomínio dos rubinhos')
       login_as user, scope: :manager
 
       visit root_path
@@ -21,7 +21,7 @@ describe 'User manage unit types' do
       click_on 'Criar Tipo de unidade'
 
       expect(page).to have_content('Tipo de unidade cadastrado com sucesso')
-      expect(current_path).to eq condo_unit_type_path(Condo.last, UnitType.last)
+      expect(current_path).to eq condo_unit_type_path(condo, UnitType.last)
       expect(page).to have_content('Descrição: Apartamento de 2 quartos')
       expect(page).to have_content('Metragem: 50.0m²')
       expect(page).to have_content('Fração Ideal: 3.0%')
@@ -61,7 +61,7 @@ describe 'User manage unit types' do
       expect(page).to have_content('Fração Ideal (Valor em porcentagem)')
     end
 
-    it 'metreage cannot be zero or less' do
+    it 'metreage and fraction cannot be zero or less' do
       condo = create(:condo, name: 'Condomínio dos rubinhos')
       user = create(:manager)
       login_as user, scope: :manager
@@ -69,10 +69,12 @@ describe 'User manage unit types' do
 
       fill_in 'Descrição',	with: 'Apartamento de 2 quartos'
       fill_in 'Metragem',	with: '0'
+      fill_in 'Fração Ideal', with: '-1'
       click_on 'Criar Tipo de unidade'
 
       expect(page).to have_content('Erro ao cadastrar tipo de unidade')
       expect(page).to have_content('Metragem deve ser maior que 0')
+      expect(page).to have_content('Fração Ideal deve ser maior que 0')
     end
   end
 
