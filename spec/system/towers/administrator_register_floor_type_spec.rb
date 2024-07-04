@@ -12,21 +12,6 @@ describe 'Administrator edit floor type' do
     expect(current_path).to eq new_manager_session_path
   end
 
-  it 'from the tower details page' do
-    user = create :manager
-    tower = create :tower
-    tower.generate_floors
-
-    create :unit_type, description: 'Apartamento de 1 quarto'
-    create :unit_type, description: 'Apartamento de 2 quartos'
-
-    login_as user, scope: :manager
-    visit tower_path tower
-    click_on 'Editar Pavimento Tipo'
-
-    expect(current_path).to eq edit_floor_units_condo_tower_path(tower.condo, tower)
-  end
-
   it 'successfully' do
     user = create :manager
     condo = create :condo, name: 'Condomínio A'
@@ -37,7 +22,8 @@ describe 'Administrator edit floor type' do
     create :unit_type, description: 'Apartamento de 2 quartos'
 
     login_as user, scope: :manager
-    visit edit_floor_units_condo_tower_path(tower.condo, tower)
+    visit tower_path tower
+    click_on 'Editar Pavimento Tipo'
 
     within '#unit-1' do
       select 'Apartamento de 2 quartos', from: 'Unidade modelo 1'
@@ -95,19 +81,6 @@ describe 'Administrator edit floor type' do
   end
 
   context 'see a warning if registration is not complete' do
-    it 'on root path' do
-      user = create :manager
-      condo = create :condo, name: 'Condomínio A'
-      tower = create :tower, condo:, name: 'Torre B'
-      tower.generate_floors
-
-      login_as user, scope: :manager
-      visit root_path
-
-      expect(page).to have_link 'Cadastro do(a) Torre B do(a) Condomínio A incompleto(a), ' \
-                                'por favor, atualize o pavimento tipo'
-    end
-
     it 'and go to floor type registration page after clicked the warning link' do
       user = create :manager
       condo = create :condo, name: 'Condomínio A'
