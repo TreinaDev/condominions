@@ -10,20 +10,11 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body >
+  <body>
     <%= render 'shared/navbar' %>
 
     <div class="container mt-6">
-      <% if notice %>
-        <div class="alert alert-success" role="alert">
-          <%= notice %>
-        </div>
-      <% end %>
-      <% if alert %>
-        <div class="alert alert-danger" role="alert">
-          <%= alert %>
-        </div>
-      <% end %>
+      <%= flash_messages %>
       <%= yield %>
     </div>
   </body>
