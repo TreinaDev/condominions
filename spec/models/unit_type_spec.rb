@@ -16,13 +16,13 @@ RSpec.describe UnitType, type: :model do
         unit_type = UnitType.new(metreage: 0)
 
         expect(unit_type).not_to be_valid
-        expect(unit_type.errors).to include(:metreage)
+        expect(unit_type.errors.full_messages).to include('Metragem deve ser maior que 0')
       end
       it 'metreage less than zero' do
         unit_type = UnitType.new(metreage: -1)
 
         expect(unit_type).not_to be_valid
-        expect(unit_type.errors).to include(:metreage)
+        expect(unit_type.errors.full_messages).to include('Metragem deve ser maior que 0')
       end
     end
 
@@ -31,13 +31,13 @@ RSpec.describe UnitType, type: :model do
         unit_type = UnitType.new(fraction: 0)
 
         expect(unit_type).not_to be_valid
-        expect(unit_type.errors).to include(:fraction)
+        expect(unit_type.errors.full_messages).to include('Fração Ideal deve ser maior que 0')
       end
       it 'fraction less than zero' do
         unit_type = UnitType.new(fraction: -1)
 
         expect(unit_type).not_to be_valid
-        expect(unit_type.errors).to include(:fraction)
+        expect(unit_type.errors.full_messages).to include('Fração Ideal deve ser maior que 0')
       end
     end
   end
