@@ -1,5 +1,6 @@
 class TowersController < ApplicationController
   before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
+  before_action :authenticate_manager!, only: %i[show new edit_floor_units create update_floor_units]
 
   def show; end
 
@@ -47,6 +48,8 @@ class TowersController < ApplicationController
         unit.update unit_type_id: unit_types[index.to_s]
       end
     end
+
+    @tower.complete!
   end
 
   def set_tower
