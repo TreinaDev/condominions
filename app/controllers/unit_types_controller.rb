@@ -6,7 +6,6 @@ class UnitTypesController < ApplicationController
   def show; end
 
   def new
-    @condo = Condo.find(params[:condo_id])
     @unit_type = UnitType.new
   end
 
@@ -14,7 +13,6 @@ class UnitTypesController < ApplicationController
 
   def create
     @unit_type = UnitType.new(unit_type_params)
-    @condo = Condo.find(params[:condo_id])
     @unit_type.condo = @condo
 
     if @unit_type.save
