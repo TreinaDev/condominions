@@ -134,7 +134,8 @@ describe 'Administrator edit floor type' do
       login_as user, scope: :manager
       visit tower_path tower
 
-      expect(page).to have_link
+      expect(page).to have_link 'Cadastro do(a) Torre B do(a) Condomínio A incompleto(a), ' \
+                                'por favor, atualize o pavimento tipo'
     end
 
     it 'only if authenticated' do
