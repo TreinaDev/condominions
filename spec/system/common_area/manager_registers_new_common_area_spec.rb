@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'Manager registers new common area' do
-
   it 'successfully' do
     manager = create(:manager)
     condo = create :condo, name: 'Condominio Residencial Paineiras'

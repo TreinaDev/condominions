@@ -34,9 +34,8 @@ class TowersController < ApplicationController
 
   def update_floor_units
     add_breadcrumb 'Pavimento Tipo'
-    if all_unit_types_selected
-      return redirect_to @tower, notice: t('notices.floor.updated')
-    end
+    return redirect_to @tower, notice: t('notices.floor.updated') if all_unit_types_selected
+
     @unit_types = UnitType.order :description
     flash.now[:alert] = t('alerts.units.not_updated')
     render 'edit_floor_units', status: :unprocessable_entity
@@ -59,10 +58,10 @@ class TowersController < ApplicationController
     unit_types = params.require :unit_types
     unit_types.each_value { |value| is_all_unit_types_selected = false if value.blank? }
 
-    if is_all_unit_types_selected
-      update_units(unit_types)
-      true
-    end
+    return unless is_all_unit_types_selected
+
+    update_units(unit_types)
+    true
   end
 
   def set_condo

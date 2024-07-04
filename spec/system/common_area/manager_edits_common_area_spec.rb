@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'Manager edits common area' do
-
   it 'succesfully' do
     manager = create(:manager)
     common_area = create(:common_area)
