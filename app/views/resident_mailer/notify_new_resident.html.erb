@@ -1,7 +1,8 @@
 <h1>Olá <%= @resident.full_name %>!</h1>
 
 <p>Você foi convidado para se registrar no sistema CondoMinions.</p>
-<p>Dados de login:</p>
+<p>Dados de Login</p>
+<p>Tipo de Usuário: <%= t(@resident.resident_type) %></p>
 <p>Email: <%= @resident.email %></p>
 <p>Condomínio: <%= @resident.condo.name %></p>
 <p>Torre: <%= @resident.tower.name %></p>

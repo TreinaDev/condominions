@@ -3,6 +3,7 @@ class Resident < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   validate :valid_registration_number
+  validates :full_name, :resident_type, presence: true
   validates :registration_number, uniqueness: true
   belongs_to :unit
 

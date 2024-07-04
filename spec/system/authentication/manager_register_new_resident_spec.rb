@@ -25,7 +25,6 @@ describe 'Manager registers new resident' do
     fill_in 'Nome Completo', with: 'Adroaldo Junior'
     fill_in 'CPF',	with: CPF.generate(format: true)
     fill_in 'E-mail',	with: 'adroaldo@email.com'
-    fill_in 'Senha', with: 'senha123'
     select 'Proprietário', from: 'Tipo de Morador'
     select 'Condominio Certo', from: 'Condomínio'
     select 'Torre correta', from: 'Torre'
@@ -37,5 +36,41 @@ describe 'Manager registers new resident' do
     expect(Resident.last.full_name).to eq 'Adroaldo Junior'
     expect(Resident.last.status).to eq 'not_confirmed'
     expect(mail).to have_received(:deliver).once
+  end
+
+  it 'must be authenticated' do
+    visit new_resident_path
+
+    expect(current_path).to eq new_manager_session_path
+  end
+
+  it 'and can only be authenticated as a manager' do
+    resident = create :resident
+
+    login_as(resident, scope: :resident)
+    visit new_resident_path
+
+    expect(current_path).to eq root_path
+  end
+
+  it 'with incomplete data' do
+    manager = create(:manager)
+
+    login_as(manager, scope: :manager)
+    visit root_path
+    within('nav') do
+      click_on id: 'side-menu'
+      click_on 'Gerenciar usuarios'
+      click_on 'Cadastrar morador'
+    end
+
+    fill_in 'Nome Completo', with: ''
+    fill_in 'CPF',	with: ''
+    fill_in 'E-mail',	with: ''
+    click_on 'Enviar'
+
+    expect(page).to have_content 'Nome Completo não pode ficar em branco'
+    expect(page).to have_content 'CPF inválido'
+    expect(page).to have_content 'Unidade é obrigatório(a)'
   end
 end
