@@ -1,6 +1,9 @@
 class UnitTypesController < ApplicationController
   before_action :set_unit_type, only: %i[edit update show]
 
+  add_breadcrumb 'Home', :root_path
+  add_breadcrumb 'Condomínios', :condos_path, only: %i[new show edit create update]
+
   def show; end
 
   def new

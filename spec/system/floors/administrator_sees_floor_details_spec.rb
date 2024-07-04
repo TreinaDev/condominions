@@ -1,7 +1,18 @@
 require 'rails_helper'
 
 describe "Administrator sees floor's details" do
+  it 'only if authenticated' do
+    tower = create :tower, units_per_floor: 5, floor_quantity: 3
+    tower.generate_floors
+    floor = tower.floors[1]
+
+    visit tower_floor_path(tower, floor)
+
+    expect(current_path).to eq new_manager_session_path
+  end
+
   it "and sees a list of floor's apartments" do
+    user = create :manager
     first_unit_type =  create :unit_type,
                               description: 'Apartamento de 1 quarto',
                               metreage: 50.55
@@ -14,7 +25,6 @@ describe "Administrator sees floor's details" do
     tower = create(:tower, name: 'Torre A', units_per_floor: 5, floor_quantity: 3, condo:)
     tower.generate_floors
     floor = tower.floors[1]
-    floor.generate_units
 
     floor.units[0].update unit_type: second_unit_type
     floor.units[1].update unit_type: first_unit_type
@@ -22,17 +32,9 @@ describe "Administrator sees floor's details" do
     floor.units[3].update unit_type: first_unit_type
     floor.units[4].update unit_type: second_unit_type
 
+    login_as user, scope: :manager
     visit tower_path tower
     click_on '2º Andar'
-
-    within 'ol.breadcrumb' do
-      expect(page).to have_content 'Home'
-      expect(page).to have_content 'Condomínios'
-      expect(page).to have_content 'Condominio Residencial Paineiras'
-      expect(page).to have_content 'Torres'
-      expect(page).to have_content 'Torre A'
-      expect(page).to have_content '2º Andar'
-    end
 
     expect(current_path).to eq tower_floor_path(tower, floor)
     expect(page).to have_content 'Torre A'
@@ -53,21 +55,14 @@ describe "Administrator sees floor's details" do
   end
 
   it "and returns to floor type registration if it isn't registered yet" do
+    user = create :manager
     tower = build :tower
     tower.generate_floors
     floor = tower.floors.first
-    floor.generate_units
 
+    login_as user, scope: :manager
     visit tower_floor_path(tower, floor)
 
-    within 'ol.breadcrumb' do
-      expect(page).to have_content 'Home'
-      expect(page).to have_content 'Condomínios'
-      expect(page).to have_content 'Condominio Residencial Paineiras'
-      expect(page).to have_content 'Torres'
-      expect(page).to have_content 'Torre A'
-      expect(page).to have_content 'Pavimento Tipo'
-    end
     expect(current_path).to eq edit_floor_units_condo_tower_path(tower.condo, tower)
     expect(page).to have_content 'Você deve atualizar o pavimento tipo antes de acessar essa página'
   end

@@ -1,4 +1,5 @@
 class FloorsController < ApplicationController
+  before_action :authenticate_manager!, only: [:show]
   before_action :assure_floor_type_registration, only: [:show]
   before_action :set_tower, only: %i[show]
 

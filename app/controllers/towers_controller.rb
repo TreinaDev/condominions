@@ -1,4 +1,5 @@
 class TowersController < ApplicationController
+  before_action :authenticate_manager!, only: %i[show new edit_floor_units create update_floor_units]
   before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
   before_action :set_condo, only: %i[new create]
 
@@ -6,7 +7,6 @@ class TowersController < ApplicationController
   add_breadcrumb 'Condomínios', :condos_path, only: %i[show new create edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_details, only: %i[show edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
-  add_breadcrumb 'Pavimento Tipo', only: %i[edit_floor_units update_floor_units]
 
   def show; end
 
@@ -15,6 +15,7 @@ class TowersController < ApplicationController
   end
 
   def edit_floor_units
+    add_breadcrumb 'Pavimento Tipo'
     @unit_types = UnitType.order :description
   end
 
@@ -32,15 +33,10 @@ class TowersController < ApplicationController
   end
 
   def update_floor_units
-    is_all_unit_types_selected = true
-    unit_types = params.require :unit_types
-    unit_types.each_value { |value| is_all_unit_types_selected = false if value.blank? }
-
-    if is_all_unit_types_selected
-      update_units(unit_types)
+    add_breadcrumb 'Pavimento Tipo'
+    if all_unit_types_selected
       return redirect_to @tower, notice: t('notices.floor.updated')
     end
-
     @unit_types = UnitType.order :description
     flash.now[:alert] = t('alerts.units.not_updated')
     render 'edit_floor_units', status: :unprocessable_entity
@@ -53,6 +49,19 @@ class TowersController < ApplicationController
       floor.units.each_with_index do |unit, index|
         unit.update unit_type_id: unit_types[index.to_s]
       end
+    end
+
+    @tower.complete!
+  end
+
+  def all_unit_types_selected
+    is_all_unit_types_selected = true
+    unit_types = params.require :unit_types
+    unit_types.each_value { |value| is_all_unit_types_selected = false if value.blank? }
+
+    if is_all_unit_types_selected
+      update_units(unit_types)
+      true
     end
   end
 

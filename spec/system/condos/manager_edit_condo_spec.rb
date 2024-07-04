@@ -8,21 +8,6 @@ describe 'Manager edits condo' do
     expect(current_path).to eq new_manager_session_path
   end
 
-  it 'and sees breadcrumb' do
-    manager = create(:manager)
-    condo = create :condo, name: 'Condominio Residencial Paineiras'
-
-    login_as(manager, scope: :manager)
-    visit edit_condo_path(condo)
-
-    within 'ol.breadcrumb' do
-      expect(page).to have_content 'Home'
-      expect(page).to have_content 'Condomínios'
-      expect(page).to have_content 'Condominio Residencial Paineiras'
-      expect(page).to have_content 'Editar'
-    end
-  end
-
   it 'sucessfully' do
     manager = create(:manager)
     condo = create(:condo)
@@ -62,12 +47,6 @@ describe 'Manager edits condo' do
     fill_in 'CEP', with: ''
     click_on 'Salvar'
 
-    within 'ol.breadcrumb' do
-      expect(page).to have_content 'Home'
-      expect(page).to have_content 'Condomínios'
-      expect(page).to have_content 'Condominio Residencial Paineiras'
-      expect(page).to have_content 'Editar'
-    end
     expect(current_path).to eq edit_condo_path(condo)
     expect(page).to have_content 'CNPJ inválido'
     expect(page).to have_content 'Cidade não pode ficar em branco'

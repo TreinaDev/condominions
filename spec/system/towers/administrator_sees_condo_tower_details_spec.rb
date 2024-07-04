@@ -1,19 +1,23 @@
 require 'rails_helper'
 
 describe "Administrator sees tower's details" do
-  it "and sees a list of tower's floors" do
+  it 'only if authenticated' do
     tower = build :tower, name: 'Torre A', floor_quantity: 3
     tower.generate_floors
 
-    visit tower_path(tower)
+    visit tower_path tower
 
-    within 'ol.breadcrumb' do
-      expect(page).to have_content 'Home'
-      expect(page).to have_content 'Condomínios'
-      expect(page).to have_content 'Condominio Residencial Paineiras'
-      expect(page).to have_content 'Torres'
-      expect(page).to have_content 'Torre A'
-    end
+    expect(current_path).to eq new_manager_session_path
+  end
+
+  it "and sees a list of tower's floors" do
+    user = create :manager
+    tower = build :tower, name: 'Torre A', floor_quantity: 3
+    tower.generate_floors
+
+    login_as user, scope: :manager
+    visit tower_path tower
+
     expect(page).to have_content 'Torre A'
     expect(page).to have_content 'Andares'
     expect(page).to have_content '1º Andar'

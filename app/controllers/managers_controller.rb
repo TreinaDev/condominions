@@ -1,11 +1,15 @@
 class ManagersController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create]
 
+  add_breadcrumb 'Home', :root_path
+
   def new
+    add_breadcrumb 'Cadastrar Administrador'
     @manager = Manager.new
   end
 
   def create
+    add_breadcrumb 'Cadastrar Administrador'
     @manager = Manager.new(manager_params)
     if @manager.save
       redirect_to root_path, notice: <<~NOTICE
