@@ -16,7 +16,7 @@ class Tower < ApplicationRecord
 
   def warning_html_message
     "Cadastro do(a) <strong>#{name}</strong> do(a) <strong>#{condo.name}</strong> " \
-      'incompleto(a), por favor, atualize o pavimento tipo.'
+      "incompleto(a), por favor, atualize o pavimento tipo.\n"
   end
 
   private

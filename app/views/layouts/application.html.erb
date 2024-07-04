@@ -14,7 +14,7 @@
     <%= render 'shared/navbar' %>
 
     <div class="container mt-6">
-      <%= content_tag(:div, flash_messages) %>
+      <%= flash_messages %>
       <%= yield %>
     </div>
   </body>
