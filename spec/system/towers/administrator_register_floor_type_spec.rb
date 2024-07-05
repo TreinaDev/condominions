@@ -3,7 +3,6 @@ require 'rails_helper'
 describe 'Administrator edit floor type' do
   it 'only if authenticated' do
     tower = create :tower
-    tower.generate_floors
     create :unit_type, description: 'Apartamento de 1 quarto'
     create :unit_type, description: 'Apartamento de 2 quartos'
 
@@ -54,7 +53,6 @@ describe 'Administrator edit floor type' do
   it 'and fails if there is unselected unit types' do
     user = create :manager
     tower = create :tower
-    tower.generate_floors
 
     create :unit_type, description: 'Apartamento de 1 quarto'
     create :unit_type, description: 'Apartamento de 2 quartos'
@@ -84,7 +82,6 @@ describe 'Administrator edit floor type' do
       user = create :manager
       condo = create :condo, name: 'Condomínio A'
       tower = create :tower, condo:, name: 'Torre B'
-      tower.generate_floors
 
       login_as user, scope: :manager
       visit root_path
@@ -101,7 +98,6 @@ describe 'Administrator edit floor type' do
       user = create :manager
       condo = create :condo, name: 'Condomínio A'
       tower = create :tower, condo:, name: 'Torre B'
-      tower.generate_floors
 
       login_as user, scope: :manager
       visit tower_path tower
@@ -112,8 +108,7 @@ describe 'Administrator edit floor type' do
 
     it 'only if authenticated' do
       condo = create :condo, name: 'Condomínio A'
-      tower = create :tower, condo:, name: 'Torre B'
-      tower.generate_floors
+      create :tower, condo:, name: 'Torre B'
 
       visit root_path
 
