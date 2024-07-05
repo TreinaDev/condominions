@@ -36,7 +36,7 @@ describe 'Manager edits condo' do
 
   it 'with missing params' do
     manager = create(:manager)
-    condo = create :condo, name: 'Condominio Residencial Paineiras'
+    condo = create(:condo)
 
     login_as(manager, scope: :manager)
     visit condo_path(condo)

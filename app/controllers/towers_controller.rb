@@ -3,7 +3,8 @@ class TowersController < ApplicationController
   before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
   before_action :set_condo, only: %i[new create]
 
-  add_breadcrumb 'Condomínios', :condos_path, only: %i[show new create edit_floor_units update_floor_units]
+  add_breadcrumb I18n.t('breadcrumb.condo.index'), :condos_path,
+                 only: %i[show new create edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_details, only: %i[show edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
 
@@ -14,7 +15,7 @@ class TowersController < ApplicationController
   end
 
   def edit_floor_units
-    add_breadcrumb 'Pavimento Tipo'
+    add_breadcrumb I18n.t('breadcrumb.tower.floor_type')
     @unit_types = UnitType.order :description
   end
 
@@ -32,7 +33,7 @@ class TowersController < ApplicationController
   end
 
   def update_floor_units
-    add_breadcrumb 'Pavimento Tipo'
+    add_breadcrumb I18n.t('breadcrumb.tower.floor_type')
     return redirect_to @tower, notice: t('notices.floor.updated') if all_unit_types_selected
 
     @unit_types = UnitType.order :description
@@ -81,13 +82,12 @@ class TowersController < ApplicationController
 
   def set_breadcrumbs_for_details
     add_breadcrumb @tower.condo.name.to_s, @tower.condo
-    add_breadcrumb 'Torres', condo_towers_path(@tower.condo)
+    add_breadcrumb I18n.t('breadcrumb.tower.index'), condo_towers_path(@tower.condo)
     add_breadcrumb @tower.name.to_s, @tower
   end
 
   def set_breadcrumbs_for_register
     add_breadcrumb @condo.name.to_s, @condo
-    add_breadcrumb 'Torres', condo_towers_path(@condo)
-    add_breadcrumb 'Cadastrar'
+    add_breadcrumb I18n.t('breadcrumb.tower.new')
   end
 end

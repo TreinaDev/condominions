@@ -2,7 +2,7 @@ class CondosController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create edit update]
   before_action :set_condo, only: %i[show edit update]
 
-  add_breadcrumb 'Condomínios', :condos_path, only: %i[new create show edit update]
+  add_breadcrumb I18n.t('breadcrumb.condo.index'), :condos_path, only: %i[new create show edit update]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
 
   def index
@@ -12,16 +12,16 @@ class CondosController < ApplicationController
   def show; end
 
   def new
-    add_breadcrumb 'Cadastrar'
+    add_breadcrumb I18n.t('breadcrumb.condo.new')
     @condo = Condo.new
   end
 
   def edit
-    add_breadcrumb 'Editar'
+    add_breadcrumb I18n.t('breadcrumb.edit')
   end
 
   def create
-    add_breadcrumb 'Cadastrar'
+    add_breadcrumb I18n.t('breadcrumb.condo.new')
     @condo = Condo.new(condo_params)
 
     if @condo.save
@@ -33,7 +33,7 @@ class CondosController < ApplicationController
   end
 
   def update
-    add_breadcrumb 'Editar'
+    add_breadcrumb I18n.t('breadcrumb.edit')
     if @condo.update(condo_params)
       redirect_to @condo, notice: t('notices.condo.updated')
     else

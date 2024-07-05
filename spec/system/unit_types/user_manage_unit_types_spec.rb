@@ -30,7 +30,7 @@ describe 'User manage unit types' do
     it 'with missing parameters' do
       user = create(:manager)
       login_as user, scope: :manager
-      condo = create(:condo, name: 'Condomínio dos rubinhos')
+      condo = create(:condo)
       visit new_condo_unit_type_path(condo)
 
       click_on 'Criar Tipo de unidade'
@@ -92,7 +92,7 @@ describe 'User manage unit types' do
     end
 
     it 'succesfully' do
-      condo = create(:condo, name: 'Condomínio dos rubinhos')
+      condo = create(:condo)
       user = create(:manager)
       login_as user, scope: :manager
       unit_type = UnitType.create!(description: 'Apartamento de 50 quartos', metreage: 5,
@@ -112,7 +112,7 @@ describe 'User manage unit types' do
     end
 
     it 'with missing params' do
-      condo = create(:condo, name: 'Condomínio dos rubinhos')
+      condo = create(:condo)
       user = create(:manager)
       login_as user, scope: :manager
       unit_type = create(:unit_type)

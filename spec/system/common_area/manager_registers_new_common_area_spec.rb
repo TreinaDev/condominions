@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Manager registers new common area' do
   it 'successfully' do
     manager = create(:manager)
-    condo = create :condo, name: 'Condominio Residencial Paineiras'
+    condo = create(:condo)
 
     login_as(manager, scope: :manager)
     visit new_condo_common_area_path(condo)
