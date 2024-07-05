@@ -3,7 +3,6 @@ class TowersController < ApplicationController
   before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
   before_action :set_condo, only: %i[new create]
 
-  add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Condomínios', :condos_path, only: %i[show new create edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_details, only: %i[show edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_register, only: %i[new create]

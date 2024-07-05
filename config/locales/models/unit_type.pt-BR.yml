@@ -9,6 +9,7 @@ pt-BR:
       not_updated: 'Erro ao atualizar tipo de unidade'
   description: 'Descrição'
   metreage: 'Metragem'
+  fraction: 'Fração Ideal'
   activerecord:
     models:
       unit_type:
@@ -18,3 +19,4 @@ pt-BR:
       unit_type:
         description: 'Descrição'
         metreage: 'Metragem'
+        fraction: 'Fração Ideal'

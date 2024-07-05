@@ -2,7 +2,6 @@ class CondosController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create edit update]
   before_action :set_condo, only: %i[show edit update]
 
-  add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Condomínios', :condos_path, only: %i[new create show edit update]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
 
@@ -26,9 +25,9 @@ class CondosController < ApplicationController
     @condo = Condo.new(condo_params)
 
     if @condo.save
-      flash.alert = 'Cadastrado com sucesso!'
-      redirect_to @condo
+      redirect_to @condo, notice: t('notices.condo.created')
     else
+      flash.now[:alert] = t('alerts.condo.not_created')
       render :new, status: :unprocessable_entity
     end
   end
@@ -36,9 +35,9 @@ class CondosController < ApplicationController
   def update
     add_breadcrumb 'Editar'
     if @condo.update(condo_params)
-      flash.alert = 'Editado com sucesso!'
-      redirect_to @condo
+      redirect_to @condo, notice: t('notices.condo.updated')
     else
+      flash.now[:alert] = t('alerts.condo.not_updated')
       render :edit, status: :unprocessable_entity
     end
   end

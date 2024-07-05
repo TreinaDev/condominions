@@ -3,7 +3,6 @@ class FloorsController < ApplicationController
   before_action :assure_floor_type_registration, only: [:show]
   before_action :set_tower, only: %i[show]
 
-  add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Condomínios', :condos_path, only: %i[show]
   before_action :set_breadcrumbs_for_details, only: %i[show]
 

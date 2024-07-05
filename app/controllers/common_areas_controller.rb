@@ -3,7 +3,6 @@ class CommonAreasController < ApplicationController
   before_action :set_condo, only: %i[new create]
   before_action :set_common_area, only: %i[show edit update]
 
-  add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Condomínios', :condos_path, only: %i[show new create edit update]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]

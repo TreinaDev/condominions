@@ -3,7 +3,6 @@ class UnitsController < ApplicationController
   before_action :set_tower_and_floor, only: [:show]
   before_action :set_unit, only: %i[show]
 
-  add_breadcrumb 'Home', :root_path
   add_breadcrumb 'Condomínios', :condos_path, only: %i[show]
   before_action :set_breadcrumbs_for_details, only: %i[show]
 

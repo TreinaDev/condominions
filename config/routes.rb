@@ -5,10 +5,10 @@ Rails.application.routes.draw do
   devise_for :managers
   resources :managers, only: [:new, :create]
   resources :common_areas, only: [:show, :edit, :update]
-  resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
   resources :condos, only: [:index, :new, :create, :show, :edit, :update] do
     resources :common_areas, only: [:index, :new, :create]
+    resources :unit_types, only: [:index, :new, :create, :show, :edit, :update]
 
     resources :towers, only: [:new, :create, :index] do
       member do
