@@ -2,6 +2,8 @@ class Tower < ApplicationRecord
   belongs_to :condo
   has_many :floors, dependent: :destroy
 
+  enum status: { incomplete: 0, complete: 5 }
+
   validates :name, :floor_quantity, :units_per_floor, presence: true
 
   validates :floor_quantity, :units_per_floor, numericality: {
@@ -12,6 +14,11 @@ class Tower < ApplicationRecord
 
   def generate_floors
     floor_quantity.times { create_floor_with_units }
+  end
+
+  def warning_html_message
+    "Cadastro do(a) <strong>#{name}</strong> do(a) <strong>#{condo.name}</strong> " \
+      "incompleto(a), por favor, atualize o pavimento tipo.\n"
   end
 
   private

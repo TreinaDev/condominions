@@ -119,6 +119,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_231659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "units_per_floor"
+    t.integer "status", default: 0, null: false
     t.index ["condo_id"], name: "index_towers_on_condo_id"
   end
 

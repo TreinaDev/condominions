@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 describe "Administrator registers condo's tower" do
+  it 'only if authenticated' do
+    condo = create(:condo, name: 'Condomínio dos rubinhos')
+
+    visit new_condo_tower_path condo
+
+    expect(current_path).to eq new_manager_session_path
+  end
+
   it 'and access from navbar' do
     user = create(:manager)
     condo = create(:condo, name: 'Condomínio dos rubinhos')
@@ -20,10 +28,11 @@ describe "Administrator registers condo's tower" do
   end
 
   it 'successfully' do
+    user = create(:manager)
     condo = create(:condo)
 
+    login_as user, scope: :manager
     visit new_condo_tower_path condo
-
     fill_in 'Nome', with: 'Torre A'
     fill_in 'Quantidade de Andares', with: 5
     fill_in 'Apartamentos por Andar', with: 3
@@ -37,10 +46,11 @@ describe "Administrator registers condo's tower" do
   end
 
   it 'and fails if there are blank fields' do
+    user = create(:manager)
     condo = create(:condo)
 
+    login_as user, scope: :manager
     visit new_condo_tower_path condo
-
     fill_in 'Nome', with: ''
     fill_in 'Quantidade de Andares', with: ''
     fill_in 'Apartamentos por Andar', with: ''
