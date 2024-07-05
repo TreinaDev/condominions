@@ -11,6 +11,9 @@ describe 'Condo API' do
       get '/api/v1/condos'
 
       expect(response).to have_http_status :ok
+      expect(response.parsed_body[0]['registration_number']).not_to be_present
+      expect(response.parsed_body[0]['created_at']).not_to be_present
+      expect(response.parsed_body[0]['updated_at']).not_to be_present
       expect(response.parsed_body[0]['id']).to eq 1
       expect(response.parsed_body[0]['name']).to eq 'Condomínio A'
       expect(response.parsed_body[0]['city']).to eq 'São Paulo'
