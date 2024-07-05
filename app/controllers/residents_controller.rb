@@ -20,16 +20,12 @@ class ResidentsController < ApplicationController
 
   def find_towers
     condo = Condo.find_by(id: params[:id])
-    if condo
-      towers = condo.towers
-      if towers.any?
-        render json: condo.towers.to_json(only: %i[id name units_per_floor floor_quantity])
-      else
-        render status: :not_found, json: []
-      end
-    else
-      render status: :not_found, json: []
-    end
+    return render status: :not_found, json: [] unless condo
+
+    towers = condo.towers
+    return render status: :not_found, json: [] if towers.empty?
+
+    render json: condo.towers.to_json(only: %i[id name units_per_floor floor_quantity])
   end
 
   private

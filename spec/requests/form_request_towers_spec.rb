@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'GET /residents/find_towers' do 
-  it 'there are no condos' do 
+describe 'GET /residents/find_towers' do
+  it 'there are no condos' do
     manager = create(:manager)
 
     login_as(manager, scope: :manager)
