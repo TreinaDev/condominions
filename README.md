@@ -84,11 +84,12 @@
 ## Endpoints da API
 
 ### Endpoint de Listagem de Condomínios
+
 `GET /api/v1/condos`
 
 <p align="justify">Retorna todos os condomínios com o id, nome, cidade e estado de cada um, ou retorna um vetor vazio caso não exista nenhum condomínio cadastrado.</p>
 
-Exemplo de Resposta:
+Exemplo de resposta:
 ```
 [
   {
@@ -104,6 +105,28 @@ Exemplo de Resposta:
     "state": "BA"
   }
 ]
+```
+
+### Endpoint de Detalhes de Condomínio
+
+`GET /api/v1/condos/{id}`
+
+<p align="justify">Retorna os detalhes de um condomínio com o nome, cnpj, logradouro, número, bairro, cidade, estado e cep de cada um. Retorna erro 404 caso não exista um condomínio cadastrado com esse id.</p>
+
+Exemplo de resposta:
+```
+{
+  "name": "Condominio Residencial Paineiras",
+  "registration_number": "62.810.952/2718-22",
+  "address": {
+    "public_place": "Travessa João Edimar",
+    "number": "29",
+    "neighborhood": "João Eduardo II",
+    "city": "Rio Branco",
+    "state": "AC",
+    "zip": "69911-520"
+  }
+}
 ```
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
