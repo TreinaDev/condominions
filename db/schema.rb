@@ -128,6 +128,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_231659) do
     t.decimal "metreage", precision: 10, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "fraction", precision: 10, scale: 5
+    t.integer "condo_id", null: false
+    t.index ["condo_id"], name: "index_unit_types_on_condo_id"
   end
 
   create_table "units", force: :cascade do |t|
@@ -146,6 +149,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_231659) do
   add_foreign_key "floors", "towers"
   add_foreign_key "residents", "units"
   add_foreign_key "towers", "condos"
+  add_foreign_key "unit_types", "condos"
   add_foreign_key "units", "floors"
   add_foreign_key "units", "unit_types"
 end

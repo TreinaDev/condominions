@@ -19,7 +19,7 @@ describe "Administrator registers condo's tower" do
       click_on id: 'side-menu'
       click_on 'Criar Torre'
     end
-    within '#condoSelectPopup' do
+    within '#condoSelectPopupForTowers' do
       click_on 'Condomínio dos rubinhos'
     end
 

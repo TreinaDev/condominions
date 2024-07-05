@@ -9,10 +9,10 @@ Rails.application.routes.draw do
     get 'find_towers', on: :collection 
   end
   resources :common_areas, only: [:show, :edit, :update]
-  resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
   resources :condos, only: [:new, :create, :show, :edit, :update] do
     resources :common_areas, only: [:new, :create]
+    resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
     resources :towers, only: [:new, :create] do
       member do
