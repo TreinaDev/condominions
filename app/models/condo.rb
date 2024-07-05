@@ -3,15 +3,16 @@ class Condo < ApplicationRecord
   has_many :towers, dependent: :destroy
   has_many :common_areas, dependent: :destroy
 
+  delegate :city, to: :address
+  delegate :state, to: :address
+
   validates :name, presence: true
   validates :registration_number, uniqueness: true
-
   validate :validate_cnpj
 
   accepts_nested_attributes_for :address
 
   def full_address
-    address = self.address
     <<~HEREDOC.strip
       #{address.public_place}, #{address.number}, #{address.neighborhood} - \
       #{address.city}/#{address.state} - CEP: #{address.zip}
