@@ -1,6 +1,6 @@
 class FloorsController < ApplicationController
-  before_action :authenticate_manager!, only: [:show]
-  before_action :assure_floor_type_registration, only: [:show]
+  before_action :authenticate_manager!, only: %i[show]
+  before_action :assure_floor_type_registration, only: %i[show]
   before_action :set_tower, only: %i[show]
 
   add_breadcrumb I18n.t('breadcrumb.condo.index'), :condos_path, only: %i[show]
