@@ -16,7 +16,6 @@ describe 'Administrator edit floor type' do
     user = create :manager
     condo = create :condo, name: 'Condomínio A'
     tower = create :tower, condo:, name: 'Torre A'
-    tower.generate_floors
 
     create :unit_type, description: 'Apartamento de 1 quarto'
     create :unit_type, description: 'Apartamento de 2 quartos'
