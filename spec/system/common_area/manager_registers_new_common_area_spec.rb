@@ -1,6 +1,23 @@
 require 'rails_helper'
 
 describe 'Manager registers new common area' do
+  it 'and access from nav bar' do
+    manager = create(:manager)
+    condo = create(:condo, name: 'Condomínio dos rubinhos')
+
+    login_as(manager, scope: :manager)
+    visit root_path
+    within 'nav' do
+      click_on id: 'side-menu'
+      click_on 'Criar Área Comum'
+    end
+    within '#condoSelectPopupForCommonAreas' do
+      click_on 'Condomínio dos rubinhos'
+    end
+
+    expect(current_path).to eq new_condo_common_area_path(condo)
+  end
+
   it 'successfully' do
     manager = create(:manager)
     condo = create(:condo)
