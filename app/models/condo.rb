@@ -2,6 +2,7 @@ class Condo < ApplicationRecord
   belongs_to :address
   has_many :towers, dependent: :destroy
   has_many :common_areas, dependent: :destroy
+  has_many :unit_types, dependent: :destroy
 
   delegate :city, to: :address
   delegate :state, to: :address
