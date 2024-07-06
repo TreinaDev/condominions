@@ -21,7 +21,7 @@ describe "Administrator sees floor's details" do
                               description: 'Apartamento de 2 quartos',
                               metreage: 80.75
 
-    tower = create :tower, units_per_floor: 5, floor_quantity: 3
+    tower = create(:tower, name: 'Torre A', units_per_floor: 5, floor_quantity: 3)
     tower.generate_floors
     floor = tower.floors[1]
 

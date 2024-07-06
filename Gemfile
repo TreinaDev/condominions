@@ -5,6 +5,7 @@ ruby '3.2.2'
 gem 'rails', '~> 7.1.3.1'
 
 gem 'bootsnap', require: false
+gem 'breadcrumbs_on_rails'
 gem 'cpf_cnpj'
 gem 'cssbundling-rails'
 gem 'devise'

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :warn_tower_registration_incomplete
+  add_breadcrumb 'Home', :root_path
 
   private
 

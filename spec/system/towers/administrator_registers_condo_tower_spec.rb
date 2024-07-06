@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "Administrator registers condo's tower" do
   it 'only if authenticated' do
-    condo = create(:condo, name: 'Condomínio dos rubinhos')
+    condo = create(:condo)
 
     visit new_condo_tower_path condo
 

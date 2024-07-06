@@ -10,11 +10,11 @@ Rails.application.routes.draw do
   end
   resources :common_areas, only: [:show, :edit, :update]
 
-  resources :condos, only: [:new, :create, :show, :edit, :update] do
-    resources :common_areas, only: [:new, :create]
-    resources :unit_types, only: [:new, :create, :show, :edit, :update]
+  resources :condos, only: [:index, :new, :create, :show, :edit, :update] do
+    resources :common_areas, only: [:index, :new, :create]
+    resources :unit_types, only: [:index, :new, :create, :show, :edit, :update]
 
-    resources :towers, only: [:new, :create] do
+    resources :towers, only: [:new, :create, :index] do
       member do
         get :edit_floor_units
         patch :update_floor_units
