@@ -1,0 +1,21 @@
+pt-BR:
+  owner: 'Proprietário'
+  tenant: 'Inquilino'
+  not_confirmed: 'Não Confirmado'
+  confirmed: 'Confirmado'
+  activerecord:
+    models:
+      resident:
+        one: 'Morador'
+        other: 'Moradores'
+    attributes:
+      resident:
+        full_name: 'Nome Completo'
+        registration_number: 'CPF'
+        email: 'E-mail'
+        password: 'Senha'
+        resident_type: 'Tipo de Morador'
+        condo_id: 'Condomínio'
+        tower_id: 'Torre'
+        floor: 'Andar'
+        unit: 'Unidade'

@@ -1,0 +1,4 @@
+pt-BR:
+  resident_mailer:
+    notify_new_resident:
+      subject: 'Confirmação de Cadastro'

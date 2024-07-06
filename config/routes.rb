@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   get '/signup_choice', to: 'home#signup'
 
   devise_for :managers
+  devise_for :residents
   resources :managers, only: [:new, :create]
+  resources :residents, only: [:new, :create] do 
+    get 'find_towers', on: :collection 
+  end
   resources :common_areas, only: [:show, :edit, :update]
 
   resources :condos, only: [:new, :create, :show, :edit, :update] do
