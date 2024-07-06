@@ -1,0 +1,9 @@
+<h1> Torres do Condomínio</h1>
+
+<ul class="list">
+  
+  <% @towers.each do |tower| %>
+    <li><%= link_to tower.name, tower_path(tower) %></li>
+  <% end %>
+  
+</ul>

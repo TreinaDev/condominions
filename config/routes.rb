@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :common_areas, only: [:new, :create]
     resources :unit_types, only: [:new, :create, :show, :edit, :update]
 
-    resources :towers, only: [:new, :create] do
+    resources :towers, only: [:new, :create, :index] do
       member do
         get :edit_floor_units
         patch :update_floor_units

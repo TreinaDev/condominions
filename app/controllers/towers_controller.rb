@@ -1,6 +1,11 @@
 class TowersController < ApplicationController
   before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
-  before_action :authenticate_manager!, only: %i[show new edit_floor_units create update_floor_units]
+  before_action :authenticate_manager!, only: %i[index show new edit_floor_units create update_floor_units]
+
+  def index
+    @condo = Condo.find(params[:condo_id])
+    @towers = @condo.towers
+  end
 
   def show; end
 
