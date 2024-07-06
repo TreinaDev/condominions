@@ -17,7 +17,7 @@
   </div>
   <div class="mb-3 row">
     <%= f.label :resident_type, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10"><%= f.select :resident_type, Resident.resident_types.keys.map { |type| [t(type).capitalize, type] }, {}, class: 'form-control form-select' %></div>
+    <div class="col-sm-10"><%= f.select :resident_type, Resident.resident_types.keys.map { |type| [I18n.t(type).capitalize, type] }, {}, class: 'form-control form-select' %></div>
   </div>
 
   <div data-controller="resident">

@@ -5,7 +5,7 @@ FactoryBot.define do
     email { 'joao@email.com' }
     password { '123456' }
     resident_type { :owner }
-    unit
-    status { 0 }
+    unit { build :unit }
+    status { :not_confirmed }
   end
 end

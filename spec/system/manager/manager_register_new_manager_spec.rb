@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'Manager registers new manager' do
   it 'from the menu' do
-    manager = create(:manager)
+    manager = create :manager
 
-    login_as(manager, scope: :manager)
+    login_as manager, scope: :manager
     visit root_path
-    within('nav') do
+    within 'nav' do
       click_on id: 'side-menu'
       click_on 'Gerenciar usuarios'
       click_on 'Cadastrar novo administrador'
@@ -22,11 +22,11 @@ describe 'Manager registers new manager' do
   end
 
   it 'with incomplete data' do
-    manager = create(:manager)
+    manager = create :manager
 
-    login_as(manager, scope: :manager)
+    login_as manager, scope: :manager
     visit root_path
-    within('nav') do
+    within 'nav' do
       click_on id: 'side-menu'
       click_on 'Gerenciar usuarios'
       click_on 'Cadastrar novo administrador'

@@ -10,12 +10,11 @@ class ResidentsController < ApplicationController
     @condos = Condo.all
     random_password = SecureRandom.alphanumeric(8)
     @resident = Resident.new(resident_params.merge!(password: random_password))
-    if @resident.save
-      @resident.send_invitation(random_password)
-      redirect_to root_path, notice: "Convite enviado com sucesso para #{@resident.full_name} (#{@resident.email})"
-    else
-      render :new, status: :unprocessable_entity
-    end
+
+    return render :new, status: :unprocessable_entity unless @resident.save
+
+    @resident.send_invitation(random_password)
+    redirect_to root_path, notice: "Convite enviado com sucesso para #{@resident.full_name} (#{@resident.email})"
   end
 
   def find_towers

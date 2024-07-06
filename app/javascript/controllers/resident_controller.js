@@ -16,18 +16,16 @@ export default class extends Controller {
       this.towers = towers
       this.changeTower()
     })
-    .catch(()=>{
-      console.log('deu ruim')
-    })
+    .catch(()=>{console.log('Towers not found')})
   }
 
   connect(){
-
     this.changeCondo()
   }
 
   changeCondo(){
     const condoId = this.condoTarget.value
+    
     this.searchTowers(condoId)
   }
 
@@ -36,6 +34,7 @@ export default class extends Controller {
     console.log(tower)
     this.unitTarget.innerHTML = ""
     this.floorTarget.innerHTML = ""
+
     for (let floor = 1; floor <= tower.floor_quantity; floor++) {
       this.floorTarget.options.add(new Option(`${floor}`, `${floor}`))
     }

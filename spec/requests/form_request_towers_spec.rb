@@ -2,39 +2,40 @@ require 'rails_helper'
 
 describe 'GET /residents/find_towers' do
   it 'there are no condos' do
-    manager = create(:manager)
+    manager = create :manager
 
-    login_as(manager, scope: :manager)
+    login_as manager, scope: :manager
+
     get find_towers_residents_path
 
-    expect(response.status).to eq 404
+    expect(response).to have_http_status :not_found
   end
 
   it 'there are no towers' do
-    manager = create(:manager)
-    condo = create(:condo)
+    manager = create :manager
+    condo = create :condo
 
-    login_as(manager, scope: :manager)
-    get find_towers_residents_path('condo' => condo)
+    login_as manager, scope: :manager
 
-    expect(response.status).to eq 404
+    get find_towers_residents_path 'condo' => condo
+    expect(response).to have_http_status :not_found
   end
 
   it 'must be authenticated' do
-    condo = create(:condo)
+    condo = create :condo
 
-    get find_towers_residents_path('condo' => condo)
+    get find_towers_residents_path 'condo' => condo
 
     expect(response).to redirect_to new_manager_session_path
   end
 
   it 'must be authenticated as manager' do
-    resident = create(:resident)
-    condo = create(:condo)
+    resident = create :resident
+    condo = create :condo
 
-    login_as(resident, scope: :resident)
+    login_as resident, scope: :resident
 
-    get find_towers_residents_path('condo' => condo)
+    get find_towers_residents_path 'condo' => condo
 
     expect(response).to redirect_to root_path
   end
