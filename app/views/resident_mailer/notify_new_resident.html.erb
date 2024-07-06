@@ -4,10 +4,11 @@
 <p>Dados de Login</p>
 <p>Tipo de Usuário: <%= t(@resident.resident_type) %></p>
 <p>Email: <%= @resident.email %></p>
+<p>Senha: <%= @password %></p>
 <p>Condomínio: <%= @resident.condo.name %></p>
 <p>Torre: <%= @resident.tower.name %></p>
 <p>Andar: <%= @resident.floor_print_identifier %></p>
 <p>Identificação: <%= @resident.unit.print_identifier %></p>
 
 <p>Por favor, clique no link abaixo para completar seu registro e definir sua senha:</p>
-<%= link_to 'Redefinir Senha', edit_resident_password_url(@resident, reset_password_token: @token) %>
+<%= link_to 'Acessar o sistema', root_url %>

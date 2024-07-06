@@ -6,7 +6,8 @@ describe 'Manager registers new resident' do
     create(:condo, name: 'Condominio Errado')
     condo = create(:condo, name: 'Condominio Certo')
     create(:tower, 'condo' => condo, name: 'Torre errada')
-    create(:tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 10, units_per_floor: 5)
+    tower = create(:tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 10, units_per_floor: 5)
+    tower.generate_floors
 
     mail = double('mail', deliver: true)
     mailer_double = double('ResidentMailer', notify_new_resident: mail)
@@ -34,7 +35,7 @@ describe 'Manager registers new resident' do
 
     expect(page).to have_content 'Convite enviado com sucesso para Adroaldo Junior (adroaldo@email.com)'
     expect(Resident.last.full_name).to eq 'Adroaldo Junior'
-    expect(Resident.last.status).to eq 'not_confirmed'
+    expect(Resident.last.confirmed?).to eq false
     expect(mail).to have_received(:deliver).once
   end
 
@@ -44,7 +45,7 @@ describe 'Manager registers new resident' do
     expect(current_path).to eq new_manager_session_path
   end
 
-  it 'and can only be authenticated as a manager' do
+  it 'must be authenticated as manager' do
     resident = create :resident
 
     login_as(resident, scope: :resident)

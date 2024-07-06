@@ -10,8 +10,6 @@ class Tower < ApplicationRecord
     greater_than: 0, only_integer: true
   }
 
-  after_create :generate_floors
-
   def generate_floors
     floor_quantity.times { create_floor_with_units }
   end

@@ -19,4 +19,23 @@ describe 'GET /residents/find_towers' do
 
     expect(response.status).to eq 404
   end
+
+  it 'must be authenticated' do
+    condo = create(:condo)
+
+    get find_towers_residents_path('condo' => condo)
+
+    expect(response).to redirect_to new_manager_session_path
+  end
+
+  it 'must be authenticated as manager' do
+    resident = create(:resident)
+    condo = create(:condo)
+
+    login_as(resident, scope: :resident)
+
+    get find_towers_residents_path('condo' => condo)
+
+    expect(response).to redirect_to root_path
+  end
 end

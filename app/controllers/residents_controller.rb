@@ -1,5 +1,4 @@
 class ResidentsController < ApplicationController
-  before_action :check_resident, only: %i[new create find_towers]
   before_action :authenticate_manager!, only: %i[new create find_towers]
 
   def new
@@ -9,9 +8,10 @@ class ResidentsController < ApplicationController
 
   def create
     @condos = Condo.all
-
-    @resident = Resident.new(resident_params)
+    random_password = SecureRandom.alphanumeric(8)
+    @resident = Resident.new(resident_params.merge!(password: random_password))
     if @resident.save
+      @resident.send_invitation(random_password)
       redirect_to root_path, notice: "Convite enviado com sucesso para #{@resident.full_name} (#{@resident.email})"
     else
       render :new, status: :unprocessable_entity
@@ -30,10 +30,16 @@ class ResidentsController < ApplicationController
 
   private
 
+  def authenticate_manager!
+    return redirect_to root_path if resident_signed_in?
+
+    super
+  end
+
   def resident_params
     resident_params = params.require(:resident).permit(:full_name, :registration_number, :email,
                                                        :resident_type)
-    resident_params.merge!({ password: SecureRandom.alphanumeric(8), unit_id: find_unit_id })
+    resident_params.merge!({ unit_id: find_unit_id })
   end
 
   def find_tower_and_floor
@@ -49,9 +55,5 @@ class ResidentsController < ApplicationController
     return floor.units[params['resident']['unit'].to_i - 1 ].id if floor
 
     nil
-  end
-
-  def check_resident
-    redirect_to root_path if resident_signed_in?
   end
 end

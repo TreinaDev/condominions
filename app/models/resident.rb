@@ -1,13 +1,11 @@
 class Resident < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   validate :valid_registration_number
   validates :full_name, :resident_type, presence: true
   validates :registration_number, uniqueness: true
   belongs_to :unit
-
-  after_create :send_invitation
 
   enum resident_type: { owner: 0, tenant: 1 }
   enum status: { not_confirmed: 0, confirmed: 1 }
@@ -24,11 +22,13 @@ class Resident < ApplicationRecord
     unit.floor.print_identifier
   end
 
+  def send_invitation(random_password)
+    ResidentMailer.with(resident: self, password: random_password).notify_new_resident.deliver
+  end
+
   private
 
-  def send_invitation
-    ResidentMailer.with(resident: self).notify_new_resident.deliver
-  end
+  def send_on_create_confirmation_instructions; end
 
   def valid_registration_number
     if CPF.valid? registration_number
