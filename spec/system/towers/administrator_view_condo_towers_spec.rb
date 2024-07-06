@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Administrator view list of tower' do
+describe 'Administrator view list of towers' do
   it 'and must be authenticated' do
     condo = create(:condo)
 
@@ -51,11 +51,24 @@ describe 'Administrator view list of tower' do
     end
   end
 
-  it 'morador nao fe link de torres' do
+  it 'resident can´t see link to list of towers' do
+    condo = create(:condo)
+    resident = create :resident
 
+    login_as resident, scope: :resident
+    visit condo_path(condo)
+
+    expect(current_path).to eq condo_path(condo)
+    expect(page).not_to have_link 'Listar Torres'
   end
 
-  it 'morador nao acessa página de listagem de torres' do
-    
+  it 'resident can´t access the list of condo´s tower' do
+    condo = create(:condo)
+    resident = create :resident
+
+    login_as resident, scope: :resident
+    visit condo_towers_path(condo)
+
+    expect(current_path).to eq root_path
   end
 end

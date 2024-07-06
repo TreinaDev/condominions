@@ -68,4 +68,10 @@ class TowersController < ApplicationController
   def condo_id_param
     params.require :condo_id
   end
+
+  def authenticate_manager!
+    return redirect_to root_path if resident_signed_in?
+
+    super
+  end
 end
