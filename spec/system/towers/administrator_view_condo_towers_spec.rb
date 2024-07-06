@@ -31,6 +31,20 @@ describe 'Administrator view list of towers' do
     end
   end
 
+  it 'and see a tower details when click on tower´s name' do
+    condo = create(:condo)
+    user = create :manager
+    tower_a = build :tower, name: 'Torre A', condo_id: condo.id
+    tower_a.generate_floors
+
+    login_as user, scope: :manager
+    visit condo_path(condo)
+    click_on 'Listar Torres'
+    click_on 'Torre A'
+
+    expect(current_path).to eq tower_path(tower_a)
+  end
+
   it 'and don´t see other condo´s towers' do
     condo_a = create(:condo)
     condo_b = create(:condo)
