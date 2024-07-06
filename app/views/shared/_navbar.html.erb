@@ -46,6 +46,10 @@
             <li class="nav-item">
               <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForTowers">Criar Torre</a>
             </li>
+            <li><hr class="nav-divider m-0"></li>
+            <li class="nav-item">
+              <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForCommonAreas">Criar Área Comum</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -91,6 +95,31 @@
             <% Condo.all.each do |condo| %>
               <div class='col'>
                 <%= button_to condo.name, new_condo_unit_type_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false }%>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="condoSelectPopupForCommonAreas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="condoSelectPopupLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condominio</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class='container text-center'>
+          <div class='row'>
+            <% Condo.all.each do |condo| %>
+              <div class='col'>
+                <%= button_to condo.name, new_condo_common_area_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false }%>
               </div>
             <% end %>
           </div>
