@@ -1,6 +1,12 @@
 class TowersController < ApplicationController
-  before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
   before_action :authenticate_manager!, only: %i[index show new edit_floor_units create update_floor_units]
+  before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
+  before_action :set_condo, only: %i[new create]
+
+  add_breadcrumb I18n.t('breadcrumb.condo.index'), :condos_path,
+                 only: %i[show new create edit_floor_units update_floor_units]
+  before_action :set_breadcrumbs_for_details, only: %i[show edit_floor_units update_floor_units]
+  before_action :set_breadcrumbs_for_register, only: %i[new create]
 
   def index
     @condo = Condo.find(params[:condo_id])
@@ -10,15 +16,16 @@ class TowersController < ApplicationController
   def show; end
 
   def new
-    @tower = Tower.new condo_id: params[:condo_id]
+    @tower = Tower.new condo: @condo
   end
 
   def edit_floor_units
+    add_breadcrumb I18n.t('breadcrumb.tower.floor_type')
     @unit_types = UnitType.order :description
   end
 
   def create
-    @tower = Tower.new tower_params.merge! condo_id: condo_id_param
+    @tower = Tower.new tower_params.merge! condo: @condo
 
     if @tower.save
       @tower.generate_floors
@@ -31,14 +38,8 @@ class TowersController < ApplicationController
   end
 
   def update_floor_units
-    is_all_unit_types_selected = true
-    unit_types = params.require :unit_types
-    unit_types.each_value { |value| is_all_unit_types_selected = false if value.blank? }
-
-    if is_all_unit_types_selected
-      update_units(unit_types)
-      return redirect_to @tower, notice: t('notices.floor.updated')
-    end
+    add_breadcrumb I18n.t('breadcrumb.tower.floor_type')
+    return redirect_to @tower, notice: t('notices.floor.updated') if all_unit_types_selected
 
     @unit_types = UnitType.order :description
     flash.now[:alert] = t('alerts.units.not_updated')
@@ -57,6 +58,21 @@ class TowersController < ApplicationController
     @tower.complete!
   end
 
+  def all_unit_types_selected
+    is_all_unit_types_selected = true
+    unit_types = params.require :unit_types
+    unit_types.each_value { |value| is_all_unit_types_selected = false if value.blank? }
+
+    return unless is_all_unit_types_selected
+
+    update_units(unit_types)
+    true
+  end
+
+  def set_condo
+    @condo = Condo.find params[:condo_id]
+  end
+
   def set_tower
     @tower = Tower.find params[:id]
   end
@@ -73,5 +89,16 @@ class TowersController < ApplicationController
     return redirect_to root_path if resident_signed_in?
 
     super
+  end
+
+  def set_breadcrumbs_for_details
+    add_breadcrumb @tower.condo.name.to_s, @tower.condo
+    add_breadcrumb I18n.t('breadcrumb.tower.index'), condo_towers_path(@tower.condo)
+    add_breadcrumb @tower.name.to_s, @tower
+  end
+
+  def set_breadcrumbs_for_register
+    add_breadcrumb @condo.name.to_s, @condo
+    add_breadcrumb I18n.t('breadcrumb.tower.new')
   end
 end
