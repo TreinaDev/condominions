@@ -3,6 +3,11 @@ module Api
     class ResidentsController < Api::V1::ApiController
       def check_registration_number
         resident = Resident.find_by(registration_number: params[:registration_number])
+
+        unless CPF.valid? params[:registration_number]
+          return render status: :precondition_failed, json: { error: 'invalid registration number' }
+        end
+
         return render status: :ok, json: { resident_type: 'inexistent' } if resident.nil?
 
         render status: :ok, json: resident.as_json(only: [:resident_type])
@@ -10,10 +15,3 @@ module Api
     end
   end
 end
-
-#render status: :ok, json: Condo.all.as_json(only: %i[id name],
-#                                                    methods: %i[city state])
-
-
-#render status: :ok, json: Condo.all.as_json(only: %i[id name],
-#                                                    methods: %i[city state])
