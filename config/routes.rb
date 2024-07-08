@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :condos, only: [:index, :show]
+      get 'check_registration_number', to: 'residents#check_registration_number'
     end
   end
 end
