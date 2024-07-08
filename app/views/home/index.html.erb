@@ -1,1 +1,8 @@
+<h1>Condomínios</h1>
 
+<% @condos.each do |condo| %>
+    <%= link_to condo_path(condo.id) do %>
+        <%= condo.name %>
+        <p>Endereço: <%= condo.full_address %></p>
+    <% end %>
+<% end %>
