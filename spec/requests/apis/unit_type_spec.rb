@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Unit Type API' do
   context 'GET /api/v1/condos/{id}/unit_types' do
     it 'successfully' do
-      first_condo = create :Condo
-      second_condo = create :Condo
+      first_condo = create :condo
+      second_condo = create :condo
 
       first_unit_type = create :unit_type,
                                description: 'Apartamento de 1 quarto',
@@ -61,22 +61,24 @@ describe 'Unit Type API' do
       expect(response).to have_http_status :ok
       expect(response.parsed_body[0]['created_at']).not_to be_present
       expect(response.parsed_body[0]['updated_at']).not_to be_present
-      expect(response.parsed_body.size).to eq 2
+      expect(response.parsed_body.count).to eq 2
 
       expect(response.parsed_body[0]['id']).to eq 1
       expect(response.parsed_body[0]['description']).to eq 'Apartamento de 1 quarto'
-      expect(response.parsed_body[0]['metreage']).to eq 50.55
-      expect(response.parsed_body[0]['fraction']).to eq 2
-      expect(response.parsed_body[0]['unit_ids'].size).to eq 4
+      expect(response.parsed_body[0]['metreage']).to eq '50.55'
+      expect(response.parsed_body[0]['fraction']).to eq '2.0'
+      expect(response.parsed_body[0]['unit_ids'].count).to eq 4
 
       expect(response.parsed_body[1]['id']).to eq 3
       expect(response.parsed_body[1]['description']).to eq 'Apartamento de 3 quartos'
-      expect(response.parsed_body[1]['metreage']).to eq 90
-      expect(response.parsed_body[1]['fraction']).to eq 4
-      expect(response.parsed_body[1]['unit_ids'].size).to eq 6
+      expect(response.parsed_body[1]['metreage']).to eq '90.0'
+      expect(response.parsed_body[1]['fraction']).to eq '4.0'
+      expect(response.parsed_body[1]['unit_ids'].count).to eq 6
     end
 
     it "and there's no unit types" do
+      create :condo
+
       get '/api/v1/condos/1/unit_types'
 
       expect(response).to have_http_status :ok
@@ -90,11 +92,12 @@ describe 'Unit Type API' do
     end
 
     it "and fail if there's an internal server error" do
+      create :condo
       allow(UnitType).to receive(:all).and_raise ActiveRecord::ActiveRecordError
 
       get '/api/v1/condos/1/unit_types'
 
-      expect(response.status).to eq :internal_server_error
+      expect(response).to have_http_status :internal_server_error
     end
   end
 end

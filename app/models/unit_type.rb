@@ -12,4 +12,8 @@ class UnitType < ApplicationRecord
   def fraction_to_percentage
     "#{fraction}%"
   end
+
+  def unit_ids
+    units.pluck :id
+  end
 end
