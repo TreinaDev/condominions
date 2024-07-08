@@ -1,5 +1,5 @@
 class TowersController < ApplicationController
-  before_action :authenticate_manager!, only: %i[show new edit_floor_units create update_floor_units]
+  before_action :authenticate_manager!, only: %i[index show new edit_floor_units create update_floor_units]
   before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
   before_action :set_condo, only: %i[new create]
 
@@ -7,6 +7,11 @@ class TowersController < ApplicationController
                  only: %i[show new create edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_details, only: %i[show edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
+
+  def index
+    @condo = Condo.find(params[:condo_id])
+    @towers = @condo.towers
+  end
 
   def show; end
 
@@ -78,6 +83,12 @@ class TowersController < ApplicationController
 
   def condo_id_param
     params.require :condo_id
+  end
+
+  def authenticate_manager!
+    return redirect_to root_path if resident_signed_in?
+
+    super
   end
 
   def set_breadcrumbs_for_details
