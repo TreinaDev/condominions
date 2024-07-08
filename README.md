@@ -129,6 +129,42 @@ Exemplo de resposta:
 }
 ```
 
+### Endpoint de Validação por CPF
+
+`/api/v1/check_registration_number?registration_number={CPF}`
+
+<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação Condomínions, ainda retorna o perfil de usuário e o id de sua unidade</p>
+
+Exemplos de resposta:
+```
+{
+  "profile": "owner",
+  "unit_id": "1"
+}
+```
+
+```
+{
+  "profile": "tenant",
+  "unit_id": "10"
+}
+```
+
+```
+{
+  "profile": "inexistent",
+  "unit_id": "nil"
+}
+```
+
+<p align="justify">OBS: Caso o CPF seja inválido, será retornado o erro 412 (precondition failed) e o json com o campo 'error'</p>
+
+```
+{
+  "error": "invalid registration number"
+}
+```
+
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
 <!-- GETTING STARTED -->
