@@ -8,9 +8,9 @@ module Api
           return render status: :precondition_failed, json: { error: 'invalid registration number' }
         end
 
-        return render status: :ok, json: { resident_type: 'inexistent' } if resident.nil?
+        return render status: :ok, json: { resident_type: 'inexistent', unit_id: 'nil' } if resident.nil?
 
-        render status: :ok, json: resident.as_json(only: [:resident_type])
+        render status: :ok, json: resident.as_json(only: %i[resident_type unit_id])
       end
     end
   end

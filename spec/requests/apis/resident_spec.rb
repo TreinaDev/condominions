@@ -10,6 +10,7 @@ describe 'Resident API' do
       expect(response).to have_http_status :ok
       expect(response.content_type).to include 'application/json'
       expect(response.parsed_body['resident_type']).to eq 'owner'
+      expect(response.parsed_body['unit_id']).to eq resident.unit_id
     end
 
     it 'successfully and is a tenant' do
@@ -20,6 +21,7 @@ describe 'Resident API' do
       expect(response).to have_http_status :ok
       expect(response.content_type).to include 'application/json'
       expect(response.parsed_body['resident_type']).to eq 'tenant'
+      expect(response.parsed_body['unit_id']).to eq resident.unit_id
     end
 
     it "successfully and there's no match on the database" do
@@ -29,6 +31,7 @@ describe 'Resident API' do
       expect(response).to have_http_status :ok
       expect(response.content_type).to include 'application/json'
       expect(response.parsed_body['resident_type']).to eq 'inexistent'
+      expect(response.parsed_body['unit_id']).to eq 'nil'
     end
 
     it 'and fail if the registration number is invalid' do
