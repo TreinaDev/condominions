@@ -15,10 +15,12 @@ class Manager < ApplicationRecord
   private
 
   def valid_registration_number
-    if CPF.valid?(registration_number, strict: true)
-      self.registration_number = CPF.new(registration_number).formatted
+    if CPF.valid? registration_number
+      unless registration_number.match(/\A\d{3}[\.]\d{3}[\.]\d{3}[\-]\d{2}\z/)
+        errors.add(:registration_number, 'deve estar no seguinte formato: XXX.XXX.XXX-XX')
+      end
     else
-      errors.add :registration_number, 'deve ser válido'
+      errors.add(:registration_number, 'inválido')
     end
   end
 end

@@ -2,17 +2,17 @@ require 'rails_helper'
 
 describe 'Manager registers new manager' do
   it 'from the menu' do
-    manager = create(:manager)
+    manager = create :manager
 
-    login_as(manager, scope: :manager)
+    login_as manager, scope: :manager
     visit root_path
-    within('nav') do
+    within 'nav' do
       click_on id: 'side-menu'
       click_on 'Gerenciar usuarios'
       click_on 'Cadastrar novo administrador'
     end
     fill_in 'Nome Completo', with: 'Erika Campos'
-    fill_in 'CPF', with: CPF.generate
+    fill_in 'CPF', with: CPF.generate(format: true)
     fill_in 'E-mail', with: 'admin@email.com'
     fill_in 'Senha', with: 'password'
     attach_file 'Foto', Rails.root.join('spec/support/images/manager_photo.jpg')
@@ -22,11 +22,11 @@ describe 'Manager registers new manager' do
   end
 
   it 'with incomplete data' do
-    manager = create(:manager)
+    manager = create :manager
 
-    login_as(manager, scope: :manager)
+    login_as manager, scope: :manager
     visit root_path
-    within('nav') do
+    within 'nav' do
       click_on id: 'side-menu'
       click_on 'Gerenciar usuarios'
       click_on 'Cadastrar novo administrador'

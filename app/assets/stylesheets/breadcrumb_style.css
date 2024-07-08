@@ -1,0 +1,14 @@
+ol.breadcrumb li {
+    margin: 0 0.5rem;
+
+    a {
+        text-decoration: none;
+        color: #ffc107;
+        font-weight: 700;
+    }
+
+    a:hover {
+        color: #f5b905;
+        transition: all 0.5s;
+    }
+}

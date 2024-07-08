@@ -6,6 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= stylesheet_link_tag "breadcrumb_style" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
@@ -15,6 +16,9 @@
 
     <div class="container mt-6">
       <%= flash_messages %>
+      <% unless controller_name == 'home' %>
+        <%= render 'shared/breadcrumb' %>
+      <% end %>
       <%= yield %>
     </div>
   </body>
