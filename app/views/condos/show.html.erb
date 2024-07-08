@@ -6,7 +6,6 @@
 <% if manager_signed_in? %>
   <%= link_to 'Editar', edit_condo_path, class:"btn btn-dark" %>
 <% end %>
-
 <% if manager_signed_in? %>
-  <%= link_to 'Listar Torres', condo_towers_path(@condo) %>
+  <%= link_to 'Listar Torres', condo_towers_path(@condo), class:"btn btn-dark" %>
 <% end %>
