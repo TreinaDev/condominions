@@ -11,8 +11,14 @@ class Resident < ApplicationRecord
   validates :full_name, :resident_type, presence: true
   validates :registration_number, uniqueness: true
 
+  has_one_attached :user_image
+
   enum resident_type: { owner: 0, tenant: 1 }
   enum status: { not_confirmed: 0, confirmed: 1 }
+
+  def description
+    "#{full_name} - #{email}"
+  end
 
   def send_invitation(random_password)
     ResidentMailer.with(resident: self, password: random_password).notify_new_resident.deliver

@@ -1,7 +1,17 @@
 <nav class="navbar fixed-top" style="background-color: #FDE879">
   <div class="container-fluid">
     <%= link_to 'CondoMinions', root_path, class:"navbar-brand" %>
-    <% if manager_signed_in? %>
+    <% if resident_signed_in? %>
+      <div style="margin: 0 auto;">
+        <% if current_resident.user_image.attached? %>
+          <%= image_tag current_resident.user_image, alt: 'Image profile', style:"width: 50px; height: 50px; border-radius: 50%" %>
+        <% else %>
+          <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', style:"width: 50px; height: 50px; border-radius: 50%" %>
+        <% end %>
+        <%= current_resident.description %>
+        <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete}, class: 'btn btn-danger' %>
+      </div>
+    <% elsif manager_signed_in? %>
       <div style="margin: 0 auto;">
         <% if current_manager.user_image.attached? %>
           <%= image_tag current_manager.user_image, alt: 'Image profile', style:"width: 50px; height: 50px; border-radius: 50%" %>
@@ -54,6 +64,7 @@
         </div>
       </div>
     <% end %>
+
   </div>
 </nav>
 
