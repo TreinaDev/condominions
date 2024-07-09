@@ -1,6 +1,6 @@
 class ResidentsController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create find_towers]
-  before_action :set_resident, only: %i[update]
+  before_action :set_resident, only: %i[update edit_photo update_photo]
 
   def new
     @resident = Resident.new
@@ -23,8 +23,8 @@ class ResidentsController < ApplicationController
     password = resident_params['password']
     password_confirmation = resident_params['password_confirmation']
 
-    if password_confirmation_invalid?(password, password_confirmation) ||
-       password_same_as_current?(password) || !@resident.update(resident_params)
+    if @resident.password_confirmation_invalid?(password, password_confirmation) ||
+       @resident.password_same_as_current?(password) || !@resident.update(resident_params)
 
       return render 'confirm', status: :unprocessable_entity
     end
@@ -48,24 +48,18 @@ class ResidentsController < ApplicationController
     @resident = current_resident
   end
 
+  def edit_photo; end
+
+  def update_photo
+    return render :edit_photo, status: :unprocessable_entity unless @resident.update(user_image_params)
+
+    redirect_to root_path, notice: I18n.t('notices.resident.updated_photo')
+  end
+
   private
 
   def set_resident
     @resident = Resident.find params[:id]
-  end
-
-  def password_same_as_current?(password)
-    return false unless @resident.valid_password?(password)
-
-    @resident.errors.add :password, 'deve ser diferente da atual'
-    true
-  end
-
-  def password_confirmation_invalid?(password, password_confirmation)
-    return false unless password != password_confirmation
-
-    @resident.errors.add :password_confirmation, 'deve ser igual a senha'
-    true
   end
 
   def authenticate_manager!
@@ -78,6 +72,10 @@ class ResidentsController < ApplicationController
     resident_params = params.require(:resident).permit(:full_name, :registration_number, :email,
                                                        :resident_type)
     resident_params.merge!({ unit_id: find_unit_id })
+  end
+
+  def user_image_params
+    params.require(:resident).permit(:user_image)
   end
 
   def find_tower_and_floor

@@ -16,7 +16,7 @@ class Manager < ApplicationRecord
 
   def valid_registration_number
     if CPF.valid? registration_number
-      unless registration_number.match(/\A\d{3}[\.]\d{3}[\.]\d{3}[\-]\d{2}\z/)
+      unless registration_number.match CPF_REGEX
         errors.add(:registration_number, 'deve estar no seguinte formato: XXX.XXX.XXX-XX')
       end
     else

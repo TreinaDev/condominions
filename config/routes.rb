@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :residents, only: [:new, :create, :update] do 
     get 'find_towers', on: :collection 
     get 'confirm', on: :member
+    get 'edit_photo', on: :member
+    patch 'update_photo', on: :member
   end
   resources :common_areas, only: [:show, :edit, :update]
 

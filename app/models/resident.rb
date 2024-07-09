@@ -24,12 +24,26 @@ class Resident < ApplicationRecord
     ResidentMailer.with(resident: self, password: random_password).notify_new_resident.deliver
   end
 
+  def password_same_as_current?(password)
+    return false unless valid_password?(password)
+
+    errors.add :password, 'deve ser diferente da atual'
+    true
+  end
+
+  def password_confirmation_invalid?(password, password_confirmation)
+    return false unless password != password_confirmation
+
+    errors.add :password_confirmation, 'deve ser igual a senha'
+    true
+  end
+
   private
 
   def valid_registration_number
     return errors.add(:registration_number, 'inválido') unless CPF.valid? registration_number
 
-    return if registration_number.match(/\A\d{3}[\.]\d{3}[\.]\d{3}[\-]\d{2}\z/)
+    return if registration_number.match CPF_REGEX
 
     errors.add(:registration_number, 'deve estar no seguinte formato: XXX.XXX.XXX-XX')
   end
