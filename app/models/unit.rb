@@ -4,6 +4,10 @@ class Unit < ApplicationRecord
   has_many :residents, dependent: :destroy
 
   def print_identifier
-    "Unidade #{floor.identifier}#{floor.units.index(self) + 1}"
+    "Unidade #{short_identifier}"
+  end
+
+  def short_identifier
+    "#{floor.identifier}#{floor.units.index(self) + 1}"
   end
 end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Resident edits photo' do
   context 'GET /residents/:id/edit_photo' do
-    it 'must be authenticated to acess edit photo' do
+    it 'must be authenticated to access edit_photo' do
       resident = create :resident
 
       get edit_photo_resident_path resident

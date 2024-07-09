@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Resident edits photo' do
-  it 'from warning' do
+  it 'from the warning' do
     resident = create :resident, password: '123456', status: :confirmed
 
     login_as resident, scope: :resident
@@ -11,22 +11,12 @@ describe 'Resident edits photo' do
     expect(current_path).to eq edit_photo_resident_path resident
   end
 
-  it 'from navbar' do
+  it 'successfully from the navbar' do
     resident = create :resident, password: '123456', status: :confirmed
 
     login_as resident, scope: :resident
     visit root_path
     within('nav') { find('#resident-profile-image').click }
-
-    expect(current_path).to eq edit_photo_resident_path resident
-  end
-
-  it 'successfully' do
-    resident = create :resident, password: '123456', status: :confirmed
-
-    login_as resident, scope: :resident
-    visit root_path
-    visit edit_photo_resident_path resident
     attach_file 'Foto', Rails.root.join('spec/support/images/resident_photo.jpg')
     click_on 'Enviar'
     resident.reload

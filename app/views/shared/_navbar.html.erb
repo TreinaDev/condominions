@@ -13,7 +13,7 @@
           <% end %>
         <% end %>
         <%= current_resident.description %>
-        <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete}, class: 'btn btn-danger' %>
+        <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete }, class: 'btn btn-danger' %>
       </div>
     <% elsif manager_signed_in? %>
       <div style="margin: 0 auto;">

@@ -22,10 +22,9 @@ class ApplicationController < ActionController::Base
 
   def warn_resident_photo
     return unless resident_signed_in?
-    return if current_resident.not_confirmed?
-    return if current_resident.user_image.attached?
 
-    flash.now[:warning] = "Por favor, <a href='#{edit_photo_resident_path current_resident}'>cadastre sua foto</a>"
+    warning_message = current_resident.photo_warning_html_message
+    flash.now[:warning] = warning_message if warning_message
   end
 
   def warn_tower_registration_incomplete

@@ -5,7 +5,7 @@ describe 'Resident confirms data' do
     resident = create :resident, status: :confirmed
 
     login_as resident, scope: :resident
-    visit confirm_resident_path(resident)
+    visit confirm_resident_path resident
 
     expect(current_path).to eq root_path
   end
@@ -44,9 +44,10 @@ describe 'Resident confirms data' do
 
     login_as resident, scope: :resident
     visit root_path
+    fill_in 'Senha', with: ''
     click_on 'Confirmar Dados'
 
-    expect(resident.status).to eq 'not_confirmed'
+    expect(resident.not_confirmed?).to be true
     expect(page).to have_content 'Senha não pode ficar em branco'
   end
 
@@ -59,7 +60,7 @@ describe 'Resident confirms data' do
     fill_in 'Confirmar Senha', with: '353456ae'
     click_on 'Confirmar Dados'
 
-    expect(resident.status).to eq 'not_confirmed'
+    expect(resident.not_confirmed?).to be true
     expect(page).to have_content 'Confirmar Senha deve ser igual a senha'
   end
 
@@ -72,7 +73,7 @@ describe 'Resident confirms data' do
     fill_in 'Confirmar Senha', with: '123456'
     click_on 'Confirmar Dados'
 
-    expect(resident.status).to eq 'not_confirmed'
+    expect(resident.not_confirmed?).to be true
     expect(page).to have_content 'Senha deve ser diferente da atual'
   end
 
@@ -89,7 +90,7 @@ describe 'Resident confirms data' do
     expect(page).to have_content 'Conta atualizada com sucesso!'
     expect(page).to have_css 'img[src*="resident_photo.jpg"]'
     resident.reload
-    expect(resident.confirmed?).to eq true
+    expect(resident.confirmed?).to be true
   end
 
   it 'is encouraged to upload a photo' do
