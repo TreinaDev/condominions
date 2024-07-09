@@ -33,6 +33,15 @@ describe 'User sees home page' do
     expect(page).to have_content 'Endereço: Rua do Luar, 789, Jardim do Sol - Belo Horizonte/MG - CEP: 14745-632'
   end
 
+  it "and there's no condo registered" do
+    manager = create :manager
+
+    login_as manager, scope: :manager
+    visit root_path
+
+    expect(page).to have_content 'Não existem condomínios cadastrados no sistema.'
+  end
+
   it "and sees condo's details" do
     manager = create :manager
     condo = create :condo, name: 'Residencial Horizonte Verde', registration_number: '87.570.020/0001-86',
