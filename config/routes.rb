@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   devise_for :managers
   devise_for :residents
   resources :managers, only: [:new, :create]
-  resources :residents, only: [:new, :create] do 
-    get 'find_towers', on: :collection 
+  resources :residents, only: [:new, :create] do
+    get 'find_towers', on: :collection
   end
   resources :common_areas, only: [:show, :edit, :update]
 
@@ -30,7 +30,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :condos, only: [:index, :show]
+      resources :condos, only: [:index, :show] do
+        resources :unit_types, only: [:index]
+      end
     end
   end
 end
