@@ -193,6 +193,9 @@ Exemplos de resposta:
 }
 ```
 
+<p align="justify">OBS: Caso não exista morador com o CPF informado, será retornado o erro 404 (not found) e o json nos padrões anteriores:</p>
+
+
 ```
 {
   "profile": "inexistent",
@@ -200,7 +203,7 @@ Exemplos de resposta:
 }
 ```
 
-<p align="justify">OBS: Caso o CPF seja inválido, será retornado o erro 412 (precondition failed) e o json com o campo 'error'</p>
+<p align="justify">OBS: Caso o CPF seja inválido, será retornado o erro 412 (precondition failed) e o json com o campo 'error':</p>
 
 ```
 {

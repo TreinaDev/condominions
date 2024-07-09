@@ -25,18 +25,16 @@ describe 'Resident API' do
     end
 
     it "successfully and there's no match on the database" do
-      registration_number = '076.550.640-83'
-      get "/api/v1/check_registration_number?registration_number=#{registration_number}"
+      get '/api/v1/check_registration_number?registration_number=076.550.640-83'
 
-      expect(response).to have_http_status :ok
+      expect(response).to have_http_status :not_found
       expect(response.content_type).to include 'application/json'
       expect(response.parsed_body['resident_type']).to eq 'inexistent'
       expect(response.parsed_body['unit_id']).to eq 'nil'
     end
 
     it 'and fail if the registration number is invalid' do
-      registration_number = '111.111.111-11'
-      get "/api/v1/check_registration_number?registration_number=#{registration_number}"
+      get '/api/v1/check_registration_number?registration_number=111.111.111-11'
 
       expect(response).to have_http_status :precondition_failed
       expect(response.content_type).to include 'application/json'
