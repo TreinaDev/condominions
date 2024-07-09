@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :common_areas, only: [:show, :edit, :update]
 
-  resources :condos, only: [:index, :new, :create, :show, :edit, :update] do
+  resources :condos, only: [:new, :create, :show, :edit, :update] do
     resources :common_areas, only: [:index, :new, :create]
     resources :unit_types, only: [:index, :new, :create, :show, :edit, :update]
 
@@ -34,7 +34,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :condos, only: [:index]
+      get 'check_registration_number', to: 'residents#check_registration_number'
+      resources :condos, only: [:index, :show] do
+        resources :unit_types, only: [:index]
+      end
     end
   end
 end

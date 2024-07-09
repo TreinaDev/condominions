@@ -3,7 +3,6 @@ class FloorsController < ApplicationController
   before_action :assure_floor_type_registration, only: %i[show]
   before_action :set_tower, only: %i[show]
 
-  add_breadcrumb I18n.t('breadcrumb.condo.index'), :condos_path, only: %i[show]
   before_action :set_breadcrumbs_for_details, only: %i[show]
 
   def show; end

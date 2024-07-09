@@ -84,11 +84,12 @@
 ## Endpoints da API
 
 ### Endpoint de Listagem de Condomínios
+
 `GET /api/v1/condos`
 
-<p align="justify">Retorna todos os condomínios com o id, nome, cidade e estado de cada um, ou retorna um vetor vazio caso não exista nenhum condomínio cadastrado.</p>
+<p align="justify">Retorna todos os condomínios com o id, nome, cidade e estado de cada um.</p>
 
-Exemplo de Resposta:
+Exemplo de resposta:
 ```
 [
   {
@@ -104,6 +105,110 @@ Exemplo de Resposta:
     "state": "BA"
   }
 ]
+```
+
+### Endpoint de Detalhes de Condomínio
+
+`GET /api/v1/condos/{id}`
+
+<p align="justify">Retorna os detalhes de um condomínio com o nome, cnpj, logradouro, número, bairro, cidade, estado e cep de cada um.
+
+Retorna erro 404 caso não exista um condomínio cadastrado com esse id.</p>
+
+Exemplo de resposta:
+```
+{
+  "name": "Condominio Residencial Paineiras",
+  "registration_number": "62.810.952/2718-22",
+  "address": {
+    "public_place": "Travessa João Edimar",
+    "number": "29",
+    "neighborhood": "João Eduardo II",
+    "city": "Rio Branco",
+    "state": "AC",
+    "zip": "69911-520"
+  }
+}
+```
+
+
+### Endpoint Listar Tipos de Unidade
+
+`GET /api/v1/condos/{id}/unit_types`
+
+<p align="justify">Retorna a lista de tipos de unidade registradas em um condomínio e os ids da unidades vinculadas a ele.
+
+Retorna 404 caso não exista um condomínio com o id informado</p>
+
+Exemplo de resposta:
+```
+[
+  {
+    "id": 1,
+    "description": "Apartamento grande",
+    "metreage": "100.0",
+    "fraction": "4.0",
+    "unit_ids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      9
+    ]
+  },
+  {
+    "id": 2,
+    "description": "Apartamento médio",
+    "metreage": "70.2",
+    "fraction": "2.5",
+    "unit_ids": [
+      5,
+      7,
+      8,
+      10
+    ]
+  }
+]
+```
+
+### Endpoint de Validação por CPF
+
+`/api/v1/check_registration_number?registration_number={CPF}`
+
+<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação Condomínions, ainda retorna o perfil de usuário e o id de sua unidade</p>
+
+Exemplos de resposta:
+```
+{
+  "profile": "owner",
+  "unit_id": "1"
+}
+```
+
+```
+{
+  "profile": "tenant",
+  "unit_id": "10"
+}
+```
+
+<p align="justify">OBS: Caso não exista morador com o CPF informado, será retornado o erro 404 (not found) e o json nos padrões anteriores:</p>
+
+
+```
+{
+  "profile": "inexistent",
+  "unit_id": "nil"
+}
+```
+
+<p align="justify">OBS: Caso o CPF seja inválido, será retornado o erro 412 (precondition failed) e o json com o campo 'error':</p>
+
+```
+{
+  "error": "invalid registration number"
+}
 ```
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
