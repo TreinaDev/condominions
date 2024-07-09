@@ -27,7 +27,6 @@ describe 'User sees breadcrumb' do
 
     within 'ol.breadcrumb' do
       expect(page).to have_link('Home', href: '/')
-      expect(page).to have_link('Condomínios', href: '/condos')
       expect(page).to have_link('Condominio Residencial Paineiras', href: "/condos/#{condo.id}")
       expect(page).to have_link('Torres', href: "/condos/#{condo.id}/towers")
       expect(page).to have_link('Torre A', href: "/towers/#{tower.id}")
@@ -43,8 +42,7 @@ describe 'User sees breadcrumb' do
 
     within 'ol.breadcrumb' do
       expect(page).to have_link('Home', href: '/')
-      expect(page).to have_link('Condomínios', href: '/condos')
-      expect(page).to have_content 'Cadastrar'
+      expect(page).to have_content 'Cadastrar Condomínio'
     end
   end
 

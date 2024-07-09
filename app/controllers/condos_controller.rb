@@ -2,12 +2,7 @@ class CondosController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create edit update]
   before_action :set_condo, only: %i[show edit update]
 
-  add_breadcrumb I18n.t('breadcrumb.condo.index'), :condos_path, only: %i[new create show edit update]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
-
-  def index
-    @condos = Condo.all
-  end
 
   def show; end
 

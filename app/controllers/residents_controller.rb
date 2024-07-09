@@ -2,11 +2,13 @@ class ResidentsController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create find_towers]
 
   def new
+    add_breadcrumb I18n.t('breadcrumb.resident.new')
     @resident = Resident.new
     @condos = Condo.all
   end
 
   def create
+    add_breadcrumb I18n.t('breadcrumb.resident.new')
     @condos = Condo.all
     random_password = SecureRandom.alphanumeric(8)
     @resident = Resident.new(resident_params.merge!(password: random_password))

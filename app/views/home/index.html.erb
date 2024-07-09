@@ -1,1 +1,14 @@
+<h1 class="mb-3">Condomínios</h1>
 
+<% if @condos.empty? %>
+    <p>Não existem condomínios cadastrados no sistema.</p>
+<% else %>
+    <% @condos.each do |condo| %>
+        <%= link_to condo_path(condo.id), class: 'link-underline link-underline-opacity-0' do %>
+        <div class="bg-warning-subtle py-3 px-5 text-black mb-3 rounded-4">
+            <p class="display-6"><b><%= condo.name %></b></p>
+            <h6>Endereço: <%= condo.full_address %></h6>
+        </div>
+        <% end %>
+    <% end %>  
+<% end %>

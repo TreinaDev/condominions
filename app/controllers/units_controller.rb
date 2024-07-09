@@ -3,7 +3,6 @@ class UnitsController < ApplicationController
   before_action :set_tower_and_floor, only: %i[show]
   before_action :set_unit, only: %i[show]
 
-  add_breadcrumb I18n.t('breadcrumb.condo.index'), :condos_path, only: %i[show]
   before_action :set_breadcrumbs_for_details, only: %i[show]
 
   def show; end

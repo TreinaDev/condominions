@@ -3,7 +3,6 @@ class UnitTypesController < ApplicationController
   before_action :set_condo
   before_action :authenticate_manager!
 
-  add_breadcrumb I18n.t('breadcrumb.condo.index'), :condos_path, only: %i[new show edit create update]
   before_action :set_breadcrumb_for_details, only: %i[show edit update]
   before_action :set_breadcrumb_for_register, only: %i[new create]
 
