@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe UnitType, type: :model do
+  context '#unit_ids' do
+    it "return ids from unit type's units" do
+      unit_type = build :unit_type
+      unit = create(:unit, unit_type:)
+
+      expect(unit_type.unit_ids).to include unit.id
+    end
+  end
+
   context '#valid?' do
     it 'missing params' do
       unit_type = UnitType.new(description: '', metreage: '', fraction: '')

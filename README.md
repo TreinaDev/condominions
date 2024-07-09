@@ -87,7 +87,7 @@
 
 `GET /api/v1/condos`
 
-<p align="justify">Retorna todos os condomínios com o id, nome, cidade e estado de cada um, ou retorna um vetor vazio caso não exista nenhum condomínio cadastrado.</p>
+<p align="justify">Retorna todos os condomínios com o id, nome, cidade e estado de cada um.</p>
 
 Exemplo de resposta:
 ```
@@ -111,7 +111,9 @@ Exemplo de resposta:
 
 `GET /api/v1/condos/{id}`
 
-<p align="justify">Retorna os detalhes de um condomínio com o nome, cnpj, logradouro, número, bairro, cidade, estado e cep de cada um. Retorna erro 404 caso não exista um condomínio cadastrado com esse id.</p>
+<p align="justify">Retorna os detalhes de um condomínio com o nome, cnpj, logradouro, número, bairro, cidade, estado e cep de cada um.
+
+Retorna erro 404 caso não exista um condomínio cadastrado com esse id.</p>
 
 Exemplo de resposta:
 ```
@@ -127,6 +129,47 @@ Exemplo de resposta:
     "zip": "69911-520"
   }
 }
+```
+
+
+### Endpoint Listar Tipos de Unidade
+
+`GET /api/v1/condos/{id}/unit_types`
+
+<p align="justify">Retorna a lista de tipos de unidade registradas em um condomínio e os ids da unidades vinculadas a ele.
+
+Retorna 404 caso não exista um condomínio com o id informado</p>
+
+Exemplo de resposta:
+```
+[
+  {
+    "id": 1,
+    "description": "Apartamento grande",
+    "metreage": "100.0",
+    "fraction": "4.0",
+    "unit_ids": [
+      1,
+      2,
+      3,
+      4,
+      6,
+      9
+    ]
+  },
+  {
+    "id": 2,
+    "description": "Apartamento médio",
+    "metreage": "70.2",
+    "fraction": "2.5",
+    "unit_ids": [
+      5,
+      7,
+      8,
+      10
+    ]
+  }
+]
 ```
 
 ### Endpoint de Validação por CPF
