@@ -6,6 +6,6 @@ FactoryBot.define do
     password { '123456' }
     resident_type { :owner }
     unit { build :unit }
-    status { :not_confirmed }
+    status { :confirmed }
   end
 end
