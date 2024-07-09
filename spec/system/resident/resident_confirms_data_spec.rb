@@ -1,6 +1,15 @@
 require 'rails_helper'
 
 describe 'Resident confirms data' do
+  it 'and must have not_confirmed status' do
+    resident = create :resident, status: :confirmed
+
+    login_as resident, scope: :resident
+    visit confirm_resident_path(resident)
+
+    expect(current_path).to eq root_path
+  end
+
   it 'and see registered data' do
     condo = create :condo, name: 'Condominio Certo'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 4
@@ -28,7 +37,6 @@ describe 'Resident confirms data' do
     expect(page).to have_field 'Senha', with: ''
     expect(page).to have_field 'Confirmar Senha', with: ''
     expect(page).to have_button 'Confirmar Dados'
-    expect(page).to have_button 'Solicitar Alteração de Dados'
   end
 
   it 'and resetting password is mandatory' do

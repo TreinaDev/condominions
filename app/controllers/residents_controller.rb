@@ -1,6 +1,7 @@
 class ResidentsController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create find_towers]
   before_action :set_resident, only: %i[update edit_photo update_photo]
+  before_action :authenticate_resident!, only: %i[update edit_photo update_photo]
 
   def new
     @resident = Resident.new
@@ -46,6 +47,8 @@ class ResidentsController < ApplicationController
 
   def confirm
     @resident = current_resident
+
+    redirect_to root_path if @resident.confirmed?
   end
 
   def edit_photo; end
@@ -57,6 +60,13 @@ class ResidentsController < ApplicationController
   end
 
   private
+
+  def authenticate_resident!
+    return redirect_to root_path if manager_signed_in?
+
+    super
+    redirect_to root_path if current_resident != Resident.find(params[:id])
+  end
 
   def set_resident
     @resident = Resident.find params[:id]
