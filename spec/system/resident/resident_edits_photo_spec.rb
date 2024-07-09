@@ -6,7 +6,7 @@ describe 'Resident edits photo' do
 
     login_as resident, scope: :resident
     visit root_path
-    within('.alert-warning') { click_on 'Editar Foto' }
+    within('.alert-warning') { click_on 'cadastre sua foto' }
 
     expect(current_path).to eq edit_photo_resident_path resident
   end

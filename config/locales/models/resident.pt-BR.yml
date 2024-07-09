@@ -3,9 +3,6 @@ pt-BR:
     resident:
       updated: 'Conta atualizada com sucesso!'
       updated_photo: 'Foto atualizada com sucesso.'
-  warning:
-    resident:
-      user_image: "Por favor, cadastre sua foto "
   owner: 'Proprietário'
   tenant: 'Inquilino'
   not_confirmed: 'Não Confirmado'
