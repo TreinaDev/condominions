@@ -1,4 +1,8 @@
 pt-BR:
+  notices:
+    resident:
+      updated: 'Conta atualizada com sucesso!'
+      updated_photo: 'Foto atualizada com sucesso.'
   owner: 'Proprietário'
   tenant: 'Inquilino'
   not_confirmed: 'Não Confirmado'
@@ -14,8 +18,11 @@ pt-BR:
         registration_number: 'CPF'
         email: 'E-mail'
         password: 'Senha'
+        password_confirmation: 'Confirmar Senha'
         resident_type: 'Tipo de Morador'
         condo_id: 'Condomínio'
         tower_id: 'Torre'
         floor: 'Andar'
         unit: 'Unidade'
+        resident_type: 'Tipo de Morador'
+        user_image: 'Foto'

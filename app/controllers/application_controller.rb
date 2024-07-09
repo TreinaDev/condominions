@@ -1,8 +1,31 @@
 class ApplicationController < ActionController::Base
   before_action :warn_tower_registration_incomplete
+  before_action :resident_registration_incomplete
+  before_action :warn_resident_photo
+  before_action :block_manager_from_resident_sign_in
   add_breadcrumb 'Home', :root_path
 
   private
+
+  def block_manager_from_resident_sign_in
+    redirect_to root_path if manager_signed_in? && request.path == new_resident_session_path
+  end
+
+  def resident_registration_incomplete
+    valid_actions = %w[destroy confirm update]
+
+    return unless resident_signed_in?
+    return if valid_actions.include?(action_name)
+
+    redirect_to confirm_resident_path(current_resident) if current_resident.not_confirmed?
+  end
+
+  def warn_resident_photo
+    return unless resident_signed_in?
+
+    warning_message = current_resident.photo_warning_html_message
+    flash.now[:warning] = warning_message if warning_message
+  end
 
   def warn_tower_registration_incomplete
     return unless manager_signed_in?

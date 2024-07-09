@@ -4,7 +4,7 @@ RSpec.describe ResidentMailer, type: :mailer do
   context '#notify_new_resident' do
     it 'send to resident email' do
       condo = create :condo, name: 'Condominio Certo'
-      tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 8, units_per_floor: 4
+      tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 4
       tower.generate_floors
       first_floor = tower.floors[0]
       third_unit = first_floor.units[2]

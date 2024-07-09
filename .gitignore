@@ -43,3 +43,6 @@ coverage/
 /node_modules
 
 .tool-versions
+
+# Ignore all Zone.Identifier files
+**/*.Identifier

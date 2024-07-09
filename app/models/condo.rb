@@ -24,7 +24,8 @@ class Condo < ApplicationRecord
 
   def validate_cnpj
     if CNPJ.valid? registration_number
-      unless registration_number.match %r{\A\d{2}[\.]\d{3}[\.]\d{3}[\/]\d{4}-\d{2}\z}
+      cnpj_regex = %r{\A\d{2}[\.]\d{3}[\.]\d{3}[\/]\d{4}-\d{2}\z}
+      unless registration_number.match cnpj_regex
         errors.add(:registration_number, 'deve estar no seguinte formato: XX.XXX.XXX/XXXX-XX')
       end
     else
