@@ -19,7 +19,6 @@ describe 'PATCH /towers' do
   it 'must be authenticated to register a tower' do
     condo = create :condo
     tower = create(:tower, floor_quantity: 3, units_per_floor: 2, condo:)
-    tower.generate_floors
 
     patch update_floor_units_condo_tower_path(condo, tower)
 
