@@ -36,10 +36,6 @@ describe 'Unit Type API' do
                            units_per_floor: 3,
                            condo: first_condo
 
-      first_tower.generate_floors
-      second_tower.generate_floors
-      third_tower.generate_floors
-
       first_tower.floors.each do |floor|
         floor.units[0].update unit_type: first_unit_type
         floor.units[1].update unit_type: third_unit_type

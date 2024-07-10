@@ -10,13 +10,15 @@ class Tower < ApplicationRecord
     greater_than: 0, only_integer: true
   }
 
-  def generate_floors
-    floor_quantity.times { create_floor_with_units }
-  end
+  after_create :generate_floors
 
   def warning_html_message
     "Cadastro do(a) <strong>#{name}</strong> do(a) <strong>#{condo.name}</strong> " \
       "incompleto(a), por favor, atualize o pavimento tipo.\n"
+  end
+
+  def generate_floors
+    floor_quantity.times { create_floor_with_units }
   end
 
   private
