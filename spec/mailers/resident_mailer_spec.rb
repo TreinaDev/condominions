@@ -8,7 +8,7 @@ RSpec.describe ResidentMailer, type: :mailer do
       tower.generate_floors
       first_floor = tower.floors[0]
       third_unit = first_floor.units[2]
-      resident_joao = create :resident, full_name: 'João Carvalho', resident_type: :owner,
+      resident_joao = create :resident, full_name: 'João Carvalho',
                                         email: 'joao@email.com', unit: third_unit
 
       mail = ResidentMailer.with(resident: resident_joao).notify_new_resident
@@ -17,7 +17,6 @@ RSpec.describe ResidentMailer, type: :mailer do
       expect(mail.to).to eq ['joao@email.com']
       expect(mail.from).to eq ['registration@condo.com']
       expect(mail.body).to have_content 'João Carvalho'
-      expect(mail.body).to have_content 'Tipo de Usuário: Proprietário'
       expect(mail.body).to have_content 'Email: joao@email.com'
       expect(mail.body).to have_content 'Condomínio: Condominio Certo'
       expect(mail.body).to have_content 'Torre: Torre correta'

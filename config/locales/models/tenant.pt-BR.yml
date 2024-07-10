@@ -1,0 +1,8 @@
+pt-BR:
+  notices:
+    tenant:
+      updated: 'Residência cadastrada com sucesso!'
+  alerts:    
+    tenant:
+      not_updated: 'Não foi possível cadastrar a residência'
+      inexistent_unit: 'Unidade não pode ficar em branco'

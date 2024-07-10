@@ -17,8 +17,8 @@ class ResidentsController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @resident.save
 
-    @resident.send_invitation(random_password)
-    redirect_to root_path, notice: "Convite enviado com sucesso para #{@resident.full_name} (#{@resident.email})"
+    #@resident.send_invitation(random_password)
+    redirect_to new_resident_tenant_path(@resident), notice: t('notices.resident.created')
   end
 
   def update
@@ -81,27 +81,10 @@ class ResidentsController < ApplicationController
   end
 
   def resident_params
-    resident_params = params.require(:resident).permit(:full_name, :registration_number, :email,
-                                                       :resident_type)
-    resident_params.merge!({ unit_id: find_unit_id })
+    params.require(:resident).permit(:full_name, :registration_number, :email)
   end
 
   def user_image_params
     params.require(:resident).permit(:user_image)
-  end
-
-  def find_tower_and_floor
-    tower = Tower.find_by(id: params['resident']['tower_id'])
-    return tower.floors[params['resident']['floor'].to_i - 1 ] if tower
-
-    nil
-  end
-
-  def find_unit_id
-    floor = find_tower_and_floor
-
-    return floor.units[params['resident']['unit'].to_i - 1 ].id if floor
-
-    nil
   end
 end

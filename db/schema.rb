@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_03_231659) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_10_200418) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -103,13 +103,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_231659) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer "resident_type"
-    t.integer "unit_id", null: false
     t.integer "status", default: 0
+    t.integer "residence_id"
     t.index ["email"], name: "index_residents_on_email", unique: true
     t.index ["registration_number"], name: "index_residents_on_registration_number", unique: true
     t.index ["reset_password_token"], name: "index_residents_on_reset_password_token", unique: true
-    t.index ["unit_id"], name: "index_residents_on_unit_id"
+    t.index ["residence_id"], name: "index_residents_on_residence_id"
   end
 
   create_table "towers", force: :cascade do |t|
@@ -147,7 +146,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_231659) do
   add_foreign_key "common_areas", "condos"
   add_foreign_key "condos", "addresses"
   add_foreign_key "floors", "towers"
-  add_foreign_key "residents", "units"
+  add_foreign_key "residents", "units", column: "residence_id"
   add_foreign_key "towers", "condos"
   add_foreign_key "unit_types", "condos"
   add_foreign_key "units", "floors"

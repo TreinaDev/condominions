@@ -1,20 +1,20 @@
 class Resident < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  belongs_to :unit
-  delegate :floor, to: :unit, allow_nil: true
-  delegate :tower, to: :floor, allow_nil: true
-  delegate :condo, to: :tower, allow_nil: true
+
+  # delegate :floor, to: :unit, allow_nil: true
+  # delegate :tower, to: :floor, allow_nil: true
+  # delegate :condo, to: :tower, allow_nil: true
+  belongs_to :residence, class_name: 'Unit', dependent: :destroy, optional: true
 
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   validate :valid_registration_number
-  validates :full_name, :resident_type, presence: true
+  validates :full_name, presence: true
   validates :registration_number, uniqueness: true
 
   has_one_attached :user_image
 
-  enum resident_type: { owner: 0, tenant: 1 }
-  enum status: { not_confirmed: 0, confirmed: 1 }
+  enum status: { not_tenant: 0, not_owner: 1, mail_not_confirmed: 2, mail_confirmed: 3 }
 
   def description
     "#{full_name} - #{email}"
