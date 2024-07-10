@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       get 'check_registration_number', to: 'residents#check_registration_number'
       resources :condos, only: [:index, :show] do
         resources :unit_types, only: [:index]
-        resources :common_areas, only: [:index]
+        resources :common_areas, only: [:index, :show]
       end
     end
   end
