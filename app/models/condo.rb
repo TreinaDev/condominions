@@ -20,6 +20,15 @@ class Condo < ApplicationRecord
     HEREDOC
   end
 
+  def calculate_total_area
+    total_area = 0
+    unit_types.each do |unit_type|
+      total_area += unit_type.metreage * unit_type.units.count
+    end
+
+    total_area
+  end
+
   private
 
   def validate_cnpj
