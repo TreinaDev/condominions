@@ -27,7 +27,6 @@ class TowersController < ApplicationController
     @tower = Tower.new tower_params.merge! condo: @condo
 
     if @tower.save
-      @tower.generate_floors
       return redirect_to edit_floor_units_condo_tower_path(@tower.condo, @tower),
                          notice: t('notices.tower.created')
     end
