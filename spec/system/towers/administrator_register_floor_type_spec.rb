@@ -82,7 +82,6 @@ describe 'Administrator edit floor type' do
       user = create :manager
       condo = create :condo
       tower = create :tower, floor_quantity: 5, condo:, units_per_floor: 2
-      tower.generate_floors
 
       unit_type = create :unit_type, description: 'Apartamento de 1 quarto', condo:, metreage: 50
       create :unit_type, description: 'Apartamento de 2 quartos', condo:, metreage: 100
@@ -111,7 +110,6 @@ describe 'Administrator edit floor type' do
       unit_type1 = create :unit_type, description: 'Apartamento de 1 quarto', condo:, metreage: 50
       unit_type2 = create :unit_type, description: 'Apartamento de 2 quartos', condo:, metreage: 100
       tower1 = create :tower, floor_quantity: 5, condo:, units_per_floor: 2
-      tower1.generate_floors
 
       tower1.floors.each do |floor|
         floor.units[0].update unit_type: unit_type1
@@ -120,7 +118,6 @@ describe 'Administrator edit floor type' do
       UnitType.update_fractions(tower1.condo)
 
       tower2 = create :tower, floor_quantity: 5, condo:, units_per_floor: 2
-      tower2.generate_floors
 
       login_as user, scope: :manager
       visit edit_floor_units_condo_tower_path(condo, tower2)
