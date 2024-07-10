@@ -4,7 +4,9 @@ class CondosController < ApplicationController
 
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
 
-  def show; end
+  def show
+    @towers = Tower.order(:name).where condo_id: @condo.id
+  end
 
   def new
     add_breadcrumb I18n.t('breadcrumb.condo.new')

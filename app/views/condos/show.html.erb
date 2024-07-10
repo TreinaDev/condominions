@@ -1,11 +1,44 @@
-<h1><%= @condo.name %></h1>
-<p>CNPJ: <%= @condo.registration_number %></p>
-<p>Endereço: <%= @condo.full_address %></p>
+<div class="text-center row justify-content-center">
+  <div class="p-0" style="width: fit-content;">
+    <h1 class="text-center"><%= @condo.name %></h1>
+    <p class="mb-1 text-secondary" style="font-size: 14px;"><%= @condo.full_address %></p>
+    <p class="text-secondary" style="font-size: 14px;">CNPJ: <%= @condo.registration_number %></p>
+  </div>
+</div>
 
+<hr>
 
-<% if manager_signed_in? %>
-  <%= link_to 'Editar', edit_condo_path, class:"btn btn-dark" %>
-<% end %>
-<% if manager_signed_in? %>
-  <%= link_to 'Listar Torres', condo_towers_path(@condo), class:"btn btn-dark" %>
-<% end %>
+<div class="row row-cols-3">
+  <div class="col"></div>
+  <div class="col"></div>
+  <div class="col">
+    <% if manager_signed_in? %>
+      <%= link_to edit_condo_path, class:"btn py-2 rounded-pill", style: "width: 100%; background-color: #FDE879;" do %>
+        Editar condomínio
+        <i class="bi bi-pencil-square"></i>
+      <% end %>
+    <% end %>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#towers" aria-expanded="true" aria-controls="collapseOne">
+            Listar torres
+          </button>
+        </h2>
+        <div id="towers" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <% @towers.each do |tower| %>
+              <div class="d-flex justify-content-between align-items-center my-1">
+                <p class="m-0"><%= tower.name %></p>
+                <%= link_to tower_path(tower.id), class: "btn btn-dark" do %>
+                  Visualizar <i class="bi bi-search"></i>
+                <% end %>
+              </div>
+              <hr class="m-0">
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
