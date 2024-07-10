@@ -2,8 +2,7 @@ require 'rails_helper'
 
 describe "Administrator sees tower's details" do
   it 'only if authenticated' do
-    tower = build(:tower)
-    tower.generate_floors
+    tower = create :tower
 
     visit tower_path tower
 
@@ -12,8 +11,7 @@ describe "Administrator sees tower's details" do
 
   it "and sees a list of tower's floors" do
     user = create :manager
-    tower = build :tower, name: 'Torre A', floor_quantity: 3
-    tower.generate_floors
+    tower = create :tower, name: 'Torre A', floor_quantity: 3
 
     login_as user, scope: :manager
     visit tower_path tower

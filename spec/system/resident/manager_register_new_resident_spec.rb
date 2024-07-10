@@ -6,8 +6,7 @@ describe 'Manager registers new resident' do
     create :condo, name: 'Condominio Errado'
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    tower.generate_floors
+    create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
 
     mail = double 'mail', deliver: true
     mailer_double = double 'ResidentMailer', notify_new_resident: mail

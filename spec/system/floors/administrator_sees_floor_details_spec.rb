@@ -3,7 +3,6 @@ require 'rails_helper'
 describe "Administrator sees floor's details" do
   it 'only if authenticated' do
     tower = create :tower, units_per_floor: 5, floor_quantity: 3
-    tower.generate_floors
     floor = tower.floors[1]
 
     visit tower_floor_path(tower, floor)
@@ -21,8 +20,7 @@ describe "Administrator sees floor's details" do
                               description: 'Apartamento de 2 quartos',
                               metreage: 80.75
 
-    tower = create(:tower, name: 'Torre A', units_per_floor: 5, floor_quantity: 3)
-    tower.generate_floors
+    tower = create :tower, name: 'Torre A', units_per_floor: 5, floor_quantity: 3
     floor = tower.floors[1]
 
     floor.units[0].update unit_type: second_unit_type
@@ -55,8 +53,7 @@ describe "Administrator sees floor's details" do
 
   it "and returns to floor type registration if it isn't registered yet" do
     user = create :manager
-    tower = build :tower
-    tower.generate_floors
+    tower = create :tower
     floor = tower.floors.first
 
     login_as user, scope: :manager

@@ -3,7 +3,6 @@ require 'rails_helper'
 describe "Administrator sees unit's details" do
   it 'only if authenticated' do
     tower = create :tower
-    tower.generate_floors
     floor = tower.floors.first
 
     visit tower_floor_unit_path(tower, floor, floor.units[1])
@@ -18,7 +17,6 @@ describe "Administrator sees unit's details" do
                       metreage: 50.55
 
     tower = create :tower
-    tower.generate_floors
     floor = tower.floors.first
     floor.units[1].update(unit_type:)
 
