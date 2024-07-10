@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe Tower, type: :model do
   describe '#generate_floors' do
     it 'Generate floors for this tower' do
-      tower = build :tower, floor_quantity: 3
-
-      tower.generate_floors
+      tower = create :tower, floor_quantity: 3
 
       expect(tower.floors.count).to eq 3
     end

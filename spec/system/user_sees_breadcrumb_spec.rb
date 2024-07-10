@@ -13,7 +13,6 @@ describe 'User sees breadcrumb' do
 
     condo = create :condo, name: 'Condominio Residencial Paineiras'
     tower = create(:tower, name: 'Torre A', units_per_floor: 5, floor_quantity: 3, condo:)
-    tower.generate_floors
     floor = tower.floors[1]
 
     floor.units[0].update unit_type: second_unit_type

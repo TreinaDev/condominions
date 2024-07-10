@@ -13,7 +13,6 @@ describe 'Resident confirms data' do
   it 'and see registered data' do
     condo = create :condo, name: 'Condominio Certo'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 4
-    tower.generate_floors
     first_floor = tower.floors[0]
     third_unit = first_floor.units[2]
 
