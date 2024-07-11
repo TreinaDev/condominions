@@ -1,4 +1,5 @@
 class OwnersController < ResidentsController
+  before_action :authenticate_manager!, only: %i[create new destroy]
   before_action :set_resident_and_condos
 
   def new; end

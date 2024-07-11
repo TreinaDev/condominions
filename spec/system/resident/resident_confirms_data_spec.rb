@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Resident confirms data' do
   it 'and must have not_confirmed status' do
-    resident = create :resident, status: :confirmed
+    resident = create :resident, status: :mail_confirmed
 
     login_as resident, scope: :resident
     visit confirm_resident_path resident
@@ -18,7 +18,7 @@ describe 'Resident confirms data' do
     third_unit = first_floor.units[2]
 
     resident = create :resident, unit: third_unit, full_name: 'Jessica Brito', registration_number: '163.289.380-04',
-                                 status: :not_confirmed, resident_type: :owner, email: 'jessica@email.com',
+                                 status: :mail_not_confirmed, resident_type: :owner, email: 'jessica@email.com',
                                  password: '123456'
 
     login_as resident, scope: :resident
@@ -40,7 +40,7 @@ describe 'Resident confirms data' do
   end
 
   it 'and resetting password is mandatory' do
-    resident = create :resident, password: '123456', status: :not_confirmed
+    resident = create :resident, password: '123456', status: :mail_not_confirmed
 
     login_as resident, scope: :resident
     visit root_path
@@ -52,7 +52,7 @@ describe 'Resident confirms data' do
   end
 
   it 'and password confirmation does not match password' do
-    resident = create :resident, password: '123456', status: :not_confirmed
+    resident = create :resident, password: '123456', status: :mail_not_confirmed
 
     login_as resident, scope: :resident
     visit root_path
@@ -65,7 +65,7 @@ describe 'Resident confirms data' do
   end
 
   it 'and new password cannot be the same as the current password' do
-    resident = create :resident, password: '123456', status: :not_confirmed
+    resident = create :resident, password: '123456', status: :mail_not_confirmed
 
     login_as resident, scope: :resident
     visit root_path
@@ -78,7 +78,7 @@ describe 'Resident confirms data' do
   end
 
   it 'successfully' do
-    resident = create :resident, password: '123456', status: :not_confirmed
+    resident = create :resident, password: '123456', status: :mail_not_confirmed
 
     login_as resident, scope: :resident
     visit root_path
@@ -94,7 +94,7 @@ describe 'Resident confirms data' do
   end
 
   it 'is encouraged to upload a photo' do
-    resident = create :resident, password: '123456', status: :confirmed
+    resident = create :resident, password: '123456', status: :mail_confirmed
 
     login_as resident, scope: :resident
     visit root_path

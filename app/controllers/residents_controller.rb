@@ -50,7 +50,7 @@ class ResidentsController < ApplicationController
   def confirm
     @resident = current_resident
 
-    redirect_to root_path if @resident.confirmed?
+    redirect_to root_path if @resident.mail_confirmed?
   end
 
   def edit_photo; end

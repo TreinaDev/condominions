@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     return unless resident_signed_in?
     return if valid_actions.include?(action_name)
 
-    redirect_to confirm_resident_path(current_resident) if current_resident.not_confirmed?
+    redirect_to confirm_resident_path(current_resident) if current_resident.mail_not_confirmed?
   end
 
   def warn_resident_photo

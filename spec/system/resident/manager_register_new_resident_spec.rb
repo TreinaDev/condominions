@@ -25,7 +25,7 @@ describe 'Manager registers new resident' do
 
     expect(page).to have_content 'Residente cadastrado com sucesso'
     expect(Resident.last.full_name).to eq 'Adroaldo Junior'
-    expect(Resident.last.status).to eq 'not_confirmed'
+    expect(Resident.last.not_tenant?).to eq true
     # expect(mail).to have_received(:deliver).once
     expect(current_path).to eq new_resident_tenant_path Resident.last
   end

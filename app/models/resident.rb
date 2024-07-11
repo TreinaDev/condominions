@@ -41,7 +41,7 @@ class Resident < ApplicationRecord
   end
 
   def photo_warning_html_message
-    return if user_image.attached? || not_confirmed?
+    return if user_image.attached? || mail_not_confirmed?
 
     "Por favor, <a href='#{Rails.application.routes.url_helpers.edit_photo_resident_path(self)}'>cadastre sua foto</a>"
   end
