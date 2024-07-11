@@ -3,6 +3,7 @@ pt-BR:
     owner:
       updated: 'Propriedade cadastrada com sucesso!'
       finalized: 'Cadastro finalizado com sucesso!'
+      unit_removed: 'Unidade removida com sucesso!'
   alerts:    
     owner:
       not_updated: 'Não foi possível cadastrar a propriedade'

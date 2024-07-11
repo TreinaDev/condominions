@@ -28,6 +28,12 @@ class OwnersController < ResidentsController
     render 'new', status: :unprocessable_entity
   end
 
+  def destroy
+    unit = Unit.find(params[:id])
+    @resident.units.destroy(unit)
+    redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
+  end
+
   private
 
   def set_resident_and_condos

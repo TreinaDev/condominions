@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :residents, only: [:new, :create, :update] do
     resources :tenants, only:[:new, :create], on: :collection
-    resources :owners, only:[:new, :create], on: :collection
+    resources :owners, only:[:new, :create, :destroy], on: :collection
     get 'find_towers', on: :collection
     get 'confirm', on: :member
     get 'edit_photo', on: :member

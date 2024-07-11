@@ -6,13 +6,14 @@
 
 <p class='mb-4 bold'>Morador: <%= @resident.full_name %> de CPF: <%= @resident.registration_number %> e e-mail: <%= @resident.email %></p>
 
-<div>
+<div class='units-array'>
   <p>Unidades já possuídas</p>
   <% @resident.units.each do |unit| %>
-    <div>
+    <div class='unit' >
       <p>Condomínio: <%= unit.condo.name %></p>
       <p>Torre: <%= unit.tower.name %></p>
       <p>Unidade: <%= unit.short_identifier %></p>
+      <%= button_to 'Remover Propriedade', resident_owner_path(@resident, unit.id), method: :delete, class: 'btn btn-dark' %>
     </div>
   <% end %>
 </div>

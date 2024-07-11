@@ -62,4 +62,29 @@ describe 'managers access page to set a resident as owner' do
     expect(resident.mail_not_confirmed?).to eq true
   end
 
+  it 'and choose an existent unit (success)' do
+    manager = create :manager
+    create :condo, name: 'Condominio Errado'
+    condo = create :condo, name: 'Condominio Certo'
+    create :tower, 'condo' => condo, name: 'Torre errada'
+    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
+    tower.generate_floors
+    resident = create(:resident, :not_owner, full_name: 'Adroaldo Silva')
+
+    resident.units << tower.floors.first.units.first #11
+    resident.units << tower.floors.last.units.last #22
+
+    login_as manager, scope: :manager
+
+    visit root_path
+    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, adicione unidades possuídas, caso haja, ou finalize o cadastro.'
+
+    within(:css, '.units-array .unit:nth-of-type(1)') do
+      click_on 'Remover Propriedade'
+    end
+
+    expect(page).to have_content 'Unidade: 22'
+    expect(page).not_to have_content 'Unidade: 11'
+  end
+
 end
