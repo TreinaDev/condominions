@@ -1,47 +1,62 @@
 <%= render 'shared/errors', model: @resident %>
 
-<h1 class="mb-3">Cadastrar Propriedade</h1>
-
-<h3 class="mb-3">Escolha as unidades em que o morador <%= @resident.full_name %> é proprietário</h3>
-
-<p class='mb-4 bold'>Morador: <%= @resident.full_name %> de CPF: <%= @resident.registration_number %> e e-mail: <%= @resident.email %></p>
-
-<div class='units-array'>
-  <p>Unidades já possuídas</p>
-  <% @resident.units.each do |unit| %>
-    <div class='unit' >
-      <p>Condomínio: <%= unit.condo.name %></p>
-      <p>Torre: <%= unit.tower.name %></p>
-      <p>Unidade: <%= unit.short_identifier %></p>
-      <%= button_to 'Remover Propriedade', resident_owner_path(@resident, unit.id), method: :delete, class: 'btn btn-dark' %>
-    </div>
-  <% end %>
+<div class="card mb-3">
+  <div class="card-body text-center">
+    <h1 class="mb-3">Cadastrar Propriedade</h1>
+    <h3 class="mb-3">Escolha as unidades as quais <%= @resident.full_name %> é proprietário(a)</h3>
+    <p class='mb-4 bold'>Morador: <%= @resident.full_name %> de CPF: <%= @resident.registration_number %> e e-mail: <%= @resident.email %></p>
+  </div>
 </div>
 
-<%= form_with model: @resident, url: resident_owners_path(@resident), method: :post do |f| %>
-
-  <div data-controller="resident">
-    <div class="mb-3 row">
-      <%= f.label :condo_id, class: 'col-sm-2 col-form-label' %>
-      <div class="col-sm-10"><%= f.collection_select :condo_id, @condos, :id, :name, {}, :'data-resident-target' => "condo", :'data-action' => "change->resident#changeCondo", class: 'form-control form-select' %></div> 
-    </div>
-    <div class="mb-3 row">
-      <%= f.label :tower_id, class: 'col-sm-2 col-form-label' %>
-      <div class="col-sm-10"><%= f.collection_select :tower_id, {}, {}, {}, {}, :'data-resident-target' => "tower", :'data-action' => "change->resident#changeTower", class: 'form-control form-select' %></div> 
-    </div>
-    <div class="mb-3 row">
-      <%= f.label :floor, class: 'col-sm-2 col-form-label' %>
-      <div class="col-sm-10"><%= f.collection_select :floor, {}, {}, {}, {}, :'data-resident-target' => "floor", class: 'form-control form-select' %></div>
-    </div>
-    <div class="mb-3 row">
-      <%= f.label :unit, class: 'col-sm-2 col-form-label' %>
-      <div class="col-sm-10"><%= f.collection_select :unit, {}, {}, {}, {}, :'data-resident-target' => "unit", class: 'form-control form-select' %></div>
+<div class="card mb-3">
+  <div class="card-body text-center">
+    <h2>Unidades já possuídas</h2>
+    <div class="container">
+      <div class="row mb-3 units-array">
+        <% @resident.units.each do |unit| %>
+          <div class="col-md-4 col-lg-2 mb-4 unit">
+            <div class="card h-100">
+              <div class="card-body text-center">
+                <h5 class="card-title">Condomínio: <%= unit.condo.name %></h5>
+                <p class="card-text">Torre: <%= unit.tower.name %></p>
+                <p class="card-text">Unidade: <%= unit.short_identifier %></p>
+                <%= button_to 'Remover Propriedade', resident_owner_path(@resident, unit.id), method: :delete, class: 'btn btn-dark' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="form-group">
-    <%= f.submit 'Adicionar Propriedade', class:"btn btn-dark" %>
-    <%= f.submit 'Finalizar Cadastro', class:'btn btn-success' %>
+<div class="card">
+  <div class="card-body text-center">
+    <h2>Selecionar nova</h2>
+    <%= form_with model: @resident, url: resident_owners_path(@resident), method: :post do |f| %>
+      <div data-controller="resident">
+        <div class="mb-3 row mt-3">
+          <%= f.label :condo_id, class: 'col-sm-2 col-form-label text-end' %>
+          <div class="col-sm-10"><%= f.collection_select :condo_id, @condos, :id, :name, {}, :'data-resident-target' => "condo", :'data-action' => "change->resident#changeCondo", class: 'form-control form-select' %></div> 
+        </div>
+        <div class="mb-3 row">
+          <%= f.label :tower_id, class: 'col-sm-2 col-form-label text-end' %>
+          <div class="col-sm-10"><%= f.collection_select :tower_id, {}, {}, {}, {}, :'data-resident-target' => "tower", :'data-action' => "change->resident#changeTower", class: 'form-control form-select' %></div> 
+        </div>
+        <div class="mb-3 row">
+          <%= f.label :floor, class: 'col-sm-2 col-form-label text-end' %>
+          <div class="col-sm-10"><%= f.collection_select :floor, {}, {}, {}, {}, :'data-resident-target' => "floor", class: 'form-control form-select' %></div>
+        </div>
+        <div class="mb-3 row">
+          <%= f.label :unit, class: 'col-sm-2 col-form-label text-end' %>
+          <div class="col-sm-10"><%= f.collection_select :unit, {}, {}, {}, {}, :'data-resident-target' => "unit", class: 'form-control form-select' %></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit 'Adicionar Propriedade', class:"btn btn-dark me-2" %>
+        <%= f.submit 'Finalizar Cadastro', class:'btn btn-success' %>
+      </div>
+    <% end %>
   </div>
-
-<% end %>
+</div>
