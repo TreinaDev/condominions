@@ -10,12 +10,15 @@ describe "Administrator sees tower's details" do
   end
 
   it "and sees a list of tower's floors" do
+    condo = create :condo
     user = create :manager
-    tower = create :tower, name: 'Torre A', floor_quantity: 3
+    tower = create :tower, condo:, name: 'Torre A', floor_quantity: 3
 
     login_as user, scope: :manager
-    visit tower_path tower
+    visit condo_path condo
+    find('#tower-1').click
 
+    expect(current_path).to eq tower_path tower
     expect(page).to have_content 'Torre A'
     expect(page).to have_content 'Andares'
     expect(page).to have_content '1º Andar'
