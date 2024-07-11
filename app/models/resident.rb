@@ -16,7 +16,7 @@ class Resident < ApplicationRecord
 
   has_one_attached :user_image
 
-  enum status: { not_tenant: 0, not_owner: 1, mail_not_confirmed: 2, mail_confirmed: 3 }
+  enum status: { not_owner: 0, not_tenant: 1, mail_not_confirmed: 2, mail_confirmed: 3 }
 
   def description
     "#{full_name} - #{email}"

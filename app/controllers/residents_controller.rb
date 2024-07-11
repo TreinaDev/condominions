@@ -17,8 +17,7 @@ class ResidentsController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @resident.save
 
-    #@resident.send_invitation(random_password)
-    redirect_to new_resident_tenant_path(@resident), notice: t('notices.resident.created')
+    redirect_to new_resident_owner_path(@resident), notice: t('notices.resident.created')
   end
 
   def update
@@ -32,7 +31,7 @@ class ResidentsController < ApplicationController
       return render 'confirm', status: :unprocessable_entity
     end
 
-    @resident.update status: :confirmed
+    @resident.update status: :mail_confirmed
     bypass_sign_in @resident
     redirect_to root_path, notice: t('notices.resident.updated')
   end

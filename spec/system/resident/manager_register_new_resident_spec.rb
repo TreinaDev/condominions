@@ -4,12 +4,6 @@ describe 'Manager registers new resident' do
   it 'from the menu' do
     manager = create :manager
 
-    # mail = double 'mail', deliver: true
-    # mailer_double = double 'ResidentMailer', notify_new_resident: mail
-
-    # allow(ResidentMailer).to receive(:with).and_return mailer_double
-    # allow(mailer_double).to receive(:notify_new_resident).and_return mail
-
     login_as manager, scope: :manager
     visit root_path
     within 'nav' do
@@ -25,9 +19,7 @@ describe 'Manager registers new resident' do
 
     expect(page).to have_content 'Residente cadastrado com sucesso'
     expect(Resident.last.full_name).to eq 'Adroaldo Junior'
-    expect(Resident.last.not_tenant?).to eq true
-    # expect(mail).to have_received(:deliver).once
-    expect(current_path).to eq new_resident_tenant_path Resident.last
+    expect(current_path).to eq new_resident_owner_path Resident.last
   end
 
   it 'must be authenticated' do

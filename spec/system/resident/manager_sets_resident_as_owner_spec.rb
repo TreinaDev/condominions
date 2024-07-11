@@ -42,12 +42,6 @@ describe 'managers access page to set a resident as owner' do
     manager = create :manager
     resident = create(:resident, :not_owner, full_name: 'Adroaldo Silva')
 
-    mail = double 'mail', deliver: true
-    mailer_double = double 'ResidentMailer', notify_new_resident: mail
-
-    allow(ResidentMailer).to receive(:with).and_return mailer_double
-    allow(mailer_double).to receive(:notify_new_resident).and_return mail
-
     login_as manager, scope: :manager
 
     visit root_path
@@ -55,11 +49,10 @@ describe 'managers access page to set a resident as owner' do
 
     click_on 'Finalizar Cadastro'
 
-    expect(current_path).to eq root_path
-    expect(mail).to have_received(:deliver).once
-    expect(page).to have_content 'Cadastro finalizado com sucesso!'
+    expect(current_path).to eq new_resident_tenant_path(resident)
+    expect(page).to have_content 'Propriedades cadastradas com sucesso!'
     resident.reload
-    expect(resident.mail_not_confirmed?).to eq true
+    expect(resident.not_tenant?).to eq true
   end
 
   it 'and choose an existent unit (success)' do
