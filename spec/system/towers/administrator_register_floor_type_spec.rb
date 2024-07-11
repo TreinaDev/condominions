@@ -77,64 +77,18 @@ describe 'Administrator edit floor type' do
     expect(page).to have_content 'Defina o tipo de unidade para todas as unidades'
   end
 
-  context 'and update unit_types fraction' do
-    it 'successfully' do
-      user = create :manager
-      condo = create :condo
-      tower = create :tower, floor_quantity: 5, condo:, units_per_floor: 2
+  it 'and update unit_types fraction' do
+    user = create :manager
+    condo = create :condo
+    first_unit_type = create :unit_type, description: 'Apartamento de 1 quarto', condo:, metreage: 50, fraction: nil
+    second_unit_type = create :unit_type, description: 'Apartamento de 2 quartos', condo:, metreage: 150
+    create(:tower, :with_four_units, floor_quantity: 5, condo:, unit_types: [first_unit_type, second_unit_type])
 
-      unit_type = create :unit_type, description: 'Apartamento de 1 quarto', condo:, metreage: 50
-      create :unit_type, description: 'Apartamento de 2 quartos', condo:, metreage: 100
+    login_as user, scope: :manager
+    visit condo_unit_type_path(condo, first_unit_type)
 
-      login_as user, scope: :manager
-      visit edit_floor_units_condo_tower_path(condo, tower)
-
-      within '#unit-1' do
-        select 'Apartamento de 1 quarto', from: 'Unidade modelo 1'
-      end
-
-      within '#unit-2' do
-        select 'Apartamento de 2 quartos', from: 'Unidade modelo 2'
-      end
-
-      click_on 'Atualizar Pavimento Tipo'
-
-      visit condo_unit_type_path(condo, unit_type)
-
-      expect(page).to have_content 'Fração Ideal: 6.66667%'
-    end
-
-    it 'after any tower create' do
-      user = create :manager
-      condo = create :condo
-      unit_type1 = create :unit_type, description: 'Apartamento de 1 quarto', condo:, metreage: 50
-      unit_type2 = create :unit_type, description: 'Apartamento de 2 quartos', condo:, metreage: 100
-      tower1 = create :tower, floor_quantity: 5, condo:, units_per_floor: 2
-
-      tower1.floors.each do |floor|
-        floor.units[0].update unit_type: unit_type1
-        floor.units[1].update unit_type: unit_type2
-      end
-      UnitType.update_fractions(tower1.condo)
-
-      tower2 = create :tower, floor_quantity: 5, condo:, units_per_floor: 2
-
-      login_as user, scope: :manager
-      visit edit_floor_units_condo_tower_path(condo, tower2)
-
-      within '#unit-1' do
-        select 'Apartamento de 1 quarto', from: 'Unidade modelo 1'
-      end
-
-      within '#unit-2' do
-        select 'Apartamento de 2 quartos', from: 'Unidade modelo 2'
-      end
-
-      click_on 'Atualizar Pavimento Tipo'
-
-      visit condo_unit_type_path(condo, unit_type1)
-      expect(page).to have_content 'Fração Ideal: 3.33333%'
-    end
+    expect(page).to have_content 'Fração Ideal: 2.5%'
+    expect(page).not_to have_content 'Não definido'
   end
 
   context 'see a warning if registration is not complete' do

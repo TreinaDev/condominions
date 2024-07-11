@@ -53,7 +53,6 @@ class TowersController < ApplicationController
       end
     end
 
-    UnitType.update_fractions(@tower.condo)
     @tower.complete!
   end
 

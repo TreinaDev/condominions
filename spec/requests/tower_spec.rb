@@ -25,4 +25,22 @@ describe 'PATCH /towers' do
     expect(response).to redirect_to new_manager_session_path
     expect(flash[:alert]).to eq 'Para continuar, faça login ou registre-se.'
   end
+
+  it 'and updates all unit type fractions within the condo' do
+    manager = create :manager
+    condo = create :condo
+    first_unit_type = create(:unit_type, condo:, metreage: 50)
+    second_unit_type = create(:unit_type, condo:, metreage: 100)
+    create(:tower, :with_four_units, floor_quantity: 3, condo:, unit_types: [first_unit_type, second_unit_type])
+
+    tower = create(:tower, floor_quantity: 3, units_per_floor: 2, condo:)
+    unit_types = { '0' => first_unit_type.id, '1' => second_unit_type.id }
+
+    login_as manager, scope: :manager
+    patch update_floor_units_condo_tower_path(condo, tower), params: { unit_types: }
+    tower.reload
+
+    expect(first_unit_type.reload.fraction).to eq 3.7037
+    expect(second_unit_type.reload.fraction).to eq 7.40741
+  end
 end

@@ -20,6 +20,16 @@ class Condo < ApplicationRecord
     HEREDOC
   end
 
+  def set_unit_types_fractions
+    total_area = calculate_total_area
+    unit_types.each do |unit_type|
+      fraction = (unit_type.metreage / total_area * 100).round(5)
+      unit_type.update!(fraction:)
+    end
+  end
+
+  private
+
   def calculate_total_area
     total_area = 0
     unit_types.each do |unit_type|
@@ -28,8 +38,6 @@ class Condo < ApplicationRecord
 
     total_area
   end
-
-  private
 
   def validate_cnpj
     if CNPJ.valid? registration_number

@@ -1,6 +1,37 @@
 require 'rails_helper'
 
 RSpec.describe Condo, type: :model do
+  describe '#set_units_type_fractions' do
+    context 'after define units types in condo tower floors' do
+      it 'calculate sucessfully' do
+        condo = create(:condo)
+        first_unit_type = create :unit_type,
+                                 description: 'Apartamento de 1 quarto',
+                                 condo:,
+                                 metreage: 50,
+                                 fraction: nil
+        second_unit_type = create :unit_type,
+                                  description: 'Apartamento de 2 quartos',
+                                  condo:,
+                                  metreage: 150,
+                                  fraction: nil
+        tower = create :tower,
+                       floor_quantity: 5,
+                       condo:,
+                       units_per_floor: 2
+
+        tower.floors.each do |floor|
+          floor.units[0].update unit_type: first_unit_type
+          floor.units[1].update unit_type: second_unit_type
+        end
+        condo.set_unit_types_fractions
+
+        expect(first_unit_type.reload.fraction).to eq(5)
+        expect(second_unit_type.reload.fraction).to eq(15)
+      end
+    end
+  end
+
   describe '#valid' do
     context 'presence' do
       it 'false when params are empty' do

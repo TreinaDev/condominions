@@ -18,12 +18,4 @@ class UnitType < ApplicationRecord
   def unit_ids
     units.pluck :id
   end
-
-  def self.update_fractions(condo)
-    total_area = condo.calculate_total_area
-    condo.unit_types.each do |unit_type|
-      fraction = (unit_type.metreage / total_area * 100).round(5)
-      unit_type.update!(fraction:)
-    end
-  end
 end
