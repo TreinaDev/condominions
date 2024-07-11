@@ -13,14 +13,10 @@ describe 'Administrator view list of towers' do
     condo = create(:condo)
     condo2 = create(:condo)
     user = create :manager
-    tower_a = build :tower, name: 'Torre A', condo_id: condo.id
-    tower_a.generate_floors
-    tower_b = build :tower, name: 'Torre B', condo_id: condo.id
-    tower_b.generate_floors
-    tower_c = build :tower, name: 'Torre C', condo_id: condo.id
-    tower_c.generate_floors
-    tower_z = build :tower, name: 'Torre Z', condo_id: condo2.id
-    tower_z.generate_floors
+    create :tower, name: 'Torre A', condo_id: condo.id
+    create :tower, name: 'Torre B', condo_id: condo.id
+    create :tower, name: 'Torre C', condo_id: condo.id
+    create :tower, name: 'Torre Z', condo_id: condo2.id
 
     login_as user, scope: :manager
     visit condo_path(condo)
@@ -38,8 +34,7 @@ describe 'Administrator view list of towers' do
   it 'and see a tower details when click on tower´s name' do
     condo = create(:condo)
     user = create :manager
-    tower_a = build :tower, name: 'Torre A', condo_id: condo.id
-    tower_a.generate_floors
+    tower_a = create :tower, name: 'Torre A', condo_id: condo.id
 
     login_as user, scope: :manager
     visit condo_path(condo)

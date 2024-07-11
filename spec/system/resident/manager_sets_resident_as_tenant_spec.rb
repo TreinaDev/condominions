@@ -14,8 +14,7 @@ describe 'managers access page to set a resident as tenant' do
     create :condo, name: 'Condominio Errado'
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    tower.generate_floors
+    create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
 
     mail = double 'mail', deliver: true
@@ -49,8 +48,7 @@ describe 'managers access page to set a resident as tenant' do
     create :condo, name: 'Condominio Errado'
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    tower.generate_floors
+    create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager

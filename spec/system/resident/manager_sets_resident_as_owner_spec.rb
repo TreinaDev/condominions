@@ -14,8 +14,7 @@ describe 'managers access page to set a resident as owner' do
     create :condo, name: 'Condominio Errado'
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    tower.generate_floors
+    create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager
@@ -63,7 +62,6 @@ describe 'managers access page to set a resident as owner' do
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    tower.generate_floors
     resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
 
     resident.units << tower.floors.first.units.first
@@ -101,8 +99,7 @@ describe 'managers access page to set a resident as owner' do
   it 'and try to inform the same unit again for an owner' do
     manager = create :manager
     condo = create :condo, name: 'Condominio Certo'
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    tower.generate_floors
+    create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager

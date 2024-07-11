@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe ResidentMailer, type: :mailer do
   context '#notify_new_resident' do
     it 'send to resident email' do
-      resident_joao = create :resident, full_name: 'João Carvalho',
-                                        email: 'joao@email.com'
+      resident_joao = create :resident, full_name: 'João Carvalho', email: 'joao@email.com'
 
       mail = ResidentMailer.with(resident: resident_joao).notify_new_resident
 
