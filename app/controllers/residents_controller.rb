@@ -61,6 +61,23 @@ class ResidentsController < ApplicationController
     redirect_to root_path, notice: I18n.t('notices.resident.updated_photo')
   end
 
+  protected
+
+  def find_tower_and_floor
+    tower = Tower.find_by(id: params['resident']['tower_id'])
+    return tower.floors[params['resident']['floor'].to_i - 1 ] if tower
+
+    nil
+  end
+
+  def find_unit_id
+    floor = find_tower_and_floor
+
+    return floor.units[params['resident']['unit'].to_i - 1 ].id if floor
+
+    nil
+  end
+
   private
 
   def authenticate_resident!

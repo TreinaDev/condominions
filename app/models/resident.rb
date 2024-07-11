@@ -6,6 +6,8 @@ class Resident < ApplicationRecord
   # delegate :tower, to: :floor, allow_nil: true
   # delegate :condo, to: :tower, allow_nil: true
   belongs_to :residence, class_name: 'Unit', dependent: :destroy, optional: true
+  has_many :ownerships, dependent: :destroy
+  has_many :units, through: :ownerships, dependent: :destroy
 
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   validate :valid_registration_number
@@ -42,6 +44,16 @@ class Resident < ApplicationRecord
     return if user_image.attached? || not_confirmed?
 
     "Por favor, <a href='#{Rails.application.routes.url_helpers.edit_photo_resident_path(self)}'>cadastre sua foto</a>"
+  end
+
+  def warning_html_message_tenant
+    "Cadastro de <strong>#{full_name}</strong> " \
+      "incompleto, por favor, indique a sua residência ou se não reside no condomínio.\n"
+  end
+
+  def warning_html_message_owner
+    "Cadastro de <strong>#{full_name}</strong> " \
+      "incompleto, por favor, adicione unidades possuídas, caso haja, ou finalize o cadastro.\n"
   end
 
   private

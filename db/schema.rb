@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_10_200418) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_10_230858) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -93,6 +93,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_200418) do
     t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
   end
 
+  create_table "ownerships", force: :cascade do |t|
+    t.integer "unit_id", null: false
+    t.integer "resident_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resident_id", "unit_id"], name: "index_ownerships_on_resident_id_and_unit_id", unique: true
+    t.index ["resident_id"], name: "index_ownerships_on_resident_id"
+    t.index ["unit_id"], name: "index_ownerships_on_unit_id"
+  end
+
   create_table "residents", force: :cascade do |t|
     t.string "full_name"
     t.string "registration_number"
@@ -146,6 +156,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_200418) do
   add_foreign_key "common_areas", "condos"
   add_foreign_key "condos", "addresses"
   add_foreign_key "floors", "towers"
+  add_foreign_key "ownerships", "residents"
+  add_foreign_key "ownerships", "units"
   add_foreign_key "residents", "units", column: "residence_id"
   add_foreign_key "towers", "condos"
   add_foreign_key "unit_types", "condos"
