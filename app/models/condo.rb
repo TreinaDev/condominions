@@ -22,6 +22,8 @@ class Condo < ApplicationRecord
 
   def set_unit_types_fractions
     total_area = calculate_total_area
+    return if total_area.zero?
+
     unit_types.each do |unit_type|
       fraction = (unit_type.metreage / total_area * 100).round(5)
       unit_type.update!(fraction:)

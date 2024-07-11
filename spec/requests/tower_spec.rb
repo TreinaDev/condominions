@@ -13,10 +13,24 @@ describe 'POST /towers' do
     expect(response).to redirect_to new_manager_session_path
     expect(flash[:alert]).to eq 'Para continuar, faça login ou registre-se.'
   end
+
+  it 'and can only be authenticated as a manager to register a tower' do
+    resident = create :resident
+    condo = create :condo
+
+    login_as resident, scope: :resident
+    post condo_towers_path(condo),
+         params: { tower:
+                         { name: 'Torre do Rubinhos',
+                           floor_quantity: 3,
+                           units_per_floor: 4 } }
+
+    expect(response).to redirect_to root_path
+  end
 end
 
-describe 'PATCH /towers' do
-  it 'must be authenticated to register a tower' do
+describe 'PATCH /update_floor_units' do
+  it 'must be authenticated to update floor units from a tower' do
     condo = create :condo
     tower = create(:tower, floor_quantity: 3, units_per_floor: 2, condo:)
 
@@ -24,6 +38,17 @@ describe 'PATCH /towers' do
 
     expect(response).to redirect_to new_manager_session_path
     expect(flash[:alert]).to eq 'Para continuar, faça login ou registre-se.'
+  end
+
+  it 'and can only be authenticated as a manager to update floor units from a tower' do
+    condo = create :condo
+    tower = create(:tower, floor_quantity: 3, units_per_floor: 2, condo:)
+    resident = create :resident
+
+    login_as resident, scope: :resident
+    patch update_floor_units_condo_tower_path(condo, tower)
+
+    expect(response).to redirect_to root_path
   end
 
   it 'and updates all unit type fractions within the condo' do

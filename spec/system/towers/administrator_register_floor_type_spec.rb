@@ -77,20 +77,6 @@ describe 'Administrator edit floor type' do
     expect(page).to have_content 'Defina o tipo de unidade para todas as unidades'
   end
 
-  it 'and update unit_types fraction' do
-    user = create :manager
-    condo = create :condo
-    first_unit_type = create :unit_type, description: 'Apartamento de 1 quarto', condo:, metreage: 50, fraction: nil
-    second_unit_type = create :unit_type, description: 'Apartamento de 2 quartos', condo:, metreage: 150
-    create(:tower, :with_four_units, floor_quantity: 5, condo:, unit_types: [first_unit_type, second_unit_type])
-
-    login_as user, scope: :manager
-    visit condo_unit_type_path(condo, first_unit_type)
-
-    expect(page).to have_content 'Fração Ideal: 2.5%'
-    expect(page).not_to have_content 'Não definido'
-  end
-
   context 'see a warning if registration is not complete' do
     it 'and go to floor type registration page after clicked the warning link' do
       user = create :manager

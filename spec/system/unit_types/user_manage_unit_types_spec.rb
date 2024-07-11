@@ -87,14 +87,14 @@ describe 'User manage unit types' do
       expect(page).to have_link('Editar')
     end
 
-    it 'succesfully' do
+    it 'succesfully when is not related to a tower' do
       condo = create(:condo)
       user = create(:manager)
-      login_as user, scope: :manager
       unit_type = UnitType.create!(description: 'Apartamento de 50 quartos',
                                    metreage: 5,
                                    condo_id: condo.id)
 
+      login_as user, scope: :manager
       visit edit_condo_unit_type_path(condo, unit_type)
       fill_in 'Descrição',	with: 'Apartamento de 2 quartos'
       fill_in 'Metragem',	with: '50'
@@ -105,6 +105,25 @@ describe 'User manage unit types' do
       expect(page).to have_content('Descrição: Apartamento de 2 quartos')
       expect(page).to have_content('Metragem: 50.0m²')
       expect(page).to have_content('Fração Ideal: Não definida')
+    end
+
+    it 'succesfully when is related to a tower' do
+      condo = create(:condo)
+      first_unit_type = UnitType.create!(description: 'Apartamento de 1 quartos', metreage: 5, condo_id: condo.id)
+      second_unit_type = UnitType.create!(description: 'Apartamento de 2 quartos', metreage: 150, condo_id: condo.id)
+      create(:tower, :with_four_units, floor_quantity: 5, condo:, unit_types: [first_unit_type, second_unit_type])
+      user = create(:manager)
+
+      login_as user, scope: :manager
+      visit edit_condo_unit_type_path(condo, first_unit_type)
+      fill_in 'Metragem',	with: '50'
+      click_on 'Atualizar Tipo de unidade'
+
+      expect(page).to have_content('Tipo de unidade atualizado com sucesso')
+      expect(current_path).to eq condo_unit_type_path(condo, first_unit_type)
+      expect(page).to have_content('Descrição: Apartamento de 1 quartos')
+      expect(page).to have_content('Metragem: 50.0m²')
+      expect(page).to have_content('Fração Ideal: 2.5%')
     end
 
     it 'with missing params' do
