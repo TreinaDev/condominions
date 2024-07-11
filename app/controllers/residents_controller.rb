@@ -63,6 +63,8 @@ class ResidentsController < ApplicationController
   protected
 
   def find_tower_and_floor
+    return unless params['resident']
+
     tower = Tower.find_by(id: params['resident']['tower_id'])
     return tower.floors[params['resident']['floor'].to_i - 1 ] if tower
 
@@ -97,10 +99,10 @@ class ResidentsController < ApplicationController
   end
 
   def resident_params
-    params.require(:resident).permit(:full_name, :registration_number, :email)
+    params.require(:resident).permit :full_name, :registration_number, :email
   end
 
   def user_image_params
-    params.require(:resident).permit(:user_image)
+    params.require(:resident).permit :user_image
   end
 end

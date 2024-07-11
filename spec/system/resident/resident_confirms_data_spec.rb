@@ -11,18 +11,13 @@ describe 'Resident confirms data' do
   end
 
   it 'and see registered data' do
-    condo = create :condo, name: 'Condominio Certo'
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 4
-    tower.generate_floors
-    first_floor = tower.floors[0]
-
     resident = create :resident, full_name: 'Jessica Brito', registration_number: '163.289.380-04',
                                  status: :mail_not_confirmed, email: 'jessica@email.com', password: '123456'
 
     login_as resident, scope: :resident
     visit root_path
 
-    expect(current_path).to eq confirm_resident_path(resident)
+    expect(current_path).to eq confirm_resident_path resident
     expect(page).to have_field 'Nome Completo', with: 'Jessica Brito', disabled: true
     expect(page).to have_field 'CPF', with: '163.289.380-04', disabled: true
     expect(page).to have_field 'E-mail', with: 'jessica@email.com', disabled: true

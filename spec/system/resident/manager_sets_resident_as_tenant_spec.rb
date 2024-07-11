@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'managers access page to set a resident as tenant' do
   it 'and is not authenticated' do
-    resident = create(:resident)
+    resident = create :resident
 
     visit new_resident_tenant_path resident
 
@@ -16,7 +16,7 @@ describe 'managers access page to set a resident as tenant' do
     create :tower, 'condo' => condo, name: 'Torre errada'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     tower.generate_floors
-    resident = create(:resident, :not_tenant, full_name: 'Adroaldo Silva')
+    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
 
     mail = double 'mail', deliver: true
     mailer_double = double 'ResidentMailer', notify_new_resident: mail
@@ -24,11 +24,11 @@ describe 'managers access page to set a resident as tenant' do
     allow(ResidentMailer).to receive(:with).and_return mailer_double
     allow(mailer_double).to receive(:notify_new_resident).and_return mail
 
-
     login_as manager, scope: :manager
 
     visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, indique a sua residência ou se não reside no condomínio.'
+    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
+             'indique a sua residência ou se não reside no condomínio.'
 
     select 'Condominio Certo', from: 'Condomínio'
     select 'Torre correta', from: 'Torre'
@@ -51,12 +51,13 @@ describe 'managers access page to set a resident as tenant' do
     create :tower, 'condo' => condo, name: 'Torre errada'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     tower.generate_floors
-    resident = create(:resident, :not_tenant, full_name: 'Adroaldo Silva')
+    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager
 
     visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, indique a sua residência ou se não reside no condomínio.'
+    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
+             'indique a sua residência ou se não reside no condomínio.'
 
     click_on 'Não reside neste condomínio'
 
@@ -71,12 +72,13 @@ describe 'managers access page to set a resident as tenant' do
     manager = create :manager
     create :condo, name: 'Condominio Errado'
 
-    resident = create(:resident, :not_tenant, full_name: 'Adroaldo Silva')
+    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager
 
     visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, indique a sua residência ou se não reside no condomínio.'
+    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
+             'indique a sua residência ou se não reside no condomínio.'
 
     click_on 'Atualizar Morador'
 

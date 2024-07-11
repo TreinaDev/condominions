@@ -5,19 +5,10 @@ class OwnersController < ResidentsController
   def new; end
 
   def create
-    if params[:commit] == 'Finalizar Cadastro de Propriedades'
-      @resident.not_tenant! if @resident.not_owner?
-      
-      return redirect_to new_resident_tenant_path(@resident), notice: t('notices.owner.finalized')
-    end
+    return if finish_ownership_register
 
-    unit = Unit.find(find_unit_id)
-
-    if params[:commit] == 'Adicionar Propriedade' && !unit
-      flash.now.alert = t('alerts.owner.inexistent_unit')
-
-      return render 'new', status: :unprocessable_entity
-    end
+    unit = Unit.find_by id: find_unit_id
+    return if inexistent_unit unit
 
     unless @resident.units.include? unit
       @resident.units << unit
@@ -28,42 +19,30 @@ class OwnersController < ResidentsController
     render 'new', status: :unprocessable_entity
   end
 
-  # def create
-  #   if params[:commit] == 'Finalizar Cadastro'
-  #     if @resident.not_owner?
-  #       random_password = SecureRandom.alphanumeric(8)
-  #       @resident.mail_not_confirmed!
-  #       @resident.send_invitation(random_password)
-  #     end
-  #     return redirect_to root_path, notice: t('notices.owner.finalized')
-  #   end
-  #   unit = Unit.find(find_unit_id)
+  def finish_ownership_register
+    return unless params[:commit] == 'Finalizar Cadastro de Propriedades'
 
-  #   if params[:commit] == 'Adicionar Propriedade' && !unit
-  #     flash.now.alert = t('alerts.owner.inexistent_unit')
+    @resident.not_tenant! if @resident.not_owner?
+    redirect_to new_resident_tenant_path(@resident), notice: t('notices.owner.finalized')
+  end
 
-  #     return render 'new', status: :unprocessable_entity
-  #   end
+  def inexistent_unit(unit)
+    return nil unless params[:commit] == 'Adicionar Propriedade' && !unit
 
-  #   unless @resident.units.include? unit
-  #     @resident.units << unit
-  #     return redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.updated')
-  #   end
-  #   flash.now.alert = t('alerts.owner.duplicated_unit')
-  #   render 'new', status: :unprocessable_entity
-  # end
+    flash.now.alert = t('alerts.owner.inexistent_unit')
+    render 'new', status: :unprocessable_entity
+  end
 
   def destroy
-    unit = Unit.find(params[:id])
-    @resident.units.destroy(unit)
+    unit = Unit.find params[:id]
+    @resident.units.destroy unit
     redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
   end
 
   private
 
   def set_resident_and_condos
-    @resident = Resident.find(params[:resident_id])
+    @resident = Resident.find params[:resident_id]
     @condos = Condo.all
   end
-
 end
