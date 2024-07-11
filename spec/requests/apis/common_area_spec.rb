@@ -4,10 +4,10 @@ describe 'Common Area API' do
   context 'GET /api/v1/condos/{id}/common_areas' do
     it 'successfully' do
       condo = create :condo
-      common_area1 = create(:common_area, name: 'Piscina', description: 'Para adultos e crianças',
-                                          max_occupancy: 50, rules: 'Só pode usar até as 22 hrs', condo:)
-      common_area2 = create(:common_area, name: 'Salão de Festas', description: 'Salão para vários eventos',
-                                          max_occupancy: 100, rules: 'Se sujar limpe', condo:)
+      first_common_area1 = create(:common_area, name: 'Piscina', description: 'Para adultos e crianças',
+                                                max_occupancy: 50, rules: 'Só pode usar até as 22 hrs', condo:)
+      second_common_area2 = create(:common_area, name: 'Salão de Festas', description: 'Salão para vários eventos',
+                                                 max_occupancy: 100, rules: 'Se sujar limpe', condo:)
 
       get "/api/v1/condos/#{condo.id}/common_areas"
 
@@ -15,17 +15,13 @@ describe 'Common Area API' do
       expect(response.parsed_body.count).to eq 2
 
       expect(response.parsed_body['condo_id']).to eq condo.id.to_s
-      expect(response.parsed_body['common_areas'][0]['id']).to eq common_area1.id
+      expect(response.parsed_body['common_areas'][0]['id']).to eq first_common_area1.id
       expect(response.parsed_body['common_areas'][0]['name']).to eq 'Piscina'
       expect(response.parsed_body['common_areas'][0]['description']).to eq 'Para adultos e crianças'
-      expect(response.parsed_body['common_areas'][0]['max_occupancy']).to eq 50
-      expect(response.parsed_body['common_areas'][0]['rules']).to eq 'Só pode usar até as 22 hrs'
 
-      expect(response.parsed_body['common_areas'][1]['id']).to eq common_area2.id
+      expect(response.parsed_body['common_areas'][1]['id']).to eq second_common_area2.id
       expect(response.parsed_body['common_areas'][1]['name']).to eq 'Salão de Festas'
       expect(response.parsed_body['common_areas'][1]['description']).to eq 'Salão para vários eventos'
-      expect(response.parsed_body['common_areas'][1]['max_occupancy']).to eq 100
-      expect(response.parsed_body['common_areas'][1]['rules']).to eq 'Se sujar limpe'
     end
 
     it "and there's no common areas" do
