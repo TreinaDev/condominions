@@ -13,32 +13,37 @@
   <div class="col"></div>
   <div class="col">
     <% if manager_signed_in? %>
-      <%= link_to edit_condo_path, class:"btn py-2 rounded-pill", style: "width: 100%; background-color: #FDE879;" do %>
-        Editar condomínio
-        <i class="bi bi-pencil-square"></i>
+      <%= link_to edit_condo_path, class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2", style: "width: 100%; background-color: #FDE879;" do %>
+        <strong>Editar Condomínio</strong>
+        <i class="bi bi-pencil-square pb-1 ms-1"></i>
       <% end %>
     <% end %>
     <div class="accordion">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#towers" aria-expanded="true" aria-controls="collapseOne">
-            Listar torres
-          </button>
-        </h2>
-        <div id="towers" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <% @towers.each do |tower| %>
-              <div class="d-flex justify-content-between align-items-center my-1">
-                <p class="m-0"><%= tower.name %></p>
-                <%= link_to tower_path(tower.id), class: "btn btn-dark" do %>
-                  Visualizar <i class="bi bi-search"></i>
-                <% end %>
-              </div>
-              <hr class="m-0">
-            <% end %>
+      <% if manager_signed_in? %>
+        <div class="accordion-item rounded-5">
+          <h2 class="accordion-header">
+            <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#towers" aria-expanded="true" aria-controls="collapseOne">
+              <strong class="position-absolute top-50 start-50 translate-middle text-black">Listar Torres</strong>
+            </button>
+          </h2>
+          <div id="towers" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <% @towers.each do |tower| %>
+                <div class="d-flex align-items-center my-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-fill" viewBox="0 0 16 16">
+                    <path d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5M4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
+                  </svg>
+                  <p class="m-0 ms-1"><%= tower.name %></p>
+                  <%= link_to tower_path(tower.id), class: "ms-auto btn btn-dark d-inline-flex align-items-center", id: "tower-#{tower.id}" do %>
+                    <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
+                  <% end %>
+                </div>
+                <hr class="m-0">
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

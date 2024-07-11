@@ -12,19 +12,19 @@
             <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image', style:"width: 35px; height: 35px; border-radius: 50%" %>
           <% end %>
         <% end %>
-        <%= current_resident.description %>
-        <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete }, class: 'btn btn-danger' %>
+        <p class='ms-1'><%= current_resident.description %></p>
+        <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete }, class: 'btn btn-outline-dark rounded-5 ms-2' %>
       </div>
     <% elsif manager_signed_in? %>
-      <div style="margin: 0 auto;">
+      <div class="d-inline-flex align-items-center" style="margin: 0 auto;">
         <% if current_manager.user_image.attached? %>
           <%= image_tag current_manager.user_image, alt: 'Image profile', style:"width: 45px; height: 45px; border-radius: 50%" %>
         <% else %>
           <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', style:"width: 45px; height: 45px; border-radius: 50%" %>
         <% end %>
-        <%= current_manager.description %>
-        <%= link_to destroy_manager_session_path, data: { turbo_method: :delete }, class: 'btn btn-danger rounded-5', style: "vertical-align: middle;" do %>
-          <i class="bi bi-power"></i> Sair
+        <p class="my-0 ms-3 me-3"><%= current_manager.description %></p>
+        <%= link_to destroy_manager_session_path, data: { turbo_method: :delete }, class: 'btn btn-outline-dark d-inline-flex align-items-center justify-content-center rounded-5', style: "vertical-align: middle;" do %>
+          <i class="bi bi-power pb-1 me-1"></i> Sair
         <% end %>
       </div>
     
