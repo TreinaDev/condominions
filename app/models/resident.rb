@@ -26,7 +26,6 @@ class Resident < ApplicationRecord
     ResidentMailer.with(resident: self, password: random_password).notify_new_resident.deliver
   end
 
-
   def photo_warning_html_message
     return if user_image.attached? || mail_not_confirmed?
 
