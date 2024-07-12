@@ -213,6 +213,55 @@ Exemplos de resposta:
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
+### Endpoint de Listagem de Áreas Comuns
+
+`GET /api/v1/condos/{id}/common_areas`
+
+<p align="justify">Retorna todas as áreas comuns a partir do `id` do condomínio informado, com nome, descrição.</p>
+
+Exemplo de Resposta:
+
+```
+{
+  "common_areas": [
+    {
+      "id": 1,
+      "name": "Piscina",
+      "description": "Para adultos e crianças"
+    },
+    {
+      "id": 2,
+      "name": "Salão de Festas",
+      "description": "Salão para vários eventos"
+    }
+  ]
+}
+
+```
+
+<p align="justify">caso não existam áreas comuns cadastradas para o condomínio informado retorna o `id` do condomínio e um array vazio.</p>
+
+<p align="justify">Retorna erro `404` caso o condomínio informado não esteja cadastrado.</p>
+
+### Endpoint de Detalhes de Área Comum
+
+`GET /api/v1/common_areas/{id}`
+
+<p align="justify">Retorna os detalhes de uma área comum específica a partir do `id` da área comum, com nome, descrição, capacidade máxima e regras de uso.</p>
+
+Exemplo de Resposta:
+```
+{
+    "name": "Piscina",
+    "description": "Para adultos e crianças",
+    "max_occupancy": 20,
+    "rules": "Só pode ser usada até 22h",
+    "condo_id": 1
+}
+```
+
+<p align="justify">Retorna erro `404` caso a área comum informada não esteja cadastrada para o condomínio informado.</p>
+
 <!-- GETTING STARTED -->
 ## Instalação e Execução
 
