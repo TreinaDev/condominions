@@ -121,7 +121,7 @@ describe 'managers access page to set a resident as owner' do
     click_on 'Adicionar Propriedade'
 
     expect(current_path).to eq new_resident_owner_path resident
-    expect(page).to have_content 'Unidade já cadastrada como propriedade'
+    expect(page).to have_content 'Unidade já possui proprietário'
     expect(page).to have_content 'Condomínio: Condominio Certo'
     expect(page).to have_content 'Torre: Torre correta'
     expect(page).to have_content 'Unidade: 12'
@@ -148,6 +148,6 @@ describe 'managers access page to set a resident as owner' do
     click_on 'Adicionar Propriedade'
 
     expect(current_path).to eq new_resident_owner_path resident
-    expect(page).to have_content 'Unidade já cadastrada como propriedade'
+    expect(page).to have_content 'Unidade já possui proprietário'
   end
 end
