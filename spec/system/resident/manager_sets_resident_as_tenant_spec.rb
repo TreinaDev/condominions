@@ -86,4 +86,26 @@ describe 'managers access page to set a resident as tenant' do
     expect(resident.residence).to eq nil
     expect(resident.not_tenant?).to eq true
   end
+
+  it 'and cannot set as tenant for an unit that already has an tenant' do
+    manager = create :manager
+    condo = create :condo, name: 'Condominio Certo'
+    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
+    unidade11 = tower.floors[0].units[0]
+    create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', residence: unidade11, email: 'Adroaldo@email.com'
+    resident = create :resident, :not_tenant, full_name: 'Sandra Soares'
+
+    login_as manager, scope: :manager
+    visit root_path
+    click_on 'Cadastro de Sandra Soares incompleto, por favor, ' \
+             'indique a sua residência ou se não reside no condomínio.'
+    select 'Condominio Certo', from: 'Condomínio'
+    select 'Torre correta', from: 'Torre'
+    select '1', from: 'Andar'
+    select '1', from: 'Unidade'
+    click_on 'Atualizar Morador'
+
+    expect(current_path).to eq new_resident_tenant_path resident
+    expect(page).to have_content 'Unidade já atribuída como residência de outro morador'
+  end
 end

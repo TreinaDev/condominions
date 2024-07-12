@@ -13,7 +13,7 @@ describe 'Manager sets owner in register' do
     resident = create(:resident, full_name: 'Adroaldo Silva')
     unit = create(:unit)
 
-    resident.units << unit
+    resident.properties << unit
 
     delete resident_owner_path(resident, unit), params: { floor_id: '15' }
 

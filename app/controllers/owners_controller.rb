@@ -10,8 +10,8 @@ class OwnersController < ResidentsController
     unit = Unit.find_by id: find_unit_id
     return if inexistent_unit unit
 
-    unless @resident.units.include? unit
-      @resident.units << unit
+    unless unit.owner
+      @resident.properties << unit
       return redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.updated')
     end
 
@@ -21,7 +21,7 @@ class OwnersController < ResidentsController
 
   def destroy
     unit = Unit.find params[:id]
-    @resident.units.destroy unit
+    @resident.properties.destroy unit
     redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
   end
 

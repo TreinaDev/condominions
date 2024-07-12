@@ -37,9 +37,9 @@ resident = Resident.create!(email:'fernando@email.com', password: 'teste123',
   status: :mail_confirmed, full_name: 'Fernando Marques Gomes', registration_number: '065.858.303-42')
 
 
-resident.units << tower3.floors[1].units[2]
-resident.units << tower3.floors[2].units[2]
-resident.units << tower4.floors[1].units[1]
+resident.properties << tower3.floors[1].units[2]
+resident.properties << tower3.floors[2].units[2]
+resident.properties << tower4.floors[1].units[1]
 resident.residence = tower3.floors[1].units[2]
 
 

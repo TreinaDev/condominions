@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_10_230858) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_12_191202) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -93,16 +93,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_230858) do
     t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
   end
 
-  create_table "ownerships", force: :cascade do |t|
-    t.integer "unit_id", null: false
-    t.integer "resident_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["resident_id", "unit_id"], name: "index_ownerships_on_resident_id_and_unit_id", unique: true
-    t.index ["resident_id"], name: "index_ownerships_on_resident_id"
-    t.index ["unit_id"], name: "index_ownerships_on_unit_id"
-  end
-
   create_table "residents", force: :cascade do |t|
     t.string "full_name"
     t.string "registration_number"
@@ -114,11 +104,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_230858) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer "status", default: 0
-    t.integer "residence_id"
     t.index ["email"], name: "index_residents_on_email", unique: true
     t.index ["registration_number"], name: "index_residents_on_registration_number", unique: true
     t.index ["reset_password_token"], name: "index_residents_on_reset_password_token", unique: true
-    t.index ["residence_id"], name: "index_residents_on_residence_id"
   end
 
   create_table "towers", force: :cascade do |t|
@@ -147,7 +135,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_230858) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "floor_id", null: false
+    t.integer "tenant_id"
+    t.integer "owner_id"
     t.index ["floor_id"], name: "index_units_on_floor_id"
+    t.index ["owner_id"], name: "index_units_on_owner_id"
+    t.index ["tenant_id"], name: "index_units_on_tenant_id"
     t.index ["unit_type_id"], name: "index_units_on_unit_type_id"
   end
 
@@ -156,11 +148,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_10_230858) do
   add_foreign_key "common_areas", "condos"
   add_foreign_key "condos", "addresses"
   add_foreign_key "floors", "towers"
-  add_foreign_key "ownerships", "residents"
-  add_foreign_key "ownerships", "units"
-  add_foreign_key "residents", "units", column: "residence_id"
   add_foreign_key "towers", "condos"
   add_foreign_key "unit_types", "condos"
   add_foreign_key "units", "floors"
+  add_foreign_key "units", "residents", column: "owner_id"
+  add_foreign_key "units", "residents", column: "tenant_id"
   add_foreign_key "units", "unit_types"
 end
