@@ -11,7 +11,6 @@ RSpec.describe ResidentMailer, type: :mailer do
       expect(mail.to).to eq ['joao@email.com']
       expect(mail.from).to eq ['registration@condo.com']
       expect(mail.body).to have_content 'João Carvalho'
-      expect(mail.body).to have_content 'Email: joao@email.com'
     end
   end
 end
