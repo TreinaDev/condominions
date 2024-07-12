@@ -19,8 +19,8 @@ describe 'Resident confirms data' do
                                  status: :mail_not_confirmed, email: 'jessica@email.com'
 
     resident.residence = tower.floors[0].units[1]
-    resident.units << tower.floors[0].units[1]
-    resident.units << tower.floors[1].units[1]
+    resident.properties << tower.floors[0].units[1]
+    resident.properties << tower.floors[1].units[1]
     resident.save
 
     login_as resident, scope: :resident
