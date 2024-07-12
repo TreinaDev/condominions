@@ -13,6 +13,7 @@ describe "Administrator view condo tower's list" do
     login_as user, scope: :manager
     visit root_path
     within('#condos-list') { click_on 'Residencial on Rails' }
+    click_on 'Lista de Torres'
 
     within '#towers' do
       expect(page).to have_content 'Torre A'
@@ -32,5 +33,16 @@ describe "Administrator view condo tower's list" do
 
     expect(page).not_to have_content 'Lista de Torres'
     expect(page).not_to have_content 'Torre A'
+  end
+
+  it 'and sees a message if there are no towers on condo' do
+    manager = create :manager
+    condo = create :condo
+
+    login_as manager, scope: :manager
+    visit condo_path condo
+    click_on 'Lista de Torres'
+
+    expect(page).to have_content 'Não existem torres para esse condomínio'
   end
 end

@@ -7,7 +7,7 @@
         <% @condos.each do |condo| %>
             <%= link_to condo_path(condo.id), class: 'link-underline link-underline-opacity-0' do %>
             <div class="bg-warning-subtle py-3 px-5 text-black mb-3 rounded-4">
-                <p class="display-6"><b><%= condo.name %></b></p>
+                <h2><%= condo.name %></h2>
                 <h6>Endereço: <%= condo.full_address %></h6>
             </div>
             <% end %>

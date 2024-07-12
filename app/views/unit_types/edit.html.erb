@@ -2,4 +2,25 @@
 
 <%=  render 'shared/errors', model: @unit_type %>
 
-<%= render 'form' %>
+<%= form_with(model: @unit_type) do |f| %>
+  <div class="form-row d-flex p-2">
+    <div class="form-group col-md-4 pe-3">
+      <%= f.label :description %>
+      <%= f.text_area :description, class:"form-control"%>
+    </div>
+
+    <div class="form-group col-md-4 pe-3">
+      <%= f.label :metreage %>
+      <%= f.number_field :metreage, step: 0.01, class:"form-control"%>
+    </div>
+
+    <div class="form-group col-md-4 pe-3">
+      <%= f.label :fraction %> (Valor em porcentagem)
+      <%= f.number_field :fraction, step: 0.00001, class:"form-control"%>
+    </div>
+  </div>
+
+  <div>
+    <%= f.submit class:"btn btn-dark"%>
+  </div>
+<% end %>

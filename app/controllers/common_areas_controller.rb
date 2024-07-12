@@ -49,7 +49,6 @@ class CommonAreasController < ApplicationController
 
   def set_breadcrumbs_for_details
     add_breadcrumb @common_area.condo.name.to_s, condo_path(@common_area.condo)
-    add_breadcrumb I18n.t('breadcrumb.common_area.index'), condo_common_areas_path(@common_area.condo)
     add_breadcrumb @common_area.name.to_s, common_area_path(@common_area)
   end
 

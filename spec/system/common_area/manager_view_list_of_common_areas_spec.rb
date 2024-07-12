@@ -13,6 +13,7 @@ describe 'Manager view list of common areas' do
     login_as manager, scope: :manager
     visit root_path
     within('#condos-list') { click_on 'Residencial on Rails' }
+    click_on 'Lista de Áreas Comuns'
 
     within('#common-areas') do
       expect(page).to have_content 'Churrasqueira'
@@ -29,7 +30,19 @@ describe 'Manager view list of common areas' do
 
     login_as resident, scope: :resident
     visit condo_path condo
+    click_on 'Lista de Áreas Comuns'
 
     within('#common-areas') { expect(page).to have_content 'Churrasqueira' }
+  end
+
+  it 'and sees a message if there are no common areas on condo' do
+    manager = create :manager
+    condo = create :condo
+
+    login_as manager, scope: :manager
+    visit condo_path condo
+    click_on 'Lista de Áreas Comuns'
+
+    expect(page).to have_content 'Não existem áreas comuns para esse condomínio'
   end
 end

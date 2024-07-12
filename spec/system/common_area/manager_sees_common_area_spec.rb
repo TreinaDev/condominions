@@ -21,6 +21,7 @@ describe 'Administrator sees common area details' do
 
     login_as manager, scope: :manager
     visit condo_path condo
+    click_on 'Lista de Áreas Comuns'
     find('#common-area-1').click
 
     expect(current_path).to eq common_area_path common_area

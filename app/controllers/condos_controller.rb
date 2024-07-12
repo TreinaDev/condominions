@@ -7,6 +7,7 @@ class CondosController < ApplicationController
   def show
     @towers = @condo.towers.order :name
     @common_areas = @condo.common_areas.order :name
+    @unit_types = @condo.unit_types.order :description
   end
 
   def new

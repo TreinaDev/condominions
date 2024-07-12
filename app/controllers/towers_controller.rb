@@ -78,14 +78,13 @@ class TowersController < ApplicationController
   end
 
   def authenticate_manager!
-    return redirect_to root_path if resident_signed_in?
+    return redirect_to root_path, notice: I18n.t('alerts.tower.access_denied') if resident_signed_in?
 
     super
   end
 
   def set_breadcrumbs_for_details
     add_breadcrumb @tower.condo.name.to_s, @tower.condo
-    add_breadcrumb I18n.t('breadcrumb.tower.index'), condo_towers_path(@tower.condo)
     add_breadcrumb @tower.name.to_s, @tower
   end
 
