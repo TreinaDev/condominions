@@ -17,11 +17,17 @@ class Tower < ApplicationRecord
       "incompleto(a), por favor, atualize o pavimento tipo.\n"
   end
 
-  def generate_floors
-    floor_quantity.times { create_floor_with_units }
+  def complete!
+    condo.set_unit_types_fractions
+
+    super
   end
 
   private
+
+  def generate_floors
+    floor_quantity.times { create_floor_with_units }
+  end
 
   def create_floor_with_units
     floor = Floor.create tower: self

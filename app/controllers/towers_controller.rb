@@ -1,7 +1,7 @@
 class TowersController < ApplicationController
   before_action :authenticate_manager!, only: %i[show new edit_floor_units create update_floor_units]
   before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
-  before_action :set_condo, only: %i[new create]
+  before_action :set_condo, only: %i[new edit_floor_units create]
 
   before_action :set_breadcrumbs_for_details, only: %i[show edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
@@ -14,7 +14,7 @@ class TowersController < ApplicationController
 
   def edit_floor_units
     add_breadcrumb I18n.t('breadcrumb.tower.floor_type')
-    @unit_types = UnitType.order :description
+    @unit_types = @condo.unit_types.order :description
   end
 
   def create

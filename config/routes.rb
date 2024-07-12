@@ -36,8 +36,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'check_registration_number', to: 'residents#check_registration_number'
+      resources :common_areas, only: [:show]
       resources :condos, only: [:index, :show] do
         resources :unit_types, only: [:index]
+        resources :common_areas, only: [:index]
       end
     end
   end
