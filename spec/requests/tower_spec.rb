@@ -26,6 +26,7 @@ describe 'POST /towers' do
                            units_per_floor: 4 } }
 
     expect(response).to redirect_to root_path
+    expect(Tower.last.name).not_to eq 'Torre do Rubinhos'
   end
 end
 
