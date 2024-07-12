@@ -87,7 +87,7 @@ describe 'User manage unit types' do
       expect(page).to have_link('Editar')
     end
 
-    it 'succesfully when is not related to a tower' do
+    it 'successfully when is not related to a tower' do
       condo = create(:condo)
       user = create(:manager)
       unit_type = UnitType.create!(description: 'Apartamento de 50 quartos',

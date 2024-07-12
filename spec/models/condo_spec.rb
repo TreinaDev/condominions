@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Condo, type: :model do
   describe '#set_units_type_fractions' do
     context 'after define units types in condo tower floors' do
-      it 'calculate sucessfully' do
+      it 'calculate successfully' do
         condo = create(:condo)
         first_unit_type = create :unit_type,
                                  description: 'Apartamento de 1 quarto',
