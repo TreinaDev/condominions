@@ -8,5 +8,5 @@ pt-BR:
     owner:
       not_updated: 'Não foi possível cadastrar a propriedade'
       inexistent_unit: 'Unidade não pode ficar em branco'
-      duplicated_unit: 'Unidade já cadastrada para esse proprietário'
+      duplicated_unit: 'Unidade já possui proprietário'
       inexistent_unit: 'Unidade não pode ficar em branco'

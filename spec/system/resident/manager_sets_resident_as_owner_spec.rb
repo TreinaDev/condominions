@@ -35,7 +35,7 @@ describe 'managers access page to set a resident as owner' do
     expect(page).to have_content 'Torre: Torre correta'
     expect(page).to have_content 'Unidade: 12'
     resident.reload
-    expect(resident.units.last.short_identifier).to eq '12'
+    expect(resident.properties.last.short_identifier).to eq '12'
   end
 
   it 'and choose an existent unit (success)' do
@@ -64,8 +64,8 @@ describe 'managers access page to set a resident as owner' do
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
 
-    resident.units << tower.floors.first.units.first
-    resident.units << tower.floors.last.units.last
+    resident.properties << tower.floors.first.units.first
+    resident.properties << tower.floors.last.units.last
 
     login_as manager, scope: :manager
 
@@ -121,11 +121,33 @@ describe 'managers access page to set a resident as owner' do
     click_on 'Adicionar Propriedade'
 
     expect(current_path).to eq new_resident_owner_path resident
-    expect(page).to have_content 'Unidade já cadastrada para esse proprietário'
+    expect(page).to have_content 'Unidade já possui proprietário'
     expect(page).to have_content 'Condomínio: Condominio Certo'
     expect(page).to have_content 'Torre: Torre correta'
     expect(page).to have_content 'Unidade: 12'
     resident.reload
-    expect(resident.units.last.short_identifier).to eq '12'
+    expect(resident.properties.last.short_identifier).to eq '12'
+  end
+
+  it 'and cannot set as owner for an unit that already has an owner' do
+    manager = create :manager
+    condo = create :condo, name: 'Condominio Certo'
+    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
+    unidade11 = tower.floors[0].units[0]
+    create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', properties: [unidade11], email: 'Adroaldo@email.com'
+    resident = create :resident, :not_owner, full_name: 'Sandra Soares'
+
+    login_as manager, scope: :manager
+    visit root_path
+    click_on 'Cadastro de Sandra Soares incompleto, por favor, ' \
+             'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
+    select 'Condominio Certo', from: 'Condomínio'
+    select 'Torre correta', from: 'Torre'
+    select '1', from: 'Andar'
+    select '1', from: 'Unidade'
+    click_on 'Adicionar Propriedade'
+
+    expect(current_path).to eq new_resident_owner_path resident
+    expect(page).to have_content 'Unidade já possui proprietário'
   end
 end
