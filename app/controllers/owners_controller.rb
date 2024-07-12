@@ -19,6 +19,14 @@ class OwnersController < ResidentsController
     render 'new', status: :unprocessable_entity
   end
 
+  def destroy
+    unit = Unit.find params[:id]
+    @resident.units.destroy unit
+    redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
+  end
+
+  private
+
   def finish_ownership_register
     return unless params[:commit] == 'Finalizar Cadastro de Propriedades'
 
@@ -32,14 +40,6 @@ class OwnersController < ResidentsController
     flash.now.alert = t('alerts.owner.inexistent_unit')
     render 'new', status: :unprocessable_entity
   end
-
-  def destroy
-    unit = Unit.find params[:id]
-    @resident.units.destroy unit
-    redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
-  end
-
-  private
 
   def set_resident_and_condos
     @resident = Resident.find params[:resident_id]
