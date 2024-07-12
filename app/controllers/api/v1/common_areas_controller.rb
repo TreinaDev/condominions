@@ -7,16 +7,16 @@ module Api
       def index
         return render body: nil, status: :not_found if @condo.nil?
 
-        common_areas = CommonArea.where(condo_id: @condo.id).map { |area| fetch_common_area(area) }
+        common_areas = @condo.common_areas.order :name
 
-        render status: :ok, json: { condo_id: params[:condo_id],
-                                    common_areas: common_areas.as_json(except: %i[max_occupancy rules]) }
+        render status: :ok, json: { common_areas: common_areas.as_json(only: %i[id name description]) }
       end
 
       def show
         return render body: nil, status: :not_found if @common_area.nil?
 
-        render status: :ok, json: fetch_common_area(@common_area)
+        render status: :ok, json: @common_area.as_json(only: %i[name description max_occupancy rules])
+                                              .merge(condo_id: @common_area.condo_id)
       end
 
       private
@@ -27,16 +27,6 @@ module Api
 
       def set_common_area
         @common_area = CommonArea.find_by id: params[:id]
-      end
-
-      def fetch_common_area(area)
-        {
-          id: area.id,
-          name: area.name,
-          description: area.description,
-          max_occupancy: area.max_occupancy,
-          rules: area.rules
-        }
       end
     end
   end
