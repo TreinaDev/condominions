@@ -7,3 +7,4 @@ pt-BR:
       not_updated: 'Não foi possível cadastrar a residência'
       inexistent_unit: 'Unidade não pode ficar em branco'
       unit_already_used: 'Unidade já atribuída como residência de outro morador'
+      unit_do_not_have_owner: 'Unidade deve ter um proprietário para ser residida'

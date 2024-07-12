@@ -30,16 +30,18 @@ class TenantsController < ResidentsController
 
   def update_resident_for_valid_unit
     unit = Unit.find_by(id: find_unit_id)
-    if !unit
-      (flash.now.alert = t('alerts.tenant.inexistent_unit'))
-
-      return nil
-    elsif unit.tenant
-      flash.now.alert = t('alerts.tenant.unit_already_used')
-
+    alert_message = select_alert_message(unit)
+    if alert_message
+      flash.now.alert = alert_message
       return nil
     end
+    @resident.update residence: unit
+  end
 
-    @resident.update(residence: unit)
+  def select_alert_message(unit)
+    return t('alerts.tenant.inexistent_unit') unless unit
+    return t('alerts.tenant.unit_already_used') if unit.tenant
+
+    t('alerts.tenant.unit_do_not_have_owner') unless unit.owner
   end
 end
