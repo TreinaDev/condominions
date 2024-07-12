@@ -5,7 +5,8 @@ class CondosController < ApplicationController
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
 
   def show
-    @towers = Tower.order(:name).where condo_id: @condo.id
+    @towers = @condo.towers.order :name
+    @common_areas = @condo.common_areas.order :name
   end
 
   def new
