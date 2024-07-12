@@ -23,5 +23,9 @@
     <%= f.label :password, class: 'col-sm-2 col-form-label' %>
     <div class="col-sm-10"><%= f.password_field :password, class: 'form-control' %></div>
   </div>
+  <div class="mb-3 row">
+    <%= f.label :is_super, class:'col-sm-2 col-form-label'%>
+    <%= f.check_box :is_super, class: 'form-check-input' %>
+  </div>
   <%= f.submit 'Cadastrar', class: 'btn btn-primary' %>
 <% end %>

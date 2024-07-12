@@ -38,16 +38,22 @@
 
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Gerenciar usuarios
-              </a>
-              <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #4c677f">
-                <li><%= link_to 'Cadastrar novo administrador', new_manager_path, class: "dropdown-item" %></li>
-                <li><hr class="nav-divider m-0"></li>
-                <li><%= link_to 'Cadastrar morador', new_resident_path, class: "dropdown-item" %></li>
-              </ul>
-            </li>
+            <% if current_manager.is_super || current_manager.condos.any? %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Gerenciar usuarios
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #4c677f">
+                  <li><%= link_to 'Cadastrar morador', new_resident_path, class: "dropdown-item" %></li>
+                  <li><hr class="nav-divider m-0"></li>
+                  <% if current_manager.is_super %>      
+                    <li><%= link_to 'Cadastrar novo administrador', new_manager_path, class: "dropdown-item" %></li>
+                  <% end %>
+                </ul>
+              </li>
+            <% elsif manager_signed_in? %>
+              <li>Você não tem acesso a nada, contate um super administrador.</li>
+            <% end %>
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
               <%= link_to 'Criar Condominio', new_condo_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>

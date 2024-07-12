@@ -1,5 +1,6 @@
 class ManagersController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create]
+  before_action :authorize_super_manager!, only: %i[new create]
 
   def new
     add_breadcrumb I18n.t('breadcrumb.manager.new')
@@ -22,6 +23,6 @@ class ManagersController < ApplicationController
   private
 
   def manager_params
-    params.require(:manager).permit(:full_name, :registration_number, :email, :password, :user_image)
+    params.require(:manager).permit(:full_name, :registration_number, :email, :password, :user_image, :is_super)
   end
 end

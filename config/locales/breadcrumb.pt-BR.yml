@@ -6,6 +6,7 @@ pt-BR:
       new: 'Cadastrar Área Comum'
     condo:
       new: 'Cadastrar Condomínio'
+      new_manager: 'Adicionar Administrador'
     tower:
       index: 'Torres'
       new: 'Cadastrar Torre'

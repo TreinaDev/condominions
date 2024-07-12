@@ -2,3 +2,4 @@ pt-BR:
   alerts:    
     manager:
       not_created: 'Não foi possível cadastrar novo administrador'
+      not_authorized: 'Você não possui autorização para essa ação'

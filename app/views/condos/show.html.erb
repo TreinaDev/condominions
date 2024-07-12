@@ -9,3 +9,7 @@
 <% if manager_signed_in? %>
   <%= link_to 'Listar Torres', condo_towers_path(@condo), class:"btn btn-dark" %>
 <% end %>
+
+<% if manager_signed_in? && current_manager.is_super %>
+  <%= link_to 'Adicionar Administrador', add_manager_condo_path(@condo), class: "btn btn-dark"%>
+<% end %>

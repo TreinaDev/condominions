@@ -24,6 +24,11 @@ Rails.application.routes.draw do
         patch :update_floor_units
       end
     end
+
+    member do
+      get 'add_manager'
+      post 'associate_manager'
+    end
   end
 
   resources :towers, only: [:show] do
