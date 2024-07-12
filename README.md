@@ -223,7 +223,6 @@ Exemplo de Resposta:
 
 ```
 {
-  "condo_id": "1",
   "common_areas": [
     {
       "id": 1,
@@ -246,18 +245,18 @@ Exemplo de Resposta:
 
 ### Endpoint de Detalhes de Área Comum
 
-`GET /api/v1/condos/{condo_id}/common_areas/{id}`
+`GET /api/v1/common_areas/{id}`
 
-<p align="justify">Retorna os detalhes de uma área comum específica a partir do `id` do condomínio e `id` da área comum informados, com nome, descrição, capacidade máxima e regras de uso.</p>
+<p align="justify">Retorna os detalhes de uma área comum específica a partir do `id` da área comum, com nome, descrição, capacidade máxima e regras de uso.</p>
 
 Exemplo de Resposta:
 ```
 {
-    "id": 1,
     "name": "Piscina",
     "description": "Para adultos e crianças",
     "max_occupancy": 20,
-    "rules": "Só pode ser usada até 22h"
+    "rules": "Só pode ser usada até 22h",
+    "condo_id": 1
 }
 ```
 
