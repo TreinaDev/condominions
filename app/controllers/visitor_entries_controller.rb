@@ -1,6 +1,7 @@
 class VisitorEntriesController < ApplicationController
   before_action :set_condo, only: %i[new create]
   before_action :set_units, only: %i[new create]
+  before_action :authenticate_manager!
 
   def index
     @visitor_entries = VisitorEntry.all

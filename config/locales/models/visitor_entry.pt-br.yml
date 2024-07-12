@@ -5,6 +5,7 @@ pt-BR:
   alerts:    
     visitor_entry:
       not_created: 'Não foi possível registrar entrada de visitante'
+      only_numbers_and_letters: 'só pode ter números e letras'
   activerecord:
     models:
       visitor_entry: Entrada de Visitante
