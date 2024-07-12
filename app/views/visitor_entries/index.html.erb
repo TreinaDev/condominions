@@ -1,0 +1,14 @@
+<h1>Registros de Entrada de Visitantes</h1>
+
+<% @visitor_entries.each do |visitor| %>
+  <%= visitor.full_name %>
+  <%= visitor.identity_number %>
+  <%= I18n.l(visitor.created_at, format: :long) %>
+
+  <% if visitor.unit.nil? %>
+    Sem unidade referenciada
+  <% else %>
+    <%= visitor.unit.floor.tower.name %>
+    <%= visitor.unit.short_identifier %>
+  <% end %>
+<% end %>

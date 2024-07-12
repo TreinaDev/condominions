@@ -1,0 +1,15 @@
+pt-BR:
+  notices:
+    visitor_entry:
+      created: 'Entrada de visitante registrada com sucesso'
+  alerts:    
+    visitor_entry:
+      not_created: 'Não foi possível registrar entrada de visitante'
+  activerecord:
+    models:
+      visitor_entry: Entrada de Visitante
+    attributes:
+      visitor_entry:
+        full_name: 'Nome Completo'
+        identity_number: 'RG'
+        unit_id: 'Unidade visitada'

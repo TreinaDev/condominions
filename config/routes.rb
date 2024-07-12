@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :condos, only: [:new, :create, :show, :edit, :update] do
     resources :common_areas, only: [:index, :new, :create]
     resources :unit_types, only: [:index, :new, :create, :show, :edit, :update]
+    resources :visitor_entries, only: [:index, :new, :create]
 
     resources :towers, only: [:new, :create, :index] do
       member do
