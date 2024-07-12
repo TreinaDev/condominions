@@ -9,18 +9,42 @@
 <hr>
 
 <div class="row row-cols-3">
-  <div class="col"></div>
-  <div class="col"></div>
+  <div class="col">
+    <div class="card rounded-5 shadow-sm">
+      <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Mural de Avisos</strong>
+      <div class="card-body">
+        <div class="alert alert-warning text-center">Em breve</div>
+      </div>
+    </div>
+    <div class="card rounded-5 mt-2 shadow-sm">
+      <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Agenda de Reuniões</strong>
+      <div class="card-body">
+        <div class="alert alert-warning text-center">Em breve</div>
+      </div>
+    </div>
+    <%= link_to '#', class: 'btn d-flex align-items-center justify-content-center rounded-pill py-2 mt-2 fw-bolder shadow-sm', style: "background-color: #FDE879;" do %>
+      <p class="m-0">Ver registro de reclamações e ocorrências</p>
+      <span class="badge text-bg-light mt-1 ms-1 rounded-pill">Em breve</span>
+    <% end %>
+  </div>
+  <div class="col">
+    <div class="card rounded-5 shadow-sm">
+      <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Visitantes e funcionários esperados para hoje</strong>
+      <div class="card-body">
+        <div class="alert alert-warning text-center">Em breve</div>
+      </div>
+    </div>
+  </div>
   <div class="col">
     <% if manager_signed_in? %>
-      <%= link_to edit_condo_path, class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2", style: "width: 100%; background-color: #FDE879;" do %>
+      <%= link_to edit_condo_path, class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm", style: "width: 100%; background-color: #FDE879;" do %>
         <strong>Editar Condomínio</strong>
         <i class="bi bi-pencil-square pb-1 ms-1"></i>
       <% end %>
     <% end %>
     <div class="accordion">
       <% if manager_signed_in? %>
-        <div class="accordion-item rounded-5">
+        <div class="accordion-item rounded-5 shadow-sm">
           <h2 class="accordion-header">
             <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#towers" aria-expanded="false" aria-controls="collapseOne">
               <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Torres</strong>
@@ -47,7 +71,7 @@
             </div>
           </div>
         </div>
-        <div class="accordion-item rounded-5 my-2">
+        <div class="accordion-item rounded-5 my-2 shadow-sm">
         <h2 class="accordion-header">
           <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#unit-types" aria-expanded="false" aria-controls="collapseOne">
             <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Tipos de Unidade</strong>
@@ -73,7 +97,7 @@
         </div>
       </div>
       <% end %>
-      <div class="accordion-item rounded-5">
+      <div class="accordion-item rounded-5 shadow-sm">
         <h2 class="accordion-header">
           <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#common-areas" aria-expanded="false" aria-controls="collapseOne">
             <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Áreas Comuns</strong>
