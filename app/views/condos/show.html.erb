@@ -16,17 +16,20 @@
         <div class="alert alert-warning text-center">Em breve</div>
       </div>
     </div>
+
     <div class="card rounded-5 mt-2 shadow-sm">
       <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Agenda de Reuniões</strong>
       <div class="card-body">
         <div class="alert alert-warning text-center">Em breve</div>
       </div>
     </div>
+
     <%= link_to '#', class: 'btn d-flex align-items-center justify-content-center rounded-pill py-2 mt-2 fw-bolder shadow-sm', style: "background-color: #FDE879;" do %>
       <p class="m-0">Ver registro de reclamações e ocorrências</p>
       <span class="badge text-bg-light mt-1 ms-1 rounded-pill">Em breve</span>
     <% end %>
   </div>
+
   <div class="col">
     <div class="card rounded-5 shadow-sm">
       <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Visitantes e funcionários esperados para hoje</strong>
@@ -35,6 +38,7 @@
       </div>
     </div>
   </div>
+
   <div class="col">
     <% if manager_signed_in? %>
       <%= link_to edit_condo_path, class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm", style: "width: 100%; background-color: #FDE879;" do %>
@@ -42,86 +46,14 @@
         <i class="bi bi-pencil-square pb-1 ms-1"></i>
       <% end %>
     <% end %>
+    
     <div class="accordion">
       <% if manager_signed_in? %>
-        <div class="accordion-item rounded-5 shadow-sm">
-          <h2 class="accordion-header">
-            <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#towers" aria-expanded="false" aria-controls="collapseOne">
-              <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Torres</strong>
-            </button>
-          </h2>
-          <div id="towers" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <% if @towers.any? %>
-                <% @towers.each do |tower| %>
-                  <div class="d-flex align-items-center my-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building-fill" viewBox="0 0 16 16">
-                      <path d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5M4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
-                    </svg>
-                    <p class="m-0 ms-1"><%= tower.name %></p>
-                    <%= link_to tower_path(tower.id), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill", id: "tower-#{tower.id}" do %>
-                      <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
-                    <% end %>
-                  </div>
-                  <hr class="m-0">
-                <% end %>
-              <% else %>
-                <div class="alert alert-warning text-center">Não existem torres para esse condomínio.</div>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item rounded-5 my-2 shadow-sm">
-        <h2 class="accordion-header">
-          <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#unit-types" aria-expanded="false" aria-controls="collapseOne">
-            <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Tipos de Unidade</strong>
-          </button>
-        </h2>
-        <div id="unit-types" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <% if @unit_types.any? %>
-              <% @unit_types.each do |unit_type| %>
-                <div class="d-flex align-items-center my-1">
-                  <i class="bi bi-map-fill"></i>
-                  <p class="m-0 ms-1"><%= unit_type.description %></p>
-                  <%= link_to unit_type_path(unit_type), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill", id: "unit-type-#{unit_type.id}" do %>
-                    <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
-                  <% end %>
-                </div>
-                <hr class="m-0">
-              <% end %>
-            <% else %>
-              <div class="alert alert-warning text-center">Não existem tipos de unidade para esse condomínio.</div>
-            <% end %>
-          </div>
-        </div>
-      </div>
+        <%= render 'condos/dashboard/tower_list' %>
+        <%= render 'condos/dashboard/unit_type_list' %>
       <% end %>
-      <div class="accordion-item rounded-5 shadow-sm">
-        <h2 class="accordion-header">
-          <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#common-areas" aria-expanded="false" aria-controls="collapseOne">
-            <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Áreas Comuns</strong>
-          </button>
-        </h2>
-        <div id="common-areas" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <% if @common_areas.any? %>
-              <% @common_areas.each do |common_area| %>
-                <div class="d-flex align-items-center my-1">
-                  <i class="bi bi-signpost-split"></i>
-                  <p class="m-0 ms-1"><%= common_area.name %></p>
-                  <%= link_to common_area_path(common_area), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill", id: "common-area-#{common_area.id}" do %>
-                    <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
-                  <% end %>
-                </div>
-                <hr class="m-0">
-              <% end %>
-            <% else %>
-              <div class="alert alert-warning text-center">Não existem áreas comuns para esse condomínio.</div>
-            <% end %>
-          </div>
-        </div>
-      </div>
+
+      <%= render 'condos/dashboard/common_area_list' %>
     </div>
   </div>
 </div>

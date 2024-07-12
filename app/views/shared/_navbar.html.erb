@@ -2,7 +2,7 @@
   <div class="container-fluid py-2" style="background-color: #FDE879">
     <%= link_to 'CondoMinions', root_path, class:"navbar-brand ms-3", style: "font-weight: 600" %>
     <% if resident_signed_in? %>
-      <div style="margin: 0 auto;">
+      <div class="d-inline-flex align-items-center" style="margin: 0 auto;">
         <% if current_resident.user_image.attached? %>
           <%= link_to edit_photo_resident_path(current_resident), style: 'text-decoration: none;' do %>
             <%= image_tag current_resident.user_image, alt: 'Image profile', id: 'resident-profile-image', style:"width: 35px; height: 35px; border-radius: 50%" %>
@@ -12,8 +12,12 @@
             <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image', style:"width: 35px; height: 35px; border-radius: 50%" %>
           <% end %>
         <% end %>
-        <p class='ms-1'><%= current_resident.description %></p>
-        <%= link_to 'Sair', destroy_manager_session_path, data: { turbo_method: :delete }, class: 'btn btn-outline-dark rounded-5 ms-2' %>
+
+        <p class='mx-2 mb-0'><%= current_resident.description %></p>
+
+        <%= button_to destroy_manager_session_path, method: :delete, class: 'btn btn-outline-dark d-inline-flex align-items-center justify-content-center rounded-5' do %>
+          <i class="bi bi-power pb-1 me-1"></i> Sair
+        <% end %>
       </div>
     <% elsif manager_signed_in? %>
       <div class="d-inline-flex align-items-center" style="margin: 0 auto;">
@@ -22,8 +26,10 @@
         <% else %>
           <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', style:"width: 45px; height: 45px; border-radius: 50%" %>
         <% end %>
+
         <p class="my-0 ms-3 me-3"><%= current_manager.description %></p>
-        <%= link_to destroy_manager_session_path, data: { turbo_method: :delete }, class: 'btn btn-outline-dark d-inline-flex align-items-center justify-content-center rounded-5', style: "vertical-align: middle;" do %>
+
+        <%= button_to destroy_manager_session_path, method: :delete, class: 'btn btn-outline-dark d-inline-flex align-items-center justify-content-center rounded-5' do %>
           <i class="bi bi-power pb-1 me-1"></i> Sair
         <% end %>
       </div>
@@ -44,28 +50,34 @@
               <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Gerenciar usuarios
               </a>
+
               <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #4c677f">
                 <li><%= link_to 'Cadastrar novo administrador', new_manager_path, class: "dropdown-item" %></li>
                 <li><hr class="nav-divider m-0"></li>
                 <li><%= link_to 'Cadastrar morador', new_resident_path, class: "dropdown-item" %></li>
               </ul>
             </li>
+
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
               <%= link_to 'Criar Condominio', new_condo_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>
             </li>
+
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
               <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForUnitTypes">Criar Tipo de Unidade</a>
             </li>
+
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
               <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForTowers">Criar Torre</a>
             </li>
+
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
               <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForCommonAreas">Criar Área Comum</a>
             </li>
+
           </ul>
         </div>
       </div>
@@ -84,6 +96,7 @@
         <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condomínio</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body">
         <div class='container text-center'>
           <div class='row'>
@@ -95,6 +108,7 @@
           </div>
         </div>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
       </div>
@@ -109,6 +123,7 @@
         <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condomínio</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body">
         <div class='container text-center'>
           <div class='row'>
@@ -120,6 +135,7 @@
           </div>
         </div>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
       </div>
@@ -134,6 +150,7 @@
         <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condomínio</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body">
         <div class='container text-center'>
           <div class='row'>
@@ -145,6 +162,7 @@
           </div>
         </div>
       </div>
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
       </div>
