@@ -53,9 +53,9 @@ describe 'User sees home page' do
     visit root_path
     click_on 'Residencial Horizonte Verde'
 
-    expect(current_path).to eq condo_path(condo)
+    expect(current_path).to eq condo_path condo
     expect(page).to have_content 'Residencial Horizonte Verde'
     expect(page).to have_content 'CNPJ: 87.570.020/0001-86'
-    expect(page).to have_content 'Endereço: Rua Principal, 100, Centro - São Paulo/SP - CEP: 12345-678'
+    expect(page).to have_content 'Rua Principal, 100, Centro - São Paulo/SP - CEP: 12345-678'
   end
 end

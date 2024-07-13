@@ -14,7 +14,7 @@ describe 'Manager logs in' do
 
     expect(page).to have_content 'Login efetuado com sucesso.'
     expect(page).not_to have_link 'Entrar como administrador'
-    expect(page).to have_link 'Sair'
+    expect(page).to have_button 'Sair'
     expect(page).to have_css 'img[src*="manager_photo.jpg"]'
     expect(page).to have_content 'João Almeida - manager@email.com'
     expect(page).to have_css '#side-menu'
