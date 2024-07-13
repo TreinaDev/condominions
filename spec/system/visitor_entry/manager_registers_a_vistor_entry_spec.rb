@@ -38,7 +38,8 @@ describe 'Manager registers a visitor entry' do
     visit new_condo_visitor_entry_path condo
     fill_in 'Nome Completo',	with: 'João da silva'
     fill_in 'RG',	with: '123456789'
-    select 'Torre A - 11', from: 'Unidade visitada'
+    select 'Torre A', from: 'Torre'
+    select '11', from: 'Unidade visitada'
     click_on 'Criar Entrada de Visitante'
 
     expect(page).to have_content('Entrada de visitante registrada com sucesso')

@@ -12,10 +12,16 @@
     <%= f.label :identity_number, class: 'col-sm-2 col-form-label'%>
     <div class="col-sm-10"><%= f.text_field :identity_number, class: 'form-control' %></div>
   </div>
-  <div class="mb-3 row">
-    <%= f.label :unit_id, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10"><%= f.collection_select :unit_id, @units, :id, :tower_identifier, {prompt: 'Selecione uma unidade ou deixe em branco'}, {class:"form-control form-select"} %></div>
+  <div data-controller="units">
+    <div class="mb-3 row">
+      <%= f.label :tower_id, class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10"><%= f.collection_select :tower_id, @condo.towers, :id, :name, {prompt: "Deixe em branco ou selecione uma torre"}, :'data-units-target' => "tower", :'data-action' => "change->units#changeTower", class: 'form-control form-select' %></div>
+    </div>
+
+    <div class="mb-3 row">
+      <%= f.label :unit_id, class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10"><%= f.collection_select :unit_id, {}, {}, {}, {}, :'data-units-target' => "unit", class:"form-control form-select" %></div>
+    </div>
   </div>
-  
   <%= f.submit class: 'btn btn-primary' %>
 <% end %>

@@ -14,3 +14,4 @@ pt-BR:
         full_name: 'Nome Completo'
         identity_number: 'RG'
         unit_id: 'Unidade visitada'
+        tower_id: 'Torre'
