@@ -9,7 +9,7 @@ class CommonAreasController < ApplicationController
   def show
     return if manager_signed_in? || resident_signed_in?
 
-    redirect_to(root_path, notice: I18n.t('alerts.common_area.not_allowed'))
+    redirect_to root_path, notice: I18n.t('alerts.common_area.not_allowed')
   end
 
   def new

@@ -7,7 +7,7 @@ pt-BR:
     unit_type:
       not_created: 'Erro ao cadastrar tipo de unidade'
       not_updated: 'Erro ao atualizar tipo de unidade'
-      access_denied: 'Você não tem permissão acessar para essa página'
+      access_denied: 'Você não tem permissão para acessar essa página'
   description: 'Descrição'
   metreage: 'Metragem'
   fraction: 'Fração Ideal'

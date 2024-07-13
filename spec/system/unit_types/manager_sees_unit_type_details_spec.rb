@@ -17,7 +17,7 @@ describe 'Manager sees unit type details' do
     visit unit_type_path unit_type
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não tem permissão acessar para essa página'
+    expect(page).to have_content 'Você não tem permissão para acessar essa página'
   end
 
   it 'successfully' do

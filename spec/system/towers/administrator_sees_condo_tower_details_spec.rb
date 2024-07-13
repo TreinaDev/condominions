@@ -17,7 +17,7 @@ describe "Administrator sees tower's details" do
     visit tower_path tower
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não tem permissão acessar para essa página'
+    expect(page).to have_content 'Você não tem permissão para acessar essa página'
   end
 
   it "and sees a list of tower's floors" do
