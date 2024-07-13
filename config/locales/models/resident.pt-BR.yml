@@ -19,6 +19,7 @@ pt-BR:
         email: 'E-mail'
         password: 'Senha'
         password_confirmation: 'Confirmar Senha'
+        remember_me: 'Lembre-se de mim'
         resident_type: 'Tipo de Morador'
         condo_id: 'Condomínio'
         tower_id: 'Torre'

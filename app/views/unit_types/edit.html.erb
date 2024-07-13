@@ -1,21 +1,23 @@
-<h1>Editar tipo de unidade</h1>
-
 <%= render 'shared/errors', model: @unit_type %>
 
-<%= form_with(model: @unit_type) do |f| %>
-  <div class="form-row d-flex p-2">
-    <div class="form-group col-md-4 pe-3">
-      <%= f.label :description %>
-      <%= f.text_area :description, class:"form-control" %>
+<section class="bg-white rounded-5 py-4 px-5 shadow">
+  <h1>Editar Tipo de Unidade</h1>
+
+  <%= form_with(model: @unit_type) do |f| %>
+    <div class="form-row d-flex p-2">
+      <div class="form-group col-md-6 pe-3">
+        <%= f.label :description %>
+        <%= f.text_area :description, class:"form-control" %>
+      </div>
+
+      <div class="form-group col-md-6 pe-3">
+        <%= f.label :metreage %>
+        <%= f.number_field :metreage, step: 0.01, class:"form-control" %>
+      </div>
     </div>
 
-    <div class="form-group col-md-4 pe-3">
-      <%= f.label :metreage %>
-      <%= f.number_field :metreage, step: 0.01, class:"form-control" %>
+    <div class="d-flex justify-content-center">
+      <%= f.submit class: "btn btn-dark rounded-pill px-4 mt-3" %>
     </div>
-  </div>
-
-  <div>
-    <%= f.submit class:"btn btn-dark" %>
-  </div>
-<% end %>
+  <% end %>
+</section>

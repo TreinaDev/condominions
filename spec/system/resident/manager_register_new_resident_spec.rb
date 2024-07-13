@@ -18,8 +18,8 @@ describe 'Manager registers new resident' do
     visit root_path
     within 'nav' do
       click_on id: 'side-menu'
-      click_on 'Gerenciar usuarios'
-      click_on 'Cadastrar morador'
+      click_on 'Gerenciar Usuários'
+      click_on 'Cadastrar Morador'
     end
 
     fill_in 'Nome Completo', with: 'Adroaldo Junior'
@@ -58,10 +58,11 @@ describe 'Manager registers new resident' do
 
     login_as manager, scope: :manager
     visit root_path
+
     within 'nav' do
       click_on id: 'side-menu'
-      click_on 'Gerenciar usuarios'
-      click_on 'Cadastrar morador'
+      click_on 'Gerenciar Usuários'
+      click_on 'Cadastrar Morador'
     end
 
     fill_in 'Nome Completo', with: ''

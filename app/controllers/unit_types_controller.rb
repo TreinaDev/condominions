@@ -57,7 +57,6 @@ class UnitTypesController < ApplicationController
   def set_breadcrumb_for_details
     @condo = @unit_type.condo
     add_breadcrumb @condo.name, @condo
-    add_breadcrumb I18n.t('breadcrumb.unit_type.index'), condo_unit_types_path(@condo)
     add_breadcrumb @unit_type.description, @unit_type
   end
 

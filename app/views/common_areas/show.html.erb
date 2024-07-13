@@ -1,7 +1,9 @@
-<h1 class="mb-3"><%= @common_area.name %></h1>
+<div class='bg-white rounded-5 py-4 px-5 shadow'>
+  <h1 class="mb-3"><%= @common_area.name %></h1>
 
-<p><strong>Descrição:</strong> <%= @common_area.description %></p>
-<p><strong>Capacidade Máxima:</strong> <%= @common_area.max_occupancy %> pessoas</p>
-<p><strong>Regras de Uso:</strong> <%= @common_area.rules %></p>
+  <p><strong>Descrição:</strong> <%= @common_area.description %></p>
+  <p><strong>Capacidade Máxima:</strong> <%= @common_area.max_occupancy %> pessoas</p>
+  <p><strong>Regras de Uso:</strong> <%= @common_area.rules %></p>
 
-<%= link_to 'Editar', edit_common_area_path(@common_area), class: 'btn btn-primary' %>
+  <%= link_to 'Editar', edit_common_area_path(@common_area), class: 'btn btn-dark rounded-pill px-4' %>
+</div>
