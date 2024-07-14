@@ -2,6 +2,8 @@ class CondosController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create edit update]
   before_action :set_condo, only: %i[show edit update add_manager associate_manager]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update add_manager associate_manager]
+  before_action :authorize_super_manager!, only: %i[new create add_manager associate_manager]
+  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show edit update]
 
   def show
     @towers = @condo.towers.order :name

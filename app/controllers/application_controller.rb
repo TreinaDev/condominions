@@ -12,6 +12,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: I18n.t('alerts.manager.not_authorized') unless current_manager.is_super
   end
 
+  def authorize_condo_manager!(condo)
+    unless (manager_signed_in? && current_manager.is_super) ||
+           (manager_signed_in? && current_manager.condos.include?(condo)) ||
+           resident_signed_in?
+      redirect_to root_path, alert: I18n.t('alerts.manager.not_authorized')
+    end
+  end
+
   def block_manager_from_resident_sign_in
     redirect_to root_path if manager_signed_in? && request.path == new_resident_session_path
   end

@@ -75,12 +75,12 @@ describe 'Super Manager registers new manager' do
       condo = create :condo, name: 'Condomínio A'
 
       login_as super_manager, scope: :manager
-      visit condo_path(condo)
+      visit condo_path condo
       click_on 'Adicionar Administrador'
       select 'Rafael Ribeiro', from: 'Selecionar Administrador'
       click_on 'Adicionar'
 
-      expect(current_path).to eq condo_path(condo)
+      expect(current_path).to eq condo_path condo
       expect(page).to have_content 'Administrador adicionado com sucesso'
       expect(Manager.last.condos.last.name).to eq condo.name
     end
@@ -93,13 +93,24 @@ describe 'Super Manager registers new manager' do
 
       condo.managers << condo_manager
       login_as super_manager, scope: :manager
-      visit condo_path(condo)
+      visit condo_path condo
       click_on 'Adicionar Administrador'
 
       within '#associate_manager_condo' do
         expect(page).not_to have_select 'manager_id', with_options: ['Danilo Ribeiro']
         expect(page).to have_select 'manager_id', with_options: ['Rafael Ribeiro']
       end
+    end
+
+    it 'and must be authenticated as Super Manager' do
+      condo_manager = create :manager, is_super: false
+      condo = create :condo, name: 'Condomínio A'
+      condo.managers << condo_manager
+
+      login_as condo_manager, scope: :manager
+      visit condo_path condo
+
+      expect(page).not_to have_link 'Adicionar Administrador'
     end
   end
 end
