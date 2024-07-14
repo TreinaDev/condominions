@@ -1,10 +1,10 @@
 class VisitorEntriesController < ApplicationController
-  before_action :set_condo, only: %i[new create]
+  before_action :set_condo, only: %i[new create index]
   before_action :set_units, only: %i[new create]
   before_action :authenticate_manager!
 
   def index
-    @visitor_entries = VisitorEntry.all
+    @visitor_entries = VisitorEntry.all.order! 'created_at DESC'
   end
 
   def new
