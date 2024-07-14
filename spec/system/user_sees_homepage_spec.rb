@@ -86,4 +86,20 @@ describe 'User sees home page' do
     expect(page).to have_content 'CNPJ: 87.570.020/0001-86'
     expect(page).to have_content 'Rua Principal, 100, Centro - São Paulo/SP - CEP: 12345-678'
   end
+
+  it 'and there`s no link on side-bar when there´s no condo associated' do
+    condo_manager = create :manager, is_super: false
+
+    login_as condo_manager, scope: :manager
+    visit root_path
+    within 'nav' do
+      click_on id: 'side-menu'
+    end
+
+    within 'nav' do
+      expect(page).not_to have_link 'Criar Tipo de Unidade'
+      expect(page).not_to have_link 'Criar Torre'
+      expect(page).not_to have_link 'Criar Área Comum'
+    end
+  end
 end

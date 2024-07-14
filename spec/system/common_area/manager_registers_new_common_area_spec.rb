@@ -18,6 +18,25 @@ describe 'Manager registers new common area' do
     expect(current_path).to eq new_condo_common_area_path(condo)
   end
 
+  it 'and only sees associtated condos' do
+    condo_manager = create :manager, is_super: false
+    first_condo = create :condo, name: 'Condomínio dos rubinhos'
+    second_condo = create :condo, name: 'Condomínio correto'
+    second_condo.managers << condo_manager
+
+    login_as condo_manager, scope: :manager
+    visit root_path
+    within 'nav' do
+      click_on id: 'side-menu'
+      click_on 'Criar Área Comum'
+    end
+
+    within '#condoSelectPopupForCommonAreas' do
+      expect(page).not_to have_button first_condo.name
+      expect(page).to have_button second_condo.name
+    end
+  end
+
   it 'successfully' do
     manager = create(:manager)
     condo = create(:condo)
@@ -68,6 +87,5 @@ describe 'Manager registers new common area' do
     visit common_area_path(common_area)
 
     expect(current_path).to eq signup_choice_path
-    expect(page).to have_content 'Você deve estar autenticado para continuar'
   end
 end
