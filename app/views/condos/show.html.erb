@@ -1,15 +1,67 @@
-<h1><%= @condo.name %></h1>
-<p>CNPJ: <%= @condo.registration_number %></p>
-<p>Endereço: <%= @condo.full_address %></p>
+<div class="text-center row justify-content-center">
+  <div class="p-0" style="width: fit-content;">
+    <h1 class="text-center"><%= @condo.name %></h1>
+    <p class="mb-1 text-secondary" style="font-size: 14px;"><%= @condo.full_address %></p>
+    <p class="text-secondary" style="font-size: 14px;">CNPJ: <%= @condo.registration_number %></p>
+  </div>
+</div>
 
+<hr>
 
-<% if manager_signed_in? %>
-  <%= link_to 'Editar', edit_condo_path, class:"btn btn-dark" %>
-<% end %>
-<% if manager_signed_in? %>
-  <%= link_to 'Listar Torres', condo_towers_path(@condo), class:"btn btn-dark" %>
-<% end %>
+<div class="row row-cols-3">
+  <div class="col">
+    <div class="card rounded-5 shadow-sm">
+      <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Mural de Avisos</strong>
+      <div class="card-body">
+        <div class="alert alert-warning text-center">Em breve</div>
+      </div>
+    </div>
 
-<% if manager_signed_in? && current_manager.is_super %>
-  <%= link_to 'Adicionar Administrador', add_manager_condo_path(@condo), class: "btn btn-dark"%>
-<% end %>
+    <div class="card rounded-5 mt-2 shadow-sm">
+      <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Agenda de Reuniões</strong>
+      <div class="card-body">
+        <div class="alert alert-warning text-center">Em breve</div>
+      </div>
+    </div>
+
+    <%= link_to '#', class: 'btn d-flex align-items-center justify-content-center rounded-pill py-2 mt-2 fw-bolder shadow-sm', style: "background-color: #FDE879;" do %>
+      <p class="m-0">Ver registro de reclamações e ocorrências</p>
+      <span class="badge text-bg-light mt-1 ms-1 rounded-pill">Em breve</span>
+    <% end %>
+  </div>
+
+  <div class="col">
+    <div class="card rounded-5 shadow-sm">
+      <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Visitantes e funcionários esperados para hoje</strong>
+      <div class="card-body">
+        <div class="alert alert-warning text-center">Em breve</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <% if manager_signed_in? %>
+      <%= link_to edit_condo_path, class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm", style: "width: 100%; background-color: #FDE879;" do %>
+        <strong>Editar Condomínio</strong>
+        <i class="bi bi-pencil-square pb-1 ms-1"></i>
+      <% end %>
+        <div class="accordion">
+          <% if current_manager.is_super %>
+            <%= link_to add_manager_condo_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm", style: "width: 100%; background-color: #FDE879;" do %>
+              <strong>Adicionar Administrador</strong>
+              <i class="bi bi-pencil-square pb-1 ms-1"></i>
+            <% end %>
+          <% end %>
+        </div>
+    <% end %>
+    
+    <div class="accordion">
+      <% if manager_signed_in? %>
+        <%= render 'condos/dashboard/tower_list' %>
+        <%= render 'condos/dashboard/unit_type_list' %>
+      <% end %>
+
+      <%= render 'condos/dashboard/common_area_list' %>
+    </div>
+  </div>
+</div>

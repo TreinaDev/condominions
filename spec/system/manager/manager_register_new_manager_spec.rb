@@ -96,7 +96,7 @@ describe 'Super Manager registers new manager' do
       visit condo_path(condo)
       click_on 'Adicionar Administrador'
 
-      within 'form' do
+      within '#associate_manager_condo' do
         expect(page).not_to have_select 'manager_id', with_options: ['Danilo Ribeiro']
         expect(page).to have_select 'manager_id', with_options: ['Rafael Ribeiro']
       end

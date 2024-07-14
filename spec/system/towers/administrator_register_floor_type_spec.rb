@@ -16,8 +16,8 @@ describe 'Administrator edit floor type' do
     condo = create :condo, name: 'Condomínio A'
     tower = create :tower, condo:, name: 'Torre A'
 
-    create :unit_type, description: 'Apartamento de 1 quarto'
-    create :unit_type, description: 'Apartamento de 2 quartos'
+    create :unit_type, condo:, description: 'Apartamento de 1 quarto'
+    create :unit_type, condo:, description: 'Apartamento de 2 quartos'
 
     login_as user, scope: :manager
     visit tower_path tower
