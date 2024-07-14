@@ -20,3 +20,4 @@ pt-BR:
       condo:
         name: 'Nome'
         registration_number: 'CNPJ'
+        manager_id: 'Selecionar Administrador'

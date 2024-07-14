@@ -2,7 +2,7 @@
 
 <%= form_with url: associate_manager_condo_path(@condo), method: :post do %>
   <div class="mb-3">
-    <%= label_tag :manager_id, 'Selecionar Administrador' %>
+    <%= label_tag :manager_id, Condo.human_attribute_name(:manager_id) %>
     <%= select_tag :manager_id, options_from_collection_for_select(@managers, :id, :full_name), class: "form-control" %>
   </div>
   <%= submit_tag 'Adicionar', class: "btn btn-dark" %>

@@ -18,22 +18,23 @@ class CondosController < ApplicationController
     add_breadcrumb I18n.t('breadcrumb.condo.new')
     @condo = Condo.new(condo_params)
 
-    if @condo.save
-      redirect_to @condo, notice: t('notices.condo.created')
-    else
+    unless @condo.save
       flash.now[:alert] = t('alerts.condo.not_created')
-      render :new, status: :unprocessable_entity
+      return render :new, status: :unprocessable_entity
     end
+
+    redirect_to @condo, notice: t('notices.condo.created')
   end
 
   def update
     add_breadcrumb I18n.t('breadcrumb.edit')
-    if @condo.update(condo_params)
-      redirect_to @condo, notice: t('notices.condo.updated')
-    else
+
+    unless @condo.update(condo_params)
       flash.now[:alert] = t('alerts.condo.not_updated')
-      render :edit, status: :unprocessable_entity
+      return render :edit, status: :unprocessable_entity
     end
+
+    redirect_to @condo, notice: t('notices.condo.updated')
   end
 
   def add_manager
@@ -43,11 +44,9 @@ class CondosController < ApplicationController
 
   def associate_manager
     @manager = Manager.find(params[:manager_id])
-    if @condo.managers << @manager
-      redirect_to @condo, notice: I18n.t('notices.condo.manager_associated')
-    else
-      redirect_to @condo, alert: I18n.t('notices.condo.manager_not_associated')
-    end
+    return redirect_to @condo, notice: I18n.t('notices.condo.manager_associated') if @condo.managers << @manager
+
+    redirect_to @condo, alert: I18n.t('notices.condo.manager_not_associated')
   end
 
   private
