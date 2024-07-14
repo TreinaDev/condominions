@@ -2,6 +2,7 @@ class CommonAreasController < ApplicationController
   before_action :authenticate_manager!, only: %i[new edit create update]
   before_action :set_condo, only: %i[new create]
   before_action :set_common_area, only: %i[show edit update]
+  before_action :set_condo_for_details, only: %i[show edit update]
   before_action -> { authorize_condo_manager!(@condo) }, only: %i[show new create edit update]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
@@ -41,6 +42,10 @@ class CommonAreasController < ApplicationController
   end
 
   private
+
+  def set_condo_for_details
+    @condo = @common_area.condo
+  end
 
   def set_breadcrumbs_for_register
     add_breadcrumb @condo.name.to_s, condo_path(@condo)

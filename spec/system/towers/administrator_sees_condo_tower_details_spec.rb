@@ -22,10 +22,11 @@ describe "Administrator sees tower's details" do
 
   it "and sees a list of tower's floors" do
     condo = create :condo
-    user = create :manager
+    condo_manager = create :manager, is_super: false
     tower = create :tower, condo:, name: 'Torre A', floor_quantity: 3
+    condo.managers << condo_manager
 
-    login_as user, scope: :manager
+    login_as condo_manager, scope: :manager
     visit condo_path condo
     click_on 'Lista de Torres'
     find('#tower-1').click
