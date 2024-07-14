@@ -4,7 +4,10 @@ Rails.application.routes.draw do
 
   devise_for :managers
   devise_for :residents
-  resources :managers, only: [:new, :create]
+  resources :managers, only: [:new, :create] do
+    get 'edit_photo', on: :member
+    patch 'update_photo', on: :member
+  end
   resources :residents, only: [:new, :create, :update] do
     get 'find_towers', on: :collection
     get 'confirm', on: :member

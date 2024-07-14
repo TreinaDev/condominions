@@ -21,10 +21,12 @@
       </div>
     <% elsif manager_signed_in? %>
       <div class="d-inline-flex align-items-center" style="margin: 0 auto;">
-        <% if current_manager.user_image.attached? %>
-          <%= image_tag current_manager.user_image, alt: 'Image profile', style:"width: 45px; height: 45px; border-radius: 50%" %>
-        <% else %>
-          <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', style:"width: 45px; height: 45px; border-radius: 50%" %>
+        <%= link_to edit_photo_manager_path(current_manager), style: 'text-decoration: none;' do %>
+          <% if current_manager.user_image.attached? %>
+            <%= image_tag current_manager.user_image, alt: 'Image profile', id: 'manager-profile-image', style:"width: 45px; height: 45px; border-radius: 50%" %>
+          <% else %>
+            <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'manager-profile-image', style:"width: 45px; height: 45px; border-radius: 50%" %>
+          <% end %>
         <% end %>
 
         <p class="my-0 ms-3 me-3"><%= current_manager.description %></p>

@@ -1,4 +1,7 @@
 pt-BR:
+  notices:
+    manager:
+      updated_photo: 'Foto atualizada com sucesso.'
   alerts:    
     manager:
       not_created: 'Não foi possível cadastrar novo administrador'
