@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'User manage unit types' do
-  context 'User register new unit type' do
+describe 'Unit Types' do
+  context 'Manager register new unit type' do
     it 'successfully' do
       user = create :manager
       create :condo, name: 'Condomínio dos rubinhos'
@@ -58,6 +58,25 @@ describe 'User manage unit types' do
       expect(page).to have_content 'Cadastrar um novo tipo de unidade'
     end
 
+    it 'and only sees associated condos' do
+      condo_manager = create :manager, is_super: false
+      first_condo = create :condo, name: 'Condomínio dos rubinhos'
+      second_condo = create :condo, name: 'Condomínio correto'
+      second_condo.managers << condo_manager
+
+      login_as condo_manager, scope: :manager
+      visit root_path
+      within 'nav' do
+        click_on id: 'side-menu'
+        click_on 'Criar Tipo de Unidade'
+      end
+
+      within '#condoSelectPopupForUnitTypes' do
+        expect(page).not_to have_button first_condo.name
+        expect(page).to have_button second_condo.name
+      end
+    end
+
     it 'metreage have to be bigger than 0' do
       condo = create :condo, name: 'Condomínio dos rubinhos'
       user = create :manager
@@ -73,7 +92,7 @@ describe 'User manage unit types' do
     end
   end
 
-  context 'User edit an unit type' do
+  context 'Manager edit an unit type' do
     it 'from unit type details page' do
       condo = create :condo, name: 'Condomínio dos rubinhos'
       user = create :manager
