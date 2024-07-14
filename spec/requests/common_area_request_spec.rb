@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Common Areas' do
   context 'GET /common_areas' do
-    it 'must be authenticated as Super Manager' do
+    it 'must be authenticated as Super Manager or condo associated' do
       condo_manager = create :manager, is_super: false
       condo = create :condo
       common_area = create(:common_area, condo:)
