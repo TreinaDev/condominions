@@ -1,0 +1,12 @@
+pt-BR:
+  notices:
+    owner:
+      updated: 'Propriedade cadastrada com sucesso!'
+      finalized: 'Propriedades cadastradas com sucesso!'
+      unit_removed: 'Unidade removida com sucesso!'
+  alerts:    
+    owner:
+      not_updated: 'Não foi possível cadastrar a propriedade'
+      inexistent_unit: 'Unidade não pode ficar em branco'
+      duplicated_unit: 'Unidade já possui proprietário'
+      inexistent_unit: 'Unidade não pode ficar em branco'

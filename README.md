@@ -176,44 +176,20 @@ Exemplo de resposta:
 ]
 ```
 
-### Endpoint de Validação por CPF
+### Endpoint de checar proprietário
 
-`/api/v1/check_registration_number?registration_number={CPF}`
+`/api/v1/check_owner?registration_number={CPF}`
 
-<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação Condomínions, ainda retorna o perfil de usuário e o id de sua unidade</p>
+<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação CondoMínions, ainda retorna o perfil de usuário e o id de sua unidade</p>
 
-Exemplos de resposta:
+Possíveis respostas
 ```
-{
-  "profile": "owner",
-  "unit_id": "1"
-}
-```
-
-```
-{
-  "profile": "tenant",
-  "unit_id": "10"
-}
+Retorna 200 se existe um proprietário com o CPF informado na aplicação CondoMinions;
+Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMínios;
+Retorna 412 se o CPF não for válido para consulta.
+OBS: Esse Endpoint trata puramente da validação do CPF, o JSON retornado possui corpo vazio.
 ```
 
-<p align="justify">OBS: Caso não exista morador com o CPF informado, será retornado o erro 404 (not found) e o json nos padrões anteriores:</p>
-
-
-```
-{
-  "profile": "inexistent",
-  "unit_id": "nil"
-}
-```
-
-<p align="justify">OBS: Caso o CPF seja inválido, será retornado o erro 412 (precondition failed) e o json com o campo 'error':</p>
-
-```
-{
-  "error": "invalid registration number"
-}
-```
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 

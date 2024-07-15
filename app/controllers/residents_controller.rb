@@ -17,8 +17,7 @@ class ResidentsController < ApplicationController
 
     return render :new, status: :unprocessable_entity unless @resident.save
 
-    @resident.send_invitation(random_password)
-    redirect_to root_path, notice: "Convite enviado com sucesso para #{@resident.full_name} (#{@resident.email})"
+    redirect_to new_resident_owner_path(@resident), notice: t('notices.resident.created')
   end
 
   def update
@@ -32,7 +31,7 @@ class ResidentsController < ApplicationController
       return render 'confirm', status: :unprocessable_entity
     end
 
-    @resident.update status: :confirmed
+    @resident.update status: :mail_confirmed
     bypass_sign_in @resident
     redirect_to root_path, notice: t('notices.resident.updated')
   end
@@ -50,7 +49,7 @@ class ResidentsController < ApplicationController
   def confirm
     @resident = current_resident
 
-    redirect_to root_path if @resident.confirmed?
+    redirect_to root_path if @resident.mail_confirmed?
   end
 
   def edit_photo; end
@@ -59,6 +58,25 @@ class ResidentsController < ApplicationController
     return render :edit_photo, status: :unprocessable_entity unless @resident.update(user_image_params)
 
     redirect_to root_path, notice: I18n.t('notices.resident.updated_photo')
+  end
+
+  protected
+
+  def find_tower_and_floor
+    return unless params['resident']
+
+    tower = Tower.find_by(id: params['resident']['tower_id'])
+    return tower.floors[params['resident']['floor'].to_i - 1] if tower
+
+    nil
+  end
+
+  def find_unit_id
+    floor = find_tower_and_floor
+
+    return floor.units[params['resident']['unit'].to_i - 1].id if floor
+
+    nil
   end
 
   private
@@ -81,27 +99,10 @@ class ResidentsController < ApplicationController
   end
 
   def resident_params
-    resident_params = params.require(:resident).permit(:full_name, :registration_number, :email,
-                                                       :resident_type)
-    resident_params.merge!({ unit_id: find_unit_id })
+    params.require(:resident).permit :full_name, :registration_number, :email
   end
 
   def user_image_params
-    params.require(:resident).permit(:user_image)
-  end
-
-  def find_tower_and_floor
-    tower = Tower.find_by(id: params['resident']['tower_id'])
-    return tower.floors[params['resident']['floor'].to_i - 1 ] if tower
-
-    nil
-  end
-
-  def find_unit_id
-    floor = find_tower_and_floor
-
-    return floor.units[params['resident']['unit'].to_i - 1 ].id if floor
-
-    nil
+    params.require(:resident).permit :user_image
   end
 end
