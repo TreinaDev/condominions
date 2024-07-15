@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Resident logs in' do
   it 'successfully' do
     resident = create :resident, full_name: 'Jessica Brito', email: 'jessica@email.com',
-                                 password: '123456', status: :confirmed
+                                 password: '123456', status: :mail_confirmed
     resident.user_image.attach io: Rails.root.join('spec/support/images/resident_photo.jpg').open,
                                filename: 'resident_photo.jpg'
     visit root_path

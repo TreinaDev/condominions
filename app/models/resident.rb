@@ -1,20 +1,15 @@
 class Resident < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  belongs_to :unit
-  delegate :floor, to: :unit, allow_nil: true
-  delegate :tower, to: :floor, allow_nil: true
-  delegate :condo, to: :tower, allow_nil: true
+  has_one :residence, class_name: 'Unit', foreign_key: 'tenant_id', dependent: :destroy, inverse_of: :tenant
+  has_many :properties, class_name: 'Unit', foreign_key: 'owner_id', dependent: :destroy, inverse_of: :owner
 
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   validate :valid_registration_number
-  validates :full_name, :resident_type, presence: true
+  validates :full_name, presence: true
   validates :registration_number, uniqueness: true
 
   has_one_attached :user_image
 
-  enum resident_type: { owner: 0, tenant: 1 }
-  enum status: { not_confirmed: 0, confirmed: 1 }
+  enum status: { not_owner: 0, not_tenant: 1, mail_not_confirmed: 2, mail_confirmed: 3 }
 
   def description
     "#{full_name} - #{email}"
@@ -39,9 +34,19 @@ class Resident < ApplicationRecord
   end
 
   def photo_warning_html_message
-    return if user_image.attached? || not_confirmed?
+    return if user_image.attached? || mail_not_confirmed?
 
     "Por favor, <a href='#{Rails.application.routes.url_helpers.edit_photo_resident_path(self)}'>cadastre sua foto</a>"
+  end
+
+  def warning_html_message_tenant
+    "Cadastro de <strong>#{full_name}</strong> " \
+      "incompleto, por favor, indique a sua residência ou se não reside no condomínio.\n"
+  end
+
+  def warning_html_message_owner
+    "Cadastro de <strong>#{full_name}</strong> " \
+      "incompleto, por favor, adicione unidades possuídas, caso haja, ou finalize o cadastro.\n"
   end
 
   private

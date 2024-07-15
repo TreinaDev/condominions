@@ -4,8 +4,6 @@ FactoryBot.define do
     registration_number { CPF.generate format: true }
     email { 'joao@email.com' }
     password { '123456' }
-    resident_type { :owner }
-    unit { build :unit }
-    status { :confirmed }
+    status { :mail_confirmed }
   end
 end
