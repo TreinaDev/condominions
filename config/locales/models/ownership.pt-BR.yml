@@ -1,0 +1,8 @@
+pt-BR:
+  error:
+    ownership:
+      not_unique: 'should have only one ownership per unit'
+
+
+
+

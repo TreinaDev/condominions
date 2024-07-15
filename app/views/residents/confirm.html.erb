@@ -1,62 +1,35 @@
+<h1 class="mb-4">Confirme o seu cadastro</h1>
+
 <%= render 'shared/errors', model: @resident %>
 
-<div class='bg-white rounded-5 py-4 px-5 shadow'>
-  <h1>Confirme o seu cadastro</h1>
+<%= form_with(model: @resident, class: 'text-center') do |f| %>
+  <div class="mb-3 row">
+    <%= f.label :full_name, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-10"><%= f.text_field :full_name, class: 'form-control', disabled: true %></div>
+  </div>
+  <div class="mb-3 row", data-controller="mask">
+    <%= f.label :registration_number, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-10"><%= f.text_field :registration_number, class: 'form-control', disabled: true  %></div>
+  </div>
+  <div class="mb-3 row">
+    <%= f.label :email, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-10"><%= f.text_field :email, class: 'form-control', disabled: true %></div>
+  </div>
 
-  <%= form_with model: @resident do |f| %>
-    <div class="form-row row p-2">
-      <div class="form-group col-md-6 pe-3 mb-2">
-        <%= f.label :full_name %>
-        <%= f.text_field :full_name, class: 'form-control', disabled: true %>
-      </div>
-      <div class="form-group col-md-6 pe-3 mb-2", data-controller="mask">
-        <%= f.label :registration_number %>
-        <%= f.text_field :registration_number, class: 'form-control', disabled: true  %>
-      </div>
-      <div class="form-group col-md-6 pe-3 mb-2">
-        <%= f.label :email %>
-        <%= f.text_field :email, class: 'form-control', disabled: true %>
-      </div>
-      <div class="form-group col-md-6 pe-3 mb-2">
-        <%= f.label :resident_type %>
-        <%= f.text_field :resident_type, class: 'form-control', disabled: true, value: "#{I18n.t(@resident.resident_type)}" %>
-      </div>
+  <h2>Campos editáveis: </h2>
 
-      <div class="form-group col-md-12 pe-3 mb-2">
-        <%= f.label :condo_id %>
-        <%= f.text_field :condo_id, class: 'form-control', disabled: true, value: "#{@resident.condo.name}" %>
-      </div>
-      <div class="form-group col-md-12 pe-3 mb-2">
-        <%= f.label :tower_id %>
-        <%= f.text_field :tower_id, class: 'form-control', disabled: true, value: "#{@resident.tower.name}" %> 
-      </div>
-      <div class="form-group col-md-12 pe-3 mb-2">
-        <%= f.label :floor %>
-        <%= f.text_field :floor, class: 'form-control', disabled: true, value: "#{@resident.floor.identifier}" %>
-      </div>
-      <div class="form-group col-md-12 pe-3 mb-2">
-        <%= f.label :unit %>
-        <%= f.text_field :unit, class: 'form-control', disabled: true, value: "#{@resident.unit.short_identifier}" %>
-      </div>
+  <div class="mb-3 row">
+    <%= f.label :user_image, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-10"><%= f.file_field :user_image, class: 'form-control' %></div>
+  </div>
+  <div class="mb-3 row">
+    <%= f.label :password, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-10"><%= f.password_field :password, class: 'form-control' %></div>
+  </div>
+  <div class="mb-3 row">
+    <%= f.label :password_confirmation, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-10"><%= f.password_field :password_confirmation, class: 'form-control' %></div>
+  </div>
 
-      <h2>Campos editáveis: </h2>
-
-      <div class="form-group col-md-12 pe-3 mb-2">
-        <%= f.label :user_image %>
-        <%= f.file_field :user_image, class: 'form-control' %>
-      </div>
-      <div class="form-group col-md-6 pe-3 mb-2">
-        <%= f.label :password %>
-        <%= f.password_field :password, class: 'form-control' %>
-      </div>
-      <div class="form-group col-md-6 pe-3 mb-2">
-        <%= f.label :password_confirmation %>
-        <%= f.password_field :password_confirmation, class: 'form-control' %>
-      </div>
-    </div>
-
-    <div class="d-flex justify-content-center">
-      <%= f.submit "Confirmar Dados", class: 'btn btn-dark rounded-pill px-4 mt-3' %>
-    </div>
-  <% end %>
-</div>
+  <%= f.submit "Confirmar Dados", class: 'btn btn-primary' %>
+<% end %>

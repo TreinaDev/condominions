@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   devise_for :managers
   devise_for :residents
   resources :managers, only: [:new, :create]
+
   resources :residents, only: [:new, :create, :update] do
+    resources :tenants, only: [:new, :create], on: :collection
+    resources :owners, only: [:new, :create, :destroy], on: :collection
     get 'find_towers', on: :collection
     get 'confirm', on: :member
     get 'edit_photo', on: :member
@@ -35,7 +38,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get 'check_registration_number', to: 'residents#check_registration_number'
+      get 'check_owner', to: 'residents#check_owner'
       resources :common_areas, only: [:show]
       resources :condos, only: [:index, :show] do
         resources :unit_types, only: [:index]

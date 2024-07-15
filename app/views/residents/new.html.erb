@@ -1,49 +1,27 @@
 <%= render 'shared/errors', model: @resident %>
 
-<div class='bg-white rounded-5 py-4 px-5 shadow'>
-  <h1>Cadastrar Morador</h1>
+<div class="card mb-3">
+  <div class="card">
+    <h1 class="mb-4 text-center">Cadastrar Morador</h1>
+  </div>
+</div>
 
-  <%= form_with model: @resident  do |f| %>
-    <div class="form-row row p-2">
-      <div class="form-group col-md-6 pe-3 mb-2">
-        <%= f.label :full_name %>
-        <%= f.text_field :full_name, class: 'form-control' %>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <%= form_with(model: @resident, class: 'text-center') do |f| %>
+      <div class="mb-3 row">
+        <%= f.label :full_name, class: 'col-sm-2 col-form-label text-end' %>
+        <div class="col-sm-10"><%= f.text_field :full_name, class: 'form-control' %></div>
       </div>
-      <div class="form-group col-md-6 pe-3 mb-2", data-controller="mask">
-        <%= f.label :registration_number %>
-        <%= f.text_field :registration_number, class: 'form-control', maxlength: "14", :'data-action' => 'keyup -> mask#registrationNumberFormated'  %>
+      <div class="mb-3 row", data-controller="mask">
+        <%= f.label :registration_number, class: 'col-sm-2 col-form-label text-end' %>
+        <div class="col-sm-10"><%= f.text_field :registration_number, class: 'form-control', maxlength: "14", :'data-action' => 'keyup -> mask#registrationNumberFormated'  %></div>
       </div>
-      <div class="form-group col-md-6 pe-3 mb-2">
-        <%= f.label :email %>
-        <%= f.email_field :email, class: 'form-control' %>
+      <div class="mb-3 row">
+        <%= f.label :email, class: 'col-sm-2 col-form-label text-end' %>
+        <div class="col-sm-10"><%= f.email_field :email, class: 'form-control' %></div>
       </div>
-      <div class="form-group col-md-6 pe-3 mb-2">
-        <%= f.label :resident_type %>
-        <%= f.select :resident_type, Resident.resident_types.keys.map { |type| [I18n.t(type).capitalize, type] }, {}, class: 'form-control form-select' %>
-      </div>
-
-      <div data-controller="resident">
-        <div class="form-group col-md-12 mb-2">
-          <%= f.label :condo_id %>
-          <%= f.collection_select :condo_id, @condos, :id, :name, {}, :'data-resident-target' => "condo", :'data-action' => "change->resident#changeCondo", class: 'form-control form-select' %>
-        </div>
-        <div class="form-group col-md-12 mb-2">
-          <%= f.label :tower_id %>
-          <%= f.collection_select :tower_id, {}, {}, {}, {}, :'data-resident-target' => "tower", :'data-action' => "change->resident#changeTower", class: 'form-control form-select' %>
-        </div>
-        <div class="form-group col-md-12 mb-2">
-          <%= f.label :floor %>
-          <%= f.collection_select :floor, {}, {}, {}, {}, :'data-resident-target' => "floor", class: 'form-control form-select' %>
-        </div>
-        <div class="form-group col-md-12 mb-2">
-          <%= f.label :unit %>
-          <%= f.collection_select :unit, {}, {}, {}, {}, :'data-resident-target' => "unit", class: 'form-control form-select' %>
-        </div>
-      </div>
-    </div>
-
-    <div class="d-flex justify-content-center">
-      <%= f.submit "Enviar", class: 'btn btn-dark rounded-pill px-4 mt-1' %>
-    </div>
-  <% end %>
+      <%= f.submit "Enviar", class: 'btn btn-primary' %>
+    <% end %>
+  </div>
 </div>

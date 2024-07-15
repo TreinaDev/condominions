@@ -3,16 +3,6 @@ require 'rails_helper'
 describe 'Manager registers new resident' do
   it 'from the menu' do
     manager = create :manager
-    create :condo, name: 'Condominio Errado'
-    condo = create :condo, name: 'Condominio Certo'
-    create :tower, 'condo' => condo, name: 'Torre errada'
-    create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-
-    mail = double 'mail', deliver: true
-    mailer_double = double 'ResidentMailer', notify_new_resident: mail
-
-    allow(ResidentMailer).to receive(:with).and_return mailer_double
-    allow(mailer_double).to receive(:notify_new_resident).and_return mail
 
     login_as manager, scope: :manager
     visit root_path
@@ -25,17 +15,11 @@ describe 'Manager registers new resident' do
     fill_in 'Nome Completo', with: 'Adroaldo Junior'
     fill_in 'CPF',	with: CPF.generate(format: true)
     fill_in 'E-mail',	with: 'adroaldo@email.com'
-    select 'Proprietário', from: 'Tipo de Morador'
-    select 'Condominio Certo', from: 'Condomínio'
-    select 'Torre correta', from: 'Torre'
-    select '2', from: 'Andar'
-    select '1', from: 'Unidade'
     click_on 'Enviar'
 
-    expect(page).to have_content 'Convite enviado com sucesso para Adroaldo Junior (adroaldo@email.com)'
+    expect(page).to have_content 'Residente cadastrado com sucesso'
     expect(Resident.last.full_name).to eq 'Adroaldo Junior'
-    expect(Resident.last.status).to eq 'not_confirmed'
-    expect(mail).to have_received(:deliver).once
+    expect(current_path).to eq new_resident_owner_path Resident.last
   end
 
   it 'must be authenticated' do
@@ -72,6 +56,5 @@ describe 'Manager registers new resident' do
 
     expect(page).to have_content 'Nome Completo não pode ficar em branco'
     expect(page).to have_content 'CPF inválido'
-    expect(page).to have_content 'Unidade é obrigatório(a)'
   end
 end

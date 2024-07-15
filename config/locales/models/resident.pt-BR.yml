@@ -3,6 +3,8 @@ pt-BR:
     resident:
       updated: 'Conta atualizada com sucesso!'
       updated_photo: 'Foto atualizada com sucesso.'
+      created: 'Residente cadastrado com sucesso'
+      not_created: 'Falha ao cadastrar residente'
   owner: 'Proprietário'
   tenant: 'Inquilino'
   not_confirmed: 'Não Confirmado'
