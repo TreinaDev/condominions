@@ -1,6 +1,7 @@
 class OwnersController < ResidentsController
   before_action :authenticate_manager!, only: %i[create new destroy]
   before_action :set_resident_and_condos
+  before_action :set_breadcrumbs_for_register, only: %i[new create]
 
   def new; end
 
@@ -26,6 +27,10 @@ class OwnersController < ResidentsController
   end
 
   private
+
+  def set_breadcrumbs_for_register
+    add_breadcrumb I18n.t('breadcrumb.owner.add_unit')
+  end
 
   def finish_ownership_register
     return unless params[:commit] == 'Finalizar Cadastro de Propriedades'
