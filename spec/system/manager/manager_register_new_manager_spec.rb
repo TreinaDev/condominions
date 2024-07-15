@@ -8,8 +8,8 @@ describe 'Manager registers new manager' do
     visit root_path
     within 'nav' do
       click_on id: 'side-menu'
-      click_on 'Gerenciar usuarios'
-      click_on 'Cadastrar novo administrador'
+      click_on 'Gerenciar Usuários'
+      click_on 'Cadastrar Administrador'
     end
     fill_in 'Nome Completo', with: 'Erika Campos'
     fill_in 'CPF', with: CPF.generate(format: true)
@@ -28,8 +28,8 @@ describe 'Manager registers new manager' do
     visit root_path
     within 'nav' do
       click_on id: 'side-menu'
-      click_on 'Gerenciar usuarios'
-      click_on 'Cadastrar novo administrador'
+      click_on 'Gerenciar Usuários'
+      click_on 'Cadastrar Administrador'
     end
     fill_in 'Nome Completo', with: ''
     fill_in 'CPF', with: ''

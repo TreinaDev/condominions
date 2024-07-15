@@ -15,7 +15,6 @@ class FloorsController < ApplicationController
 
   def set_breadcrumbs_for_details
     add_breadcrumb @tower.condo.name.to_s, condo_path(@tower.condo)
-    add_breadcrumb I18n.t('breadcrumb.tower.index'), condo_towers_path(@tower.condo)
     add_breadcrumb @tower.name.to_s, @tower
     add_breadcrumb @floor.print_identifier
   end
