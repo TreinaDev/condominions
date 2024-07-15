@@ -60,7 +60,7 @@
                 </ul>
               </li>
             <% elsif manager_signed_in? %>
-              <li>Você não tem acesso a nada, contate um super administrador.</li>
+              <li>Contate um Super Administrador para ter acesso ao condomínio.</li>
             <% end %>
 
             <% if current_manager.is_super %>
@@ -91,8 +91,8 @@
         </div>
       </div>
     <% end %>
-
   </div>
+  
   <% unless controller_name == 'home' %>
     <%= render 'shared/breadcrumb' %>
   <% end %>

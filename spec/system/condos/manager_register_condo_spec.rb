@@ -12,7 +12,7 @@ describe 'Super Manager register condo' do
     end
 
     expect(current_path).to eq new_condo_path
-    expect(page).to have_content 'Cadastre um novo Condomínio:'
+    expect(page).to have_content 'Cadastre um novo Condomínio'
   end
 
   it 'must be authenticated as manager' do

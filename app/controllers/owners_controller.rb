@@ -1,7 +1,8 @@
 class OwnersController < ResidentsController
   before_action :authenticate_manager!, only: %i[create new destroy]
-  before_action :set_resident_and_condos
   before_action :set_breadcrumbs_for_register, only: %i[new create]
+  before_action :set_resident
+  before_action :set_condos
 
   def new; end
 
@@ -28,6 +29,16 @@ class OwnersController < ResidentsController
 
   private
 
+  def set_resident
+    @resident = Resident.find params[:resident_id]
+  end
+
+  def set_condos
+    return @condos = Condo.all if current_manager.is_super?
+
+    @condos = current_manager.condos
+  end
+
   def set_breadcrumbs_for_register
     add_breadcrumb I18n.t('breadcrumb.owner.add_unit')
   end
@@ -44,10 +55,5 @@ class OwnersController < ResidentsController
 
     flash.now.alert = t('alerts.owner.inexistent_unit')
     render 'new', status: :unprocessable_entity
-  end
-
-  def set_resident_and_condos
-    @resident = Resident.find params[:resident_id]
-    @condos = Condo.all
   end
 end

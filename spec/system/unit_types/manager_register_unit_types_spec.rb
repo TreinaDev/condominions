@@ -119,7 +119,7 @@ describe 'Unit Types' do
       fill_in 'Metragem',	with: '50'
       click_on 'Atualizar Tipo de unidade'
 
-      expect(current_path).to eq unit_type_path unit_type
+      expect(page).to have_current_path unit_type_path(unit_type), wait: 2
       expect(page).to have_content 'Tipo de unidade atualizado com sucesso'
       expect(page).to have_content 'Descrição: Apartamento de 2 quartos'
       expect(page).to have_content 'Metragem: 50.0m²'

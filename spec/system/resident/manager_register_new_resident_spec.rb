@@ -42,6 +42,7 @@ describe 'Manager registers new resident' do
 
     login_as manager, scope: :manager
     visit root_path
+
     within 'nav' do
       click_on id: 'side-menu'
       click_on 'Gerenciar Usuários'

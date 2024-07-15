@@ -27,7 +27,9 @@ class TenantsController < ResidentsController
   end
 
   def set_condos
-    @condos = Condo.all
+    return @condos = Condo.all if current_manager.is_super?
+
+    @condos = current_manager.condos
   end
 
   def send_email

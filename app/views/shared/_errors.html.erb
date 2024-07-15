@@ -1,8 +1,6 @@
 <% if model.errors.any? %>
-  <div class="alert alert-secondary pb-0" role="alert">
-    <h4 class="alert-heading">
-      <p>Verifique os erros abaixo</p>
-    </h4>
+  <section class="alert alert-danger pb-0" role="alert">
+    <strong>Verifique os Erros Abaixo</strong>
     <div class="my-0">
       <ul>
         <% model.errors.full_messages.each do |msg| %>
@@ -10,5 +8,5 @@
         <% end %>
       </ul>
     </div>
-  </div>
+  </section>
 <% end %>

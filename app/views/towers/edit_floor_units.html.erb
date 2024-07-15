@@ -1,12 +1,13 @@
-<section>
-  <%= render 'shared/errors', model: @tower %>
+<%= render 'shared/errors', model: @tower %>
+
+<section class="bg-white rounded-5 py-4 px-5 shadow">
   <h1>Atualizar Pavimento Tipo do(a) <%= @tower.name %></h1>
 
   <%= form_with url: update_floor_units_condo_tower_path(@tower.condo, @tower), method: :patch do |f| %>
     
-    <div class="form-group p-2">
+    <div class="form-group row p-2">
       <% @tower.units_per_floor.times do |index| %>
-        <div id = "<%= "unit-#{index + 1}" %>" class="mt-2">
+        <div id="<%= "unit-#{index + 1}" %>" class="col-md-6 mt-2">
           <%= f.label "unit_types[#{index}]", "Unidade modelo #{index + 1}" %>
           <%= f.collection_select "unit_types[#{index}]", @unit_types, :id, :description,
               { prompt: "Tipo de Unidade" }, { :class => "form-control form-select" } %>
@@ -14,9 +15,8 @@
       <% end %>
     </div>
 
-    <div>
-      <%= f.submit 'Atualizar Pavimento Tipo', class: "btn btn-dark" %>
+    <div class="d-flex justify-content-center">
+      <%= f.submit 'Atualizar Pavimento Tipo', class: "btn btn-dark rounded-pill px-4 mt-3" %>
     </div>
-
   <% end %>
 </section>
