@@ -6,6 +6,7 @@ pt-BR:
     visitor_entry:
       not_created: 'Não foi possível registrar entrada de visitante'
       only_numbers_and_letters: 'só pode ter números e letras'
+      access_denied: 'Você não tem permissão para acessar essa página.'
   activerecord:
     models:
       visitor_entry: Entrada de Visitante

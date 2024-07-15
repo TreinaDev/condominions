@@ -31,14 +31,17 @@
   </div>
 
   <div class="col">
-    <%= link_to new_condo_visitor_entry_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm", style: "width: 100%; background-color: #FDE879;" do %>
-      <strong>Registrar entrada de visitante</strong>
-      <i class="bi bi-pencil-square pb-1 ms-1"></i>
+    <% if manager_signed_in? %>
+      <%= link_to new_condo_visitor_entry_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm", style: "width: 100%; background-color: #FDE879;" do %>
+        <strong>Registrar entrada de visitante</strong>
+        <i class="bi bi-pencil-square pb-1 ms-1"></i>
+      <% end %>
+      <%= link_to condo_visitor_entries_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm", style: "width: 100%; background-color: #FDE879;" do %>
+        <strong>Lista de Entradas</strong>
+        <i class="bi bi-search ms-1"></i>
+      <% end %>
     <% end %>
-    <%= link_to condo_visitor_entries_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm", style: "width: 100%; background-color: #FDE879;" do %>
-      <strong>Lista de Entradas</strong>
-      <i class="bi bi-search ms-1"></i>
-    <% end %>
+    
     <div class="card rounded-5 shadow-sm">
       <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Visitantes e funcionários esperados para hoje</strong>
       <div class="card-body">

@@ -30,4 +30,36 @@ describe 'manager see visitor entries list' do
       expect(page).to have_content 'Nome Primeiro Visitante'
     end
   end
+
+  it 'and a resident cant see the links related to visitors entries' do
+    condo = create :condo
+    resident = create :resident
+
+    login_as resident, scope: :resident
+    visit condo_path condo
+
+    expect(page).not_to have_link 'Registrar entrada de visitante'
+    expect(page).not_to have_link 'Lista de Entradas'
+  end
+
+  context 'only if authenticated' do
+    it 'as manager' do
+      condo = create :condo
+
+      visit condo_visitor_entries_path condo
+
+      expect(current_path).to eq new_manager_session_path
+    end
+
+    it 'and cannot be authenticated as resident' do
+      condo = create :condo
+      resident = create :resident
+
+      login_as resident, scope: :resident
+      visit condo_visitor_entries_path condo
+
+      expect(page).to have_content 'Você não tem permissão para acessar essa página'
+      expect(current_path).to eq root_path
+    end
+  end
 end

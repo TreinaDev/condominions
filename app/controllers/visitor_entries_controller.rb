@@ -48,4 +48,10 @@ class VisitorEntriesController < ApplicationController
     add_breadcrumb @condo.name.to_s, @condo
     add_breadcrumb I18n.t('breadcrumb.visitor_entry.index')
   end
+
+  def authenticate_manager!
+    return redirect_to root_path, notice: I18n.t('alerts.visitor_entry.access_denied') if resident_signed_in?
+
+    super
+  end
 end
