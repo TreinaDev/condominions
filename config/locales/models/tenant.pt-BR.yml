@@ -1,0 +1,9 @@
+pt-BR:
+  notices:
+    tenant:
+      updated: 'Cadastro realizado com sucesso!'
+  alerts:    
+    tenant:
+      not_updated: 'Não foi possível cadastrar a residência'
+      inexistent_unit: 'Unidade não pode ficar em branco'
+      unit_already_used: 'Unidade já atribuída como residência de outro morador'

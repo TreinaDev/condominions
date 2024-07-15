@@ -1,0 +1,26 @@
+<div class="accordion-item rounded-5 shadow-sm">
+  <h2 class="accordion-header">
+    <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#common-areas" aria-expanded="false" aria-controls="collapseOne">
+      <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Áreas Comuns</strong>
+    </button>
+  </h2>
+  
+  <div id="common-areas" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <% if @common_areas.any? %>
+        <% @common_areas.each do |common_area| %>
+          <div class="d-flex align-items-center my-1">
+            <i class="bi bi-signpost-split"></i>
+            <p class="m-0 ms-1"><%= common_area.name %></p>
+            <%= link_to common_area_path(common_area), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill", id: "common-area-#{common_area.id}" do %>
+              <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
+            <% end %>
+          </div>
+          <hr class="m-0">
+        <% end %>
+      <% else %>
+        <div class="alert alert-warning text-center">Não existem áreas comuns para esse condomínio.</div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Resident edits photo' do
   it 'from the warning' do
-    resident = create :resident, password: '123456', status: :confirmed
+    resident = create :resident, password: '123456', status: :mail_confirmed
 
     login_as resident, scope: :resident
     visit root_path
@@ -12,7 +12,7 @@ describe 'Resident edits photo' do
   end
 
   it 'successfully from the navbar' do
-    resident = create :resident, password: '123456', status: :confirmed
+    resident = create :resident, password: '123456', status: :mail_confirmed
 
     login_as resident, scope: :resident
     visit root_path

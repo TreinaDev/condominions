@@ -1,0 +1,26 @@
+<div class="accordion-item rounded-5 my-2 shadow-sm">
+  <h2 class="accordion-header">
+    <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#unit-types" aria-expanded="false" aria-controls="collapseOne">
+      <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Tipos de Unidade</strong>
+    </button>
+  </h2>
+  
+  <div id="unit-types" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <% if @unit_types.any? %>
+        <% @unit_types.each do |unit_type| %>
+          <div class="d-flex align-items-center my-1">
+            <i class="bi bi-map-fill"></i>
+            <p class="m-0 ms-1"><%= unit_type.description %></p>
+            <%= link_to unit_type_path(unit_type), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill", id: "unit-type-#{unit_type.id}" do %>
+              <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
+            <% end %>
+          </div>
+          <hr class="m-0">
+        <% end %>
+      <% else %>
+        <div class="alert alert-warning text-center">Não existem tipos de unidade para esse condomínio.</div>
+      <% end %>
+    </div>
+  </div>
+</div>

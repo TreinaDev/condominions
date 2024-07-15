@@ -172,46 +172,71 @@ Exemplo de resposta:
 ]
 ```
 
-### Endpoint de Validação por CPF
+### Endpoint de checar proprietário
 
-`/api/v1/check_registration_number?registration_number={CPF}`
+`/api/v1/check_owner?registration_number={CPF}`
 
-<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação Condomínions, ainda retorna o perfil de usuário e o id de sua unidade</p>
+<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação CondoMínions, ainda retorna o perfil de usuário e o id de sua unidade</p>
 
-Exemplos de resposta:
+Possíveis respostas
 ```
-{
-  "profile": "owner",
-  "unit_id": "1"
-}
-```
-
-```
-{
-  "profile": "tenant",
-  "unit_id": "10"
-}
+Retorna 200 se existe um proprietário com o CPF informado na aplicação CondoMinions;
+Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMínios;
+Retorna 412 se o CPF não for válido para consulta.
+OBS: Esse Endpoint trata puramente da validação do CPF, o JSON retornado possui corpo vazio.
 ```
 
-<p align="justify">OBS: Caso não exista morador com o CPF informado, será retornado o erro 404 (not found) e o json nos padrões anteriores:</p>
-
-
-```
-{
-  "profile": "inexistent",
-  "unit_id": "nil"
-}
-```
-
-<p align="justify">OBS: Caso o CPF seja inválido, será retornado o erro 412 (precondition failed) e o json com o campo 'error':</p>
-
-```
-{
-  "error": "invalid registration number"
-}
-```
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
+
+### Endpoint de Listagem de Áreas Comuns
+
+`GET /api/v1/condos/{id}/common_areas`
+
+<p align="justify">Retorna todas as áreas comuns a partir do `id` do condomínio informado, com nome, descrição.</p>
+
+Exemplo de Resposta:
+
+```
+{
+  "common_areas": [
+    {
+      "id": 1,
+      "name": "Piscina",
+      "description": "Para adultos e crianças"
+    },
+    {
+      "id": 2,
+      "name": "Salão de Festas",
+      "description": "Salão para vários eventos"
+    }
+  ]
+}
+
+```
+
+<p align="justify">caso não existam áreas comuns cadastradas para o condomínio informado retorna o `id` do condomínio e um array vazio.</p>
+
+<p align="justify">Retorna erro `404` caso o condomínio informado não esteja cadastrado.</p>
+
+### Endpoint de Detalhes de Área Comum
+
+`GET /api/v1/common_areas/{id}`
+
+<p align="justify">Retorna os detalhes de uma área comum específica a partir do `id` da área comum, com nome, descrição, capacidade máxima e regras de uso.</p>
+
+Exemplo de Resposta:
+```
+{
+    "name": "Piscina",
+    "description": "Para adultos e crianças",
+    "max_occupancy": 20,
+    "rules": "Só pode ser usada até 22h",
+    "condo_id": 1
+}
+```
+
+<p align="justify">Retorna erro `404` caso a área comum informada não esteja cadastrada para o condomínio informado.</p>
 
 <!-- GETTING STARTED -->
 ## Instalação e Execução
