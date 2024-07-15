@@ -1,7 +1,0 @@
-<h1 class="mb-5"> Torres do Condomínio: <%= @condo.name %></h1>
-
-<div class="list-group list d-flex justify-content-center align-items-center">
-  <% @towers.each do |tower| %>
-    <%= link_to tower.name, tower_path(tower), class:"list-group-item list-group-item-action w-25 p-3 text-center"%>
-  <% end %>
-</div>

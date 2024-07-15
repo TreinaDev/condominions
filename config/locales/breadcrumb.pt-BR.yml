@@ -2,12 +2,10 @@ pt-BR:
   breadcrumb:
     edit: 'Editar'
     common_area:
-      index: 'Áreas Comuns'
       new: 'Cadastrar Área Comum'
     condo:
       new: 'Cadastrar Condomínio'
     tower:
-      index: 'Torres'
       new: 'Cadastrar Torre'
       floor_type: 'Pavimento Tipo'
     manager:

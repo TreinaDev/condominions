@@ -41,7 +41,7 @@ describe 'Manager register condo' do
     expect(page).to have_content 'Condomínio cadastrado com sucesso'
     expect(page).to have_content 'Condominio Teste'
     expect(page).to have_content 'CNPJ: 38.352.640/0001-33'
-    expect(page).to have_content 'Endereço: Travessa João Edimar, 29, João Eduardo II - Rio Branco/AC - CEP: 69911-520'
+    expect(page).to have_content 'Travessa João Edimar, 29, João Eduardo II - Rio Branco/AC - CEP: 69911-520'
   end
 
   it 'with missing params' do

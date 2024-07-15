@@ -37,7 +37,7 @@ describe 'Manager registers new resident' do
     expect(current_path).to eq root_path
   end
 
-  it 'with incomplete data INCOMPLETO' do
+  it 'with incomplete data' do
     manager = create :manager
 
     login_as manager, scope: :manager

@@ -9,7 +9,7 @@ describe 'managers access page to set a resident as owner' do
     expect(current_path).to eq new_manager_session_path
   end
 
-  it 'and choose an existent unit from the flash message(success)' do
+  it 'and choose an existent unit from the flash message (success)' do
     manager = create :manager
     create :condo, name: 'Condominio Errado'
     condo = create :condo, name: 'Condominio Certo'
@@ -38,7 +38,7 @@ describe 'managers access page to set a resident as owner' do
     expect(resident.properties.last.short_identifier).to eq '12'
   end
 
-  it 'and choose an existent unit (success)' do
+  it 'and the resident do not have properties on condo' do
     manager = create :manager
     resident = create(:resident, :not_owner, full_name: 'Adroaldo Silva')
 
@@ -56,7 +56,7 @@ describe 'managers access page to set a resident as owner' do
     expect(resident.not_tenant?).to eq true
   end
 
-  it 'and choose an existent unit (success)' do
+  it 'and can remove an unit from resident' do
     manager = create :manager
     create :condo, name: 'Condominio Errado'
     condo = create :condo, name: 'Condominio Certo'
@@ -107,7 +107,6 @@ describe 'managers access page to set a resident as owner' do
     visit root_path
     click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
              'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
-
     select 'Condominio Certo', from: 'Condomínio'
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
@@ -133,14 +132,15 @@ describe 'managers access page to set a resident as owner' do
     manager = create :manager
     condo = create :condo, name: 'Condominio Certo'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    unidade11 = tower.floors[0].units[0]
-    create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', properties: [unidade11], email: 'Adroaldo@email.com'
+    unit11 = tower.floors[0].units[0]
+    create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', properties: [unit11], email: 'Adroaldo@email.com'
     resident = create :resident, :not_owner, full_name: 'Sandra Soares'
 
     login_as manager, scope: :manager
     visit root_path
     click_on 'Cadastro de Sandra Soares incompleto, por favor, ' \
              'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
+    sleep 2
     select 'Condominio Certo', from: 'Condomínio'
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'

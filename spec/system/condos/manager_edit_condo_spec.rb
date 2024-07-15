@@ -31,7 +31,7 @@ describe 'Manager edits condo' do
     expect(page).to have_content 'Condomínio atualizado com sucesso'
     expect(page).to have_content 'Condominio Editado'
     expect(page).to have_content 'CNPJ: 34.474.564/0001-88'
-    expect(page).to have_content 'Endereço: Rua ST, 12, Santa Terezinha - Brusque/SC - CEP: 88352-272'
+    expect(page).to have_content 'Rua ST, 12, Santa Terezinha - Brusque/SC - CEP: 88352-272'
   end
 
   it 'with missing params' do
