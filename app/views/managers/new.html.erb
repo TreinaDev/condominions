@@ -1,31 +1,40 @@
-<h1 class="mb-4">Cadastrar Novo Administrador</h1>
+<div class='bg-white rounded-5 py-4 px-5 shadow'>
+  <h1>Cadastrar Administrador</h1>
 
-<%= render 'shared/errors', model: @manager %>
+  <%= render 'shared/errors', model: @manager %>
 
-<%= form_with(model: @manager, class: 'text-center') do |f| %>
-  <div class="mb-3 row">
-    <%= f.label :user_image, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10"><%= f.file_field :user_image, class: 'form-control' %></div>
-  </div>
-  <div class="mb-3 row">
-    <%= f.label :full_name, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10"><%= f.text_field :full_name, class: 'form-control' %></div>
-  </div>
-  <div class="mb-3 row" data-controller="mask">
-    <%= f.label :registration_number, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10"><%= f.text_field :registration_number, class: 'form-control', maxlength: "14", :'data-action' => 'keyup -> mask#registrationNumberFormated' %></div>
-  </div>
-  <div class="mb-3 row">
-    <%= f.label :email, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10"><%= f.email_field :email, class: 'form-control' %></div>
-  </div>
-  <div class="mb-3 row">
-    <%= f.label :password, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10"><%= f.password_field :password, class: 'form-control' %></div>
-  </div>
-  <div class="mb-3 row">
-    <%= f.label :is_super, class:'col-sm-2 col-form-label'%>
-    <%= f.check_box :is_super, class: 'form-check-input' %>
-  </div>
-  <%= f.submit 'Cadastrar', class: 'btn btn-primary' %>
-<% end %>
+  <%= form_with(model: @manager, class: 'text-center') do |f| %>
+    <div class="form-row row p-2">
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
+        <%= f.label :user_image %>
+        <%= f.file_field :user_image, class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
+        <%= f.label :full_name %>
+        <%= f.text_field :full_name, class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-6 pe-3 mb-2 text-start" data-controller="mask">
+        <%= f.label :registration_number %>
+        <%= f.text_field :registration_number, class: 'form-control', maxlength: "14", :'data-action' => 'keyup -> mask#registrationNumberFormated' %>
+      </div>
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
+        <%= f.label :is_super %>
+        <div class="form-check form-switch">
+          <%= f.check_box :is_super, class: 'form-check-input' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <%= f.submit 'Cadastrar', class: 'btn btn-dark rounded-pill px-4 mt-1' %>
+    </div>
+  <% end %>
+</div>
