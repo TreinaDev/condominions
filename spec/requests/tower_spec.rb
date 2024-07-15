@@ -30,6 +30,7 @@ describe 'Towers' do
     it 'and can only be authenticated as a manager to register a tower' do
       resident = create :resident
       condo = create :condo
+      create :tower, name: 'Torre Existente'
 
       login_as resident, scope: :resident
       post condo_towers_path(condo),
