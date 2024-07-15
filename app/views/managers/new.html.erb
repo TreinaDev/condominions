@@ -1,34 +1,40 @@
-<%= render 'shared/errors', model: @manager %>
-
 <div class='bg-white rounded-5 py-4 px-5 shadow'>
-  <h1>Cadastrar Novo Administrador</h1>
+  <h1>Cadastrar Administrador</h1>
 
-  <%= form_with model: @manager do |f| %>
+  <%= render 'shared/errors', model: @manager %>
+
+  <%= form_with(model: @manager, class: 'text-center') do |f| %>
     <div class="form-row row p-2">
-      <div class="form-group col-md-12 pe-3 mb-2">
-        <%= f.label :user_image%>
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
+        <%= f.label :user_image %>
         <%= f.file_field :user_image, class: 'form-control' %>
       </div>
-      <div class="form-group col-md-6 pe-3 mb-2">
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
         <%= f.label :full_name %>
         <%= f.text_field :full_name, class: 'form-control' %>
       </div>
-      <div class="form-group col-md-6 pe-3 mb-2" data-controller="mask">
+      <div class="form-group col-md-6 pe-3 mb-2 text-start" data-controller="mask">
         <%= f.label :registration_number %>
         <%= f.text_field :registration_number, class: 'form-control', maxlength: "14", :'data-action' => 'keyup -> mask#registrationNumberFormated' %>
       </div>
-      <div class="form-group col-md-6 pe-3 mb-2">
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
         <%= f.label :email %>
         <%= f.email_field :email, class: 'form-control' %>
       </div>
-      <div class="form-group col-md-6 pe-3 mb-2">
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
         <%= f.label :password %>
         <%= f.password_field :password, class: 'form-control' %>
       </div>
+      <div class="form-group col-md-6 pe-3 mb-2 text-start">
+        <%= f.label :is_super %>
+        <div class="form-check form-switch">
+          <%= f.check_box :is_super, class: 'form-check-input' %>
+        </div>
+      </div>
     </div>
-    
+
     <div class="d-flex justify-content-center">
-      <%= f.submit 'Cadastrar', class: 'btn btn-dark rounded-pill px-4 mt-3' %>
+      <%= f.submit 'Cadastrar', class: 'btn btn-dark rounded-pill px-4 mt-1' %>
     </div>
   <% end %>
 </div>

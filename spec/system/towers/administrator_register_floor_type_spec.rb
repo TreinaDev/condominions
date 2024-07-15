@@ -41,8 +41,7 @@ describe 'Administrator edit floor type' do
 
     click_on 'Atualizar Pavimento Tipo'
 
-    sleep 3
-    expect(current_path).to eq tower_path tower
+    expect(page).to have_current_path tower_path(tower), wait: 2
     expect(page).to have_content 'Pavimento Tipo atualizado com sucesso'
     expect(page).to have_content 'Torre A'
     expect(tower.floors.first.units.first.unit_type.description).to eq 'Apartamento de 2 quartos'

@@ -1,13 +1,13 @@
 <div class='bg-white rounded-5 py-3 px-5 shadow'>
   <h1>Editar Foto</h1>
 
-  <% if @resident.user_image.attached? %>
+  <% if @manager.user_image.attached? %>
     <div class="current-photo d-flex justify-content-start mb-4">
-      <%= image_tag @resident.user_image, alt: 'Current Image', style: "width: 200px; height: 200px; border-radius: 20%;" %>
+      <%= image_tag @manager.user_image, alt: 'Current Image', style: "width: 200px; height: 200px; border-radius: 20%;" %>
     </div>
   <% end %>
 
-  <%= form_with(model: @resident, url: update_photo_resident_path(@resident), method: 'patch') do |f| %>
+  <%= form_with(model: @manager, url: update_photo_manager_path(@manager), method: 'patch') do |f| %>
     <div class="form-floating mb-3 w-75">
       <%= f.file_field :user_image, class: 'form-control' %>
       <%= f.label :user_image %>

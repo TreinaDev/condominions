@@ -75,7 +75,11 @@
 
 <p align="justify">Usuários administrativos podem ser cadastrados no sistema e usuários proprietários e moradores podem ser convidados por e-mail a se registrar.</p>
 
-<p align="justify">Usuários administrativos podem cadastrar um condomínio com endereço, podem cadastrar torres, tipos de unidade, unidade de um condomínio, andares e áreas comuns.</p>
+<p align="justify">Apenas usuários administrativos categorizados como super no momento da criação podem cadastrar outros usuários administrativos, cadastrar um condomínio com endereço e associar um usuário ou mais usuários administrativos àquele condomínio.</p>
+
+<p align="justify">Usuários administrativos regulares podem cadastrar torres, tipos de unidade, unidade de um condomínio, andares, áreas comuns e moradores.</p>
+
+<p align="justify">Tanto administradores quanto moradores podem ver a página de listagem e detalhes de condomínio. Tendo sua exibição alterada para cada tipo de usuário.</p>
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 

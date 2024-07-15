@@ -4,5 +4,6 @@ FactoryBot.define do
     registration_number { CPF.generate format: true }
     email { 'joao@email.com' }
     password { 'password' }
+    is_super { true }
   end
 end

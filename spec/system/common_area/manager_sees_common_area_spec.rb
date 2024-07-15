@@ -11,15 +11,16 @@ describe 'Administrator sees common area details' do
 
   it 'from the condo details page' do
     condo = create :condo
-    manager = create :manager
+    condo_manager = create :manager, is_super: false
     common_area = create :common_area,
                          condo:,
                          name: 'Churrasqueira',
                          description: 'Churrasco comunitário',
                          max_occupancy: 50,
                          rules: 'Proibido fumar'
+    condo.managers << condo_manager
 
-    login_as manager, scope: :manager
+    login_as condo_manager, scope: :manager
     visit condo_path condo
     click_on 'Lista de Áreas Comuns'
     find('#common-area-1').click

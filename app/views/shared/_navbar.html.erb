@@ -3,13 +3,11 @@
     <%= link_to 'CondoMinions', root_path, class:"navbar-brand ms-3", style: "font-weight: 600" %>
     <% if resident_signed_in? %>
       <div class="d-inline-flex align-items-center" style="margin: 0 auto;">
-        <% if current_resident.user_image.attached? %>
-          <%= link_to edit_photo_resident_path(current_resident), style: 'text-decoration: none;' do %>
-            <%= image_tag current_resident.user_image, alt: 'Image profile', id: 'resident-profile-image', style:"width: 35px; height: 35px; border-radius: 50%" %>
-          <% end %>
-        <% else %>
-          <%= link_to edit_photo_resident_path(current_resident), style: 'text-decoration: none;' do %>
-            <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image', style:"width: 35px; height: 35px; border-radius: 50%" %>
+        <%= link_to edit_photo_resident_path(current_resident), style: 'text-decoration: none;' do %>
+          <% if current_resident.user_image.attached? %>
+            <%= image_tag current_resident.user_image, alt: 'Image profile', id: 'resident-profile-image', style:"width: 40px; height: 40px; border-radius: 50%" %>
+          <% else %>
+            <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image', style:"width: 40px; height: 40px; border-radius: 50%" %>
           <% end %>
         <% end %>
 
@@ -21,13 +19,15 @@
       </div>
     <% elsif manager_signed_in? %>
       <div class="d-inline-flex align-items-center" style="margin: 0 auto;">
-        <% if current_manager.user_image.attached? %>
-          <%= image_tag current_manager.user_image, alt: 'Image profile', style:"width: 45px; height: 45px; border-radius: 50%" %>
-        <% else %>
-          <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', style:"width: 45px; height: 45px; border-radius: 50%" %>
+        <%= link_to edit_photo_manager_path(current_manager), style: 'text-decoration: none;' do %>
+          <% if current_manager.user_image.attached? %>
+            <%= image_tag current_manager.user_image, alt: 'Image profile', id: 'manager-profile-image', style:"width: 40px; height: 40px; border-radius: 50%" %>
+          <% else %>
+            <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'manager-profile-image', style:"width: 40px; height: 40px; border-radius: 50%" %>
+          <% end %>
         <% end %>
 
-        <p class="my-0 ms-3 me-3"><%= current_manager.description %></p>
+        <p class="my-0 ms-3 me-3"><%= current_manager.description %> - <span style="font-size: smaller; font-weight: bold;"><%= current_manager.is_super? ? 'Super' : 'Admin' %></span></p>
 
         <%= button_to destroy_manager_session_path, method: :delete, class: 'btn btn-outline-dark d-inline-flex align-items-center justify-content-center rounded-5' do %>
           <i class="bi bi-power pb-1 me-1"></i> Sair
@@ -46,37 +46,47 @@
 
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Gerenciar Usuários
-              </a>
+            <% if current_manager.is_super || current_manager.condos.any? %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Gerenciar Usuários
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #4c677f">
+                  <li><%= link_to 'Cadastrar Morador', new_resident_path, class: "dropdown-item" %></li>
+                  <% if current_manager.is_super %>
+                    <li><hr class="nav-divider m-0"></li>
+                    <li><%= link_to 'Cadastrar Administrador', new_manager_path, class: "dropdown-item" %></li>
+                  <% end %>
+                </ul>
+              </li>
+            <% elsif manager_signed_in? %>
+              <li>Contate um Super Administrador para ter acesso ao condomínio.</li>
+            <% end %>
 
-              <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #4c677f">
-                <li><%= link_to 'Cadastrar Administrador', new_manager_path, class: "dropdown-item" %></li>
-                <li><hr class="nav-divider m-0"></li>
-                <li><%= link_to 'Cadastrar Morador', new_resident_path, class: "dropdown-item" %></li>
-              </ul>
-            </li>
+            <% if current_manager.is_super %>
+              <li><hr class="nav-divider m-0"></li>
+              <li class="nav-item">
+                <%= link_to 'Criar Condomínio', new_condo_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>
+              </li>
+            <% end %>
 
-            <li><hr class="nav-divider m-0"></li>
-            <li class="nav-item">
-              <%= link_to 'Criar Condomínio', new_condo_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>
-            </li>
+            <% if current_manager.is_super || current_manager.condos.any? %>
+              <li><hr class="nav-divider m-0"></li>
+              <li class="nav-item">
+                <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForUnitTypes">Criar Tipo de Unidade</a>
+              </li>
 
-            <li><hr class="nav-divider m-0"></li>
-            <li class="nav-item">
-              <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForUnitTypes">Criar Tipo de Unidade</a>
-            </li>
+              <li><hr class="nav-divider m-0"></li>
+              <li class="nav-item">
+                <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForTowers">Criar Torre</a>
+              </li>
 
-            <li><hr class="nav-divider m-0"></li>
-            <li class="nav-item">
-              <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForTowers">Criar Torre</a>
-            </li>
+              <li><hr class="nav-divider m-0"></li>
+              <li class="nav-item">
+                <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForCommonAreas">Criar Área Comum</a>
+              </li>
+            <% end %>
 
-            <li><hr class="nav-divider m-0"></li>
-            <li class="nav-item">
-              <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForCommonAreas">Criar Área Comum</a>
-            </li>
           </ul>
         </div>
       </div>
@@ -99,10 +109,13 @@
       <div class="modal-body">
         <div class='container text-center'>
           <div class='row'>
-            <% Condo.all.each do |condo| %>
-              <div class='col'>
-                <%= button_to condo.name, new_condo_tower_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false } %>
-              </div>
+            <% if current_manager %>
+              <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
+              <% condos.each do |condo| %>
+                <div class='col'>
+                  <%= button_to condo.name, new_condo_tower_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false } %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -126,10 +139,13 @@
       <div class="modal-body">
         <div class='container text-center'>
           <div class='row'>
-            <% Condo.all.each do |condo| %>
-              <div class='col'>
-                <%= button_to condo.name, new_condo_unit_type_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false } %>
-              </div>
+            <% if current_manager %>
+              <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
+              <% condos.each do |condo| %>
+                <div class='col'>
+                  <%= button_to condo.name, new_condo_unit_type_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false } %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -153,10 +169,13 @@
       <div class="modal-body">
         <div class='container text-center'>
           <div class='row'>
-            <% Condo.all.each do |condo| %>
-              <div class='col'>
-                <%= button_to condo.name, new_condo_common_area_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false } %>
-              </div>
+            <% if current_manager %>
+              <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
+              <% condos.each do |condo| %>
+                <div class='col'>
+                  <%= button_to condo.name, new_condo_common_area_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false } %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>

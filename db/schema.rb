@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_12_191202) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_12_203622) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -61,6 +61,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_191202) do
     t.index ["condo_id"], name: "index_common_areas_on_condo_id"
   end
 
+  create_table "condo_managers", force: :cascade do |t|
+    t.integer "manager_id", null: false
+    t.integer "condo_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["condo_id"], name: "index_condo_managers_on_condo_id"
+    t.index ["manager_id", "condo_id"], name: "index_condo_managers_on_manager_id_and_condo_id", unique: true
+    t.index ["manager_id"], name: "index_condo_managers_on_manager_id"
+  end
+
   create_table "condos", force: :cascade do |t|
     t.string "name"
     t.string "registration_number"
@@ -88,6 +98,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_191202) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "is_super", default: false
     t.index ["email"], name: "index_managers_on_email", unique: true
     t.index ["registration_number"], name: "index_managers_on_registration_number", unique: true
     t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
@@ -146,6 +157,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_191202) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "common_areas", "condos"
+  add_foreign_key "condo_managers", "condos"
+  add_foreign_key "condo_managers", "managers"
   add_foreign_key "condos", "addresses"
   add_foreign_key "floors", "towers"
   add_foreign_key "towers", "condos"
