@@ -17,3 +17,6 @@ pt-BR:
       new: 'Cadastrar Tipo de Unidade'
     resident:
       new: 'Cadastrar Morador'
+    visitor_entry:
+      new: 'Registrar nova Entrada'
+      index: 'Registros de Entradas'

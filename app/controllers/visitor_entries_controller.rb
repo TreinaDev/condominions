@@ -2,6 +2,8 @@ class VisitorEntriesController < ApplicationController
   before_action :set_condo, only: %i[new create index]
   before_action :set_units, only: %i[new create]
   before_action :authenticate_manager!
+  before_action :set_breadcrumbs_for_register, only: %i[new create]
+  before_action :set_breadcrumbs_for_index, only: %i[index]
 
   def index
     @visitor_entries = VisitorEntry.all.order! 'created_at DESC'
@@ -35,5 +37,15 @@ class VisitorEntriesController < ApplicationController
 
   def set_units
     @units = @condo.units.order :id
+  end
+
+  def set_breadcrumbs_for_register
+    add_breadcrumb @condo.name.to_s, @condo
+    add_breadcrumb I18n.t('breadcrumb.visitor_entry.new')
+  end
+
+  def set_breadcrumbs_for_index
+    add_breadcrumb @condo.name.to_s, @condo
+    add_breadcrumb I18n.t('breadcrumb.visitor_entry.index')
   end
 end
