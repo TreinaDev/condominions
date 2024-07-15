@@ -43,22 +43,22 @@ describe 'User sees home page' do
                                   address: create(:address, public_place: 'Avenida das Montanhas', number: 45,
                                                             neighborhood: 'Vila Nova', city: 'Rio de Janeiro',
                                                             state: 'RJ', zip: '45758-463')
-    third_condo = create :condo, name: 'Vila do Sol Nascente',
-                                 address: create(:address, public_place: 'Rua do Luar', number: 789,
-                                                           neighborhood: 'Jardim do Sol', city: 'Belo Horizonte',
-                                                           state: 'MG', zip: '14745-632')
+    create :condo, name: 'Vila do Sol Nascente',
+                   address: create(:address, public_place: 'Rua do Luar', number: 789,
+                                             neighborhood: 'Jardim do Sol', city: 'Belo Horizonte',
+                                             state: 'MG', zip: '14745-632')
     first_condo.managers << condo_manager
-    third_condo.managers << condo_manager
+    second_condo.managers << condo_manager
 
     login_as condo_manager, scope: :manager
     visit root_path
 
-    expect(page).not_to have_content second_condo.name
-    expect(page).not_to have_content second_condo.address
-    expect(page).to have_content first_condo.name
-    expect(page).to have_content first_condo.address.public_place
-    expect(page).to have_content third_condo.name
-    expect(page).to have_content third_condo.address.public_place
+    expect(page).not_to have_content 'Vila do Sol Nascente'
+    expect(page).not_to have_content 'Rua do Luar'
+    expect(page).to have_content 'Residencial Horizonte Verde'
+    expect(page).to have_content 'Rua Principal'
+    expect(page).to have_content 'Condomínio Bela Vista'
+    expect(page).to have_content 'Avenida das Montanhas'
   end
 
   it "and there's no condo registered" do

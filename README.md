@@ -79,7 +79,7 @@
 
 <p align="justify">Usuários administrativos regulares podem cadastrar torres, tipos de unidade, unidade de um condomínio, andares, áreas comuns e moradores.</p>
 
-<p align="justify">Tanto administradores quanto moradores podem ver a pagina de listagem e detalhes de condomínio. Tendo sua exibição alterada para cada tipo de usuário.</p>
+<p align="justify">Tanto administradores quanto moradores podem ver a página de listagem e detalhes de condomínio. Tendo sua exibição alterada para cada tipo de usuário.</p>
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
