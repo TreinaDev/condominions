@@ -1,9 +1,9 @@
 <h1>Olá <%= @resident.full_name %>!</h1>
 
-<p>Você foi convidado para se registrar no sistema CondoMinions.</p>
-<p>Dados de Login</p>
-<p>Email: <%= @resident.email %></p>
-<p>Senha: <%= @password %></p>
+<p>Bem vindo ao CondoMinions! Seu tão esperado convite chegou! 😀.</p>
+<p>Este convite foi enviado por uma requisição de acesso à aplicação, registrada no E-mail: <%= @resident.email %></p>
 
 <p>Por favor, clique no link abaixo para completar seu registro e definir sua senha:</p>
-<%= link_to 'Acessar o sistema', root_url %>
+<%= link_to 'Finalizar Cadastro', edit_resident_password_url(@resident, reset_password_token: @token) %>
+
+<p>Se você não sabe do que esse e-mail se trata, ou não é <%= @resident.full_name %>, desconsidere...</p>

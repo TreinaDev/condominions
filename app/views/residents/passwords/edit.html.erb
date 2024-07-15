@@ -1,25 +1,25 @@
-<h2>Change your password</h2>
+<div class="shadow-sm">
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "residents/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+<div class="bg-white rounded-5 py-4 px-5 shadow">
+  <h2>Redefina sua Senha</h2>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, class: 'text-center') do |f| %>
+    <%= render "residents/shared/error_messages", resource: resource %>
+    <%= f.hidden_field :reset_password_token %>
+    
+    <div class="form-row d-flex p-2">
+      <div class="form-group col-md-6 pe-3">
+        <%= f.label :password, "Senha (#{@minimum_password_length} mínimo caracteres)" %>
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: 'form-control' %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
-  </div>
+      <div class="form-group col-md-6 pe-3">
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "residents/shared/links" %>
+    <div class="actions d-flex justify-content-center">
+      <%= f.submit 'Alterar Senha', class: 'btn btn-dark rounded-pill px-4 mt-3' %>
+    </div>
+  <% end %>
+</div>
