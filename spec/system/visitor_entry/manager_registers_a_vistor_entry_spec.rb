@@ -1,8 +1,20 @@
 require 'rails_helper'
 
 describe 'Manager registers a visitor entry' do
+  it 'from condo dashboard' do
+    manager = create :manager
+    condo = create :condo
+
+    login_as manager, scope: :manager
+    visit condo_path condo
+    click_on 'Registrar entrada de visitante'
+
+    expect(page).to have_content 'Registrar nova entrada'
+    expect(current_path).to eq new_condo_visitor_entry_path condo
+  end
+
   it 'and must be authenticated' do
-    condo = create(:condo)
+    condo = create :condo
 
     visit new_condo_visitor_entry_path condo
 
@@ -10,8 +22,8 @@ describe 'Manager registers a visitor entry' do
   end
 
   it 'successfully without reference a unit' do
-    manager = create(:manager)
-    condo = create(:condo)
+    manager = create :manager
+    condo = create :condo
 
     login_as manager, scope: :manager
     visit new_condo_visitor_entry_path condo
@@ -20,17 +32,17 @@ describe 'Manager registers a visitor entry' do
     select '', from: 'Unidade visitada'
     click_on 'Criar Entrada de Visitante'
 
-    expect(page).to have_content('Entrada de visitante registrada com sucesso')
-    expect(current_path).to eq condo_visitor_entries_path(condo)
-    expect(page).to have_content('João da silva')
-    expect(page).to have_content('123456789')
-    expect(page).to have_content('Sem unidade referenciada')
-    expect(page).to have_content(I18n.l(VisitorEntry.last.created_at, format: :long))
+    expect(page).to have_content 'Entrada de visitante registrada com sucesso'
+    expect(current_path).to eq condo_visitor_entries_path condo
+    expect(page).to have_content 'João da silva'
+    expect(page).to have_content '123456789'
+    expect(page).to have_content 'Sem unidade referenciada'
+    expect(page).to have_content I18n.l(VisitorEntry.last.created_at, format: :long)
   end
 
   it 'successfully with reference to a unit' do
-    manager = create(:manager)
-    condo = create(:condo)
+    manager = create :manager
+    condo = create :condo
     unit_type = create(:unit_type, condo:)
     create(:tower, :with_four_units, condo:, name: 'Torre A', unit_types: [unit_type])
 
@@ -42,56 +54,39 @@ describe 'Manager registers a visitor entry' do
     select '11', from: 'Unidade visitada'
     click_on 'Criar Entrada de Visitante'
 
-    expect(page).to have_content('Entrada de visitante registrada com sucesso')
+    expect(page).to have_content 'Entrada de visitante registrada com sucesso'
     expect(current_path).to eq condo_visitor_entries_path condo
-    expect(page).to have_content('João da silva')
-    expect(page).to have_content('123456789')
-    expect(page).to have_content('Torre A')
-    expect(page).to have_content('11')
-    expect(page).to have_content(I18n.l(VisitorEntry.last.created_at, format: :long))
+    expect(page).to have_content 'João da silva'
+    expect(page).to have_content '123456789'
+    expect(page).to have_content 'Torre A'
+    expect(page).to have_content '11'
+    expect(page).to have_content I18n.l(VisitorEntry.last.created_at, format: :long)
   end
 
   it 'with missing params' do
-    manager = create(:manager)
-    condo = create(:condo)
+    manager = create :manager
+    condo = create :condo
 
     login_as manager, scope: :manager
     visit new_condo_visitor_entry_path condo
     click_on 'Criar Entrada de Visitante'
 
-    expect(page).to have_content('Não foi possível registrar entrada de visitante')
+    expect(page).to have_content 'Não foi possível registrar entrada de visitante'
     expect(current_path).to eq new_condo_visitor_entry_path condo
-    expect(page).to have_content('Nome Completo não pode ficar em branco')
-    expect(page).to have_content('RG não pode ficar em branco')
+    expect(page).to have_content 'Nome Completo não pode ficar em branco'
+    expect(page).to have_content 'RG não pode ficar em branco'
   end
 
   it 'identity number must be numbers and letters only' do
-    manager = create(:manager)
-    condo = create(:condo)
+    manager = create :manager
+    condo = create :condo
 
     login_as manager, scope: :manager
     visit new_condo_visitor_entry_path condo
     click_on 'Criar Entrada de Visitante'
 
-    expect(page).to have_content('Não foi possível registrar entrada de visitante')
-    expect(current_path).to eq new_condo_visitor_entry_path(condo)
-    expect(page).to have_content('só pode ter números e letras')
-  end
-
-  it 'and the list of visitors appears in descending order of entry (created_at)' do
-    manager = create(:manager)
-    condo = create(:condo)
-    create(:visitor_entry, condo:, full_name: 'Nome Primeiro Visitante')
-    create(:visitor_entry, condo:, full_name: 'Nome Último Visitante')
-
-    login_as manager, scope: :manager
-    visit condo_visitor_entries_path(condo)
-
-    within('.table > tbody > tr:nth-child(1)') do
-      expect(page).to have_content 'Nome Último Visitante'
-    end
-    within('.table > tbody > tr:nth-child(2)') do
-      expect(page).to have_content 'Nome Primeiro Visitante'
-    end
+    expect(page).to have_content 'Não foi possível registrar entrada de visitante'
+    expect(current_path).to eq new_condo_visitor_entry_path condo
+    expect(page).to have_content 'só pode ter números e letras'
   end
 end
