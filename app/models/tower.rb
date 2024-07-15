@@ -17,6 +17,12 @@ class Tower < ApplicationRecord
       "incompleto(a), por favor, atualize o pavimento tipo.\n"
   end
 
+  def complete!
+    condo.set_unit_types_fractions
+
+    super
+  end
+
   private
 
   def generate_floors

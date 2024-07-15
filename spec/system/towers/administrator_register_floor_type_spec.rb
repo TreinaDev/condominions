@@ -16,8 +16,8 @@ describe 'Administrator edit floor type' do
     condo = create :condo, name: 'Condomínio A'
     tower = create :tower, condo:, name: 'Torre A'
 
-    create :unit_type, description: 'Apartamento de 1 quarto'
-    create :unit_type, description: 'Apartamento de 2 quartos'
+    create :unit_type, condo:, description: 'Apartamento de 1 quarto'
+    create :unit_type, condo:, description: 'Apartamento de 2 quartos'
 
     login_as user, scope: :manager
     visit tower_path tower
@@ -41,6 +41,7 @@ describe 'Administrator edit floor type' do
 
     click_on 'Atualizar Pavimento Tipo'
 
+    sleep 3
     expect(current_path).to eq tower_path tower
     expect(page).to have_content 'Pavimento Tipo atualizado com sucesso'
     expect(page).to have_content 'Torre A'

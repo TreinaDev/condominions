@@ -59,7 +59,7 @@ class ResidentsController < ApplicationController
     return unless params['resident']
 
     tower = Tower.find_by(id: params['resident']['tower_id'])
-    return tower.floors[params['resident']['floor'].to_i - 1 ] if tower
+    return tower.floors[params['resident']['floor'].to_i - 1] if tower
 
     nil
   end
@@ -67,7 +67,7 @@ class ResidentsController < ApplicationController
   def find_unit_id
     floor = find_tower_and_floor
 
-    return floor.units[params['resident']['unit'].to_i - 1 ].id if floor
+    return floor.units[params['resident']['unit'].to_i - 1].id if floor
 
     nil
   end

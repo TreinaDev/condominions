@@ -8,8 +8,8 @@ describe 'Manager registers new resident' do
     visit root_path
     within 'nav' do
       click_on id: 'side-menu'
-      click_on 'Gerenciar usuarios'
-      click_on 'Cadastrar morador'
+      click_on 'Gerenciar Usuários'
+      click_on 'Cadastrar Morador'
     end
 
     fill_in 'Nome Completo', with: 'Adroaldo Junior'
@@ -37,15 +37,16 @@ describe 'Manager registers new resident' do
     expect(current_path).to eq root_path
   end
 
-  it 'with incomplete data INCOMPLETO' do
+  it 'with incomplete data' do
     manager = create :manager
 
     login_as manager, scope: :manager
     visit root_path
+
     within 'nav' do
       click_on id: 'side-menu'
-      click_on 'Gerenciar usuarios'
-      click_on 'Cadastrar morador'
+      click_on 'Gerenciar Usuários'
+      click_on 'Cadastrar Morador'
     end
 
     fill_in 'Nome Completo', with: ''

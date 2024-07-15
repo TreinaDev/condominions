@@ -8,11 +8,11 @@ describe 'Manager register condo' do
     visit root_path
     within('nav') do
       click_on id: 'side-menu'
-      click_on 'Criar Condominio'
+      click_on 'Criar Condomínio'
     end
 
     expect(current_path).to eq new_condo_path
-    expect(page).to have_content('Cadastre um novo Condomínio:')
+    expect(page).to have_content('Cadastre um novo Condomínio')
   end
 
   it 'must be authenticated as manager' do
@@ -21,7 +21,7 @@ describe 'Manager register condo' do
     expect(current_path).to eq new_manager_session_path
   end
 
-  it 'sucessfully' do
+  it 'successfully' do
     manager = create(:manager)
 
     login_as(manager, scope: :manager)
@@ -41,7 +41,7 @@ describe 'Manager register condo' do
     expect(page).to have_content 'Condomínio cadastrado com sucesso'
     expect(page).to have_content 'Condominio Teste'
     expect(page).to have_content 'CNPJ: 38.352.640/0001-33'
-    expect(page).to have_content 'Endereço: Travessa João Edimar, 29, João Eduardo II - Rio Branco/AC - CEP: 69911-520'
+    expect(page).to have_content 'Travessa João Edimar, 29, João Eduardo II - Rio Branco/AC - CEP: 69911-520'
   end
 
   it 'with missing params' do

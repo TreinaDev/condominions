@@ -92,14 +92,15 @@ describe 'managers access page to set a resident as tenant' do
     manager = create :manager
     condo = create :condo, name: 'Condominio Certo'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    unidade11 = tower.floors[0].units[0]
-    create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', residence: unidade11, email: 'Adroaldo@email.com'
+    unit11 = tower.floors[0].units[0]
+    create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', residence: unit11, email: 'Adroaldo@email.com'
     resident = create :resident, :not_tenant, full_name: 'Sandra Soares'
 
     login_as manager, scope: :manager
     visit root_path
     click_on 'Cadastro de Sandra Soares incompleto, por favor, ' \
              'indique a sua residência ou se não reside no condomínio.'
+    sleep 2
     select 'Condominio Certo', from: 'Condomínio'
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'

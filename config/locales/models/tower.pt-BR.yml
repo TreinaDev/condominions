@@ -5,6 +5,7 @@ pt-BR:
   alerts:    
     tower:
       not_created: 'Não foi possível cadastrar a torre.'
+      access_denied: 'Você não tem permissão para acessar essa página.'
   activerecord:
     models:
       tower:

@@ -60,8 +60,8 @@ describe 'Resident confirms data' do
     expect(page).to have_content 'Nome Completo: Jessica Brito'
     expect(page).to have_content 'CPF: 163.289.380-04'
     expect(page).to have_content 'E-mail: jessica@email.com'
-    expect(page).to have_content 'Não possui propriedades no condomínio'
-    expect(page).to have_content 'Não reside no condomínio'
+    expect(page).to have_content 'Você ainda não possui propriedades no condomínio'
+    expect(page).to have_content 'Não reside em um condomínio gerenciado por esse administrador'
     expect(page).to have_content 'Foto'
     expect(page).to have_button 'Confirmar Dados'
   end
