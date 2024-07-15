@@ -21,18 +21,11 @@ class ResidentsController < ApplicationController
   end
 
   def update
-    resident_params = params.require(:resident).permit :password, :password_confirmation, :user_image
-    password = resident_params['password']
-    password_confirmation = resident_params['password_confirmation']
+    resident_params = params['resident']
 
-    if @resident.password_confirmation_invalid?(password, password_confirmation) ||
-       @resident.password_same_as_current?(password) || !@resident.update(resident_params)
+    @resident.update(user_image: resident_params['user_image']) if resident_params
 
-      return render 'confirm', status: :unprocessable_entity
-    end
-
-    @resident.update status: :mail_confirmed
-    bypass_sign_in @resident
+    @resident.mail_confirmed!
     redirect_to root_path, notice: t('notices.resident.updated')
   end
 
