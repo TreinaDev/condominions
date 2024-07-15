@@ -52,9 +52,12 @@ class ResidentsController < ApplicationController
     redirect_to root_path if @resident.mail_confirmed?
   end
 
-  def edit_photo; end
+  def edit_photo
+    add_breadcrumb I18n.t('breadcrumb.resident.edit_photo')
+  end
 
   def update_photo
+    add_breadcrumb I18n.t('breadcrumb.resident.edit_photo')
     return render :edit_photo, status: :unprocessable_entity unless @resident.update(user_image_params)
 
     redirect_to root_path, notice: I18n.t('notices.resident.updated_photo')

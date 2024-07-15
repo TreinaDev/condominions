@@ -1,15 +1,17 @@
-<h1>Editar Foto</h1>
+<div class='bg-white rounded-5 py-3 px-5 shadow'>
+  <h1>Editar Foto</h1>
 
-<% if @resident.user_image.attached? %>
-  <div class="current-photo d-flex justify-content-center mb-4">
-    <%= image_tag @resident.user_image, alt: 'Current Image', style: "width: 200px; height: 200px" %>
-  </div>
-<% end %>
+  <% if @resident.user_image.attached? %>
+    <div class="current-photo d-flex justify-content-start mb-4">
+      <%= image_tag @resident.user_image, alt: 'Current Image', style: "width: 200px; height: 200px; border-radius: 20%;" %>
+    </div>
+  <% end %>
 
-<%= form_with(model: @resident, url: update_photo_resident_path(@resident), method: 'patch', class: 'text-center') do |f| %>
-  <div class="mb-3 row">
-    <%= f.label :user_image, class: 'col-sm-2 col-form-label' %>
-    <div class="col-sm-10"><%= f.file_field :user_image, class: 'form-control' %></div>
-  </div>
-  <%= f.submit 'Enviar', class: 'btn btn-primary' %>
-<% end %>
+  <%= form_with(model: @resident, url: update_photo_resident_path(@resident), method: 'patch') do |f| %>
+    <div class="form-floating mb-3 w-75">
+      <%= f.file_field :user_image, class: 'form-control' %>
+      <%= f.label :user_image %>
+    </div>
+    <%= f.submit 'Enviar', class: 'btn btn-dark rounded-pill px-4 mt-1' %>
+  <% end %>
+</div>

@@ -1,9 +1,13 @@
 class TenantsController < ResidentsController
   before_action :set_resident
   before_action :set_condos
-  def new; end
+
+  def new
+    add_breadcrumb I18n.t('breadcrumb.tenant.add_unit')
+  end
 
   def create
+    add_breadcrumb I18n.t('breadcrumb.tenant.add_unit')
     unless params[:commit] == 'Não reside neste condomínio' || update_resident_for_valid_unit
       return render 'new', status: :unprocessable_entity
     end

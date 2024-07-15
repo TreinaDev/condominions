@@ -19,3 +19,8 @@ pt-BR:
       new: 'Cadastrar Tipo de Unidade'
     resident:
       new: 'Cadastrar Morador'
+      edit_photo: 'Editar Foto'
+    owner:
+      add_unit: 'Cadastrar Propriedade'
+    tenant:
+      add_unit: 'Cadastrar Moradia'
