@@ -33,4 +33,13 @@ describe 'Manager logs in' do
     expect(page).not_to have_content 'João Almeida - manager@email.com'
     expect(page).not_to have_css '#side-menu'
   end
+
+  it 'and must be authenticated as manager' do
+    resident = create :resident
+
+    login_as resident, scope: :resident
+    visit new_manager_session_path
+
+    expect(current_path).to eq root_path
+  end
 end

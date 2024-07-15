@@ -33,7 +33,7 @@ describe "Administrator sees floor's details" do
     visit tower_path tower
     click_on '2º Andar'
 
-    expect(current_path).to eq tower_floor_path(tower, floor)
+    expect(page).to have_current_path tower_floor_path(tower, floor), wait: 2
     expect(page).to have_content 'Torre A'
     expect(page).to have_content '2º Andar'
 

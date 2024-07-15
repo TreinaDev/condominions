@@ -2,11 +2,10 @@ class UnitTypesController < ApplicationController
   before_action :set_unit_type, only: %i[edit update show]
   before_action :set_condo, only: %i[new create]
   before_action :authenticate_manager!
-
+  before_action :set_condo_for_details, only: %i[show edit update]
+  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show new create edit update]
   before_action :set_breadcrumb_for_details, only: %i[show edit update]
   before_action :set_breadcrumb_for_register, only: %i[new create]
-
-  def index; end
 
   def show; end
 
@@ -41,6 +40,10 @@ class UnitTypesController < ApplicationController
   end
 
   private
+
+  def set_condo_for_details
+    @condo = @unit_type.condo
+  end
 
   def set_unit_type
     @unit_type = UnitType.find(params[:id])

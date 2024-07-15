@@ -3,10 +3,12 @@ pt-BR:
     condo:
       created: 'Condomínio cadastrado com sucesso'
       updated: 'Condomínio atualizado com sucesso'
+      manager_associated: 'Administrador adicionado com sucesso'
   alerts:    
     condo:
       not_created: 'Erro ao cadastrar Condomínio'
       not_updated: 'Erro ao atualizar Condomínio'
+      manager_not_associated: 'Não foi possível adicionar o administrador'
   name: 'Nome'
   registration_number: 'CNPJ'
   activerecord:
@@ -18,3 +20,4 @@ pt-BR:
       condo:
         name: 'Nome'
         registration_number: 'CNPJ'
+        manager_id: 'Selecionar Administrador'

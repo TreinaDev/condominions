@@ -5,12 +5,38 @@ class ApplicationController < ActionController::Base
   before_action :resident_registration_incomplete
   before_action :warn_resident_photo
   before_action :block_manager_from_resident_sign_in
-  add_breadcrumb 'Home', :root_path
+  before_action :block_resident_from_manager_sign_in
+  before_action :add_home_breadcrumb, unless: :devise_controller?
+
+  def add_home_breadcrumb
+    add_breadcrumb 'Home', :root_path
+  end
 
   private
 
+  def devise_controller?
+    devise_controller_name = %w[sessions]
+    devise_controller_name.include?(controller_name)
+  end
+
+  def authorize_super_manager!
+    redirect_to root_path, alert: I18n.t('alerts.manager.not_authorized') unless current_manager.is_super
+  end
+
+  def authorize_condo_manager!(condo)
+    unless (manager_signed_in? && current_manager.is_super) ||
+           (manager_signed_in? && current_manager.condos.include?(condo)) ||
+           resident_signed_in?
+      redirect_to root_path, alert: I18n.t('alerts.manager.not_authorized')
+    end
+  end
+
   def block_manager_from_resident_sign_in
     redirect_to root_path if manager_signed_in? && request.path == new_resident_session_path
+  end
+
+  def block_resident_from_manager_sign_in
+    redirect_to root_path if resident_signed_in? && request.path == new_manager_session_path
   end
 
   def resident_registration_incomplete

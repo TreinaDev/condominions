@@ -4,6 +4,8 @@ class Condo < ApplicationRecord
   has_many :common_areas, dependent: :destroy
   has_many :unit_types, dependent: :destroy
   has_many :units, through: :unit_types
+  has_many :condo_managers, dependent: :destroy
+  has_many :managers, through: :condo_managers
 
   delegate :city, to: :address
   delegate :state, to: :address

@@ -2,9 +2,12 @@ class TenantsController < ResidentsController
   before_action :set_resident
   before_action :set_condos
 
-  def new; end
+  def new
+    add_breadcrumb I18n.t('breadcrumb.tenant.add_unit')
+  end
 
   def create
+    add_breadcrumb I18n.t('breadcrumb.tenant.add_unit')
     unless params[:commit] == 'Não reside neste condomínio' || update_resident_for_valid_unit
       return render 'new', status: :unprocessable_entity
     end
@@ -24,7 +27,9 @@ class TenantsController < ResidentsController
   end
 
   def set_condos
-    @condos = Condo.all
+    return @condos = Condo.all if current_manager.is_super?
+
+    @condos = current_manager.condos
   end
 
   def send_email
