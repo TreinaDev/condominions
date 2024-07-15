@@ -1,13 +1,12 @@
-<section>
+<section class="bg-white rounded-5 py-4 px-5 shadow">
   <h1><%= @tower.name %></h1>
-
-  <p>Quantidade de Andares: <%= @tower.floor_quantity %></p> 
+  <p class="mt-4">Quantidade de Andares: <%= @tower.floor_quantity %></p> 
   <p>Apartamentos por Andar: <%= @tower.units_per_floor %></p>
 
   <h2>Andares</h2>
   <% @tower.floors.each do |floor| %>
-    <p><%= link_to("#{floor.identifier}º Andar", tower_floor_path(@tower, floor)) %><p>
+    <p><%= link_to "#{floor.identifier}º Andar", tower_floor_path(@tower, floor) %><p>
   <% end %>
 
-  <%= link_to 'Editar Pavimento Tipo', edit_floor_units_condo_tower_path(@tower.condo, @tower), class:"btn btn-dark" %>
+  <%= link_to 'Editar Pavimento Tipo', edit_floor_units_condo_tower_path(@tower.condo, @tower), class: "btn btn-dark rounded-pill px-4 mt-3" %>
 </section>

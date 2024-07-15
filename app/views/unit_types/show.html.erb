@@ -1,17 +1,10 @@
-<h1>Tipo de unidade</h1>
+<section class="bg-white rounded-5 py-4 px-5 shadow">
+  <h1>Tipo de unidade</h1>
+  <p class="mt-4">Descrição: <%= @unit_type.description %></p>
+  <p>Metragem: <%= @unit_type.metreage_to_square_meters %></p>
+  <p>Fração Ideal: <%= @unit_type.fraction_to_percentage %></p>
 
-<div>
-  Descrição: <%= @unit_type.description %>
-</div>
-
-<div>
-  Metragem: <%= @unit_type.metreage_to_square_meters %>
-</div>
-
-<div>
-  Fração Ideal: <%= @unit_type.fraction_to_percentage %>
-</div>
-
-<div>
-  <%= link_to 'Editar', edit_unit_type_path(@unit_type), class:"btn btn-dark" %>
-</div>
+  <div>
+    <%= link_to 'Editar', edit_unit_type_path(@unit_type), class: "btn btn-dark rounded-pill px-4 mt-3" %>
+  </div>
+</section>

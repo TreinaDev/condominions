@@ -74,7 +74,7 @@ describe 'managers access page to set a resident as owner' do
              'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
 
     within(:css, '.units-array .unit:nth-of-type(1)') do
-      click_on 'Remover Propriedade'
+      click_on 'Remover'
     end
 
     expect(page).to have_content 'Unidade: 22'
@@ -140,7 +140,7 @@ describe 'managers access page to set a resident as owner' do
     visit root_path
     click_on 'Cadastro de Sandra Soares incompleto, por favor, ' \
              'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
-    sleep 2
+    sleep 3
     select 'Condominio Certo', from: 'Condomínio'
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'

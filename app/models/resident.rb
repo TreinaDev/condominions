@@ -19,20 +19,6 @@ class Resident < ApplicationRecord
     ResidentMailer.with(resident: self, password: random_password).notify_new_resident.deliver
   end
 
-  def password_same_as_current?(password)
-    return false unless valid_password?(password)
-
-    errors.add :password, 'deve ser diferente da atual'
-    true
-  end
-
-  def password_confirmation_invalid?(password, password_confirmation)
-    return false unless password != password_confirmation
-
-    errors.add :password_confirmation, 'deve ser igual a senha'
-    true
-  end
-
   def photo_warning_html_message
     return if user_image.attached? || mail_not_confirmed?
 

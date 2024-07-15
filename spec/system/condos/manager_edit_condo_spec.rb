@@ -8,7 +8,7 @@ describe 'Manager edits condo' do
     expect(current_path).to eq new_manager_session_path
   end
 
-  it 'sucessfully' do
+  it 'successfully' do
     manager = create(:manager)
     condo = create(:condo)
 
@@ -27,6 +27,7 @@ describe 'Manager edits condo' do
     fill_in 'CEP', with: '88352-272'
     click_on 'Salvar'
 
+    sleep 3
     expect(current_path).to eq condo_path(condo)
     expect(page).to have_content 'Condomínio atualizado com sucesso'
     expect(page).to have_content 'Condominio Editado'

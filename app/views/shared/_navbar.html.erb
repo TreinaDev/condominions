@@ -48,19 +48,19 @@
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Gerenciar usuarios
+                Gerenciar Usuários
               </a>
 
               <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #4c677f">
-                <li><%= link_to 'Cadastrar novo administrador', new_manager_path, class: "dropdown-item" %></li>
+                <li><%= link_to 'Cadastrar Administrador', new_manager_path, class: "dropdown-item" %></li>
                 <li><hr class="nav-divider m-0"></li>
-                <li><%= link_to 'Cadastrar morador', new_resident_path, class: "dropdown-item" %></li>
+                <li><%= link_to 'Cadastrar Morador', new_resident_path, class: "dropdown-item" %></li>
               </ul>
             </li>
 
             <li><hr class="nav-divider m-0"></li>
             <li class="nav-item">
-              <%= link_to 'Criar Condominio', new_condo_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>
+              <%= link_to 'Criar Condomínio', new_condo_path, class: 'nav-link custom-element text-white', data: { turbo: false } %>
             </li>
 
             <li><hr class="nav-divider m-0"></li>
@@ -77,13 +77,12 @@
             <li class="nav-item">
               <a class="nav-link custom-element text-white" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForCommonAreas">Criar Área Comum</a>
             </li>
-
           </ul>
         </div>
       </div>
     <% end %>
-
   </div>
+  
   <% unless controller_name == 'home' %>
     <%= render 'shared/breadcrumb' %>
   <% end %>
