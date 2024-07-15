@@ -1,5 +1,6 @@
 class TenantsController < ResidentsController
-  before_action :set_resident_and_condos
+  before_action :set_resident
+  before_action :set_condos
   def new; end
 
   def create
@@ -17,8 +18,11 @@ class TenantsController < ResidentsController
 
   private
 
-  def set_resident_and_condos
+  def set_resident
     @resident = Resident.find params[:resident_id]
+  end
+
+  def set_condos
     @condos = Condo.all
   end
 

@@ -176,11 +176,11 @@ Exemplo de resposta:
 
 `/api/v1/check_owner?registration_number={CPF}`
 
-<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação Condomínions, ainda retorna o perfil de usuário e o id de sua unidade</p>
+<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação CondoMínions, ainda retorna o perfil de usuário e o id de sua unidade</p>
 
 Possíveis respostas
 ```
-Retorna 200 se existe um proprietário com o CPF informado na aplicação CondoMínios;
+Retorna 200 se existe um proprietário com o CPF informado na aplicação CondoMinions;
 Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMínios;
 Retorna 412 se o CPF não for válido para consulta.
 OBS: Esse Endpoint trata puramente da validação do CPF, o JSON retornado possui corpo vazio.

@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Manager sets owner in register' do
   it 'POST /residents/:resident_id/owners' do
     resident = create(:resident, full_name: 'Adroaldo Silva')
+
     post resident_owners_path(resident), params: { floor_id: '15' }
 
     expect(response).to redirect_to new_manager_session_path

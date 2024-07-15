@@ -3,7 +3,7 @@
 <div class="card mb-3">
   <div class="card-body text-center">
     <h1 class="mb-3">Cadastrar Propriedade</h1>
-    <h3 class="mb-3">Escolha as unidades as quais <%= @resident.full_name %> é proprietário(a)</h3>
+    <h2 class="mb-3 fs-3">Escolha as unidades as quais <%= @resident.full_name %> é proprietário(a)</h2>
     <p class='mb-4 bold'>Morador: <%= @resident.full_name %> de CPF: <%= @resident.registration_number %> e e-mail: <%= @resident.email %></p>
   </div>
 </div>
@@ -17,7 +17,7 @@
           <div class="col-md-4 col-lg-2 mb-4 unit">
             <div class="card h-100">
               <div class="card-body text-center">
-                <h5 class="card-title">Condomínio: <%= unit.condo.name %></h5>
+                <h3 class="card-title fs-5">Condomínio: <%= unit.condo.name %></h3>
                 <p class="card-text">Torre: <%= unit.tower.name %></p>
                 <p class="card-text">Unidade: <%= unit.short_identifier %></p>
                 <%= button_to 'Remover Propriedade', resident_owner_path(@resident, unit.id), method: :delete, class: 'btn btn-dark' %>
