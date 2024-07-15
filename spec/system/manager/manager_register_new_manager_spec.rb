@@ -9,8 +9,8 @@ describe 'Super Manager registers new manager' do
       visit root_path
       within 'nav' do
         click_on id: 'side-menu'
-        click_on 'Gerenciar usuarios'
-        click_on 'Cadastrar novo administrador'
+        click_on 'Gerenciar Usuários'
+        click_on 'Cadastrar Administrador'
       end
       fill_in 'Nome Completo', with: 'Erika Campos'
       fill_in 'CPF', with: CPF.generate(format: true)
@@ -31,8 +31,8 @@ describe 'Super Manager registers new manager' do
       visit root_path
       within 'nav' do
         click_on id: 'side-menu'
-        click_on 'Gerenciar usuarios'
-        click_on 'Cadastrar novo administrador'
+        click_on 'Gerenciar Usuários'
+        click_on 'Cadastrar Administrador'
       end
       fill_in 'Nome Completo', with: ''
       fill_in 'CPF', with: ''
@@ -58,11 +58,11 @@ describe 'Super Manager registers new manager' do
       visit root_path
       within 'nav' do
         click_on id: 'side-menu'
-        click_on 'Gerenciar usuarios'
+        click_on 'Gerenciar Usuários'
       end
 
       within 'nav' do
-        expect(page).not_to have_link 'Cadastrar novo administrador'
+        expect(page).not_to have_link 'Cadastrar Administrador'
       end
     end
   end
@@ -80,7 +80,7 @@ describe 'Super Manager registers new manager' do
       select 'Rafael Ribeiro', from: 'Selecionar Administrador'
       click_on 'Adicionar'
 
-      expect(current_path).to eq condo_path condo
+      expect(page).to have_current_path condo_path(condo), wait: 2
       expect(page).to have_content 'Administrador adicionado com sucesso'
       expect(Manager.last.condos.last.name).to eq condo.name
     end
