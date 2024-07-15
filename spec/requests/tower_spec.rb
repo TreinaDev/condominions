@@ -13,10 +13,25 @@ describe 'POST /towers' do
     expect(response).to redirect_to new_manager_session_path
     expect(flash[:alert]).to eq 'Para continuar, faça login ou registre-se.'
   end
+
+  it 'and can only be authenticated as a manager to register a tower' do
+    resident = create :resident
+    condo = create :condo
+
+    login_as resident, scope: :resident
+    post condo_towers_path(condo),
+         params: { tower:
+                         { name: 'Torre do Rubinhos',
+                           floor_quantity: 3,
+                           units_per_floor: 4 } }
+
+    expect(response).to redirect_to root_path
+    expect(Tower.where(name: 'Torre do Rubinhos').empty?).to be true
+  end
 end
 
-describe 'PATCH /towers' do
-  it 'must be authenticated to register a tower' do
+describe 'PATCH /update_floor_units' do
+  it 'must be authenticated to update floor units from a tower' do
     condo = create :condo
     tower = create(:tower, floor_quantity: 3, units_per_floor: 2, condo:)
 
@@ -24,5 +39,34 @@ describe 'PATCH /towers' do
 
     expect(response).to redirect_to new_manager_session_path
     expect(flash[:alert]).to eq 'Para continuar, faça login ou registre-se.'
+  end
+
+  it 'and can only be authenticated as a manager to update floor units from a tower' do
+    condo = create :condo
+    tower = create(:tower, floor_quantity: 3, units_per_floor: 2, condo:)
+    resident = create :resident
+
+    login_as resident, scope: :resident
+    patch update_floor_units_condo_tower_path(condo, tower)
+
+    expect(response).to redirect_to root_path
+  end
+
+  it 'and updates all unit type fractions within the condo' do
+    manager = create :manager
+    condo = create :condo
+    first_unit_type = create(:unit_type, condo:, metreage: 50)
+    second_unit_type = create(:unit_type, condo:, metreage: 100)
+    create(:tower, :with_four_units, floor_quantity: 3, condo:, unit_types: [first_unit_type, second_unit_type])
+
+    tower = create(:tower, floor_quantity: 3, units_per_floor: 2, condo:)
+    unit_types = { '0' => first_unit_type.id, '1' => second_unit_type.id }
+
+    login_as manager, scope: :manager
+    patch update_floor_units_condo_tower_path(condo, tower), params: { unit_types: }
+    tower.reload
+
+    expect(first_unit_type.reload.fraction).to eq 3.7037
+    expect(second_unit_type.reload.fraction).to eq 7.40741
   end
 end

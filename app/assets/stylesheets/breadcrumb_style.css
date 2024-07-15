@@ -3,12 +3,7 @@ ol.breadcrumb li {
 
     a {
         text-decoration: none;
-        color: #ffc107;
+        color: #577998;
         font-weight: 700;
-    }
-
-    a:hover {
-        color: #f5b905;
-        transition: all 0.5s;
     }
 }

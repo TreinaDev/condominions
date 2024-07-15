@@ -107,7 +107,6 @@ describe 'managers access page to set a resident as owner' do
     visit root_path
     click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
              'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
-    sleep 2
     select 'Condominio Certo', from: 'Condomínio'
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
