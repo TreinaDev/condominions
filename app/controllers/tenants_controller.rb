@@ -1,6 +1,7 @@
 class TenantsController < ResidentsController
   before_action :set_resident
   before_action :set_condos
+
   def new; end
 
   def create

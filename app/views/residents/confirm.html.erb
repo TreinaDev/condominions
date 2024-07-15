@@ -1,69 +1,71 @@
 <%= render 'shared/errors', model: @resident %>
 
-<h1 class="mb-4">Confirme o seu cadastro</h1>
+<div class="bg-white rounded-5 py-4 px-5 shadow">
+  <h1 class="mb-5">Confirme o seu cadastro</h1>
 
-<div class='d-flex flex-column mb-3 w-100 p-3'>
-  <div class="d-flex justify-content-between">
-    <div class="card mb-3 w-50 mx-1">
-      <div class="card-body text-center">
-        <h1 class="mb-3">Nome Completo: <%= @resident.full_name %></h1>
-        <h3 class="mb-3">E-mail: <%= @resident.email %></h3>
-        <p class='mb-4 bold'>CPF: <%= @resident.registration_number %></p>
-      </div>
-    </div>
-
-    <div class="card mb-3 w-50 mx-1">
-      <div class="card-body text-center residence">
-          <% if @resident.residence %>
-            <h3 class="mb-3">Residência em:</h3>
-            <h5 class="mb-3">Condomínio: <%= @resident.residence.condo.name %></h5>
-            <p class='mb-4 bold'>Torre: <%= @resident.residence.tower.name%></p>
-            <p class='mb-4 bold'>Unidade: <%= @resident.residence.short_identifier%></p>
-          <% else %>
-            <h4 class="mb-3">Não reside no condomínio</h4>
-          <% end %>
-      </div>
+  <div>
+    <div class="p-0" style="width: fit-content;">
+      <p>Nome Completo: <%= @resident.full_name %></p>
+      <p>E-mail: <%= @resident.email %></p>
+      <p>CPF: <%= @resident.registration_number %></p>
+      <% if @resident.residence %>
+        <h2 class="fs-5 mt-5">Residência:</h2>
+        <ul class="residence">
+          <li><p>Condomínio: <%= @resident.residence.condo.name %></p></li>
+          <li><p>Torre: <%= @resident.residence.tower.name %></p></li>
+          <li><p>Unidade: <%= @resident.residence.short_identifier %></p></li>
+        </ul>
+      <% else %>
+        <p class="fs-4">Não reside em um condomínio gerenciado por esse administrador</p>
+      <% end %>
     </div>
   </div>
 
-
-  <div class="card mb-3 mx-1">
-    <div class="card-body text-center">
-      <% if @resident.properties.any? %>
-        <h2>Lista de propriedades</h2>
-        <div class="container">
-          <div class="row mb-3 units-array">
-            <% @resident.properties.each do |unit| %>
-              <div class="col-md-4 col-lg-2 mb-4 unit">
-                <div class="card h-100">
-                  <div class="card-body text-center">
-                    <h5 class="card-title">Condomínio: <%= unit.condo.name %></h5>
-                    <p class="card-text">Torre: <%= unit.tower.name %></p>
-                    <p class="card-text">Unidade: <%= unit.short_identifier %></p>
+  <div class='d-flex flex-column mb-3 w-100 p-3'>
+    <div class="mb-3 mx-1">
+      <div class="text-center mt-4">
+        <% if @resident.properties.any? %>
+          <h2>Unidades já possuídas</h2>
+          <div class="container">
+            <div class="row mb-3 units-array">
+              <% @resident.properties.each do |unit| %>
+                <div class="col-md-4 col-lg-2 mb-4 unit">
+                  <div class="card h-100 shadow-sw">
+                    <div class="card-body text-center">
+                      <h3 class="card-title fs-5">Condomínio: <%= unit.condo.name %></h3>
+                      <p class="card-text">Torre: <%= unit.tower.name %></p>
+                      <p class="card-text">Unidade: <%= unit.short_identifier %></p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           </div>
-        </div>
-      <% else %>
-        <h4 class="mb-3">Não possui propriedades no condomínio</h4>
-      <% end %>
+        <% else %>
+          <strong class="fs-4">Você ainda não possui propriedades no condomínio</strong>
+        <% end %>
+      </div>
     </div>
   </div>
-
-
-  <div class="card mb-3 mx-1">
-    <div class="card-body text-center">
-    <h2>Inserir imagem</h2>
-      <%= form_with(model: @resident, class: 'text-center') do |f| %>
-        <div class="mb-3 row">
-          <%= f.label :user_image, class: 'col-sm-2 col-form-label' %>
-          <div class="col-sm-10"><%= f.file_field :user_image, class: 'form-control' %></div>
-        </div>
-        <%= f.submit "Confirmar Dados", class: 'btn btn-primary' %>
-      <% end %>
-    </div>
-  </div>  
 </div>
 
+<div class='bg-white rounded-5 py-3 px-5 shadow my-5'>
+  <h2 class="mt-4 mb-3">Adicione sua foto</h2>
+
+  <% if @resident.user_image.attached? %>
+    <div class="current-photo d-flex justify-content-start mb-4">
+      <%= image_tag @resident.user_image, alt: 'Current Image', style: "width: 200px; height: 200px; border-radius: 20%;" %>
+    </div>
+  <% end %>
+
+  <%= form_with model: @resident do |f| %>
+    <div class="form-floating mb-3 w-75">
+      <%= f.label :user_image %>
+      <%= f.file_field :user_image, class: 'form-control' %>
+    </div>
+
+    <div class="actions mb-4">
+      <%= f.submit "Confirmar Dados", class: 'btn btn-dark rounded-pill px-4 mt-2' %>
+    </div>
+  <% end %>
+</div>
