@@ -1,4 +1,8 @@
 pt-BR:
+  alerts:
+    visitor:
+      not_created: 'Erro ao registrar visitante'
+      not_tenant: 'Apenas moradores podem cadastrar visitantes'
   notice: 
     visitor:
       created: 'Visitante cadastrado com sucesso'
