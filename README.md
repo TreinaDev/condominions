@@ -192,6 +192,8 @@ OBS: Esse Endpoint trata puramente da validação do CPF, o JSON retornado possu
 
 `/api/v1/get_tenant_residence?registration_number={CPF}`
 
+<p align="justify">Retorna os detalhes da unidade de residência de um morador de determinado CPF</p>
+
 Possíveis respostas
 ```
 Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMinions, ou se existe, mas não reside em nenhuma unidade;
@@ -219,6 +221,63 @@ Retorna 200 se o CPF é de um inquilino de alguma unidade e o seguinte JSON
 }
 ```
 
+`/api/v1/get_owner_properties?registration_number={cpf}`
+
+<p align="justify">Retorna uma lista com os detalhes das unidades possuídas por um proprietário</p>
+
+Possíveis respostas
+```
+Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMínios, ou se existe, mas não possui nenhuma unidade como propriedade;
+Retorna 412 se o CPF não for válido para consulta.
+Retorna 200 se o CPF é de um proprietário de alguma unidade e o seguinte JSON
+```
+
+```json
+
+{
+  "resident": {
+    "name": "Cláudia Rodrigues Gomes",
+    "owner_id": 1,
+    "properties": [
+      {
+        "id": 1,
+        "area": "150.45",
+        "floor": 1,
+        "number": "11",
+        "unit_type_id": 1,
+        "description": "Duplex com varanda",
+        "condo_id": 1,
+        "condo_name": "Residencial Paineiras",
+        "tenant_id": 1
+      },
+      {
+        "id": 16,
+        "area": "150.45",
+        "floor": 4,
+        "number": "43",
+        "unit_type_id": 1,
+        "description": "Duplex com varanda",
+        "condo_id": 1,
+        "condo_name": "Residencial Paineiras",
+        "tenant_id": null
+      },
+      {
+        "id": 17,
+        "area": "150.45",
+        "floor": 5,
+        "number": "51",
+        "unit_type_id": 1,
+        "description": "Duplex com varanda",
+        "condo_id": 1,
+        "condo_name": "Residencial Paineiras",
+        "tenant_id": null
+      }
+    ]
+  }
+}
+
+```
+
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
@@ -230,7 +289,7 @@ Retorna 200 se o CPF é de um inquilino de alguma unidade e o seguinte JSON
 
 Exemplo de Resposta:
 
-```
+```json
 {
   "common_areas": [
     {
@@ -259,7 +318,7 @@ Exemplo de Resposta:
 <p align="justify">Retorna os detalhes de uma área comum específica a partir do `id` da área comum, com nome, descrição, capacidade máxima e regras de uso.</p>
 
 Exemplo de Resposta:
-```
+```json
 {
     "name": "Piscina",
     "description": "Para adultos e crianças",
