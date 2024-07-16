@@ -1,0 +1,21 @@
+pt-BR:
+  notices:
+    reservation:
+      created: 'Reserva realizada com sucesso!'
+  alerts:    
+    reservation:
+      not_created: 'Não foi possível realizar a reserva'
+      unavailable: 'Essa data já está reservada para outro morador'
+      access_denied: 'Para continuar, faça login ou registre-se.'
+  activerecord:
+    models:
+      reservation:
+        one: 'Reserva'
+        other: 'Reservas'
+    attributes:
+      reservation:
+        date: 'Data'
+        common_area: 'Área comum'
+        common_area_id: 'Área comum'
+        resident: 'Morador'
+        resident_id: 'Morador'

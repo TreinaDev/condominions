@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_12_203622) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_16_143712) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -104,6 +104,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_203622) do
     t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.date "date", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "common_area_id", null: false
+    t.integer "resident_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["common_area_id"], name: "index_reservations_on_common_area_id"
+    t.index ["resident_id"], name: "index_reservations_on_resident_id"
+  end
+
   create_table "residents", force: :cascade do |t|
     t.string "full_name"
     t.string "registration_number"
@@ -172,6 +183,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_203622) do
   add_foreign_key "condo_managers", "managers"
   add_foreign_key "condos", "addresses"
   add_foreign_key "floors", "towers"
+  add_foreign_key "reservations", "common_areas"
+  add_foreign_key "reservations", "residents"
   add_foreign_key "towers", "condos"
   add_foreign_key "unit_types", "condos"
   add_foreign_key "units", "floors"

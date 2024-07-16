@@ -1,0 +1,9 @@
+<div class='bg-white rounded-5 py-3 px-5 shadow py-4'>
+  <h1 class="mb-3">Sua Reserva</h1>
+
+  <p><strong>Data:</strong> <%= I18n.l @reservation.date %></p>
+  <p><strong>Local:</strong> <%= @common_area.name %></p>
+
+  <strong>Atenção às Regras de Uso!</strong>
+  <p><%= @common_area.rules %></p>
+</div>
