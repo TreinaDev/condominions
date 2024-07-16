@@ -38,9 +38,15 @@ describe 'Resident API' do
       tower = create :tower, 'condo' => condo, name: 'Torre Norte', floor_quantity: 2, units_per_floor: 2
       unit_type = create :unit_type, description: 'Duplex com varanda', metreage: '145.54'
       unit11 = tower.floors[0].units[0]
-      unit11.update(unit_type: unit_type)
-      resident = create(:resident, registration_number: '076.550.640-83', full_name: 'Roberto dos Santos', residence: unit11)
-      owner = create(:resident, registration_number: '734.706.130-01', email: 'owner@email.com', properties: [unit11])
+      unit11.update(unit_type:)
+      resident = create(:resident,
+                        registration_number: '076.550.640-83',
+                        full_name: 'Roberto dos Santos',
+                        residence: unit11)
+      owner = create(:resident,
+                     registration_number: '734.706.130-01',
+                     email: 'owner@email.com',
+                     properties: [unit11])
 
       get "/api/v1/get_tenant_residence?registration_number=#{resident.registration_number}"
 
@@ -59,19 +65,32 @@ describe 'Resident API' do
     end
 
     it 'and tenant exists but has no residence' do
-      
+      resident = create(:resident)
+
+      get "/api/v1/get_tenant_residence?registration_number=#{resident.registration_number}"
+
+      expect(response).to have_http_status :not_found
     end
 
     it 'and tenant does not exists' do
-      
+      get '/api/v1/get_tenant_residence?registration_number=076.550.640-83'
+
+      expect(response).to have_http_status :not_found
     end
 
     it 'and the registration number is invalid' do
-      
+      get '/api/v1/check_owner?registration_number=111.111.111-11'
+
+      expect(response).to have_http_status :precondition_failed
     end
 
     it 'and returns 500 if internal error' do
-      
+      resident = create(:resident, registration_number: '076.550.640-83')
+      allow(Resident).to receive(:find_by).and_raise ActiveRecord::ActiveRecordError
+
+      get "/api/v1/check_owner?registration_number=#{resident.registration_number}"
+
+      expect(response).to have_http_status :internal_server_error
     end
   end
 end
