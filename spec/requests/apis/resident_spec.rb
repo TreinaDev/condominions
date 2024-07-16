@@ -48,7 +48,7 @@ describe 'Resident API' do
                      email: 'owner@email.com',
                      properties: [unit11]
 
-      get "/api/v1/get_tenant_residence?registration_number=#{resident.registration_number}"
+      get '/api/v1/get_tenant_residence?registration_number=076.550.640-83'
 
       expect(response).to have_http_status :ok
       expect(response.parsed_body['resident']['name']).to include 'Roberto dos Santos'

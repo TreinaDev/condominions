@@ -5,9 +5,13 @@
 import { application } from "./application"
 
 import HelloController from "./hello_controller"
-import ResidentController from "./resident_controller"
-import MaskController from "./mask_controller"
-
 application.register("hello", HelloController)
-application.register("resident", ResidentController)
+
+import MaskController from "./mask_controller"
 application.register("mask", MaskController)
+
+import ResidentController from "./resident_controller"
+application.register("resident", ResidentController)
+
+import UnitsController from "./units_controller"
+application.register("units", UnitsController)

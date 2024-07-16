@@ -196,7 +196,7 @@ OBS: Esse Endpoint trata puramente da validação do CPF, o JSON retornado possu
 
 Possíveis respostas
 ```
-Retorna 404 se não existe um inquilino com o CPF informado na aplicação CondoMínios, ou se existe, mas não reside em nenhuma unidade;
+Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMinions, ou se existe, mas não reside em nenhuma unidade;
 Retorna 412 se o CPF não for válido para consulta.
 Retorna 200 se o CPF é de um inquilino de alguma unidade e o seguinte JSON
 ```
@@ -204,19 +204,20 @@ Retorna 200 se o CPF é de um inquilino de alguma unidade e o seguinte JSON
 ```json
 
 {
-  "resident": {"name": "resident.full_name", "tenant_id": "resident.id",
-              "residence": {
-                          "id": "residence.id", 
-                          "area": "unit_type.metreage",
-                          "floor": "residence.floor.identifier",
-                          "number": "residence.short_identifier",
-                          "unit_type_id": "unit_type.id",
-                          "description": "unit_type.description",
-                          "condo_id": "condo.id",
-                          "condo_name": "condo.name",
-                          "owner_id": "residence.owner.id"
-                          }
-              }
+  "resident": {
+    "name": "resident.full_name", "tenant_id": "resident.id",
+    "residence": {
+      "id": "residence.id", 
+      "area": "unit_type.metreage",
+      "floor": "residence.floor.identifier",
+      "number": "residence.short_identifier",
+      "unit_type_id": "unit_type.id",
+      "description": "unit_type.description",
+      "condo_id": "condo.id",
+      "condo_name": "condo.name",
+      "owner_id": "residence.owner.id"
+      }
+  }
 }
 ```
 
@@ -288,7 +289,7 @@ Retorna 200 se o CPF é de um proprietário de alguma unidade e o seguinte JSON
 
 Exemplo de Resposta:
 
-```
+```json
 {
   "common_areas": [
     {
@@ -317,7 +318,7 @@ Exemplo de Resposta:
 <p align="justify">Retorna os detalhes de uma área comum específica a partir do `id` da área comum, com nome, descrição, capacidade máxima e regras de uso.</p>
 
 Exemplo de Resposta:
-```
+```json
 {
     "name": "Piscina",
     "description": "Para adultos e crianças",
