@@ -7,8 +7,8 @@ describe 'Reservation' do
       resident = build :resident
 
       post common_area_reservations_path common_area,
-           params: { reservation: { date: I18n.l(Date.current + 1.week),
-                                    resident_id: resident.id } }
+                                         params: { reservation: { date: I18n.l(Date.current + 1.week),
+                                                                  resident_id: resident.id } }
 
       expect(response).to redirect_to new_resident_session_path
       expect(flash[:alert]).to eq 'Para continuar, faça login ou registre-se.'
@@ -21,8 +21,8 @@ describe 'Reservation' do
 
       login_as manager, scope: :manager
       post common_area_reservations_path common_area,
-           params: { reservation: { date: I18n.l(Date.current + 1.week),
-                                    resident_id: manager.id } }
+                                         params: { reservation: { date: I18n.l(Date.current + 1.week),
+                                                                  resident_id: manager.id } }
 
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to eq 'Para continuar, faça login ou registre-se.'
