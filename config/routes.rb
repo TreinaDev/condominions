@@ -17,12 +17,17 @@ Rails.application.routes.draw do
     patch 'update_photo', on: :member
   end
 
+  resource :units do
+    get 'find_units', on: :collection
+  end
+
   resources :common_areas, only: [:show, :edit, :update]
   resources :unit_types, only: [:show, :edit, :update]
 
   resources :condos, only: [:new, :create, :show, :edit, :update] do
     resources :common_areas, only: [:new, :create]
     resources :unit_types, only: [:new, :create]
+    resources :visitor_entries, only: [:index, :new, :create]
 
     resources :towers, only: [:new, :create] do
       member do
