@@ -1,6 +1,7 @@
 class OwnersController < ResidentsController
   before_action :authenticate_manager!, only: %i[create new destroy]
   before_action :set_resident_and_condos
+  before_action :set_breadcrumbs_for_register, only: %i[new create]
 
   def new; end
 
@@ -21,7 +22,7 @@ class OwnersController < ResidentsController
 
   def destroy
     unit = Unit.find params[:id]
-    @resident.properties.destroy unit
+    unit.update(owner: nil)
     redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
   end
 
@@ -44,5 +45,9 @@ class OwnersController < ResidentsController
   def set_resident_and_condos
     @resident = Resident.find params[:resident_id]
     @condos = Condo.all
+  end
+
+  def set_breadcrumbs_for_register
+    add_breadcrumb I18n.t('breadcrumb.owner.new')
   end
 end

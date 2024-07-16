@@ -15,3 +15,8 @@ pt-BR:
       new: 'Cadastrar Tipo de Unidade'
     resident:
       new: 'Cadastrar Morador'
+    owner:
+      new: 'Adicionar Propriedade'
+    tenant:
+      new: 'Adicionar Moradia'
+    
