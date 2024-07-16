@@ -79,7 +79,7 @@ describe 'Resident API' do
     end
 
     it 'and the registration number is invalid' do
-      get '/api/v1/check_owner?registration_number=111.111.111-11'
+      get '/api/v1/get_tenant_residence?registration_number=111.111.111-11'
 
       expect(response).to have_http_status :precondition_failed
     end
@@ -88,7 +88,7 @@ describe 'Resident API' do
       resident = create(:resident, registration_number: '076.550.640-83')
       allow(Resident).to receive(:find_by).and_raise ActiveRecord::ActiveRecordError
 
-      get "/api/v1/check_owner?registration_number=#{resident.registration_number}"
+      get "/api/v1/get_tenant_residence?registration_number=#{resident.registration_number}"
 
       expect(response).to have_http_status :internal_server_error
     end
