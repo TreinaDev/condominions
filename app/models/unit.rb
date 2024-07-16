@@ -14,4 +14,8 @@ class Unit < ApplicationRecord
   def short_identifier
     "#{floor.identifier}#{floor.units.index(self) + 1}"
   end
+
+  def tower_identifier
+    "#{floor.tower.name} - #{short_identifier}"
+  end
 end

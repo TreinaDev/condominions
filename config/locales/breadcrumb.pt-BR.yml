@@ -20,6 +20,9 @@ pt-BR:
     resident:
       new: 'Cadastrar Morador'
       edit_photo: 'Editar Foto'
+    visitor_entry:
+      new: 'Registrar Nova Entrada'
+      index: 'Registros de Entradas'
     owner:
       add_unit: 'Cadastrar Propriedade'
     tenant:
