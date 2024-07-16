@@ -3,7 +3,9 @@ class ResidentsController < ApplicationController
   before_action :set_resident, only: %i[update edit_photo update_photo show]
   before_action :authenticate_resident!, only: %i[update edit_photo update_photo]
 
-  def show; end
+  def show
+    add_breadcrumb I18n.t('breadcrumb.resident.show')
+  end
 
   def new
     add_breadcrumb I18n.t('breadcrumb.resident.new')
