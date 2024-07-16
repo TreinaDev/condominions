@@ -39,14 +39,14 @@ describe 'Resident API' do
       unit_type = create :unit_type, description: 'Duplex com varanda', metreage: '145.54'
       unit11 = tower.floors[0].units[0]
       unit11.update(unit_type:)
-      resident = create(:resident,
+      resident = create :resident,
                         registration_number: '076.550.640-83',
                         full_name: 'Roberto dos Santos',
-                        residence: unit11)
-      owner = create(:resident,
+                        residence: unit11
+      owner = create :resident,
                      registration_number: '734.706.130-01',
                      email: 'owner@email.com',
-                     properties: [unit11])
+                     properties: [unit11]
 
       get "/api/v1/get_tenant_residence?registration_number=#{resident.registration_number}"
 
@@ -102,17 +102,17 @@ describe 'Resident API' do
       second_unit_type = create :unit_type, description: 'Triplex com sacada', metreage: '314.58'
       unit11 = tower.floors[0].units[0]
       unit12 = tower.floors[0].units[1]
-      unit11.update(unit_type: first_unit_type)
-      unit12.update(unit_type: second_unit_type)
-      owner = create(:resident,
+      unit11.update unit_type: first_unit_type
+      unit12.update unit_type: second_unit_type
+      owner = create :resident,
                      registration_number: '734.706.130-01',
                      full_name: 'Roberto dos Santos',
                      email: 'owner@email.com',
-                     properties: [unit11, unit12])
-      resident = create(:resident,
+                     properties: [unit11, unit12]
+      resident = create :resident,
                         registration_number: '076.550.640-83',
                         full_name: 'Ednaldo Pereira',
-                        residence: unit11)
+                        residence: unit11
 
       get '/api/v1/get_owner_properties?registration_number=734.706.130-01'
 
