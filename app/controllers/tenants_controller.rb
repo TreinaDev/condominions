@@ -1,21 +1,16 @@
 class TenantsController < ResidentsController
   before_action :set_resident
   before_action :set_condos
+  before_action :set_breadcrumbs_for_register, only: %i[new create]
 
   def new
     add_breadcrumb I18n.t('breadcrumb.tenant.add_unit')
   end
 
   def create
-    add_breadcrumb I18n.t('breadcrumb.tenant.add_unit')
-    unless params[:commit] == 'Não reside neste condomínio' || update_resident_for_valid_unit
-      return render 'new', status: :unprocessable_entity
-    end
+    return render 'new', status: :unprocessable_entity unless update_resident_for_valid_unit
 
-    if @resident.not_tenant?
-      @resident.mail_not_confirmed!
-      send_email
-    end
+    @resident.mail_not_confirmed! && send_email if @resident.not_tenant?
 
     redirect_to root_path, notice: t('notices.tenant.updated')
   end
@@ -40,16 +35,30 @@ class TenantsController < ResidentsController
 
   def update_resident_for_valid_unit
     unit = Unit.find_by(id: find_unit_id)
-    if !unit
-      (flash.now.alert = t('alerts.tenant.inexistent_unit'))
+    alert_message = select_alert_message(unit)
 
-      return nil
-    elsif unit.tenant
-      flash.now.alert = t('alerts.tenant.unit_already_used')
+    flash.now.alert = alert_message
+    return if alert_message
 
-      return nil
-    end
+    @resident.update residence: unit unless params[:commit] == 'Não reside neste condomínio'
+    true
+  end
 
-    @resident.update(residence: unit)
+  def property_residence?
+    @resident.not_tenant? && @resident.properties.empty? && params[:commit] == 'Não reside neste condomínio'
+  end
+
+  def select_alert_message(unit)
+    return I18n.t('alerts.tenant.property_residence_nill') if property_residence?
+    return if params[:commit] == 'Não reside neste condomínio'
+    return I18n.t('alerts.tenant.inexistent_unit') unless unit
+    return I18n.t('alerts.tenant.unit_already_used') if unit.tenant
+
+    t('alerts.tenant.unit_do_not_have_owner') unless unit.owner
+  end
+
+  def set_breadcrumbs_for_register
+    add_breadcrumb I18n.t('breadcrumb.owner.new'), new_resident_owner_path(@resident.id)
+    add_breadcrumb I18n.t('breadcrumb.tenant.new')
   end
 end
