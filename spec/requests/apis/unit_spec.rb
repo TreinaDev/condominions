@@ -19,14 +19,17 @@ describe 'Units API' do
         floor.units[1].update unit_type: second_unit_type
       end
 
-      unit_ids = first_tower.floors.flat_map { |floor| floor.units.pluck(:id) } +
-                 second_tower.floors.flat_map { |floor| floor.units.pluck(:id) }
-
       get "/api/v1/condos/#{condo.id}/units"
 
       expect(response).to have_http_status :ok
-      expect(response.parsed_body['unit_ids'].count).to eq unit_ids.count
-      expect(response.parsed_body['unit_ids']).to match_array unit_ids
+      expect(response.parsed_body['units'].count).to eq 10
+      expect(response.parsed_body['units'][0]['id']).to eq 1
+      expect(response.parsed_body['units'][0]['floor']).to eq 1
+      expect(response.parsed_body['units'][0]['number']).to eq '11'
+
+      expect(response.parsed_body['units'][1]['id']).to eq 2
+      expect(response.parsed_body['units'][1]['floor']).to eq 1
+      expect(response.parsed_body['units'][1]['number']).to eq '12'
     end
 
     it 'and there`s no units' do
@@ -35,7 +38,7 @@ describe 'Units API' do
       get "/api/v1/condos/#{condo.id}/units"
 
       expect(response).to have_http_status :ok
-      expect(response.parsed_body['unit_ids']).to be_empty
+      expect(response.parsed_body['unit'].nil?).to be true
     end
 
     it 'and returns not found if condo is not found' do

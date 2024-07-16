@@ -175,6 +175,32 @@ Exemplo de resposta:
   }
 ]
 ```
+### Endpoint Listar Unidades
+
+`GET /api/v1/condos/{id}/units`
+
+<p align="justify">Retorna a lista de todas as unidades registradas em um condomínio, com o id de cada unidade, número do andar e identificação de unidade.
+
+Retorna 404 caso não exista um condomínio com o id informado</p>
+
+Exemplo de resposta:
+
+```json
+{
+  "units": [
+    {
+      "id": 1,
+      "floor": 1,
+      "number": "11"
+    },
+    {
+      "id": 2,
+      "floor": 1,
+      "number": "12"
+    }
+  ]
+}
+```
 
 ### Endpoint de checar proprietário
 
