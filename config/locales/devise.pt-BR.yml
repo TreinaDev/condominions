@@ -2,6 +2,7 @@ pt-BR:
   activerecord:
     attributes:
       manager:
+        is_super: Super Administrador
         full_name: Nome Completo
         registration_number: CPF
         user_image: Foto

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'User manage unit types' do
-  context 'User register new unit type' do
+describe 'Unit Types' do
+  context 'Manager register new unit type' do
     it 'successfully' do
       user = create :manager
       create :condo, name: 'Condomínio dos rubinhos'
@@ -58,6 +58,25 @@ describe 'User manage unit types' do
       expect(page).to have_content 'Cadastrar um novo tipo de unidade'
     end
 
+    it 'and only sees associated condos' do
+      condo_manager = create :manager, is_super: false
+      first_condo = create :condo, name: 'Condomínio dos rubinhos'
+      second_condo = create :condo, name: 'Condomínio correto'
+      second_condo.managers << condo_manager
+
+      login_as condo_manager, scope: :manager
+      visit root_path
+      within 'nav' do
+        click_on id: 'side-menu'
+        click_on 'Criar Tipo de Unidade'
+      end
+
+      within '#condoSelectPopupForUnitTypes' do
+        expect(page).not_to have_button first_condo.name
+        expect(page).to have_button second_condo.name
+      end
+    end
+
     it 'metreage have to be bigger than 0' do
       condo = create :condo, name: 'Condomínio dos rubinhos'
       user = create :manager
@@ -73,7 +92,7 @@ describe 'User manage unit types' do
     end
   end
 
-  context 'User edit an unit type' do
+  context 'Manager edit an unit type' do
     it 'from unit type details page' do
       condo = create :condo, name: 'Condomínio dos rubinhos'
       user = create :manager
@@ -100,7 +119,7 @@ describe 'User manage unit types' do
       fill_in 'Metragem',	with: '50'
       click_on 'Atualizar Tipo de unidade'
 
-      expect(current_path).to eq unit_type_path unit_type
+      expect(page).to have_current_path unit_type_path(unit_type), wait: 2
       expect(page).to have_content 'Tipo de unidade atualizado com sucesso'
       expect(page).to have_content 'Descrição: Apartamento de 2 quartos'
       expect(page).to have_content 'Metragem: 50.0m²'

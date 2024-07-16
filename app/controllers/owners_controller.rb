@@ -1,6 +1,7 @@
 class OwnersController < ResidentsController
   before_action :authenticate_manager!, only: %i[create new destroy]
-  before_action :set_resident_and_condos
+  before_action :set_resident
+  before_action :set_condos
   before_action :set_breadcrumbs_for_register, only: %i[new create]
 
   def new; end
@@ -28,6 +29,16 @@ class OwnersController < ResidentsController
 
   private
 
+  def set_resident
+    @resident = Resident.find params[:resident_id]
+  end
+
+  def set_condos
+    return @condos = Condo.all if current_manager.is_super?
+
+    @condos = current_manager.condos
+  end
+
   def finish_ownership_register
     return unless params[:commit] == 'Finalizar Cadastro de Propriedades'
 
@@ -40,11 +51,6 @@ class OwnersController < ResidentsController
 
     flash.now.alert = t('alerts.owner.inexistent_unit')
     render 'new', status: :unprocessable_entity
-  end
-
-  def set_resident_and_condos
-    @resident = Resident.find params[:resident_id]
-    @condos = Condo.all
   end
 
   def set_breadcrumbs_for_register

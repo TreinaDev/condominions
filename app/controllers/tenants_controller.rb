@@ -3,7 +3,9 @@ class TenantsController < ResidentsController
   before_action :set_condos
   before_action :set_breadcrumbs_for_register, only: %i[new create]
 
-  def new; end
+  def new
+    add_breadcrumb I18n.t('breadcrumb.tenant.add_unit')
+  end
 
   def create
     return render 'new', status: :unprocessable_entity unless update_resident_for_valid_unit
@@ -23,7 +25,9 @@ class TenantsController < ResidentsController
   end
 
   def set_condos
-    @condos = Condo.all
+    return @condos = Condo.all if current_manager.is_super?
+
+    @condos = current_manager.condos
   end
 
   def send_email

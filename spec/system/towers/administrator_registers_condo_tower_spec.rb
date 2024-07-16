@@ -45,6 +45,25 @@ describe "Administrator registers condo's tower" do
     expect(Tower.last.floors.last.units.count).to eq 3
   end
 
+  it 'and only sees associtated condos' do
+    condo_manager = create :manager, is_super: false
+    first_condo = create :condo, name: 'Condomínio dos rubinhos'
+    second_condo = create :condo, name: 'Condomínio correto'
+    second_condo.managers << condo_manager
+
+    login_as condo_manager, scope: :manager
+    visit root_path
+    within 'nav' do
+      click_on id: 'side-menu'
+      click_on 'Criar Torre'
+    end
+
+    within '#condoSelectPopupForTowers' do
+      expect(page).not_to have_button first_condo.name
+      expect(page).to have_button second_condo.name
+    end
+  end
+
   it 'and fails if there are blank fields' do
     user = create(:manager)
     condo = create(:condo)

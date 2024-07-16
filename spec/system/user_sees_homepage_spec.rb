@@ -33,6 +33,34 @@ describe 'User sees home page' do
     expect(page).to have_content 'Endereço: Rua do Luar, 789, Jardim do Sol - Belo Horizonte/MG - CEP: 14745-632'
   end
 
+  it 'and cannot see condos that he does not have access to' do
+    condo_manager = create :manager, is_super: false
+    first_condo = create :condo, name: 'Residencial Horizonte Verde',
+                                 address: create(:address, public_place: 'Rua Principal', number: 100,
+                                                           neighborhood: 'Centro', city: 'São Paulo',
+                                                           state: 'SP', zip: '12345-678')
+    second_condo = create :condo, name: 'Condomínio Bela Vista',
+                                  address: create(:address, public_place: 'Avenida das Montanhas', number: 45,
+                                                            neighborhood: 'Vila Nova', city: 'Rio de Janeiro',
+                                                            state: 'RJ', zip: '45758-463')
+    create :condo, name: 'Vila do Sol Nascente',
+                   address: create(:address, public_place: 'Rua do Luar', number: 789,
+                                             neighborhood: 'Jardim do Sol', city: 'Belo Horizonte',
+                                             state: 'MG', zip: '14745-632')
+    first_condo.managers << condo_manager
+    second_condo.managers << condo_manager
+
+    login_as condo_manager, scope: :manager
+    visit root_path
+
+    expect(page).not_to have_content 'Vila do Sol Nascente'
+    expect(page).not_to have_content 'Rua do Luar'
+    expect(page).to have_content 'Residencial Horizonte Verde'
+    expect(page).to have_content 'Rua Principal'
+    expect(page).to have_content 'Condomínio Bela Vista'
+    expect(page).to have_content 'Avenida das Montanhas'
+  end
+
   it "and there's no condo registered" do
     manager = create :manager
 
@@ -57,5 +85,21 @@ describe 'User sees home page' do
     expect(page).to have_content 'Residencial Horizonte Verde'
     expect(page).to have_content 'CNPJ: 87.570.020/0001-86'
     expect(page).to have_content 'Rua Principal, 100, Centro - São Paulo/SP - CEP: 12345-678'
+  end
+
+  it 'and there`s no link on side-bar when there´s no condo associated' do
+    condo_manager = create :manager, is_super: false
+
+    login_as condo_manager, scope: :manager
+    visit root_path
+    within 'nav' do
+      click_on id: 'side-menu'
+    end
+
+    within 'nav' do
+      expect(page).not_to have_link 'Criar Tipo de Unidade'
+      expect(page).not_to have_link 'Criar Torre'
+      expect(page).not_to have_link 'Criar Área Comum'
+    end
   end
 end

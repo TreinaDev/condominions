@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-describe 'Manager register condo' do
+describe 'Super Manager register condo' do
   it 'and access from navbar' do
-    user = create(:manager)
+    user = create :manager, is_super: true
     login_as user, scope: :manager
 
     visit root_path
-    within('nav') do
+    within 'nav' do
       click_on id: 'side-menu'
       click_on 'Criar Condomínio'
     end
 
     expect(current_path).to eq new_condo_path
-    expect(page).to have_content('Cadastre um novo Condomínio')
+    expect(page).to have_content 'Cadastre um novo Condomínio'
   end
 
   it 'must be authenticated as manager' do
@@ -21,10 +21,24 @@ describe 'Manager register condo' do
     expect(current_path).to eq new_manager_session_path
   end
 
-  it 'successfully' do
-    manager = create(:manager)
+  it 'must be authenticated as Super Manager' do
+    condo_manager = create :manager, is_super: false
+    login_as condo_manager, scope: :manager
 
-    login_as(manager, scope: :manager)
+    visit root_path
+    within 'nav' do
+      click_on id: 'side-menu'
+    end
+
+    within 'nav' do
+      expect(page).not_to have_link 'Criar Condomínio'
+    end
+  end
+
+  it 'sucessfully' do
+    manager = create :manager, is_super: true
+
+    login_as manager, scope: :manager
     visit new_condo_path
     fill_in 'Nome',	with: 'Condominio Teste'
     fill_in 'CNPJ', with: '38.352.640/0001-33'
@@ -37,7 +51,7 @@ describe 'Manager register condo' do
 
     click_on 'Salvar'
 
-    expect(current_path).to eq condo_path(Condo.last)
+    expect(page).to have_current_path condo_path(Condo.last), wait: 3
     expect(page).to have_content 'Condomínio cadastrado com sucesso'
     expect(page).to have_content 'Condominio Teste'
     expect(page).to have_content 'CNPJ: 38.352.640/0001-33'
@@ -45,9 +59,9 @@ describe 'Manager register condo' do
   end
 
   it 'with missing params' do
-    manager = create(:manager)
+    manager = create :manager
 
-    login_as(manager, scope: :manager)
+    login_as manager, scope: :manager
     visit new_condo_path
 
     fill_in 'Nome', with: ''
@@ -59,7 +73,7 @@ describe 'Manager register condo' do
     fill_in 'CEP', with: ''
     click_on 'Salvar'
 
-    expect(current_path).to eq(new_condo_path)
+    expect(current_path).to eq new_condo_path
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'CNPJ inválido'
     expect(page).to have_content 'Logradouro não pode ficar em branco'

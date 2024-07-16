@@ -1,0 +1,13 @@
+<div class='bg-white rounded-5 py-3 px-5 shadow'>
+  <h1>Adicionar Administrador</h1>
+
+  <div id ="associate_manager_condo">
+    <%= form_with url: associate_manager_condo_path(@condo), method: :post do %>
+      <div class="mb-3">
+        <%= label_tag :manager_id, Condo.human_attribute_name(:manager_id), class: 'col-sm-2 col-form-label' %>
+        <div class="col-sm-10"><%= select_tag :manager_id, options_from_collection_for_select(@managers, :id, :full_name), class: "form-control" %></div>
+      </div>
+      <%= submit_tag 'Adicionar', class: 'btn btn-dark rounded-pill px-4 mt-1' %>
+    <% end %>
+  </div>
+</div>
