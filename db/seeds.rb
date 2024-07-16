@@ -22,143 +22,6 @@ admin2 = Manager.create!(
   password: "teste123"
 )
 
-  resident_not_owner1 = Resident.create!(
-    email: 'claudia@email.com', 
-    password: 'teste123', 
-    status: :not_owner, 
-    full_name: 'Cláudia Rodrigues Gomes', 
-    registration_number: '458.456.480-92'
-  )
-  
-  resident_not_owner2 = Resident.create!(
-  email: 'joao@email.com', 
-  password: 'teste123', 
-  status: :not_owner, 
-  full_name: 'João da Silva', 
-  registration_number: '478.040.830-09'
-)
-
-resident_not_owner3 = Resident.create!(
-  email: 'maria@email.com', 
-  password: 'teste123', 
-  status: :not_owner, 
-  full_name: 'Maria Oliveira', 
-  registration_number: '231.887.610-07'
-)
-
-resident_not_owner4 = Resident.create!(
-  email: 'pedro@email.com', 
-  password: 'teste123', 
-  status: :not_tenant, 
-  full_name: 'Pedro Alves', 
-  registration_number: '185.894.110-52'
-)
-
-resident_not_owner5 = Resident.create!(
-  email: 'ana@email.com', 
-  password: 'teste123', 
-  status: :not_tenant, 
-  full_name: 'Ana Souza', 
-  registration_number: '031.661.130-10'
-)
-
-resident1 = Resident.create!(
-  email:'fernando@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Fernando Marques Gomes',
-  registration_number: '065.858.303-42'
-)
-
-resident2 = Resident.create!(
-  email: 'marina@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Marina Santos Oliveira',
-  registration_number: '077.497.020-08'
-)
-
-resident3 = Resident.create!(
-  email: 'rafael@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Rafael Souza Lima',
-  registration_number: '533.621.940-10'
-)
-
-resident4 = Resident.create!(
-  email: 'carla@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Carla Oliveira Silva',
-  registration_number: '013.484.600-16'
-)
-
-resident5 = Resident.create!(
-  email: 'gustavo@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Gustavo Pereira Santos',
-  registration_number: '896.562.710-92'
-)
-
-resident6 = Resident.create!(
-  email: 'isabela@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Isabela Almeida Costa',
-  registration_number: '614.881.230-47'
-)
-
-resident7 = Resident.create!(
-  email: 'pedro2@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Pedro Machado Barbosa',
-  registration_number: '277.796.720-26'
-)
-
-resident8 = Resident.create!(
-  email: 'ana2@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Ana Luiza Cardoso',
-  registration_number: '318.953.470-50'
-)
-
-resident9 = Resident.create!(
-  email: 'bruno@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Bruno Oliveira Santos',
-  registration_number: '516.791.320-91'
-)
-
-resident10 = Resident.create!(
-  email: 'camila@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Camila Rodrigues Ferreira',
-  registration_number: '564.830.190-17'
-)
-
-resident11 = Resident.create!(
-  email: 'lucas@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Lucas Almeida Pereira',
-  registration_number: '314.787.200-93'
-)
-
-resident12 = Resident.create!(
-  email: 'julia@email.com',
-  password: 'teste123', 
-  status: :mail_confirmed,
-  full_name: 'Julia Ferreira Lima',
-  registration_number: '922.771.400-66'
-)
-
-
 condo1 = Condo.create!(
   name: 'Residencial Paineiras',
   registration_number: '28.278.614/0001-59',
@@ -289,7 +152,6 @@ condo10 = Condo.create!(
   }
 )
 
-
 tower1 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'A', condo: condo1)
 tower2 = Tower.create!(floor_quantity: 6, units_per_floor: 7, name: 'B', condo: condo1)
 tower3 = Tower.create!(floor_quantity: 3, units_per_floor: 6, name: 'Norte', condo: condo2)
@@ -305,50 +167,212 @@ tower12 = Tower.create!(floor_quantity: 4, units_per_floor: 6, name: 'Zeta', con
 tower13 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'Eta', condo: condo7)
 tower14 = Tower.create!(floor_quantity: 6, units_per_floor: 7, name: 'Theta', condo: condo8)
 tower15 = Tower.create!(floor_quantity: 5, units_per_floor: 6, name: 'Iota', condo: condo9)
+tower16 = Tower.create!(floor_quantity: 3, units_per_floor: 2, name: 'Omega', condo: condo10)
 
+resident_not_owner1 = Resident.create!(
+  email: 'claudia@email.com', 
+  password: 'teste123', 
+  status: :not_owner, 
+  full_name: 'Cláudia Rodrigues Gomes', 
+  registration_number: '458.456.480-92',
+  residence: tower1.floors[0].units[0]
+)
+  
+resident_not_owner2 = Resident.create!(
+  email: 'joao@email.com', 
+  password: 'teste123', 
+  status: :not_owner, 
+  full_name: 'João da Silva', 
+  registration_number: '478.040.830-09',
+  residence: tower1.floors[1].units[0]
+)
 
-residents = [
-  resident1, resident2, resident3, resident4, resident5, resident6,
-  resident7, resident8, resident9, resident10, resident11, resident12
-]
+resident_not_owner3 = Resident.create!(
+  email: 'maria@email.com', 
+  password: 'teste123', 
+  status: :not_owner, 
+  full_name: 'Maria Oliveira', 
+  registration_number: '231.887.610-07',
+  residence: tower1.floors[2].units[0]
+)
 
-towers_and_units = [
-  { tower: tower1, floor_index: 0, unit_index: 0 },
-  { tower: tower2, floor_index: 1, unit_index: 2 },
-  { tower: tower3, floor_index: 2, unit_index: 3 },
-  { tower: tower4, floor_index: 1, unit_index: 3 },
-  { tower: tower5, floor_index: 3, unit_index: 1 },
-  { tower: tower6, floor_index: 0, unit_index: 1 },
-  { tower: tower7, floor_index: 1, unit_index: 0 },
-  { tower: tower8, floor_index: 1, unit_index: 1 },
-  { tower: tower9, floor_index: 0, unit_index: 0 },
-  { tower: tower10, floor_index: 0, unit_index: 1 },
-  { tower: tower11, floor_index: 1, unit_index: 0 },
-  { tower: tower12, floor_index: 1, unit_index: 1 },
-  { tower: tower13, floor_index: 0, unit_index: 0 },
-  { tower: tower14, floor_index: 0, unit_index: 1 },
-  { tower: tower15, floor_index: 1, unit_index: 0 },
-  { tower: tower1, floor_index: 1, unit_index: 1 },
-]
+resident_not_owner4 = Resident.create!(
+  email: 'pedro@email.com', 
+  password: 'teste123', 
+  status: :not_tenant, 
+  full_name: 'Pedro Alves', 
+  registration_number: '185.894.110-52',
+  residence: tower1.floors[3].units[0]
+)
 
-residents.each do |resident|
-  towers_and_units.shuffle.each do |tu|
-    tower = tu[:tower]
-    floor_index = tu[:floor_index]
-    unit_index = tu[:unit_index]
+resident_not_owner5 = Resident.create!(
+  email: 'ana@email.com', 
+  password: 'teste123', 
+  status: :not_tenant, 
+  full_name: 'Ana Souza', 
+  registration_number: '031.661.130-10',
+  residence: tower1.floors[4].units[0]
+)
 
-    unit = tower.floors[floor_index].units[unit_index]
-    
-    if unit.owner.nil?
-      resident.properties << unit
-      break if resident.save
-    elsif unit.tenant.nil?
-      resident.residence = unit
-      break if resident.save
-    end
-  end
-end
+resident1 = Resident.create!(
+  email:'fernando@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Fernando Marques Gomes',
+  registration_number: '065.858.303-42',
+  residence: tower1.floors[0].units[1],
+  properties: [
+                tower1.floors[0].units[2],
+                tower1.floors[0].units[3]
+              ]
+)
 
+resident2 = Resident.create!(
+  email: 'marina@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Marina Santos Oliveira',
+  registration_number: '077.497.020-08',
+  residence: tower2.floors[0].units[1],
+  properties: [
+                tower2.floors[0].units[2],
+                tower2.floors[0].units[3],
+                tower6.floors[0].units[0],
+                tower6.floors[0].units[1],
+                tower6.floors[1].units[0],
+                tower6.floors[1].units[1],
+              ]
+)
+
+resident3 = Resident.create!(
+  email: 'rafael@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Rafael Souza Lima',
+  registration_number: '533.621.940-10',
+  residence: tower2.floors[0].units[2],
+  properties: [
+                tower2.floors[1].units[2],
+                tower2.floors[1].units[3]
+              ]
+)
+
+resident4 = Resident.create!(
+  email: 'carla@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Carla Oliveira Silva',
+  registration_number: '013.484.600-16',
+  residence: tower2.floors[2].units[3],
+  properties: [
+                tower2.floors[2].units[2],
+                tower2.floors[2].units[3]
+              ]
+)
+
+resident5 = Resident.create!(
+  email: 'gustavo@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Gustavo Pereira Santos',
+  registration_number: '896.562.710-92',
+  residence: tower2.floors[3].units[1],
+  properties: [
+                tower2.floors[3].units[2],
+                tower2.floors[3].units[3]
+              ]
+)
+
+resident6 = Resident.create!(
+  email: 'isabela@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Isabela Almeida Costa',
+  registration_number: '614.881.230-47',
+  residence: tower3.floors[0].units[0],
+  properties: [
+                tower3.floors[0].units[1],
+                tower3.floors[0].units[2]
+              ]
+)
+
+resident7 = Resident.create!(
+  email: 'pedro2@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Pedro Machado Barbosa',
+  registration_number: '277.796.720-26',
+  residence: tower3.floors[1].units[0],
+  properties: [
+                tower3.floors[1].units[1],
+                tower3.floors[1].units[2]
+              ]
+)
+
+resident8 = Resident.create!(
+  email: 'ana2@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Ana Luiza Cardoso',
+  registration_number: '318.953.470-50',
+  residence: tower3.floors[2].units[0],
+  properties: [
+                tower3.floors[2].units[1],
+                tower3.floors[2].units[2]
+              ]
+)
+
+resident9 = Resident.create!(
+  email: 'bruno@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Bruno Oliveira Santos',
+  registration_number: '516.791.320-91',
+  residence: tower4.floors[0].units[0],
+  properties: [
+                tower4.floors[0].units[1],
+                tower4.floors[0].units[2]
+              ]
+)
+
+resident10 = Resident.create!(
+  email: 'camila@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Camila Rodrigues Ferreira',
+  registration_number: '564.830.190-17',
+  residence: tower4.floors[1].units[0],
+  properties: [
+                tower4.floors[1].units[1],
+                tower4.floors[1].units[2]
+              ]
+)
+
+resident11 = Resident.create!(
+  email: 'lucas@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Lucas Almeida Pereira',
+  registration_number: '314.787.200-93',
+  residence: tower4.floors[2].units[0],
+  properties: [
+                tower4.floors[2].units[1],
+                tower4.floors[2].units[2]
+              ]
+)
+
+resident12 = Resident.create!(
+  email: 'julia@email.com',
+  password: 'teste123', 
+  status: :mail_confirmed,
+  full_name: 'Julia Ferreira Lima',
+  registration_number: '922.771.400-66',
+  residence: tower4.floors[3].units[0],
+  properties: [
+                tower4.floors[3].units[1],
+                tower4.floors[3].units[2]
+              ]
+)
 
 unit_type1 = UnitType.create!(
   description: 'Apartamento de 2 quartos',
@@ -440,16 +464,250 @@ unit_type15 = UnitType.create!(
   condo: condo5
 )
 
-unit_types = [
-  unit_type1, unit_type2, unit_type3, unit_type4, unit_type5,
-  unit_type6, unit_type7, unit_type8, unit_type9, unit_type10,
-  unit_type11, unit_type12, unit_type13, unit_type14, unit_type15
-]
-
-Tower.all.each do |tower|
+unit_type_condo_1 = [unit_type1, unit_type11]
+[tower1, tower2].each do |tower|
   tower.floors.each do |floor|
     floor.units.each_with_index do |unit, index|
-      unit.update unit_type_id: unit_types[index]
+      unit.update(unit_type_id: unit_type_condo_1[index % unit_type_condo_1.size])
     end
   end
+  tower.complete!
 end
+
+unit_type_condo_2 = [unit_type2, unit_type12]
+[tower3, tower4].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type_id: unit_type_condo_2[index % unit_type_condo_2.size])
+    end
+  end
+  tower.complete!
+end
+
+unit_type_condo_3 = [unit_type3, unit_type13]
+[tower5, tower6].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type_id: unit_type_condo_3[index % unit_type_condo_3.size])
+    end
+  end
+  tower.complete!
+end
+
+unit_type_condo_4 = [unit_type4, unit_type14]
+[tower7, tower8].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type_id: unit_type_condo_4[index % unit_type_condo_4.size])
+    end
+  end
+  tower.complete!
+end
+
+unit_type_condo_5 = [unit_type5, unit_type15]
+[tower9, tower10].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type_id: unit_type_condo_5[index % unit_type_condo_5.size])
+    end
+  end
+  tower.complete!
+end
+
+unit_type_condo_6 = [unit_type6]
+[tower11, tower12].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type_id: unit_type_condo_6[index % unit_type_condo_6.size])
+    end
+  end
+  tower.complete!
+end
+
+tower13.floors.each do |floor|
+  floor.units.each_with_index do |unit, index|
+    unit.update(unit_type_id: unit_type7)
+  end
+end
+tower13.complete!
+
+tower14.floors.each do |floor|
+  floor.units.each_with_index do |unit, index|
+    unit.update(unit_type_id: unit_type8)
+  end
+end
+tower14.complete!
+
+tower15.floors.each do |floor|
+  floor.units.each_with_index do |unit, index|
+    unit.update(unit_type_id: unit_type9)
+  end
+end
+tower15.complete!
+
+tower16.floors.each do |floor|
+  floor.units.each_with_index do |unit, index|
+    unit.update(unit_type_id: unit_type10)
+  end
+end
+tower16.complete!
+
+common_area1 = CommonArea.create!(
+  condo_id: condo1.id,
+  name: 'Churrasqueira',
+  description: 'Churrasco comunitário',
+  max_occupancy: 50,
+  rules: 'Proibido fumar'
+)
+
+common_area2 = CommonArea.create!(
+  condo_id: condo1.id,
+  name: 'Piscina',
+  description: 'Piscina grande com deck',
+  max_occupancy: 30,
+  rules: 'Proibido comida e bebida'
+)
+
+common_area3 = CommonArea.create!(
+  condo_id: condo2.id,
+  name: 'Salão de Festas',
+  description: 'Espaço para eventos e festas',
+  max_occupancy: 100,
+  rules: 'Reservar com antecedência'
+)
+
+common_area4 = CommonArea.create!(
+  condo_id: condo2.id,
+  name: 'Academia',
+  description: 'Equipamentos modernos de ginástica',
+  max_occupancy: 20,
+  rules: 'Usar toalha nos aparelhos'
+)
+
+common_area5 = CommonArea.create!(
+  condo_id: condo3.id,
+  name: 'Quadra de Esportes',
+  description: 'Quadra poliesportiva',
+  max_occupancy: 15,
+  rules: 'Horário de silêncio após 22h'
+)
+
+common_area6 = CommonArea.create!(
+  condo_id: condo3.id,
+  name: 'Sala de Jogos',
+  description: 'Mesa de bilhar e pebolim',
+  max_occupancy: 10,
+  rules: 'Proibido apostar dinheiro'
+)
+
+common_area7 = CommonArea.create!(
+  condo_id: condo4.id,
+  name: 'Sauna',
+  description: 'Sauna seca e a vapor',
+  max_occupancy: 10,
+  rules: 'Traje de banho obrigatório'
+)
+
+common_area8 = CommonArea.create!(
+  condo_id: condo4.id,
+  name: 'Playground',
+  description: 'Área de recreação infantil',
+  max_occupancy: 20,
+  rules: 'Crianças devem estar acompanhadas'
+)
+
+common_area9 = CommonArea.create!(
+  condo_id: condo5.id,
+  name: 'Biblioteca',
+  description: 'Espaço para leitura e estudo',
+  max_occupancy: 15,
+  rules: 'Silêncio total'
+)
+
+common_area10 = CommonArea.create!(
+  condo_id: condo5.id,
+  name: 'Jardim',
+  description: 'Jardim com bancos e pergolado',
+  max_occupancy: 25,
+  rules: 'Manter limpo'
+)
+
+common_area11 = CommonArea.create!(
+  condo_id: condo6.id,
+  name: 'Sala de Cinema',
+  description: 'Cinema com 20 lugares',
+  max_occupancy: 20,
+  rules: 'Proibido celular ligado'
+)
+
+common_area12 = CommonArea.create!(
+  condo_id: condo6.id,
+  name: 'Espaço Gourmet',
+  description: 'Cozinha equipada para eventos',
+  max_occupancy: 25,
+  rules: 'Limpar após uso'
+)
+
+common_area13 = CommonArea.create!(
+  condo_id: condo7.id,
+  name: 'Brinquedoteca',
+  description: 'Espaço com brinquedos e jogos',
+  max_occupancy: 15,
+  rules: 'Somente para crianças até 12 anos'
+)
+
+common_area14 = CommonArea.create!(
+  condo_id: condo7.id,
+  name: 'Sala de Reuniões',
+  description: 'Sala equipada para reuniões',
+  max_occupancy: 10,
+  rules: 'Agendar com antecedência'
+)
+
+common_area15 = CommonArea.create!(
+  condo_id: condo8.id,
+  name: 'Espaço Pet',
+  description: 'Área para animais de estimação',
+  max_occupancy: 10,
+  rules: 'Manter animais na coleira'
+)
+
+common_area16 = CommonArea.create!(
+  condo_id: condo8.id,
+  name: 'Oficina',
+  description: 'Espaço para trabalhos manuais',
+  max_occupancy: 8,
+  rules: 'Utilizar ferramentas com cuidado'
+)
+
+common_area17 = CommonArea.create!(
+  condo_id: condo9.id,
+  name: 'Área de Meditação',
+  description: 'Espaço silencioso para meditação',
+  max_occupancy: 5,
+  rules: 'Proibido conversas'
+)
+
+common_area18 = CommonArea.create!(
+  condo_id: condo9.id,
+  name: 'Pista de Caminhada',
+  description: 'Pista para caminhadas e corridas',
+  max_occupancy: 20,
+  rules: 'Respeitar velocidade dos outros'
+)
+
+common_area19 = CommonArea.create!(
+  condo_id: condo10.id,
+  name: 'Salão de Beleza',
+  description: 'Espaço para cuidados pessoais',
+  max_occupancy: 5,
+  rules: 'Agendar horário'
+)
+
+common_area20 = CommonArea.create!(
+  condo_id: condo10.id,
+  name: 'Espaço Kids',
+  description: 'Área de lazer para crianças',
+  max_occupancy: 15,
+  rules: 'Acompanhamento de adulto obrigatório'
+)
