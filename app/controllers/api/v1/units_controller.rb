@@ -7,7 +7,7 @@ module Api
 
         units = condo.towers.flat_map { |tower| tower.floors.flat_map(&:units) }
 
-        render status: :ok, json: { units: units_json units }
+        render status: :ok, json: { units: units_json(units) }
       end
 
       private
