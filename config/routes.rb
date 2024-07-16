@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'check_owner', to: 'residents#check_owner'
+      get 'get_tenant_residence', to: 'residents#get_residence'
       resources :common_areas, only: [:show]
       resources :condos, only: [:index, :show] do
         resources :unit_types, only: [:index]
