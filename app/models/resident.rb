@@ -1,6 +1,6 @@
 class Resident < ApplicationRecord
-  has_one :residence, class_name: 'Unit', foreign_key: 'tenant_id', dependent: :destroy, inverse_of: :tenant
-  has_many :properties, class_name: 'Unit', foreign_key: 'owner_id', dependent: :destroy, inverse_of: :owner
+  has_one :residence, class_name: 'Unit', foreign_key: 'tenant_id', dependent: :nullify, inverse_of: :tenant
+  has_many :properties, class_name: 'Unit', foreign_key: 'owner_id', dependent: :nullify, inverse_of: :owner
   has_many :reservations, dependent: :destroy
 
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
