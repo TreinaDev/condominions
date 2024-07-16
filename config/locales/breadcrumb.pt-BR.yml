@@ -24,6 +24,6 @@ pt-BR:
       new: 'Registrar Nova Entrada'
       index: 'Registros de Entradas'
     owner:
-      add_unit: 'Cadastrar Propriedade'
+      new: 'Adicionar Propriedade'
     tenant:
-      add_unit: 'Cadastrar Moradia'
+      new: 'Adicionar Moradia'
