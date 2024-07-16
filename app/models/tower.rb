@@ -1,6 +1,7 @@
 class Tower < ApplicationRecord
   belongs_to :condo
   has_many :floors, dependent: :destroy
+  has_many :units, through: :floors
 
   enum status: { incomplete: 0, complete: 5 }
 
