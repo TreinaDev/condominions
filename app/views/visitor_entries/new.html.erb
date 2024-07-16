@@ -1,4 +1,4 @@
-  <%= render "shared/errors", model: @visitor_entry %>
+<%= render "shared/errors", model: @visitor_entry %>
 
 <div class='bg-white rounded-5 py-4 px-5 shadow'>
 
@@ -19,7 +19,7 @@
       <div class="form-row row m-0 p-0", data-controller="units">
         <div class="form-group col-md-8 pe-3 mb-2">
           <%= f.label :tower_id %>
-          <%= f.collection_select :tower_id, @condo.towers, :id, :name, {prompt: "Deixe em branco ou selecione uma torre"}, :'data-units-target' => "tower", :'data-action' => "change->units#changeTower", class: 'form-control form-select' %>
+          <%= f.collection_select :tower_id, @condo.towers, :id, :name, { prompt: "Deixe em branco ou selecione uma torre" }, :'data-units-target' => "tower", :'data-action' => "change->units#changeTower", class: 'form-control form-select' %>
         </div>
 
         <div class="form-group col-md-4 pe-3 mb-2">

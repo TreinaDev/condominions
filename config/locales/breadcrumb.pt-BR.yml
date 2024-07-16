@@ -21,7 +21,7 @@ pt-BR:
       new: 'Cadastrar Morador'
       edit_photo: 'Editar Foto'
     visitor_entry:
-      new: 'Registrar nova Entrada'
+      new: 'Registrar Nova Entrada'
       index: 'Registros de Entradas'
     owner:
       add_unit: 'Cadastrar Propriedade'

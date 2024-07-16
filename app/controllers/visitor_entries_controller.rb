@@ -18,11 +18,12 @@ class VisitorEntriesController < ApplicationController
     @visitor_entry.condo = @condo
 
     if @visitor_entry.save
-      redirect_to condo_visitor_entries_path(@condo), notice: t('notices.visitor_entry.created')
-    else
-      flash.now[:alert] = t('alerts.visitor_entry.not_created')
-      render :new, status: :unprocessable_entity
+      return redirect_to condo_visitor_entries_path(@condo),
+                         notice: t('notices.visitor_entry.created')
     end
+
+    flash.now[:alert] = t('alerts.visitor_entry.not_created')
+    render :new, status: :unprocessable_entity
   end
 
   private

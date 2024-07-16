@@ -83,6 +83,7 @@ describe 'Manager registers a visitor entry' do
 
     login_as manager, scope: :manager
     visit new_condo_visitor_entry_path condo
+    fill_in 'RG',	with: '......'
     click_on 'Criar Entrada de Visitante'
 
     expect(page).to have_content 'Não foi possível registrar entrada de visitante'

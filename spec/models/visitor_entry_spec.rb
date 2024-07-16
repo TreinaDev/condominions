@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe VisitorEntry, type: :model do
   describe '#valid?' do
     context 'presence' do
-      it 'false when params are empty' do
+      it "fields can't be blank" do
         visitor_entry = VisitorEntry.new
 
         expect(visitor_entry).not_to be_valid
