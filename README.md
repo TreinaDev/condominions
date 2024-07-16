@@ -135,15 +135,9 @@ Exemplo de resposta:
 }
 ```
 
-
 ### Endpoint de detalhes de uma unidade
 
 `GET /api/v1/units/{id}`
-
-
-### Endpoint Listar Tipos de Unidade
-
-`GET /api/v1/condos/{id}/unit_types`
 
 <p align="justify">Retorna os detalhes de uma unidade especificada pelo id passado no endpoint, caso exista, senão retorna erro 404 e corpo de resposta nulo.
 
@@ -171,6 +165,10 @@ Retorna 404 caso não exista um condomínio com o id informado</p>
 <p align="justify">Retorna a lista de tipos de unidade registradas em um condomínio e os ids da unidades vinculadas a ele.
 
 Retorna 404 caso não exista um condomínio com o id informado</p>
+
+### Endpoint Listar Tipos de Unidade
+
+`GET /api/v1/condos/{id}/unit_types`
 
 Exemplo de resposta:
 ```json
@@ -204,11 +202,11 @@ Exemplo de resposta:
 ]
 ```
 
-### Endpoint de checar proprietário
+### Endpoint de checar um CPF
 
 `/api/v1/check_owner?registration_number={CPF}`
 
-<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação CondoMínions, ainda retorna o perfil de usuário e o id de sua unidade</p>
+<p align="justify">Retorna a confirmação se o CPF informado pertence a um usuário da aplicação CondoMinions, ainda retorna o perfil de usuário e o id de sua unidade</p>
 
 Possíveis respostas
 ```
@@ -217,6 +215,8 @@ Retorna 404 se não existe um proprietário com o CPF informado na aplicação C
 Retorna 412 se o CPF não for válido para consulta.
 OBS: Esse Endpoint trata puramente da validação do CPF, o JSON retornado possui corpo vazio.
 ```
+
+### Endpoint de buscar moradia de um CPF
 
 `/api/v1/get_tenant_residence?registration_number={CPF}`
 
@@ -248,6 +248,7 @@ Retorna 200 se o CPF é de um inquilino de alguma unidade e o seguinte JSON
   }
 }
 ```
+### Endpoint de buscar lista de residências de um CPF
 
 `/api/v1/get_owner_properties?registration_number={cpf}`
 

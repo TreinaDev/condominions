@@ -51,6 +51,7 @@ describe 'Unit API' do
       expect(response.parsed_body['number']).to eq unit11.short_identifier
       expect(response.parsed_body['condo_id']).to eq condo.id
       expect(response.parsed_body['condo_name']).to eq 'Belas Paisagens'
+      expect(response.parsed_body['tenant_id']).to eq nil
       expect(response.parsed_body['owner_id']).to eq owner.id
       expect(response.parsed_body['description']).to eq 'Duplex com varanda'
     end
@@ -71,6 +72,8 @@ describe 'Unit API' do
       expect(response.parsed_body['number']).to eq unit11.short_identifier
       expect(response.parsed_body['condo_id']).to eq condo.id
       expect(response.parsed_body['condo_name']).to eq 'Belas Paisagens'
+      expect(response.parsed_body['tenant_id']).to eq nil
+      expect(response.parsed_body['owner_id']).to eq nil
       expect(response.parsed_body['description']).to eq 'Duplex com varanda'
     end
 
