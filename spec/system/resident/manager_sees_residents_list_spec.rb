@@ -21,4 +21,18 @@ describe 'Manager sees residents list' do
       expect(page).not_to have_content 'João Soares'
     end
   end
+
+  it 'and theres no residents' do
+    manager = create :manager
+    condo = create :condo, name: 'Condominio Certo'
+    create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
+
+    login_as manager, scope: :manager
+    visit condo_path(condo)
+    click_on 'Lista de Moradores'
+
+    within '#residents' do
+      expect(page).to have_content 'Não existem moradores Cadastrados.'
+    end
+  end
 end

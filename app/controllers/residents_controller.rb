@@ -1,7 +1,9 @@
 class ResidentsController < ApplicationController
-  before_action :authenticate_manager!, only: %i[new create find_towers]
-  before_action :set_resident, only: %i[update edit_photo update_photo]
+  before_action :authenticate_manager!, only: %i[new create find_towers show]
+  before_action :set_resident, only: %i[update edit_photo update_photo show]
   before_action :authenticate_resident!, only: %i[update edit_photo update_photo]
+
+  def show; end
 
   def new
     add_breadcrumb I18n.t('breadcrumb.resident.new')
@@ -15,9 +17,21 @@ class ResidentsController < ApplicationController
     random_password = SecureRandom.alphanumeric(8)
     @resident = Resident.new(resident_params.merge!(password: random_password))
 
+    return redirect_to_existent_resident if regist_number_taken
+
     return render :new, status: :unprocessable_entity unless @resident.save
 
     redirect_to new_resident_owner_path(@resident), notice: t('notices.resident.created')
+  end
+
+  def regist_number_taken
+    true if !@resident.valid? && @resident.errors.full_messages.include?('CPF já está em uso')
+  end
+
+  def redirect_to_existent_resident
+    resident = Resident.find_by registration_number: @resident.registration_number
+    flash.alert = 'Morador já cadastro, redirecionado para a página de detalhes do morador'
+    redirect_to resident_path resident
   end
 
   def update
