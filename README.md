@@ -194,7 +194,7 @@ OBS: Esse Endpoint trata puramente da validação do CPF, o JSON retornado possu
 
 Possíveis respostas
 ```
-Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMinios, ou se existe, mas não reside em nenhuma unidade;
+Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMinions, ou se existe, mas não reside em nenhuma unidade;
 Retorna 412 se o CPF não for válido para consulta.
 Retorna 200 se o CPF é de um inquilino de alguma unidade e o seguinte JSON
 ```
