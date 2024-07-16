@@ -10,10 +10,7 @@ class TenantsController < ResidentsController
   def create
     return render 'new', status: :unprocessable_entity unless update_resident_for_valid_unit
 
-    if @resident.not_tenant?
-      @resident.mail_not_confirmed!
-      send_email
-    end
+    @resident.mail_not_confirmed! && send_email if @resident.not_tenant?
 
     redirect_to root_path, notice: t('notices.tenant.updated')
   end
@@ -39,10 +36,11 @@ class TenantsController < ResidentsController
   def update_resident_for_valid_unit
     unit = Unit.find_by(id: find_unit_id)
     alert_message = select_alert_message(unit)
-    if alert_message
-      flash.now.alert = alert_message
-      return nil
-    end
+
+    flash.now.alert = alert_message
+
+    return if alert_message
+
     @resident.update residence: unit unless params[:commit] == 'Não reside neste condomínio'
     true
   end
