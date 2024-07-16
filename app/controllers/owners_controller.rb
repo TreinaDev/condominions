@@ -1,8 +1,8 @@
 class OwnersController < ResidentsController
   before_action :authenticate_manager!, only: %i[create new destroy]
-  before_action :set_breadcrumbs_for_register, only: %i[new create]
   before_action :set_resident
   before_action :set_condos
+  before_action :set_breadcrumbs_for_register, only: %i[new create]
 
   def new; end
 
@@ -23,7 +23,7 @@ class OwnersController < ResidentsController
 
   def destroy
     unit = Unit.find params[:id]
-    @resident.properties.destroy unit
+    unit.update(owner: nil)
     redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
   end
 
@@ -39,10 +39,6 @@ class OwnersController < ResidentsController
     @condos = current_manager.condos
   end
 
-  def set_breadcrumbs_for_register
-    add_breadcrumb I18n.t('breadcrumb.owner.add_unit')
-  end
-
   def finish_ownership_register
     return unless params[:commit] == 'Finalizar Cadastro de Propriedades'
 
@@ -55,5 +51,9 @@ class OwnersController < ResidentsController
 
     flash.now.alert = t('alerts.owner.inexistent_unit')
     render 'new', status: :unprocessable_entity
+  end
+
+  def set_breadcrumbs_for_register
+    add_breadcrumb I18n.t('breadcrumb.owner.new')
   end
 end

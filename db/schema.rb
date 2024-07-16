@@ -154,6 +154,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_203622) do
     t.index ["unit_type_id"], name: "index_units_on_unit_type_id"
   end
 
+  create_table "visitor_entries", force: :cascade do |t|
+    t.integer "condo_id", null: false
+    t.string "full_name"
+    t.string "identity_number"
+    t.integer "unit_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["condo_id"], name: "index_visitor_entries_on_condo_id"
+    t.index ["unit_id"], name: "index_visitor_entries_on_unit_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "common_areas", "condos"
@@ -167,4 +178,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_203622) do
   add_foreign_key "units", "residents", column: "owner_id"
   add_foreign_key "units", "residents", column: "tenant_id"
   add_foreign_key "units", "unit_types"
+  add_foreign_key "visitor_entries", "condos"
+  add_foreign_key "visitor_entries", "units"
 end
