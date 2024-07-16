@@ -136,9 +136,37 @@ Exemplo de resposta:
 ```
 
 
+### Endpoint de detalhes de uma unidade
+
+`GET /api/v1/units/{id}`
+
+
 ### Endpoint Listar Tipos de Unidade
 
 `GET /api/v1/condos/{id}/unit_types`
+
+<p align="justify">Retorna os detalhes de uma unidade especificada pelo id passado no endpoint, caso exista, senão retorna erro 404 e corpo de resposta nulo.
+
+Exemplo de resposta:
+
+```json
+
+{
+  "id": 1,
+  "area": "150.45",
+  "floor": 1,
+  "number": "11",
+  "unit_type_id": 1,
+  "condo_id": 1,
+  "condo_name": "Residencial Paineiras",
+  "tenant_id": 1,
+  "owner_id": 1,
+  "description": "Duplex com varanda"
+}
+
+```
+
+Retorna 404 caso não exista um condomínio com o id informado</p>
 
 <p align="justify">Retorna a lista de tipos de unidade registradas em um condomínio e os ids da unidades vinculadas a ele.
 
