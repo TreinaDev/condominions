@@ -1,0 +1,33 @@
+<div class='bg-white rounded-5 py-4 px-5 shadow'>
+  
+  <div class="d-flex mb-5 justify-content-between">
+    <h1>Registros de Entrada de Visitantes</h1>
+    <%= link_to 'Registrar nova Entrada de Visitante', new_condo_visitor_entry_path(@condo), class:'btn btn-dark rounded-pill px-4 m-2' %>
+  </div>
+
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Nome Completo</th>
+        <th scope="col">RG</th>
+        <th scope="col">Data/Hora</th>
+        <th scope="col">Unidade visitada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @visitor_entries.each do |visitor| %>
+        <tr>
+          <td><%= visitor.full_name %></td>
+          <td><%= visitor.identity_number %></td>
+          <td><%= I18n.l(visitor.created_at, format: :long) %></td>
+
+          <% if visitor.unit.nil? %>
+            <td>Sem unidade referenciada</td>
+          <% else %>
+            <td><%= visitor.unit.floor.tower.name %> - <%= visitor.unit.short_identifier %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

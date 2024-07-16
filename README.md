@@ -94,7 +94,7 @@
 <p align="justify">Retorna todos os condomínios com o id, nome, cidade e estado de cada um.</p>
 
 Exemplo de resposta:
-```
+```json
 [
   {
     "id": 1,
@@ -120,7 +120,7 @@ Exemplo de resposta:
 Retorna erro 404 caso não exista um condomínio cadastrado com esse id.</p>
 
 Exemplo de resposta:
-```
+```json
 {
   "name": "Condominio Residencial Paineiras",
   "registration_number": "62.810.952/2718-22",
@@ -145,7 +145,7 @@ Exemplo de resposta:
 Retorna 404 caso não exista um condomínio com o id informado</p>
 
 Exemplo de resposta:
-```
+```json
 [
   {
     "id": 1,
@@ -188,6 +188,35 @@ Retorna 200 se existe um proprietário com o CPF informado na aplicação CondoM
 Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMínios;
 Retorna 412 se o CPF não for válido para consulta.
 OBS: Esse Endpoint trata puramente da validação do CPF, o JSON retornado possui corpo vazio.
+```
+
+`/api/v1/get_tenant_residence?registration_number={CPF}`
+
+Possíveis respostas
+```
+Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMinions, ou se existe, mas não reside em nenhuma unidade;
+Retorna 412 se o CPF não for válido para consulta.
+Retorna 200 se o CPF é de um inquilino de alguma unidade e o seguinte JSON
+```
+
+```json
+
+{
+  "resident": {
+    "name": "resident.full_name", "tenant_id": "resident.id",
+    "residence": {
+      "id": "residence.id", 
+      "area": "unit_type.metreage",
+      "floor": "residence.floor.identifier",
+      "number": "residence.short_identifier",
+      "unit_type_id": "unit_type.id",
+      "description": "unit_type.description",
+      "condo_id": "condo.id",
+      "condo_name": "condo.name",
+      "owner_id": "residence.owner.id"
+      }
+  }
+}
 ```
 
 
