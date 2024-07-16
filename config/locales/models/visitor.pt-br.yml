@@ -1,0 +1,26 @@
+pt-BR:
+  notice: 
+    visitor:
+      created: 'Visitante cadastrado com sucesso'
+  activerecord:
+    models:
+      visitor: Visitante
+    attributes:
+      visitor:
+        full_name: 'Nome Completo'
+        identity_number: 'RG'
+        recurrence: 'Recorrência'
+        visit_date: 'Data da Visita'
+        category: 'Categoria'
+  visitor: 'Visitante'
+  employee: 'Funcionário'
+  once: 'Uma vez'
+  daily: 'Diariamente'
+  working_days: 'Dias úteis'
+  weekly: 'Semanalmente'
+  biweekly: 'Quinzenalmente'
+  monthly: 'Mensalmente'
+  bimonthly: 'Bimestralmente'
+  quarterly: 'Trimestralmente'
+  semiannual: 'Semestralmente'
+  annual: 'Anualmente'
