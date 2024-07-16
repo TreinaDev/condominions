@@ -38,7 +38,6 @@ class TenantsController < ResidentsController
     alert_message = select_alert_message(unit)
 
     flash.now.alert = alert_message
-
     return if alert_message
 
     @resident.update residence: unit unless params[:commit] == 'Não reside neste condomínio'

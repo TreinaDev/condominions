@@ -6,6 +6,7 @@ class CondosController < ApplicationController
   before_action -> { authorize_condo_manager!(@condo) }, only: %i[show edit update]
 
   def show
+    @residents = @condo.residents
     @towers = @condo.towers.order :name
     @common_areas = @condo.common_areas.order :name
     @unit_types = @condo.unit_types.order :description
