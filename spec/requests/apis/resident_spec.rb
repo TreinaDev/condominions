@@ -3,9 +3,9 @@ require 'rails_helper'
 describe 'Resident API' do
   context 'GET /api/v1/check_owner?registration_number=' do
     it 'and resident exists' do
-      resident = create(:resident, registration_number: '076.550.640-83')
+      create :resident, registration_number: '076.550.640-83'
 
-      get "/api/v1/check_owner?registration_number=#{resident.registration_number}"
+      get '/api/v1/check_owner?registration_number=076.550.640-83'
 
       expect(response).to have_http_status :ok
     end
@@ -23,10 +23,10 @@ describe 'Resident API' do
     end
 
     it 'and returns 500 if internal error' do
-      resident = create(:resident, registration_number: '076.550.640-83')
+      create :resident, registration_number: '076.550.640-83'
       allow(Resident).to receive(:find_by).and_raise ActiveRecord::ActiveRecordError
 
-      get "/api/v1/check_owner?registration_number=#{resident.registration_number}"
+      get '/api/v1/check_owner?registration_number=076.550.640-83'
 
       expect(response).to have_http_status :internal_server_error
     end
@@ -39,16 +39,16 @@ describe 'Resident API' do
       unit_type = create :unit_type, description: 'Duplex com varanda', metreage: '145.54'
       unit11 = tower.floors[0].units[0]
       unit11.update(unit_type:)
-      resident = create(:resident,
+      resident = create :resident,
                         registration_number: '076.550.640-83',
                         full_name: 'Roberto dos Santos',
-                        residence: unit11)
-      owner = create(:resident,
+                        residence: unit11
+      owner = create :resident,
                      registration_number: '734.706.130-01',
                      email: 'owner@email.com',
-                     properties: [unit11])
+                     properties: [unit11]
 
-      get "/api/v1/get_tenant_residence?registration_number=#{resident.registration_number}"
+      get '/api/v1/get_tenant_residence?registration_number=076.550.640-83'
 
       expect(response).to have_http_status :ok
       expect(response.parsed_body['resident']['name']).to include 'Roberto dos Santos'
@@ -65,9 +65,9 @@ describe 'Resident API' do
     end
 
     it 'and tenant exists but has no residence' do
-      resident = create(:resident)
+      create :resident, registration_number: '076.550.640-83'
 
-      get "/api/v1/get_tenant_residence?registration_number=#{resident.registration_number}"
+      get '/api/v1/get_tenant_residence?registration_number=076.550.640-83'
 
       expect(response).to have_http_status :not_found
     end
@@ -85,10 +85,10 @@ describe 'Resident API' do
     end
 
     it 'and returns 500 if internal error' do
-      resident = create(:resident, registration_number: '076.550.640-83')
+      create :resident, registration_number: '076.550.640-83'
       allow(Resident).to receive(:find_by).and_raise ActiveRecord::ActiveRecordError
 
-      get "/api/v1/get_tenant_residence?registration_number=#{resident.registration_number}"
+      get '/api/v1/get_tenant_residence?registration_number=076.550.640-83'
 
       expect(response).to have_http_status :internal_server_error
     end
