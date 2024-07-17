@@ -71,7 +71,7 @@ describe 'Manager sees resident details' do
     end
   end
 
-  it 'and residet has no property' do
+  it 'and resident has no property' do
     manager = create :manager
     condo = create :condo, name: 'Condominio A'
     tower = create :tower, 'condo' => condo, name: 'Torre A', floor_quantity: 2, units_per_floor: 2
