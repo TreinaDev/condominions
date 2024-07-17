@@ -4,11 +4,11 @@ class ReservationsController < ApplicationController
   before_action :set_reservation, only: [:show]
   before_action :authenticate_user, only: [:show]
   before_action :set_common_area, only: %i[new create]
-  before_action :set_breadcrumbs_for_register, only: [:new]
+  before_action :set_breadcrumbs, only: [:new]
 
   def show
     @common_area = @reservation.common_area
-    set_breadcrumbs_for_details
+    set_breadcrumbs
   end
 
   def new
@@ -53,15 +53,9 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.find params[:id]
   end
 
-  def set_breadcrumbs_for_details
+  def set_breadcrumbs
     add_breadcrumb @common_area.condo.name, @common_area.condo
     add_breadcrumb @common_area.name, @common_area
-    add_breadcrumb I18n.t 'breadcrumb.reservation.show'
-  end
-
-  def set_breadcrumbs_for_register
-    add_breadcrumb @common_area.condo.name, @common_area.condo
-    add_breadcrumb @common_area.name, @common_area
-    add_breadcrumb I18n.t 'breadcrumb.reservation.new'
+    add_breadcrumb I18n.t "breadcrumb.reservation.#{action_name}"
   end
 end

@@ -24,5 +24,13 @@ RSpec.describe Reservation, type: :model do
       expect(second_reservation.errors.full_messages).to include "Data #{I18n.l Date.current + 1.week} " \
                                                                  'já está reservada para esta área comum'
     end
+
+    it 'date cannot have multiple reservations' do
+      reservation = build :reservation, date: Date.current - 1.day
+
+      expect(Reservation.all.empty?).to be true
+      expect(reservation).not_to be_valid
+      expect(reservation.errors.full_messages).to include 'Data deve ser atual ou futura'
+    end
   end
 end
