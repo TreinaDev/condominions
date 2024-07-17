@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      superintendent:
+        one: 'Síndico'
+        other: 'Síndicos'
+    attributes:
+      superintendent:
+        start_date: 'Data de ínicio'
+        end_date: 'Data de conclusão'
+        resident: 'Morador'
