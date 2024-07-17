@@ -578,7 +578,7 @@ common_area2 = CommonArea.create!(
 )
 
 common_area3 = CommonArea.create!(
-  condo_id: condo2.id,
+  condo_id: condo1.id,
   name: 'Salão de Festas',
   description: 'Espaço para eventos e festas',
   max_occupancy: 100,
@@ -586,7 +586,7 @@ common_area3 = CommonArea.create!(
 )
 
 common_area4 = CommonArea.create!(
-  condo_id: condo2.id,
+  condo_id: condo1.id,
   name: 'Academia',
   description: 'Equipamentos modernos de ginástica',
   max_occupancy: 20,
@@ -594,7 +594,7 @@ common_area4 = CommonArea.create!(
 )
 
 common_area5 = CommonArea.create!(
-  condo_id: condo3.id,
+  condo_id: condo1.id,
   name: 'Quadra de Esportes',
   description: 'Quadra poliesportiva',
   max_occupancy: 15,
@@ -602,7 +602,7 @@ common_area5 = CommonArea.create!(
 )
 
 common_area6 = CommonArea.create!(
-  condo_id: condo3.id,
+  condo_id: condo1.id,
   name: 'Sala de Jogos',
   description: 'Mesa de bilhar e pebolim',
   max_occupancy: 10,
@@ -610,7 +610,7 @@ common_area6 = CommonArea.create!(
 )
 
 common_area7 = CommonArea.create!(
-  condo_id: condo4.id,
+  condo_id: condo1.id,
   name: 'Sauna',
   description: 'Sauna seca e a vapor',
   max_occupancy: 10,
@@ -618,7 +618,7 @@ common_area7 = CommonArea.create!(
 )
 
 common_area8 = CommonArea.create!(
-  condo_id: condo4.id,
+  condo_id: condo1.id,
   name: 'Playground',
   description: 'Área de recreação infantil',
   max_occupancy: 20,
@@ -626,7 +626,7 @@ common_area8 = CommonArea.create!(
 )
 
 common_area9 = CommonArea.create!(
-  condo_id: condo5.id,
+  condo_id: condo2.id,
   name: 'Biblioteca',
   description: 'Espaço para leitura e estudo',
   max_occupancy: 15,
@@ -634,7 +634,7 @@ common_area9 = CommonArea.create!(
 )
 
 common_area10 = CommonArea.create!(
-  condo_id: condo5.id,
+  condo_id: condo3.id,
   name: 'Jardim',
   description: 'Jardim com bancos e pergolado',
   max_occupancy: 25,
@@ -642,7 +642,7 @@ common_area10 = CommonArea.create!(
 )
 
 common_area11 = CommonArea.create!(
-  condo_id: condo6.id,
+  condo_id: condo4.id,
   name: 'Sala de Cinema',
   description: 'Cinema com 20 lugares',
   max_occupancy: 20,
@@ -650,7 +650,7 @@ common_area11 = CommonArea.create!(
 )
 
 common_area12 = CommonArea.create!(
-  condo_id: condo6.id,
+  condo_id: condo5.id,
   name: 'Espaço Gourmet',
   description: 'Cozinha equipada para eventos',
   max_occupancy: 25,
@@ -658,7 +658,7 @@ common_area12 = CommonArea.create!(
 )
 
 common_area13 = CommonArea.create!(
-  condo_id: condo7.id,
+  condo_id: condo6.id,
   name: 'Brinquedoteca',
   description: 'Espaço com brinquedos e jogos',
   max_occupancy: 15,
