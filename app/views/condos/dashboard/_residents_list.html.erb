@@ -1,0 +1,29 @@
+<div class="accordion-item rounded-5 mb-2 shadow-sm">
+  <h2 class="accordion-header">
+    <button class="accordion-button rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#residents" aria-expanded="false" aria-controls="collapseOne">
+      <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Moradores</strong>
+    </button>
+  </h2>
+  
+  <div id="residents" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    <div class="accordion-body">
+      <% if @residents.any? %>
+        <% @residents.each do |resident| %>
+          <div class="d-flex align-items-center my-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg>
+            <p class="m-0 ms-1"><%= resident.full_name %></p>
+            <%= link_to resident_path(resident.id), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill", id: "resident-#{resident.id}" do %>
+              <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
+            <% end %>
+          </div>
+          <hr class="m-0">
+        <% end %>
+      <% else %>
+        <div class="alert alert-warning text-center">Não existem moradores Cadastrados.</div>
+      <% end %>
+    </div>
+  </div>
+</div>

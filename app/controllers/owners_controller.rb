@@ -10,7 +10,7 @@ class OwnersController < ResidentsController
     return if finish_ownership_register
 
     unit = Unit.find_by id: find_unit_id
-    return if inexistent_unit unit
+    return if any_redirect? unit
 
     unless unit.owner
       @resident.properties << unit
@@ -23,6 +23,8 @@ class OwnersController < ResidentsController
 
   def destroy
     unit = Unit.find params[:id]
+    return if authorize_condo_manager!(unit.condo)
+
     unit.update(owner: nil)
     redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
   end
@@ -55,5 +57,9 @@ class OwnersController < ResidentsController
 
   def set_breadcrumbs_for_register
     add_breadcrumb I18n.t('breadcrumb.owner.new')
+  end
+
+  def any_redirect?(unit)
+    inexistent_unit(unit) || authorize_condo_manager!(unit.condo)
   end
 end

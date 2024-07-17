@@ -36,9 +36,9 @@ describe 'managers access page to set a resident as tenant' do
     select '2', from: 'Unidade'
     click_on 'Atualizar Morador'
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq resident_path resident
     expect(mail).to have_received(:deliver).once
-    expect(page).to have_content 'Cadastro realizado com sucesso!'
+    expect(page).to have_content 'Atualizado com sucesso!'
     resident.reload
     expect(resident.residence).not_to eq nil
     expect(resident.mail_not_confirmed?).to eq true
@@ -65,8 +65,8 @@ describe 'managers access page to set a resident as tenant' do
     select '2', from: 'Unidade'
     click_on 'Não reside neste condomínio'
 
-    expect(page).to have_content 'Cadastro realizado com sucesso!'
-    expect(current_path).to eq root_path
+    expect(page).to have_content 'Atualizado com sucesso!'
+    expect(current_path).to eq resident_path resident
     resident.reload
     expect(resident.residence).to eq nil
   end
@@ -155,5 +155,27 @@ describe 'managers access page to set a resident as tenant' do
 
     expect(current_path).to eq new_resident_tenant_path resident
     expect(page).to have_content 'Unidade deve ter um proprietário para ser residida'
+  end
+
+  it 'and remove actual tenant from condo' do
+    manager = create :manager
+    create :condo, name: 'Condominio Errado'
+    condo = create :condo, name: 'Condominio Certo'
+    create :tower, 'condo' => condo, name: 'Torre errada'
+    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
+    resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva'
+    resident.properties << tower.floors[0].units[1]
+    resident.residence = tower.floors[0].units[1]
+
+    login_as manager, scope: :manager
+
+    visit new_resident_tenant_path resident
+
+    click_on 'Não reside neste condomínio'
+
+    expect(current_path).to eq resident_path resident
+    expect(page).to have_content 'Atualizado com sucesso!'
+    resident.reload
+    expect(resident.residence).to eq nil
   end
 end

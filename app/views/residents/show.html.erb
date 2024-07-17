@@ -1,0 +1,67 @@
+<div class="bg-white rounded-5 py-4 px-5 shadow">
+  <h1 class="mb-5">Morador</h1>
+  <div>
+    <div class="p-0" style="width: fit-content;">
+        <div id='personal_data' class="d-flex align-items-center">
+            <div class="current-photo mb-4">
+                <% if @resident.user_image.attached? %>
+                <%= image_tag @resident.user_image, alt: 'Current Image', style: "width: 200px; height: 200px; border-radius: 20%;" %>
+                <% else %>
+                <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image', style:"width: 200px; height: 200px; border-radius: 20%;" %>
+                <% end %>
+            </div>
+            <div class="ml-4 ms-4 ">
+                <h2>Dados Pessoais</h2>
+                <p><strong>Nome Completo:</strong> <%= @resident.full_name %></p>
+                <p><strong>E-mail:</strong> <%= @resident.email %></p>
+                <p><strong>CPF:</strong> <%= @resident.registration_number %></p>
+            </div>
+              <div class="d-flex ml-4 ms-4" style="height: 150px;">
+                  <div class="vr"></div>
+              </div>
+            <div class="ml-4 ms-4 residence">
+                <h2>Dados da Moradia</h2>
+                <% if @resident.residence %>
+                    <p><strong>Condomínio:</strong> <%= @resident.residence.condo.name %></p>
+                    <p><strong>Torre:</strong> <%= @resident.residence.tower.name %></p>
+                    <p><strong>Unidade:</strong> <%= @resident.residence.short_identifier %></p>
+                <% else %>
+                    <p class="fs-4">Não reside em um condomínio cadastrado</p>
+                <% end %>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class='d-flex flex-column mb-3 w-100 p-3'>
+    <div class="mb-3 mx-1">
+      <div class="mt-4 properties">
+        <% if @resident.properties.any? %>
+        <div>
+          <h2 class = 'fs-8 mb-4'>Unidades Possuídas</h2>
+          <div class="container">
+            <div class="row mb-3 units-array">
+              <% @resident.properties.each do |unit| %>
+                <div class="col-md-4 col-lg-2 mb-4 unit">
+                  <div class="card h-100 shadow-sw">
+                    <div class="card-body text-center">
+                      <h3 class="card-title fs-5">Condomínio: <%= unit.condo.name %></h3>
+                      <p class="card-text">Torre: <%= unit.tower.name %></p>
+                      <p class="card-text">Unidade: <%= unit.short_identifier %></p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <strong class="fs-4">Morador não possui propriedades cadastradas no condomínio</strong>
+        <% end %>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <%= button_to "Editar Propriedades/Residência", new_resident_owner_path(@resident), class: "btn btn-dark rounded-pill px-4 mt-3", method: :get %>
+      </div>
+    </div>
+  </div>
+</div>
