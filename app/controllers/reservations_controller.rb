@@ -1,11 +1,12 @@
 class ReservationsController < ApplicationController
   before_action :block_manager_from_resident_sign_in, only: %i[new create]
   before_action :authenticate_resident!, only: %i[new create]
+  before_action :set_reservation, only: [:show]
+  before_action :authenticate_user, only: [:show]
   before_action :set_common_area, only: %i[new create]
   before_action :set_breadcrumbs_for_register, only: [:new]
 
   def show
-    @reservation = Reservation.find params[:id]
     @common_area = @reservation.common_area
     set_breadcrumbs_for_details
   end
@@ -15,20 +16,20 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = Reservation.new(reservation_params)
+    @reservation = Reservation.new reservation_params
     @reservation.resident = current_resident
     @reservation.common_area = @common_area
 
     return redirect_to @reservation, notice: t('notices.reservation.created') if @reservation.save
 
-    flash.now[:alert] = t('alerts.reservation.not_created')
+    flash.now[:alert] = I18n.t 'alerts.reservation.not_created'
     render 'new', status: :unprocessable_entity
   end
 
   private
 
   def reservation_params
-    params.require(:reservation).permit(:date)
+    params.require(:reservation).permit :date
   end
 
   def set_common_area
@@ -36,20 +37,31 @@ class ReservationsController < ApplicationController
   end
 
   def authenticate_resident!
-    return redirect_to root_path, alert: I18n.t('alerts.reservation.access_denied') if manager_signed_in?
+    return redirect_to root_path, alert: t('alerts.reservation.access_denied') if manager_signed_in?
 
     super
+  end
+
+  def authenticate_user
+    return redirect_to signup_choice_path unless manager_signed_in? || resident_signed_in?
+    return unless resident_signed_in? && @reservation.resident != current_resident
+
+    redirect_to root_path, alert: t('alerts.reservation.not_authorized')
+  end
+
+  def set_reservation
+    @reservation = Reservation.find params[:id]
   end
 
   def set_breadcrumbs_for_details
     add_breadcrumb @common_area.condo.name, @common_area.condo
     add_breadcrumb @common_area.name, @common_area
-    add_breadcrumb I18n.t('breadcrumb.reservation.show')
+    add_breadcrumb I18n.t 'breadcrumb.reservation.show'
   end
 
   def set_breadcrumbs_for_register
     add_breadcrumb @common_area.condo.name, @common_area.condo
     add_breadcrumb @common_area.name, @common_area
-    add_breadcrumb I18n.t('breadcrumb.reservation.new')
+    add_breadcrumb I18n.t 'breadcrumb.reservation.new'
   end
 end
