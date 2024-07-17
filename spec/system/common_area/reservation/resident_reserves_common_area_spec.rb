@@ -33,6 +33,7 @@ describe 'Resident reserves common area' do
     expect(current_path).to eq reservation_path Reservation.last
     expect(page).to have_content 'Reserva realizada com sucesso!'
     expect(page).to have_content "Data: #{I18n.l Date.current + 1.week}"
+    expect(page).to have_content 'Status: Confirmado'
     expect(Reservation.last.resident).to eq resident
   end
 

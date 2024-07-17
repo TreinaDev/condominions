@@ -1,7 +1,8 @@
 class ReservationsController < ApplicationController
   before_action :block_manager_from_resident_sign_in, only: %i[new create]
   before_action :authenticate_resident!, only: %i[new create]
-  before_action :set_reservation, only: [:show]
+  before_action :set_reservation, only: %i[show canceled]
+  before_action :authenticate_for_cancelation, only: [:canceled]
   before_action :authenticate_user, only: [:show]
   before_action :set_common_area, only: %i[new create]
   before_action :set_breadcrumbs, only: [:new]
@@ -26,6 +27,11 @@ class ReservationsController < ApplicationController
     render 'new', status: :unprocessable_entity
   end
 
+  def canceled
+    @reservation.canceled!
+    redirect_to @reservation, notice: t('notices.reservation.canceled')
+  end
+
   private
 
   def reservation_params
@@ -45,6 +51,17 @@ class ReservationsController < ApplicationController
   def authenticate_user
     return redirect_to signup_choice_path unless manager_signed_in? || resident_signed_in?
     return unless resident_signed_in? && @reservation.resident != current_resident
+
+    redirect_to root_path, alert: t('alerts.reservation.not_authorized')
+  end
+
+  def authenticate_for_cancelation
+    unless resident_signed_in? || manager_signed_in?
+      return redirect_to new_resident_session_path,
+                         alert: t('alerts.reservation.access_denied')
+    end
+
+    return unless manager_signed_in? || (resident_signed_in? && @reservation.resident != current_resident)
 
     redirect_to root_path, alert: t('alerts.reservation.not_authorized')
   end

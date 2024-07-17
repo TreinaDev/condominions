@@ -17,6 +17,7 @@ describe 'User sees reservation details' do
     visit reservation_path reservation
 
     expect(current_path).to eq reservation_path reservation
+    expect(page).not_to have_link 'Cancelar'
   end
 
   it 'and residents can only see their own reservation details' do
@@ -28,6 +29,6 @@ describe 'User sees reservation details' do
     visit reservation_path reservation
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não tem permissão para acessar essa página'
+    expect(page).to have_content 'Você não tem permissão para fazer isso.'
   end
 end

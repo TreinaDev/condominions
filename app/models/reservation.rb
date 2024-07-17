@@ -2,8 +2,10 @@ class Reservation < ApplicationRecord
   belongs_to :common_area
   belongs_to :resident
 
+  enum status: { confirmed: 0, canceled: 3 }
+
   validates :date, presence: true
-  validate :check_availability, :date_must_be_actual_or_future
+  validate :check_availability, :date_must_be_actual_or_future, on: :create
 
   def check_availability
     common_area.reservations.each do |reservation|

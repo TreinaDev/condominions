@@ -27,7 +27,9 @@ Rails.application.routes.draw do
     resources :reservations, only: [:new, :create, :update]
   end
 
-  resources :reservations, only: [:show]
+  resources :reservations, only: [:show] do
+    post 'canceled', on: :member
+  end
 
   resources :unit_types, only: [:show, :edit, :update]
 
