@@ -22,8 +22,11 @@ class VisitorsController < ApplicationController
   private
 
   def authenticate_resident!
-    if resident_signed_in? && @resident.residence.nil?
-      return redirect_to root_path, notice: I18n.t('alerts.visitor.not_tenant')
+    return redirect_to root_path, alert: I18n.t('alerts.visitor.manager_block') if manager_signed_in?
+
+    if resident_signed_in?
+      return redirect_to root_path, alert: I18n.t('alerts.visitor.not_tenant') if @resident.residence.nil?
+      return redirect_to root_path, alert: I18n.t('alerts.visitor.not_allowed') if current_resident != @resident
     end
 
     super

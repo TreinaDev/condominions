@@ -23,7 +23,7 @@ describe 'Resident registers a new visitor' do
     expect(page).to have_content I18n.l(1.month.from_now.to_date)
   end
 
-  it 'as a employee' do
+  it 'as an employee' do
     condo = create :condo
     tower = create(:tower, condo:)
     resident = create :resident, residence: tower.floors[0].units[0]
@@ -54,7 +54,7 @@ describe 'Resident registers a new visitor' do
     login_as resident, scope: :resident
     visit new_resident_visitor_path resident
 
-    expect(page).to have_content 'Apenas moradores podem cadastrar visitantes'
+    expect(page).to have_content 'Apenas moradores podem administrar visitantes'
     expect(current_path).to eq root_path
   end
 
@@ -83,5 +83,28 @@ describe 'Resident registers a new visitor' do
     visit new_resident_visitor_path resident
 
     expect(current_path).to eq new_resident_session_path
+  end
+
+  it 'and cannot register a visitor as a manager' do
+    resident = create :resident
+    manager = create :manager
+
+    login_as manager, scope: :manager
+    visit new_resident_visitor_path resident
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Um administrador não pode administrar visitantes para uma unidade'
+  end
+
+  it 'and cannot register a visitor to another resident' do
+    tower = create :tower, floor_quantity: 1, units_per_floor: 2
+    first_resident = create :resident, email: 'joao@email.com', residence: tower.floors[0].units[0]
+    second_resident = create :resident, email: 'maria@email.com', residence: tower.floors[0].units[1]
+
+    login_as first_resident, scope: :resident
+    visit new_resident_visitor_path second_resident
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não pode administrar um visitante para outra unidade além da sua'
   end
 end
