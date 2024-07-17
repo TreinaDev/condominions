@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   resources :common_areas, only: [:show, :edit, :update]
   resources :unit_types, only: [:show, :edit, :update]
+  resources :superintendents, only: [:show]
 
   resources :condos, only: [:new, :create, :show, :edit, :update] do
     resources :common_areas, only: [:new, :create]

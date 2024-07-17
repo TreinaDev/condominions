@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_17_022634) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_17_033755) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -121,12 +121,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_17_022634) do
   end
 
   create_table "superintendents", force: :cascade do |t|
-    t.integer "resident_id", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["resident_id"], name: "index_superintendents_on_resident_id"
+    t.integer "condo_id", null: false
+    t.integer "tenant_id", null: false
+    t.index ["condo_id"], name: "index_superintendents_on_condo_id"
+    t.index ["tenant_id"], name: "index_superintendents_on_tenant_id"
   end
 
   create_table "towers", force: :cascade do |t|
@@ -181,7 +183,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_17_022634) do
   add_foreign_key "condo_managers", "managers"
   add_foreign_key "condos", "addresses"
   add_foreign_key "floors", "towers"
-  add_foreign_key "superintendents", "residents"
+  add_foreign_key "superintendents", "condos"
+  add_foreign_key "superintendents", "residents", column: "tenant_id"
   add_foreign_key "towers", "condos"
   add_foreign_key "unit_types", "condos"
   add_foreign_key "units", "floors"

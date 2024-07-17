@@ -1,5 +1,5 @@
 require 'rails_helper'
 
 RSpec.describe Superintendent, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  "add some examples to (or delete) #{__FILE__}"
 end
