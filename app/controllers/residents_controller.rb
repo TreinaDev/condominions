@@ -19,14 +19,14 @@ class ResidentsController < ApplicationController
     random_password = SecureRandom.alphanumeric(8)
     @resident = Resident.new(resident_params.merge!(password: random_password))
 
-    return redirect_to_existent_resident if regist_number_taken
+    return redirect_to_existent_resident if registration_number_taken
 
     return render :new, status: :unprocessable_entity unless @resident.save
 
     redirect_to new_resident_owner_path(@resident), notice: t('notices.resident.created')
   end
 
-  def regist_number_taken
+  def registration_number_taken
     true if !@resident.valid? && @resident.errors.full_messages.include?('CPF já está em uso')
   end
 

@@ -35,4 +35,48 @@ describe 'Manager sees residents list' do
       expect(page).to have_content 'Não existem moradores Cadastrados.'
     end
   end
+
+  it 'and search for a resident' do
+    manager = create :manager
+    condo = create :condo
+    tower = create(:tower, condo:)
+    unit11 = tower.floors[0].units[0]
+    unit12 = tower.floors[0].units[1]
+    create :resident, full_name: 'Adroaldo Silva', properties: [unit11], email: 'Adroaldo@email.com'
+    create :resident, full_name: 'Sandra Silva', residence: unit11, email: 'sandra@email'
+    create :resident, full_name: 'João Soares', properties: [unit12], email: 'joao@email'
+
+    login_as manager, scope: :manager
+    visit condo_path(condo)
+    click_on 'Lista de Moradores'
+    within '#residents' do
+      fill_in 'search', with: 'Silva'
+    end
+
+    within '#residentsResult' do
+      expect(page).to have_content 'Adroaldo Silva'
+      expect(page).to have_content 'Sandra Silva'
+      expect(page).not_to have_content 'João Soares'
+    end
+  end
+
+  it 'and dont find the resident that is searching for' do
+    manager = create :manager
+    condo = create :condo
+    tower = create(:tower, condo:)
+    unit11 = tower.floors[0].units[0]
+    create :resident, full_name: 'Adroaldo Silva', properties: [unit11], email: 'Adroaldo@email.com'
+
+    login_as manager, scope: :manager
+    visit condo_path(condo)
+    click_on 'Lista de Moradores'
+    within '#residents' do
+      fill_in 'search', with: 'Renan'
+    end
+
+    within '#residentsResult' do
+      expect(page).not_to have_content 'Adroaldo Silva'
+      expect(page).to have_content 'Morador não encontrado'
+    end
+  end
 end

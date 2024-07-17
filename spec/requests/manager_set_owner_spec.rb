@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Manager se owner' do
+describe 'Manager set owner' do
   context 'DELETE /residents/:resident_id/owners/:id' do
     it 'and hes not authenticated' do
       unit = create :unit
