@@ -6,6 +6,7 @@ class Condo < ApplicationRecord
   has_many :units, through: :unit_types
   has_many :condo_managers, dependent: :destroy
   has_many :managers, through: :condo_managers
+  has_many :visitors
 
   delegate :city, to: :address
   delegate :state, to: :address
@@ -41,6 +42,10 @@ class Condo < ApplicationRecord
         number: unit.short_identifier
       }
     end
+  end
+
+  def todays_visitors
+    visitors.where(visit_date: Date.current)
   end
 
   private
