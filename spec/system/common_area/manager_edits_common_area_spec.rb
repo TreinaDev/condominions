@@ -19,7 +19,7 @@ describe 'Manager edits common area' do
     expect(page).not_to have_link 'Editar'
   end
 
-  it 'succesfully' do
+  it 'successfully' do
     manager = create(:manager)
     common_area = create(:common_area)
 
