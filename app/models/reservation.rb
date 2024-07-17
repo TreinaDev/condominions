@@ -8,7 +8,7 @@ class Reservation < ApplicationRecord
   validate :check_availability, :date_must_be_actual_or_future, on: :create
 
   def check_availability
-    common_area.reservations.each do |reservation|
+    common_area.reservations.confirmed.each do |reservation|
       errors.add(:date, "#{I18n.l date} já está reservada para esta área comum") if reservation[:date] == date
     end
   end

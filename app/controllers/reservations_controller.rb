@@ -1,11 +1,11 @@
 class ReservationsController < ApplicationController
-  before_action :block_manager_from_resident_sign_in, only: %i[new create]
-  before_action :authenticate_resident!, only: %i[new create]
   before_action :set_reservation, only: %i[show canceled]
-  before_action :authenticate_for_cancelation, only: [:canceled]
-  before_action :authenticate_user, only: [:show]
   before_action :set_common_area, only: %i[new create]
   before_action :set_breadcrumbs, only: [:new]
+  before_action :block_manager_from_resident_sign_in, only: %i[new create]
+  before_action :authenticate_resident!, only: %i[new create]
+  before_action :authenticate_for_cancelation, only: [:canceled]
+  before_action :authorize_user, only: [:show]
 
   def show
     @common_area = @reservation.common_area
@@ -48,13 +48,6 @@ class ReservationsController < ApplicationController
     super
   end
 
-  def authenticate_user
-    return redirect_to signup_choice_path unless manager_signed_in? || resident_signed_in?
-    return unless resident_signed_in? && @reservation.resident != current_resident
-
-    redirect_to root_path, alert: t('alerts.reservation.not_authorized')
-  end
-
   def authenticate_for_cancelation
     unless resident_signed_in? || manager_signed_in?
       return redirect_to new_resident_session_path,
@@ -64,6 +57,31 @@ class ReservationsController < ApplicationController
     return unless manager_signed_in? || (resident_signed_in? && @reservation.resident != current_resident)
 
     redirect_to root_path, alert: t('alerts.reservation.not_authorized')
+  end
+
+  def authenticate_user
+    return true if manager_signed_in? || resident_signed_in?
+
+    redirect_to signup_choice_path
+    false
+  end
+
+  def authorize_user
+    return if !authenticate_user || super_manager? || can_access_condo? || reservation_owner?
+
+    redirect_to root_path, alert: t('alerts.reservation.not_authorized')
+  end
+
+  def super_manager?
+    manager_signed_in? && current_manager.is_super
+  end
+
+  def can_access_condo?
+    manager_signed_in? && current_manager.condos.include?(@reservation.common_area.condo)
+  end
+
+  def reservation_owner?
+    resident_signed_in? && @reservation.resident == current_resident
   end
 
   def set_reservation
