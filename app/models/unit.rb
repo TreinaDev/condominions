@@ -18,4 +18,22 @@ class Unit < ApplicationRecord
   def tower_identifier
     "#{floor.tower.name} - #{short_identifier}"
   end
+
+  def unit_json
+    area, unit_type_id, description = set_unit_type_info
+    {
+      id:, area:,
+      floor: floor.identifier, number: short_identifier,
+      unit_type_id:, condo_id: condo.id,
+      condo_name: condo.name, tenant_id: tenant&.id,
+      owner_id: owner&.id, description:
+    }
+  end
+
+  def set_unit_type_info
+    area = unit_type&.metreage
+    unit_type_id = unit_type&.id
+    description = unit_type&.description
+    [area, unit_type_id, description]
+  end
 end

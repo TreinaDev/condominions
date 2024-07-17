@@ -22,8 +22,8 @@ describe 'Unit API' do
       expect(response).to have_http_status :ok
       expect(response.parsed_body['id']).to eq unit11.id
       expect(response.parsed_body['area']).to include '145.54'
-      expect(response.parsed_body['floor']).to eq tower.floors[0].identifier
-      expect(response.parsed_body['number']).to eq unit11.short_identifier
+      expect(response.parsed_body['floor']).to eq 1
+      expect(response.parsed_body['number']).to eq '11'
       expect(response.parsed_body['condo_id']).to eq condo.id
       expect(response.parsed_body['condo_name']).to eq 'Belas Paisagens'
       expect(response.parsed_body['tenant_id']).to eq resident.id
