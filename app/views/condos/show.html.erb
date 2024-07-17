@@ -46,9 +46,12 @@
       <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Visitantes e funcionários esperados para hoje</strong>
       <div class="card-body">
         <div class="alert alert-warning text-center">Em breve</div>
-        <% if resident_signed_in? %>
+        <% if resident_signed_in? && current_resident.residence.present? %>
           <%= link_to new_resident_visitor_path(current_resident), class:"btn py-2 rounded-pill d-flex ms-auto mb-2 shadow-sm", style: "width: fit-content; background-color: #FDE879;" do %>
             <strong>Cadastrar Visitante/Funcionário</strong>
+          <% end %>
+          <%= link_to resident_visitors_path(current_resident), class:"btn py-2 rounded-pill d-flex ms-auto mb-2 shadow-sm", style: "width: fit-content; background-color: #FDE879;" do %>
+            <strong>Ver meus visitantes/funcionários registrados</strong>
           <% end %>
         <% end %>
       </div>

@@ -4,7 +4,7 @@ pt-BR:
       not_created: 'Erro ao registrar visitante'
       not_tenant: 'Apenas moradores podem administrar visitantes'
       manager_block: 'Um administrador não pode administrar visitantes para uma unidade'
-      not_allowed: 'Você não pode administrar um visitante para outra unidade além da sua'
+      not_allowed: 'Você não pode administrar visitantes para outra unidade além da sua'
   notice: 
     visitor:
       created: 'Visitante cadastrado com sucesso'

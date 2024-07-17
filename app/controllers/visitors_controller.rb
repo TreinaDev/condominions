@@ -1,6 +1,8 @@
 class VisitorsController < ApplicationController
   before_action :set_resident, only: %i[index new create]
   before_action :authenticate_resident!, only: %i[index new create]
+  before_action :set_breadcrumbs_for_register, only: %i[new create]
+  before_action :set_breadcrumbs_for_index, only: %i[index]
 
   def index
     @visitors = @resident.visitors
@@ -20,6 +22,16 @@ class VisitorsController < ApplicationController
   end
 
   private
+
+  def set_breadcrumbs_for_register
+    add_breadcrumb @resident.residence.condo.name, @resident.residence.condo
+    add_breadcrumb I18n.t('breadcrumb.visitor.new')
+  end
+
+  def set_breadcrumbs_for_index
+    add_breadcrumb @resident.residence.condo.name, @resident.residence.condo
+    add_breadcrumb I18n.t('breadcrumb.visitor.index')
+  end
 
   def authenticate_resident!
     return redirect_to root_path, alert: I18n.t('alerts.visitor.manager_block') if manager_signed_in?

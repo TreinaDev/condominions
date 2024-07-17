@@ -42,9 +42,9 @@ describe 'Resident registers a new visitor' do
     within("#visitor-#{Visitor.last.id}") do
       expect(page).to have_content 'João da Silva'
       expect(page).to have_content 'Funcionário'
-      expect(page).to have_content 'Semanalmente'
       expect(page).to have_content '12311'
       expect(page).to have_content I18n.l(1.month.from_now.to_date)
+      expect(page).to have_content 'Semanalmente'
     end
   end
 
@@ -105,6 +105,6 @@ describe 'Resident registers a new visitor' do
     visit new_resident_visitor_path second_resident
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não pode administrar um visitante para outra unidade além da sua'
+    expect(page).to have_content 'Você não pode administrar visitantes para outra unidade além da sua'
   end
 end

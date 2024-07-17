@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group col-md-6 pe-3 d-none" data-hiddenfield-target="field">
                     <%= f.label :recurrence %>
-                    <%= f.select :recurrence, Visitor.recurrences.keys.map { |recurrence| [I18n.t(recurrence).capitalize, recurrence] }, { include_blank: true }, class: 'form-control form-select' %>
+                    <%= f.select :recurrence, Visitor.recurrences.keys.map { |recurrence| [I18n.t(recurrence).capitalize, recurrence] }, { prompt: "Selecione uma recorrência" }, class: 'form-control form-select' %>
                 </div>
             </div>
            

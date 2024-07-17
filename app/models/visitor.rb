@@ -6,6 +6,6 @@ class Visitor < ApplicationRecord
                      monthly: 5, bimonthly: 6, quarterly: 7, semiannual: 8, annual: 9 }
 
   validates :visit_date, :full_name, :identity_number, :category, presence: true
-  validates :recurrence, absence: true, if: -> { visitor? }
   validates :recurrence, presence: true, if: -> { employee? }
+  validates :recurrence, absence: true, if: -> { visitor? }
 end
