@@ -20,6 +20,11 @@ module Api
             number: unit.short_identifier
           }
         end
+      def show
+        unit = Unit.find_by(id: params[:id])
+        return not_found if unit.nil?
+
+        render status: :ok, json: unit.unit_json
       end
     end
   end
