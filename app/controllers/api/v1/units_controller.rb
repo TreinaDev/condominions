@@ -5,21 +5,9 @@ module Api
         condo = Condo.find params[:condo_id]
         return render body: nil, status: :not_found if condo.nil?
 
-        units = condo.towers.flat_map { |tower| tower.floors.flat_map(&:units) }
-
-        render status: :ok, json: { units: units_json(units) }
+        render status: :ok, json: { units: condo.units_json }
       end
 
-      private
-
-      def units_json(units)
-        units.map do |unit|
-          {
-            id: unit.id,
-            floor: unit.floor.identifier,
-            number: unit.short_identifier
-          }
-        end
       def show
         unit = Unit.find_by(id: params[:id])
         return not_found if unit.nil?
