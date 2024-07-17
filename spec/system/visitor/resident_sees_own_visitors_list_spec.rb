@@ -6,10 +6,10 @@ describe 'Resident sees own visitors list' do
     tower = create :tower, condo:, floor_quantity: 1, units_per_floor: 2
     first_resident = create :resident, residence: tower.floors[0].units[0], email: 'joao@email.com'
     second_resident = create :resident, residence: tower.floors[0].units[1], email: 'maria@email.com'
-    first_visitor = create :visitor, resident: first_resident, full_name: 'João Ferreira', identity_number: 145364,
-                            visit_date: 2.weeks.from_now, category: :visitor
-    second_visitor = create :visitor, resident: first_resident, full_name: 'Maria Almeida', identity_number: 45897,
-                            visit_date: 1.month.from_now, category: :employee, recurrence: :daily
+    first_visitor = create :visitor, resident: first_resident, full_name: 'João Ferreira', identity_number: 145_364,
+                                     visit_date: 2.weeks.from_now, category: :visitor
+    second_visitor = create :visitor, resident: first_resident, full_name: 'Maria Almeida', identity_number: 45_897,
+                                      visit_date: 1.month.from_now, category: :employee, recurrence: :daily
     third_visitor = create :visitor, resident: second_resident, full_name: 'Fernando Dias'
 
     login_as first_resident, scope: :resident

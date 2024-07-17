@@ -37,7 +37,7 @@ describe 'Resident registers visitor request' do
                                                                          category: :visitor } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não pode administrar um visitante para outra unidade além da sua'
+      expect(flash[:alert]).to eq 'Você não pode administrar visitantes para outra unidade além da sua'
     end
 
     it 'only if tenant' do

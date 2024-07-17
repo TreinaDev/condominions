@@ -4,7 +4,6 @@ FactoryBot.define do
     identity_number { '313131' }
     category { :visitor }
     visit_date { 1.month.from_now.to_date }
-    recurrence { }
     resident { create :resident }
   end
 end
