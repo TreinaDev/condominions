@@ -12,6 +12,10 @@ class Resident < ApplicationRecord
 
   enum status: { not_owner: 0, not_tenant: 1, mail_not_confirmed: 2, mail_confirmed: 3 }
 
+  def todays_visitors
+    visitors.where(visit_date: Date.current)
+  end
+
   def description
     "#{full_name} - #{email}"
   end

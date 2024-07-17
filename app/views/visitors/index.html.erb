@@ -19,10 +19,10 @@
         <tr id="visitor-<%= visitor.id %>">
           <td><%= visitor.full_name %></td>
           <td><%= visitor.identity_number %></td>
-          <td><%= I18n.t(visitor.category) %></td>
+          <td><%= I18n.t("activerecord.attributes.visitor.categories.#{visitor.category}") %></td>
           <td class="d-flex align-items-center"><%= I18n.l(visitor.visit_date) %> 
             <% if visitor.employee? %>
-                <span class="badge text-bg-warning ms-1 rounded-pill"><%= I18n.t(visitor.recurrence) %></span>
+                <span class="badge text-bg-warning ms-1 rounded-pill"><%= I18n.t("activerecord.attributes.visitor.recurrences.#{visitor.recurrence}") %></span>
             <% end %>
         </td>
         </tr>

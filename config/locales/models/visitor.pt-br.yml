@@ -8,6 +8,7 @@ pt-BR:
   notice: 
     visitor:
       created: 'Visitante cadastrado com sucesso'
+      todays_empty: 'Não há visitantes/funcionários esperados para hoje.'
   activerecord:
     models:
       visitor: Visitante
@@ -15,18 +16,21 @@ pt-BR:
       visitor:
         full_name: 'Nome Completo'
         identity_number: 'RG'
-        recurrence: 'Recorrência'
+        
         visit_date: 'Data da Visita'
         category: 'Categoria'
-  visitor: 'Visitante'
-  employee: 'Funcionário'
-  once: 'Uma vez'
-  daily: 'Diariamente'
-  working_days: 'Dias úteis'
-  weekly: 'Semanalmente'
-  biweekly: 'Quinzenalmente'
-  monthly: 'Mensalmente'
-  bimonthly: 'Bimestralmente'
-  quarterly: 'Trimestralmente'
-  semiannual: 'Semestralmente'
-  annual: 'Anualmente'
+        categories:
+          visitor: 'Visitante'
+          employee: 'Funcionário'
+        recurrence: 'Recorrência'
+        recurrences:
+          once: 'Uma vez'
+          daily: 'Diariamente'
+          working_days: 'Dias úteis'
+          weekly: 'Semanalmente'
+          biweekly: 'Quinzenalmente'
+          monthly: 'Mensalmente'
+          bimonthly: 'Bimestralmente'
+          quarterly: 'Trimestralmente'
+          semiannual: 'Semestralmente'
+          annual: 'Anualmente'

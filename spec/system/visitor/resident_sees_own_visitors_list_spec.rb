@@ -14,7 +14,7 @@ describe 'Resident sees own visitors list' do
 
     login_as first_resident, scope: :resident
     visit condo_path condo
-    click_on 'Ver meus visitantes/funcionários registrados'
+    click_on 'Ver todos'
 
     expect(page).to have_content 'Meus visitantes/funcionários registrados'
     within("#visitor-#{first_visitor.id}") do
@@ -75,6 +75,74 @@ describe 'Resident sees own visitors list' do
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Um administrador não pode administrar visitantes para uma unidade'
+    end
+  end
+  context 'within the condo dashboard' do
+    it 'see todays visitors' do
+      condo = create :condo
+      tower = create :tower, condo:, floor_quantity: 1, units_per_floor: 2
+      resident = create :resident, residence: tower.floors[0].units[0], email: 'joao@email.com'
+      second_resident = create :resident, residence: tower.floors[0].units[1], email: 'maria@email.com'
+      second_resident_visitor = create :visitor, resident: second_resident, full_name: 'Fernando Dias'
+      first_visitor = create :visitor, resident:,
+                                       full_name: 'João Ferreira',
+                                       visit_date: Time.zone.today,
+                                       category: :visitor
+      second_visitor = create :visitor, resident:,
+                                        full_name: 'Maria Almeida',
+                                        visit_date: Time.zone.today,
+                                        category: :employee, recurrence: :daily
+      third_visitor = create :visitor, resident:,
+                                       full_name: 'João Almeida',
+                                       visit_date: 1.week.from_now,
+                                       category: :employee, recurrence: :weekly
+
+      login_as resident, scope: :resident
+      visit condo_path condo
+
+      within '#todays-visitors' do
+        expect(page).to have_content 'Visitantes e funcionários esperados para hoje'
+        within "#visitor-#{first_visitor.id}" do
+          expect(page).to have_content 'João Ferreira'
+          expect(page).to have_content 'Visitante'
+        end
+        within "#visitor-#{second_visitor.id}" do
+          expect(page).to have_content 'Maria Almeida'
+          expect(page).to have_content 'Funcionário'
+        end
+        expect(page).not_to have_css "#visitor-#{third_visitor.id}"
+        expect(page).not_to have_content 'João Almeida'
+        expect(page).not_to have_css "#visitor-#{second_resident_visitor.id}"
+        expect(page).not_to have_content 'Fernando Dias'
+      end
+    end
+
+    it 'and todays visitors are empty' do
+      condo = create :condo
+      tower = create :tower, condo:, floor_quantity: 1, units_per_floor: 2
+      resident = create :resident, residence: tower.floors[0].units[0], email: 'joao@email.com'
+      second_resident = create :resident, residence: tower.floors[0].units[1], email: 'maria@email.com'
+      second_resident_visitor = create :visitor,
+                                       resident: second_resident,
+                                       full_name: 'Fernando Dias'
+      first_visitor = create :visitor, resident:,
+                                       full_name: 'João Ferreira',
+                                       visit_date: 2.weeks.from_now
+      second_visitor = create :visitor, resident:,
+                                        full_name: 'Maria Almeida'
+
+      login_as resident, scope: :resident
+      visit condo_path condo
+
+      within '#todays-visitors' do
+        expect(page).to have_content 'Não há visitantes/funcionários esperados para hoje.'
+        expect(page).not_to have_css "#visitor-#{first_visitor.id}"
+        expect(page).not_to have_content 'João Almeida'
+        expect(page).not_to have_css "#visitor-#{second_visitor.id}"
+        expect(page).not_to have_content 'Maria Almeida'
+        expect(page).not_to have_css "#visitor-#{second_resident_visitor.id}"
+        expect(page).not_to have_content 'Fernando Dias'
+      end
     end
   end
 end
