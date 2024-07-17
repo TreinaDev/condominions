@@ -9,6 +9,16 @@ describe 'Resident reserves common area' do
     expect(current_path).to eq new_resident_session_path
   end
 
+  it 'and does not see reserve button if is a manager' do
+    common_area = create :common_area
+    manager = create :manager
+
+    login_as manager, scope: :manager
+    visit new_common_area_reservation_path common_area
+
+    expect(page).not_to have_link 'Reservar'
+  end
+
   it 'successfully' do
     common_area = create :common_area, rules: 'Não pode subir no escorregador.'
     resident = create :resident

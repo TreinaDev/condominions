@@ -1,6 +1,10 @@
 pt-BR:
   breadcrumb:
     edit: 'Editar'
+    reservation:
+      index: 'Reservas'
+      new: 'Nova Reserva'
+      show: 'Detalhes da Reserva'
     common_area:
       index: 'Áreas Comuns'
       new: 'Cadastrar Área Comum'

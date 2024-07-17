@@ -65,8 +65,9 @@ describe 'managers access page to set a resident as tenant' do
     select '2', from: 'Unidade'
     click_on 'Não reside neste condomínio'
 
-    expect(page).to have_content 'Cadastro realizado com sucesso!'
+    sleep 3
     expect(current_path).to eq root_path
+    expect(page).to have_content 'Cadastro realizado com sucesso!'
     resident.reload
     expect(resident.residence).to eq nil
   end

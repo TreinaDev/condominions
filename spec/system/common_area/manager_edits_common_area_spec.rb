@@ -1,6 +1,24 @@
 require 'rails_helper'
 
 describe 'Manager edits common area' do
+  it 'and must be authenticated' do
+    common_area = create :common_area
+
+    visit edit_common_area_path common_area
+
+    expect(current_path).to eq new_manager_session_path
+  end
+
+  it 'and does not see edit button if is a resident' do
+    common_area = create :common_area
+    resident = create :resident
+
+    login_as resident, scope: :resident
+    visit new_common_area_reservation_path common_area
+
+    expect(page).not_to have_link 'Editar'
+  end
+
   it 'succesfully' do
     manager = create(:manager)
     common_area = create(:common_area)
@@ -37,13 +55,5 @@ describe 'Manager edits common area' do
     expect(page).to have_content 'Nome não pode ficar em branco'
     expect(page).to have_content 'Descrição não pode ficar em branco'
     expect(page).to have_content 'Capacidade Máxima não pode ficar em branco'
-  end
-
-  it 'and must be authenticated' do
-    common_area = create(:common_area)
-
-    visit edit_common_area_path(common_area)
-
-    expect(current_path).to eq new_manager_session_path
   end
 end

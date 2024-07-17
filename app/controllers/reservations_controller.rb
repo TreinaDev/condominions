@@ -2,10 +2,12 @@ class ReservationsController < ApplicationController
   before_action :block_manager_from_resident_sign_in, only: %i[new create]
   before_action :authenticate_resident!, only: %i[new create]
   before_action :set_common_area, only: %i[new create]
+  before_action :set_breadcrumbs_for_register, only: [:new]
 
   def show
-    @reservation = Reservation.find(params[:id])
+    @reservation = Reservation.find params[:id]
     @common_area = @reservation.common_area
+    set_breadcrumbs_for_details
   end
 
   def new
@@ -37,5 +39,17 @@ class ReservationsController < ApplicationController
     return redirect_to root_path, alert: I18n.t('alerts.reservation.access_denied') if manager_signed_in?
 
     super
+  end
+
+  def set_breadcrumbs_for_details
+    add_breadcrumb @common_area.condo.name, @common_area.condo
+    add_breadcrumb @common_area.name, @common_area
+    add_breadcrumb I18n.t('breadcrumb.reservation.show')
+  end
+
+  def set_breadcrumbs_for_register
+    add_breadcrumb @common_area.condo.name, @common_area.condo
+    add_breadcrumb @common_area.name, @common_area
+    add_breadcrumb I18n.t('breadcrumb.reservation.new')
   end
 end
