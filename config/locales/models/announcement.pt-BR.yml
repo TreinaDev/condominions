@@ -1,0 +1,16 @@
+pt-BR:
+  notices:
+    announcement:
+      created: 'Aviso criado com sucesso'
+  alerts:    
+    announcement:
+      not_created: 'Erro ao criar o aviso'
+  activerecord:
+    models:
+      announcement:
+        one: 'Aviso'
+        other: 'Avisos'
+    attributes:
+      announcement:
+        title: 'Título'
+        message: 'Mensagem'

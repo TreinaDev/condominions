@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :common_areas, only: [:new, :create]
     resources :unit_types, only: [:new, :create]
     resources :visitor_entries, only: [:index, :new, :create]
+    resources :announcements, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
     resources :towers, only: [:new, :create] do
       member do

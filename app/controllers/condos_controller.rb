@@ -9,6 +9,8 @@ class CondosController < ApplicationController
     @towers = @condo.towers.order :name
     @common_areas = @condo.common_areas.order :name
     @unit_types = @condo.unit_types.order :description
+    @announcements = @condo.announcements.order(updated_at: :desc).limit(3)
+    @more_than_3_announcements = @condo.announcements.count > 3
   end
 
   def new
