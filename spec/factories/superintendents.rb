@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :superintendent do
-    resident { nil }
-    start_date { '2024-07-16' }
-    end_date { '2024-07-16' }
+    tenant { build :resident }
+    condo { build :condo }
+    start_date { Time.zone.today }
+    end_date { Time.zone.today >> 6 }
   end
 end

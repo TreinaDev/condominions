@@ -6,17 +6,18 @@ class SuperintendentsController < ApplicationController
   end
 
   def new
-    @superintendet = Superintendent.new(condo: @condo)
+    @superintendent = Superintendent.new(condo: @condo)
     @tenants = @condo.tenants
   end
 
   def create
     @superintendent = Superintendent.new(superintendent_params.merge!(condo: @condo))
 
-    if @superintendent.save!
+    if @superintendent.save
       redirect_to @superintendent, notice: t('notices.superintendent.created')
     else
-      flash.now[:alert] = t('alerts.superintendent.not_updated')
+      @tenants = @condo.tenants
+      flash.now[:alert] = t('alerts.superintendent.not_created')
       render 'new', status: :unprocessable_entity
     end
   end
