@@ -15,6 +15,7 @@ class VisitorsController < ApplicationController
   def create
     @visitor = Visitor.new(visitor_params)
     unless @visitor.save
+      set_visit_date_job
       flash.now[:alert] = t('alerts.visitor.not_created')
       return render :new, status: :unprocessable_entity
     end
@@ -22,6 +23,12 @@ class VisitorsController < ApplicationController
   end
 
   private
+
+  def set_visit_date_job
+    return unless @visitor.employee?
+
+    UpdateVisitDateJob.set(wait_until: (@visitor.visit_date + 1.day).to_datetime).perform_later(@visitor)
+  end
 
   def set_breadcrumbs_for_register
     add_breadcrumb @resident.residence.condo.name, @resident.residence.condo

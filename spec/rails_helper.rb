@@ -23,6 +23,7 @@ Capybara.default_max_wait_time = 5
 Capybara.disable_animation = true
 
 RSpec.configure do |config|
+  ActiveJob::Base.queue_adapter = :test
   config.use_transactional_fixtures = true
 
   config.before(:each, type: :system) do
