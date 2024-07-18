@@ -19,10 +19,24 @@ describe 'Resident reserves common area' do
     expect(page).not_to have_link 'Reservar'
   end
 
+  it "only if has a residence at common area's condo" do
+    first_condo = create :condo
+    first_resident = create :resident, :with_residence, condo: first_condo
+
+    second_condo = create :condo
+    common_area = create :common_area, condo: second_condo
+
+    login_as first_resident, scope: :resident
+    visit new_common_area_reservation_path common_area
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não tem permissão para fazer isso'
+  end
+
   it 'successfully' do
     common_area = create :common_area, rules: 'Não pode subir no escorregador.'
-    first_resident = create :resident
-    second_resident = create :resident, email: 'second@email.com'
+    first_resident = create :resident, :with_residence, condo: common_area.condo
+    second_resident = create :resident
 
     create :reservation,
            common_area:,
@@ -40,13 +54,13 @@ describe 'Resident reserves common area' do
     expect(page).to have_content 'Reserva realizada com sucesso!'
     expect(page).to have_content "Data: #{I18n.l Date.current + 1.week}"
     expect(page).to have_content 'Status: Confirmado'
-    expect(page).to have_content 'Não pode subir no escorregador.'
+    expect(page).to have_content 'Não pode subir no escorregador'
     expect(Reservation.last.resident).to eq first_resident
   end
 
   it "fail if date isn't selected" do
     common_area = create :common_area
-    resident = create :resident
+    resident = create :resident, :with_residence, condo: common_area.condo
 
     login_as resident, scope: :resident
     visit new_common_area_reservation_path common_area
@@ -62,7 +76,7 @@ describe 'Resident reserves common area' do
   it 'fail if the date already has a reservation confirmed' do
     common_area = create :common_area, rules: 'Não pode subir no escorregador.'
     first_resident = create :resident
-    second_resident = create :resident, email: 'morador@mail.com'
+    second_resident = create :resident, :with_residence, condo: common_area.condo
     create :reservation, common_area:, date: Date.current + 1.week, resident: first_resident, status: :confirmed
 
     login_as second_resident, scope: :resident

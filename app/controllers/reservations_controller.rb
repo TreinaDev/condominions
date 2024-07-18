@@ -43,7 +43,12 @@ class ReservationsController < ApplicationController
   end
 
   def authenticate_resident!
-    return redirect_to root_path, alert: t('alerts.reservation.access_denied') if manager_signed_in?
+    @residents = @common_area.condo.residents
+
+    if manager_signed_in? || (resident_signed_in? && !@common_area.access_allowed?(current_resident))
+      return redirect_to root_path,
+                         alert: t('alerts.reservation.not_authorized')
+    end
 
     super
   end
@@ -59,17 +64,17 @@ class ReservationsController < ApplicationController
     redirect_to root_path, alert: t('alerts.reservation.not_authorized')
   end
 
+  def authorize_user
+    return if !authenticate_user || super_manager? || can_access_condo? || reservation_owner?
+
+    redirect_to root_path, alert: t('alerts.reservation.not_authorized')
+  end
+
   def authenticate_user
     return true if manager_signed_in? || resident_signed_in?
 
     redirect_to signup_choice_path
     false
-  end
-
-  def authorize_user
-    return if !authenticate_user || super_manager? || can_access_condo? || reservation_owner?
-
-    redirect_to root_path, alert: t('alerts.reservation.not_authorized')
   end
 
   def super_manager?

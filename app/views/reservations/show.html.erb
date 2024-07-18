@@ -8,5 +8,5 @@
   <strong>Atenção às Regras de Uso!</strong>
   <p><%= @common_area.rules %></p>
 
-  <%= button_to 'Cancelar', canceled_reservation_path(@reservation), class: 'btn btn-dark rounded-pill px-4' if resident_signed_in? && @reservation.confirmed? %>
+  <%= button_to 'Cancelar', canceled_reservation_path(@reservation), data: { turbo_confirm: 'Você tem certeza?' }, class: 'btn btn-dark rounded-pill px-4' if resident_signed_in? && @reservation.confirmed? %>
 </div>
