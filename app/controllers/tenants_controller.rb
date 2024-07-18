@@ -3,16 +3,14 @@ class TenantsController < ResidentsController
   before_action :set_condos
   before_action :set_breadcrumbs_for_register, only: %i[new create]
 
-  def new
-    add_breadcrumb I18n.t('breadcrumb.tenant.add_unit')
-  end
+  def new; end
 
   def create
-    return render 'new', status: :unprocessable_entity unless update_resident_for_valid_unit
+    return unless update_resident_for_valid_unit
 
     @resident.mail_not_confirmed! && send_email if @resident.not_tenant?
 
-    redirect_to root_path, notice: t('notices.tenant.updated')
+    redirect_to @resident, notice: t('notices.tenant.updated')
   end
 
   private
@@ -38,10 +36,15 @@ class TenantsController < ResidentsController
     alert_message = select_alert_message(unit)
 
     flash.now.alert = alert_message
-    return if alert_message
+    if alert_message
+      render 'new', status: :unprocessable_entity
+      return
+    end
+    return if unit && authorize_condo_manager!(unit.condo)
 
-    @resident.update residence: unit unless params[:commit] == 'Não reside neste condomínio'
-    true
+    return @resident.update residence: unit unless params[:commit] == 'Não reside neste condomínio'
+
+    @resident.update residence: nil
   end
 
   def property_residence?

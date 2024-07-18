@@ -6,6 +6,17 @@
     <p class="text-secondary mb-5">CPF: <%= @resident.registration_number %> | Email: <%= @resident.email %></p>
   </div>
 
+
+  <% if @resident.residence %>
+    <div class='text-center'>
+      <hr>
+      <h2>Moradia Atual</h2>
+      <p><strong>Condomínio:</strong> <%= @resident.residence.condo.name %></p>
+      <p><strong>Torre:</strong> <%= @resident.residence.tower.name %></p>
+      <p><strong>Unidade:</strong> <%= @resident.residence.short_identifier %></p>
+    </div>
+  <% end %>
+
   <hr>
 
   <div class="mt-5">
