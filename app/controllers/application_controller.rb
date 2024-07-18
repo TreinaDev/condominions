@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   def authorize_condo_manager!(condo)
     unless (manager_signed_in? && current_manager.is_super) ||
            (manager_signed_in? && current_manager.condos.include?(condo)) ||
-           resident_signed_in?
+           resident_signed_in? && condo.residents.include?(current_resident)
       redirect_to root_path, alert: I18n.t('alerts.manager.not_authorized')
     end
   end

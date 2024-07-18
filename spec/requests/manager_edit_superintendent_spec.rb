@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe 'Manager registers superintendent' do
+describe 'Manager edits superintendent' do
   context 'GET /condos/:condo_id/superintendents/new' do
-    it 'must be authenticated to register an superintendent' do
+    it 'must be authenticated to edit an superintendent' do
       condo = create :condo, name: 'Condomínio X'
       tower = create(:tower, condo:)
       unit11 = tower.floors.first.units.first
@@ -15,7 +15,7 @@ describe 'Manager registers superintendent' do
       expect(response).to redirect_to new_manager_session_path
     end
 
-    it 'must be authenticated as condo manager to register a superintendent' do
+    it 'must be authenticated as condo manager to edit a superintendent' do
       condo_manager = create :manager, is_super: false
       condo = create :condo, name: 'Condomínio X'
       tower = create(:tower, condo:)
@@ -48,7 +48,7 @@ describe 'Manager registers superintendent' do
   end
 
   context 'patch /condos/:condo_id/superintendents' do
-    it 'must be authenticated to register an superintendent' do
+    it 'must be authenticated to edit an superintendent' do
       condo = create :condo, name: 'Condomínio X'
       tower = create(:tower, condo:)
       unit11 = tower.floors.first.units.first
@@ -66,7 +66,7 @@ describe 'Manager registers superintendent' do
       expect(Superintendent.last.tenant).not_to eq resident2
     end
 
-    it 'must be authenticated as condo manager to register a superintendent' do
+    it 'must be authenticated as condo manager to edit a superintendent' do
       condo = create :condo, name: 'Condomínio X'
       tower = create(:tower, condo:)
       unit11 = tower.floors.first.units.first

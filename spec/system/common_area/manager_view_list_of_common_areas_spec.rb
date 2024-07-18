@@ -24,8 +24,10 @@ describe 'Manager view list of common areas' do
   end
 
   it 'and resident can see the list too' do
-    resident = create :resident
     condo = create :condo
+    tower = create(:tower, condo:)
+    unit11 = tower.floors.first.units.first
+    resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
     create :common_area, condo:, name: 'Churrasqueira'
 
     login_as resident, scope: :resident

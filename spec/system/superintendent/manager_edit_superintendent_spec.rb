@@ -25,7 +25,7 @@ describe 'Manager edit superintendent' do
 
     superintendent.reload
     expect(page).to have_content 'Mandato de síndico atualizado com sucesso!'
-    expect(current_path).to eq superintendent_path Superintendent.last
+    expect(current_path).to eq condo_superintendent_path(condo, Superintendent.last)
     expect(superintendent.end_date).to eq Time.zone.today >> 30
     expect(superintendent.tenant).to eq resident2
     expect(resident.superintendent).to eq nil

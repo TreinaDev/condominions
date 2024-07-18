@@ -1,6 +1,6 @@
 class SuperintendentsController < ApplicationController
-  before_action :authenticate_manager!, only: %i[show new create edit update]
-  before_action :set_condo, only: %i[new create edit update]
+  before_action :authenticate_manager!, only: %i[new create edit update]
+  before_action :set_condo, only: %i[show new create edit update]
   before_action :set_superintendent, only: %i[show edit update]
   before_action :set_breadcrumbs_condo, only: %i[new create edit update]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
@@ -8,7 +8,6 @@ class SuperintendentsController < ApplicationController
   before_action -> { authorize_condo_manager!(@condo) }, only: %i[show new create edit update]
 
   def show
-    @condo = @superintendent.condo
     @tenant = @superintendent.tenant
     add_breadcrumb @condo.name.to_s, @condo
     add_breadcrumb I18n.t('breadcrumb.superintendent.show')
@@ -16,7 +15,7 @@ class SuperintendentsController < ApplicationController
 
   def new
     if @condo.superintendent
-      return redirect_to superintendent_path(@condo.superintendent),
+      return redirect_to condo_superintendent_path(@condo, @condo.superintendent),
                          alert: t('alerts.superintendent.exists')
     end
 
@@ -31,23 +30,23 @@ class SuperintendentsController < ApplicationController
   def create
     @superintendent = Superintendent.new(superintendent_params.merge!(condo: @condo))
 
-    if @superintendent.save
-      redirect_to @superintendent, notice: t('notices.superintendent.created')
-    else
+    unless @superintendent.save
       @tenants = @condo.tenants
       flash.now[:alert] = t('alerts.superintendent.not_created')
-      render 'new', status: :unprocessable_entity
+      return render 'new', status: :unprocessable_entity
     end
+
+    redirect_to condo_superintendent_path(@condo, @superintendent), notice: t('notices.superintendent.created')
   end
 
   def update
-    if @superintendent.update(superintendent_params)
-      redirect_to @superintendent, notice: t('notices.superintendent.updated')
-    else
+    unless @superintendent.update(superintendent_params)
       @tenants = @condo.tenants
       flash.now[:alert] = t('alerts.superintendent.not_updated')
-      render 'new', status: :unprocessable_entity
+      return render 'new', status: :unprocessable_entity
     end
+
+    redirect_to condo_superintendent_path(@condo, @superintendent), notice: t('notices.superintendent.updated')
   end
 
   private

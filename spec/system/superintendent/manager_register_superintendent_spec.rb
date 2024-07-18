@@ -25,7 +25,7 @@ describe 'Manager register superintendent' do
     click_on 'Enviar'
 
     expect(page).to have_content 'Mandato de síndico cadastro com sucesso!'
-    expect(current_path).to eq superintendent_path Superintendent.last
+    expect(current_path).to eq condo_superintendent_path(condo, Superintendent.last)
     expect(Superintendent.last.tenant).to eq resident
   end
 
@@ -79,7 +79,7 @@ describe 'Manager register superintendent' do
       click_on 'Condomínio X'
     end
 
-    expect(current_path).to eq superintendent_path superintendent
+    expect(current_path).to eq condo_superintendent_path(condo, superintendent)
     expect(page).to have_content 'Esse condomínio já possui um síndico cadastrado!'
   end
 end
