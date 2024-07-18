@@ -1,6 +1,8 @@
 class Resident < ApplicationRecord
   has_one :residence, class_name: 'Unit', foreign_key: 'tenant_id', dependent: :nullify, inverse_of: :tenant
   has_many :properties, class_name: 'Unit', foreign_key: 'owner_id', dependent: :nullify, inverse_of: :owner
+  has_many :reservations, dependent: :destroy
+  has_many :visitors, dependent: :destroy
 
   delegate :condo, to: :residence, allow_nil: true
 
@@ -12,6 +14,10 @@ class Resident < ApplicationRecord
   has_one_attached :user_image
 
   enum status: { not_owner: 0, not_tenant: 1, mail_not_confirmed: 2, mail_confirmed: 3 }
+
+  def todays_visitors
+    visitors.where(visit_date: Date.current)
+  end
 
   def description
     "#{full_name} - #{email}"

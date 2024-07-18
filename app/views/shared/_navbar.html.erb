@@ -99,7 +99,7 @@
 </nav>
 
 <div class="modal fade" id="condoSelectPopupForTowers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="condoSelectPopupLabel" aria-hidden="true" >
-  <div class="modal-dialog modal-dialog-scrollable">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condomínio</h1>
@@ -107,13 +107,15 @@
       </div>
 
       <div class="modal-body">
-        <div class='container text-center'>
+        <div class='container-fluid'>
           <div class='row'>
             <% if current_manager %>
               <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
               <% condos.each do |condo| %>
-                <div class='col'>
-                  <%= button_to condo.name, new_condo_tower_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false } %>
+                <div class='col-auto'>
+                  <%= link_to new_condo_tower_path(condo), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 shadow-sm", data: { turbo: false } do %>
+                    <i class="bi bi-bookmark-plus me-2 mb-1"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p> 
+                  <% end %>
                 </div>
               <% end %>
             <% end %>
@@ -129,7 +131,7 @@
 </div>
 
 <div class="modal fade" id="condoSelectPopupForUnitTypes" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="condoSelectPopupLabel" aria-hidden="true" >
-  <div class="modal-dialog modal-dialog-scrollable">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condomínio</h1>
@@ -137,13 +139,15 @@
       </div>
 
       <div class="modal-body">
-        <div class='container text-center'>
+        <div class='container-fluid'>
           <div class='row'>
             <% if current_manager %>
               <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
               <% condos.each do |condo| %>
-                <div class='col'>
-                  <%= button_to condo.name, new_condo_unit_type_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false } %>
+                <div class='col-auto'>
+                  <%= link_to new_condo_unit_type_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false } do %>
+                    <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p> 
+                  <% end %>
                 </div>
               <% end %>
             <% end %>
@@ -159,7 +163,7 @@
 </div>
 
 <div class="modal fade" id="condoSelectPopupForCommonAreas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="condoSelectPopupLabel" aria-hidden="true" >
-  <div class="modal-dialog modal-dialog-scrollable">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condomínio</h1>
@@ -167,13 +171,15 @@
       </div>
 
       <div class="modal-body">
-        <div class='container text-center'>
-          <div class='row'>
+        <div class='container-fluid'>
+          <div class='row '>
             <% if current_manager %>
               <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
               <% condos.each do |condo| %>
-                <div class='col'>
-                  <%= button_to condo.name, new_condo_common_area_path(condo), method: :get, class:'btn btn-dark', data: { turbo: false } %>
+              <div class='col-auto'>
+                  <%= link_to new_condo_common_area_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false } do %>
+                    <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p> 
+                  <% end %>
                 </div>
               <% end %>
             <% end %>

@@ -1,0 +1,37 @@
+<%= render 'shared/errors', model: @visitor %>
+
+<div class="bg-white rounded-5 py-4 px-5 shadow">
+    <h1>Cadastrar Visitante/Funcionário</h1>
+
+    <%= form_with model: [@resident, @visitor] do |f| %>
+        <div class="form-row p-2 row">
+            <div class="form-group col-md-6 pe-3">
+                <%= f.label :full_name %>
+                <%= f.text_field :full_name, class: 'form-control' %>
+            </div>
+            <div class="form-group col-md-6 pe-3">
+                <%= f.label :identity_number %>
+                <%= f.text_field :identity_number, class: 'form-control' %>
+            </div>
+            <div class="form-row row m-0 p-0" data-controller="hiddenfield">
+                <div class="form-group col-md-6 pe-3">
+                    <%= f.label :category %>
+                    <%= f.select :category, Visitor.categories.keys.map { |category| [I18n.t("activerecord.attributes.visitor.categories.#{category}").capitalize, category] }, {}, data: { action: "change->hiddenfield#toggleField", hiddenfield_target: "role" }, class: 'form-control form-select' %>
+                </div>
+                <div class="form-group col-md-6 pe-3">
+                    <%= f.label :visit_date %>
+                    <%= f.date_field :visit_date, class: 'form-control' %>
+                </div>
+                <div class="form-group col-md-6 pe-3 d-none" data-hiddenfield-target="field">
+                    <%= f.label :recurrence %>
+                    <%= f.select :recurrence, Visitor.recurrences.keys.map { |recurrence| [I18n.t("activerecord.attributes.visitor.recurrences.#{recurrence}").capitalize, recurrence] }, { prompt: "Selecione uma recorrência" }, class: 'form-control form-select' %>
+                </div>
+            </div>
+           
+        </div>
+        
+        <div class="d-flex justify-content-center">
+            <%= f.submit 'Cadastrar', class: 'btn btn-dark rounded-pill px-4 mt-3' %>
+        </div>
+    <% end %>
+</div>

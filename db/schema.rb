@@ -124,6 +124,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_013114) do
     t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.date "date", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "common_area_id", null: false
+    t.integer "resident_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["common_area_id"], name: "index_reservations_on_common_area_id"
+    t.index ["resident_id"], name: "index_reservations_on_resident_id"
+  end
+
   create_table "residents", force: :cascade do |t|
     t.string "full_name"
     t.string "registration_number"
@@ -185,6 +196,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_013114) do
     t.index ["unit_id"], name: "index_visitor_entries_on_unit_id"
   end
 
+  create_table "visitors", force: :cascade do |t|
+    t.string "full_name"
+    t.string "identity_number"
+    t.integer "category"
+    t.date "visit_date"
+    t.integer "recurrence"
+    t.integer "resident_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resident_id"], name: "index_visitors_on_resident_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "announcements", "condos"
@@ -194,6 +217,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_013114) do
   add_foreign_key "condo_managers", "managers"
   add_foreign_key "condos", "addresses"
   add_foreign_key "floors", "towers"
+  add_foreign_key "reservations", "common_areas"
+  add_foreign_key "reservations", "residents"
   add_foreign_key "towers", "condos"
   add_foreign_key "unit_types", "condos"
   add_foreign_key "units", "floors"
@@ -202,4 +227,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_013114) do
   add_foreign_key "units", "unit_types"
   add_foreign_key "visitor_entries", "condos"
   add_foreign_key "visitor_entries", "units"
+  add_foreign_key "visitors", "residents"
 end
