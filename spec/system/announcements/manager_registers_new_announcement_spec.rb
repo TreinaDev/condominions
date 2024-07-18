@@ -19,7 +19,7 @@ describe 'Manager registers announcement' do
       click_on 'Novo'
     end
     fill_in 'Título', with: 'Aviso Importante'
-    fill_in_trix_editor 'announcement_message', with: 'Todos os moradores devem fazer silêncio.'
+    find('#announcement_message').click.set('Todos os moradores devem fazer silêncio.')
     click_on 'Salvar'
 
     expect(current_path).to eq condo_path condo

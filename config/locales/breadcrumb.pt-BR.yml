@@ -27,3 +27,7 @@ pt-BR:
       new: 'Adicionar Propriedade'
     tenant:
       new: 'Adicionar Moradia'
+    announcement:
+      index: 'Avisos'
+      new: 'Cadastrar Aviso'
+      edit: 'Editar Aviso'
