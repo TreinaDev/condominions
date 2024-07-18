@@ -29,5 +29,5 @@ pt-BR:
       new: 'Adicionar Moradia'
     announcement:
       index: 'Avisos'
-      new: 'Cadastrar Aviso'
+      new: 'Novo Aviso'
       edit: 'Editar Aviso'
