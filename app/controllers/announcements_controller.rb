@@ -1,10 +1,14 @@
 class AnnouncementsController < ApplicationController
   before_action :set_condo, only: %i[new index create]
-  before_action -> { authorize_condo_manager!(@condo) }, only: %i[new create]
+  before_action :set_announcement, only: %i[show]
+  before_action :set_condo_for_details, only: %i[show]
+  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show index new create]
 
   def index
     @announcements = @condo.announcements
   end
+
+  def show; end
 
   def new
     @announcement = @condo.announcements.new
@@ -23,6 +27,14 @@ class AnnouncementsController < ApplicationController
   end
 
   private
+
+  def set_announcement
+    @announcement = Announcement.find(params[:id])
+  end
+
+  def set_condo_for_details
+    @condo = @announcement.condo
+  end
 
   def set_condo
     @condo = Condo.find params[:condo_id]

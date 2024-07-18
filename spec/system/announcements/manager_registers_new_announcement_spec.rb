@@ -15,7 +15,7 @@ describe 'Manager registers announcement' do
 
     login_as manager, scope: :manager
     visit condo_path condo
-    within '#annoucement_board' do
+    within '#announcement_board' do
       click_on 'Novo'
     end
     fill_in 'Título', with: 'Aviso Importante'
@@ -25,10 +25,10 @@ describe 'Manager registers announcement' do
     expect(current_path).to eq condo_path condo
     expect(page).to have_content 'Aviso criado com sucesso'
 
-    within '#annoucement_board' do
+    within '#announcement_board' do
       expect(page).to have_content 'Aviso Importante'
       expect(page).to have_content 'Rodrigo Silva'
-      within(:css, '.annoucement_board .announcement:nth-of-type(1)') do
+      within(:css, '.announcement_board .announcement:nth-of-type(1)') do
         expect(page).to have_link 'Visualizar'
       end
       expect(page).not_to have_content 'ver mais'

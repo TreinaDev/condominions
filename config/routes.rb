@@ -23,12 +23,13 @@ Rails.application.routes.draw do
 
   resources :common_areas, only: [:show, :edit, :update]
   resources :unit_types, only: [:show, :edit, :update]
+  resources :announcements, only: [:show, :edit, :update, :destroy]
 
   resources :condos, only: [:new, :create, :show, :edit, :update] do
     resources :common_areas, only: [:new, :create]
     resources :unit_types, only: [:new, :create]
     resources :visitor_entries, only: [:index, :new, :create]
-    resources :announcements, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+    resources :announcements, only: [:index, :new, :create]
 
     resources :towers, only: [:new, :create] do
       member do

@@ -1,0 +1,19 @@
+<section class="bg-white rounded-5 py-4 px-5 shadow">
+  <h1><%= @announcement.title %></h1>
+    <div class="card mt-4 fs-3">
+      <div class="card-body">
+        <%= @announcement.message %>
+      </div>
+    </div>
+
+    <div class="card mt-4 fs-3">
+      <div class="card-body">
+        <p>Dados do aviso</p>
+        Autor: <%= @announcement.manager.full_name %>
+        Criado em: <%= @announcement.created_at.strftime('%d/%m/%Y %H:%M') %>
+        Atualizado em: <%= @announcement.updated_at.strftime('%d/%m/%Y %H:%M') %>
+      </div>
+  </div>
+</section>
+
+
