@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get 'edit_photo', on: :member
     patch 'update_photo', on: :member
   end
-  resources :residents, only: [:new, :create, :update] do
+  resources :residents, only: [:new, :create, :show, :update] do
     resources :tenants, only: [:new, :create], on: :collection
     resources :owners, only: [:new, :create, :destroy], on: :collection
     get 'find_towers', on: :collection
@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :unit_types, only: [:show, :edit, :update]
 
   resources :condos, only: [:new, :create, :show, :edit, :update] do
+    get 'residents', on: :member
     resources :common_areas, only: [:new, :create]
     resources :unit_types, only: [:new, :create]
     resources :visitor_entries, only: [:index, :new, :create]

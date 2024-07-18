@@ -1,11 +1,12 @@
 class CondosController < ApplicationController
-  before_action :authenticate_manager!, only: %i[new create edit update]
-  before_action :set_condo, only: %i[show edit update add_manager associate_manager]
+  before_action :authenticate_manager!, only: %i[new create edit update residents]
+  before_action :set_condo, only: %i[show edit update add_manager associate_manager residents]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update add_manager associate_manager]
   before_action :authorize_super_manager!, only: %i[new create add_manager associate_manager]
-  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show edit update]
+  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show edit update residents]
 
   def show
+    @residents = @condo.residents
     @towers = @condo.towers.order :name
     @common_areas = @condo.common_areas.order :name
     @unit_types = @condo.unit_types.order :description
@@ -55,7 +56,19 @@ class CondosController < ApplicationController
     redirect_to @condo, alert: I18n.t('notices.condo.manager_not_associated')
   end
 
+  def residents
+    return render status: :ok, json: @condo.residents.as_json(only: %i[id full_name]) if @condo
+
+    render status: :not_found, json: []
+  end
+
   private
+
+  def authenticate_manager!
+    return redirect_to root_path if resident_signed_in?
+
+    super
+  end
 
   def set_breadcrumbs_for_details
     add_breadcrumb @condo.name.to_s, condo_path(@condo)
@@ -67,6 +80,6 @@ class CondosController < ApplicationController
   end
 
   def set_condo
-    @condo = Condo.find(params[:id])
+    @condo = Condo.find_by(id: params[:id])
   end
 end
