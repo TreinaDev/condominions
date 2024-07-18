@@ -24,4 +24,11 @@
       </div>
     </div>
   </div>
+
+  <% if manager_signed_in? %>
+    <div class="form-group d-flex justify-content-center">
+      <%= button_to 'Editar Síndico', edit_condo_superintendent_path(@condo, @superintendent), method: :get, class:'btn btn-dark rounded-pill px-4 mt-3' %>
+    </div>  
+  <% end %>
+
 </div>

@@ -1,35 +1,4 @@
 <%= render 'shared/errors', model: @superintendent %>
 <h1>Registrar Mandato de Síndico para <%= @condo.name %></h1>
 
-<section class="bg-white rounded-5 py-4 px-5 shadow">
-
-  <%=  form_with model: [@condo, @superintendent] do |f| %>
-
-    <div class="form-row p-2">
-      <div class="form-group col-md-12 pe-3">
-        <%= f.label :start_date %>
-        <%= f.date_field :start_date, class:"form-control" %>
-      </div>
-    </div>
-
-    <div class="form-row p-2">
-      <div class="form-group col-md-12 pe-3">
-        <%= f.label :end_date %>
-        <%= f.date_field :end_date, class:"form-control" %>
-      </div>
-    </div>
-
-    <div class="form-row d-flex p-2">
-      <div class="form-group col-md-12 pe-3">
-        <%= f.label :tenant_id %>
-          <%= f.collection_select :tenant_id, @tenants, :id, :full_name, {} ,class: 'form-control form-select'  %>
-      </div>
-    </div>
-
-    <div class="form-group d-flex justify-content-center">
-      <%= f.submit 'Cadastrar Gestão', class:'btn btn-dark rounded-pill px-4 mt-3' %>
-    </div>
-
-  <%end%>
-
-</section>
+<%= render 'form' %>

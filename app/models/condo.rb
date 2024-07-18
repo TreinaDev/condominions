@@ -9,7 +9,7 @@ class Condo < ApplicationRecord
   has_many :units, through: :floors
   has_many :owners, through: :units
   has_many :tenants, through: :units
-  has_one :superintendent
+  has_one :superintendent, dependent: :destroy
 
   delegate :city, to: :address
   delegate :state, to: :address

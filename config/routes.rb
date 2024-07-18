@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :common_areas, only: [:new, :create]
     resources :unit_types, only: [:new, :create]
     resources :visitor_entries, only: [:index, :new, :create]
-    resources :superintendents, only: [:new, :create]
+    resources :superintendents, only: [:new, :create, :edit, :update]
 
     resources :towers, only: [:new, :create] do
       member do

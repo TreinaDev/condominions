@@ -28,3 +28,4 @@ pt-BR:
     superintendent:
       new:  'Cadastrar Síndico'
       show: 'Síndico'
+      edit: 'Atualizar Síndico'

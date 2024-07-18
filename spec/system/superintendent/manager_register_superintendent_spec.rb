@@ -22,7 +22,7 @@ describe 'Manager register superintendent' do
     fill_in 'Data de ínicio', with: date
     fill_in 'Data de conclusão', with: date >> 12
     select 'Alvus Dumbledore', from: 'Morador'
-    click_on 'Cadastrar Gestão'
+    click_on 'Enviar'
 
     expect(page).to have_content 'Mandato de síndico cadastro com sucesso!'
     expect(current_path).to eq superintendent_path Superintendent.last
@@ -46,12 +46,40 @@ describe 'Manager register superintendent' do
     end
     fill_in 'Data de ínicio', with: ''
     fill_in 'Data de conclusão', with: ''
-    click_on 'Cadastrar Gestão'
+    click_on 'Enviar'
 
     expect(page).to have_content 'Não foi possível cadastrar o mandato.'
     expect(page).to have_content 'Data de ínicio não pode ficar em branco'
     expect(page).to have_content 'Data de conclusão não pode ficar em branco'
     expect(page).to have_content 'Morador é obrigatório'
     expect(Superintendent.count).to eq 0
+  end
+
+  it 'and condo has superintedent' do
+    condo = create :condo, name: 'Condomínio X'
+    tower = create(:tower, condo:)
+    unit11 = tower.floors.first.units.first
+    resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
+    superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
+                                             end_date: Time.zone.today >> 2)
+    manager = create :manager
+
+    resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,
+                               filename: 'resident_photo.jpg')
+
+    login_as manager, scope: :manager
+
+    visit root_path
+    within 'nav' do
+      click_on id: 'side-menu'
+      click_on 'Gerenciar Usuários'
+      click_on 'Cadastrar Síndico'
+    end
+    within '#condoSelectPopupForSuperintendent' do
+      click_on 'Condomínio X'
+    end
+
+    expect(current_path).to eq superintendent_path superintendent
+    expect(page).to have_content 'Esse condomínio já possui um síndico cadastrado!'
   end
 end

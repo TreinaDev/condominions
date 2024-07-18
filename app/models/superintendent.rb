@@ -1,6 +1,6 @@
 class Superintendent < ApplicationRecord
   belongs_to :tenant, class_name: 'Resident'
-  belongs_to :condo
+  belongs_to :condo, dependent: :destroy
 
   validates :start_date, :end_date, presence: true
 
