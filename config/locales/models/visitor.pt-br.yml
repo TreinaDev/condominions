@@ -1,6 +1,7 @@
 pt-BR:
   alerts:
     visitor:
+      invalid_date: 'Não é possível acessar uma data passada'
       not_created: 'Erro ao registrar visitante'
       not_tenant: 'Apenas moradores podem administrar visitantes'
       manager_block: 'Um administrador não pode administrar visitantes para uma unidade'

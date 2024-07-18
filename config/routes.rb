@@ -31,6 +31,10 @@ Rails.application.routes.draw do
     resources :unit_types, only: [:new, :create]
     resources :visitor_entries, only: [:index, :new, :create]
 
+    resources :visitors do
+      get 'find', on: :collection
+    end
+
     resources :towers, only: [:new, :create] do
       member do
         get :edit_floor_units

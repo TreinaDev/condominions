@@ -1,0 +1,42 @@
+<section class="bg-white rounded-5 py-4 px-5 shadow">
+  <div class="d-flex mb-5 justify-content-between">
+    <h1>Agenda de visitantes/funcionários</h1>
+  </div>
+
+  <div class="d-flex justify-content-evenly">
+    <% unless @date == Time.zone.today %>
+      <%= link_to find_condo_visitors_path(@condo, date: @date - 1.day), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 px-4 shadow-sm" do %>
+          <i class="bi bi-caret-left-fill mb-1 me-2"></i>
+          Dia Anterior
+      <% end %>
+    <% end %>
+    <h2><%= I18n.l(@date, format: :long) %></h2>
+    <%= link_to find_condo_visitors_path(@condo, date: @date + 1.day), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 px-4 shadow-sm" do %>
+        Dia Seguinte
+        <i class="bi bi-caret-right-fill mb-1 ms-2"></i>
+    <% end %>
+  </div>
+
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Nome Completo</th>
+        <th scope="col">RG</th>
+        <th scope="col">Responsavel:</th>
+        <th scope="col">Unidade:</th>
+        <th scope="col">Confirmar Entrada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @visitors.each do |visitor| %>
+        <tr id="visitor-<%= visitor.id %>">
+          <td><%= visitor.full_name %></td>
+          <td><%= visitor.identity_number %></td>
+          <td><%= visitor.resident.full_name %></td>
+          <td><%= visitor.resident.residence.tower_identifier %></td>
+          <td>Botao em breve</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

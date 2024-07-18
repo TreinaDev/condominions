@@ -51,8 +51,8 @@ class Condo < ApplicationRecord
     end
   end
 
-  def todays_visitors
-    visitors.where(visit_date: Date.current)
+  def expected_visitors(date)
+    visitors.where(visit_date: date)
   end
 
   private

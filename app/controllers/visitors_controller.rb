@@ -7,6 +7,15 @@ class VisitorsController < ApplicationController
     @visitors = @resident.visitors
   end
 
+  def find
+    @date = params[:date].present? ? params[:date].to_date : Time.zone.today
+    @condo = Condo.find(params[:condo_id])
+    unless @date >= Time.zone.today
+      return redirect_to find_condo_visitors_path(@condo), alert: I18n.t('alerts.visitor.invalid_date')
+    end
+    @visitors = @condo.expected_visitors(@date)
+  end
+
   def new
     @visitor = Visitor.new
   end

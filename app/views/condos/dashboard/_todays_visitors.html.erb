@@ -2,12 +2,10 @@
   <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Visitantes e funcionários esperados para hoje</strong>
   <div class="card-body">
     <div class="d-flex justify-content-between mx-1">
-      <% if resident_signed_in? && current_resident.residence.present? %>
-        <%= link_to new_resident_visitor_path(current_resident), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm" do %>
-          <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;">Cadastrar Visitante/Funcionário</p> 
-        <% end %>
+      <%= link_to new_resident_visitor_path(current_resident), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm" do %>
+        <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;">Cadastrar Visitante/Funcionário</p> 
       <% end %>
-      <%= link_to (resident_signed_in? ? resident_visitors_path(current_resident) : root_path), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm" do %>
+      <%= link_to resident_visitors_path(current_resident), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm" do %>
         <p style="margin: 0; font-size: 14px;">Ver todos</p> <i class="bi bi-search ms-1"></i>
       <% end %>
     </div>
