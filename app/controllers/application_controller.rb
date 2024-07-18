@@ -24,11 +24,22 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_condo_manager!(condo)
-    unless (manager_signed_in? && current_manager.is_super) ||
-           (manager_signed_in? && current_manager.condos.include?(condo)) ||
-           (resident_signed_in? && condo.residents.include?(current_resident))
-      redirect_to root_path, alert: I18n.t('alerts.manager.not_authorized')
-    end
+    return if super? || condo_manager?(condo) || condo_resident?(condo)
+
+    redirect_to root_path, alert: I18n.t('alerts.manager.not_authorized')
+    true
+  end
+
+  def super?
+    manager_signed_in? && current_manager.is_super
+  end
+
+  def condo_manager?(condo)
+    manager_signed_in? && current_manager.condos.include?(condo)
+  end
+
+  def condo_resident?(condo)
+    resident_signed_in? && condo && condo.residents.include?(current_resident)
   end
 
   def block_manager_from_resident_sign_in

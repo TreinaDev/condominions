@@ -1,0 +1,36 @@
+<div class="mt-5">
+  <h2 class="text-center mt-4">Lançar Multa</h2>
+  <%= form_with model: [@condo, @fine], url:condo_fines_path(@condo, @fine) do |f| %>
+    <div id="form_data" data-controller="fines" condo-id='<%= @condo.id %>'>
+      <div class="for d-flex p-2">
+        <div class="form-group col-md-4 pe-3">
+          <%= f.label :tower_id%>
+          <%= f.collection_select :tower_id, {}, {}, {}, {}, :'data-fines-target' => "tower", :'data-action' => "change->fines#changeTower", class: 'form-control form-select' %>
+        </div>
+
+        <div class="form-group col-md-4 pe-3">
+          <%= f.label :floor %>
+          <%= f.collection_select :floor, {}, {}, {}, {}, :'data-fines-target' => "floor", class: 'form-control form-select' %>
+        </div>
+
+        <div class="form-group col-md-4 pe-3">
+          <%= f.label :unit %>
+          <%= f.collection_select :unit, {}, {}, {}, {}, :'data-fines-target' => "unit", class: 'form-control form-select' %>
+        </div>
+      </div>
+
+      <div>
+        <%= f.label :description %>
+        <%= f.text_field :description %>
+      </div>
+
+      <div>
+        <%= f.label :value_cents %>
+        <%= f.number_field :value_cents %>
+      </div>
+
+      <div class="form-group d-flex justify-content-center">
+          <%= f.submit 'Lançar Multa', class:"btn btn-dark rounded-pill px-4 mt-3" %>
+      </div>
+  <% end %>
+</div>

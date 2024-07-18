@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resources :unit_types, only: [:new, :create]
     resources :visitor_entries, only: [:index, :new, :create]
     resources :superintendents, only: [:show, :new, :create, :edit, :update]
+    resources :fines, only: [:new, :create]
 
     resources :towers, only: [:new, :create] do
       member do

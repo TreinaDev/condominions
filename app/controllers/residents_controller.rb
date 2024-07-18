@@ -1,5 +1,5 @@
 class ResidentsController < ApplicationController
-  before_action :authenticate_manager!, only: %i[new create find_towers show]
+  before_action :authenticate_manager!, only: %i[new create show]
   before_action :set_resident, only: %i[update edit_photo update_photo show]
   before_action :authenticate_resident!, only: %i[update edit_photo update_photo]
 
@@ -47,6 +47,9 @@ class ResidentsController < ApplicationController
 
   def find_towers
     condo = Condo.find_by(id: params[:id])
+
+    return if authorize_condo_manager!(condo)
+
     return render status: :not_found, json: [] unless condo
 
     towers = condo.towers
@@ -73,6 +76,14 @@ class ResidentsController < ApplicationController
   end
 
   protected
+
+  def authorize_condo_manager!(condo)
+    return true if super
+    return unless current_resident && !current_resident.superintendent
+
+    redirect_to root_path
+    true
+  end
 
   def find_tower_and_floor
     return unless params['resident']

@@ -1,0 +1,27 @@
+pt-BR:
+  notices:
+    single_charge:
+      updated: 'Pavimento Tipo atualizado com sucesso!'
+  alerts:    
+    single_charge:
+      not_created: 'Não foi possível cadastrar o andar.'
+      not_ready: 'Você deve atualizar o pavimento tipo antes de acessar essa página'
+  activerecord:
+    models:
+      single_charge:
+        one: 'Cobrança Avulsa'
+        other: 'Cobranças Avulsa'
+    attributes:
+      single_charge:
+        tower: 'Torre'
+        tower_id: 'Torre'
+        floor: 'Andar'
+        floor_id: 'Andar'
+        unit: 'Unidade'
+        unit_id: 'Unidade'
+        condo: 'Condomínio'
+        condo_id: 'Condomínio'
+        description: 'Descrição'
+        value_cents: 'Valor'
+        common_area: 'Área Comum'
+        charge_type: 'Tipo'
