@@ -40,7 +40,7 @@ describe 'Resident registers visitor request' do
       expect(flash[:alert]).to eq 'Você não pode administrar visitantes para outra unidade além da sua'
     end
 
-    it 'only if tenant' do
+    it 'only if as a tenant' do
       resident = create :resident
 
       login_as resident, scope: :resident

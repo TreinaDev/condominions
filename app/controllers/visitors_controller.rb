@@ -1,8 +1,7 @@
 class VisitorsController < ApplicationController
   before_action :set_resident, only: %i[index new create]
   before_action :authenticate_resident!, only: %i[index new create]
-  before_action :set_breadcrumbs_for_register, only: %i[new create]
-  before_action :set_breadcrumbs_for_index, only: %i[index]
+  before_action :set_breadcrumbs_for_action, only: %i[new create]
 
   def index
     @visitors = @resident.visitors
@@ -30,14 +29,9 @@ class VisitorsController < ApplicationController
     UpdateVisitDateJob.set(wait_until: (@visitor.visit_date + 1.day).to_datetime).perform_later(@visitor)
   end
 
-  def set_breadcrumbs_for_register
+  def set_breadcrumbs_for_action
     add_breadcrumb @resident.residence.condo.name, @resident.residence.condo
-    add_breadcrumb I18n.t('breadcrumb.visitor.new')
-  end
-
-  def set_breadcrumbs_for_index
-    add_breadcrumb @resident.residence.condo.name, @resident.residence.condo
-    add_breadcrumb I18n.t('breadcrumb.visitor.index')
+    add_breadcrumb I18n.t("breadcrumb.visitor.#{action_name}")
   end
 
   def authenticate_resident!
@@ -45,7 +39,7 @@ class VisitorsController < ApplicationController
 
     if resident_signed_in?
       return redirect_to root_path, alert: I18n.t('alerts.visitor.not_tenant') if @resident.residence.nil?
-      return redirect_to root_path, alert: I18n.t('alerts.visitor.not_allowed') if current_resident != @resident
+      return redirect_to root_path, alert: I18n.t('alerts.visitor.not_allowed') unless current_resident == @resident
     end
 
     super

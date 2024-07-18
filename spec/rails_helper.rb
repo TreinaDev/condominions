@@ -34,6 +34,12 @@ RSpec.configure do |config|
       timeout: 10,
       browser_options: { "no-sandbox" => nil }
     })
+  
+  end
+
+  config.after(:each) do
+    ActiveJob::Base.queue_adapter.enqueued_jobs.clear
+    ActiveJob::Base.queue_adapter.performed_jobs.clear
   end
 
   config.infer_spec_type_from_file_location!

@@ -10,10 +10,6 @@ export default class extends Controller {
 
   toggleField() {
     const role = this.roleTarget.value;
-    if (role === "visitor") {
-      this.fieldTarget.classList.add("d-none");
-    } else {
-      this.fieldTarget.classList.remove("d-none");
-    }
+    role === "visitor" ? this.fieldTarget.classList.add("d-none") : this.fieldTarget.classList.remove("d-none");
   }
 }

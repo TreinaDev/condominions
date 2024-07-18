@@ -26,4 +26,5 @@ pt-BR:
       new: 'Adicionar Moradia'
     visitor:
       new: 'Cadastrar Visitante/Funcionário'
+      create: 'Cadastrar Visitante/Funcionário'
       index: 'Listagem de Visitantes/Funcionários'

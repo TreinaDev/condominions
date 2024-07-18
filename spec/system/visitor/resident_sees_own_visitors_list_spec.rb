@@ -46,7 +46,7 @@ describe 'Resident sees own visitors list' do
     expect(page).to have_content 'Você não pode administrar visitantes para outra unidade além da sua'
   end
 
-  it 'only if tenant' do
+  it 'only if as a tenant' do
     resident = create :resident
 
     login_as resident, scope: :resident
