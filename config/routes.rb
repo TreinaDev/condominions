@@ -57,9 +57,11 @@ Rails.application.routes.draw do
       get 'get_tenant_residence', to: 'residents#tenant_residence'
       get 'get_owner_properties', to: 'residents#owner_properties'
       resources :common_areas, only: [:show]
+      resources :units, only: [:show]
       resources :condos, only: [:index, :show] do
         resources :unit_types, only: [:index]
         resources :common_areas, only: [:index]
+        resources :units, only: [:index]
       end
     end
   end

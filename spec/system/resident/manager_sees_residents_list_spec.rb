@@ -79,4 +79,16 @@ describe 'Manager sees residents list' do
       expect(page).to have_content 'Morador não encontrado'
     end
   end
+
+  it 'and is not authenticated as a resident' do
+    condo = create :condo
+    tower = create(:tower, condo:)
+    unit11 = tower.floors[0].units[0]
+    resident = create :resident, full_name: 'Adroaldo Silva', properties: [unit11], email: 'Adroaldo@email.com'
+
+    login_as resident, scope: :resident
+    visit condo_path(condo)
+
+    expect(page).not_to have_button 'Lista de Moradores'
+  end
 end

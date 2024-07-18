@@ -35,6 +35,31 @@ condo1 = Condo.create!(
   }
 )
 
+tower1 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'A', condo: condo1)
+tower2 = Tower.create!(floor_quantity: 6, units_per_floor: 7, name: 'B', condo: condo1)
+
+unit_type1 = UnitType.create!(
+  description: 'Apartamento de 2 quartos',
+  metreage: '50.55',
+  condo: condo1
+)
+
+unit_type11 = UnitType.create!(
+  description: 'Triplex',
+  metreage: '180.00',
+  condo: condo1
+)
+
+unit_type_condo_1 = [unit_type1, unit_type11]
+[tower1, tower2].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type: unit_type_condo_1[index % unit_type_condo_1.size])
+    end
+  end
+  tower.complete!
+end
+
 condo2 = Condo.create!(
   name: 'Bela Vista',
   registration_number: '93.432.999/0001-29',
@@ -47,6 +72,31 @@ condo2 = Condo.create!(
     zip: '01000-000'
   }
 )
+
+tower3 = Tower.create!(floor_quantity: 3, units_per_floor: 6, name: 'Norte', condo: condo2)
+tower4 = Tower.create!(floor_quantity: 4, units_per_floor: 8, name: 'Sul', condo: condo2)
+
+unit_type2 = UnitType.create!(
+  description: 'Apartamento de 1 quarto',
+  metreage: '40.25',
+  condo: condo2
+)
+
+unit_type12 = UnitType.create!(
+  description: 'Studio com mezanino',
+  metreage: '45.80',
+  condo: condo2
+)
+
+unit_type_condo_2 = [unit_type2, unit_type12]
+[tower3, tower4].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type: unit_type_condo_2[index % unit_type_condo_2.size])
+    end
+  end
+  tower.complete!
+end
 
 condo3 = Condo.create!(
   name: 'Edifício Panorama',
@@ -61,6 +111,31 @@ condo3 = Condo.create!(
   }
 )
 
+tower5 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'Torre 1', condo: condo3)
+tower6 = Tower.create!(floor_quantity: 7, units_per_floor: 5, name: 'Torre 2', condo: condo3)
+
+unit_type3 = UnitType.create!(
+  description: 'Cobertura Duplex',
+  metreage: '120.80',
+  condo: condo3
+)
+
+unit_type13 = UnitType.create!(
+  description: 'Apartamento compacto',
+  metreage: '38.75',
+  condo: condo3
+)
+
+unit_type_condo_3 = [unit_type3, unit_type13]
+[tower5, tower6].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type: unit_type_condo_3[index % unit_type_condo_3.size])
+    end
+  end
+  tower.complete!
+end
+
 condo4 = Condo.create!(
   name: 'Residencial Vista Alegre',
   registration_number: '46.312.882/0001-21',
@@ -73,6 +148,31 @@ condo4 = Condo.create!(
     zip: '90000-000'
   }
 )
+
+tower7 = Tower.create!(floor_quantity: 6, units_per_floor: 3, name: 'Alpha', condo: condo4)
+tower8 = Tower.create!(floor_quantity: 8, units_per_floor: 4, name: 'Beta', condo: condo4)
+
+unit_type4 = UnitType.create!(
+  description: 'Studio',
+  metreage: '35.00',
+  condo: condo4
+)
+
+unit_type14 = UnitType.create!(
+  description: 'Casa duplex',
+  metreage: '200.00',
+  condo: condo4
+)
+
+unit_type_condo_4 = [unit_type4, unit_type14]
+[tower7, tower8].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type: unit_type_condo_4[index % unit_type_condo_4.size])
+    end
+  end
+  tower.complete!
+end
 
 condo5 = Condo.create!(
   name: 'Jardins do Lago',
@@ -87,6 +187,31 @@ condo5 = Condo.create!(
   }
 )
 
+tower9 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'Gamma', condo: condo5)
+tower10 = Tower.create!(floor_quantity: 9, units_per_floor: 3, name: 'Delta', condo: condo5)
+
+unit_type5 = UnitType.create!(
+  description: 'Loft',
+  metreage: '55.75',
+  condo: condo5
+)
+
+unit_type15 = UnitType.create!(
+  description: 'Cobertura com piscina privativa',
+  metreage: '110.50',
+  condo: condo5
+)
+
+unit_type_condo_5 = [unit_type5, unit_type15]
+[tower9, tower10].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type: unit_type_condo_5[index % unit_type_condo_5.size])
+    end
+  end
+  tower.complete!
+end
+
 condo6 = Condo.create!(
   name: 'Edifício Solar',
   registration_number: '54.015.828/0001-42',
@@ -99,6 +224,25 @@ condo6 = Condo.create!(
     zip: '20000-001'
   }
 )
+
+tower11 = Tower.create!(floor_quantity: 6, units_per_floor: 5, name: 'Epsilon', condo: condo6)
+tower12 = Tower.create!(floor_quantity: 4, units_per_floor: 6, name: 'Zeta', condo: condo6)
+
+unit_type6 = UnitType.create!(
+  description: 'Kitnet',
+  metreage: '30.50',
+  condo: condo6
+)
+
+unit_type_condo_6 = [unit_type6]
+[tower11, tower12].each do |tower|
+  tower.floors.each do |floor|
+    floor.units.each_with_index do |unit, index|
+      unit.update(unit_type: unit_type_condo_6[index % unit_type_condo_6.size])
+    end
+  end
+  tower.complete!
+end
 
 condo7 = Condo.create!(
   name: 'Residencial Nova Era',
@@ -113,6 +257,21 @@ condo7 = Condo.create!(
   }
 )
 
+unit_type7 = UnitType.create!(
+  description: 'Apartamento térreo com jardim',
+  metreage: '70.00',
+  condo: condo7
+)
+
+tower13 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'Eta', condo: condo7)
+
+tower13.floors.each do |floor|
+  floor.units.each_with_index do |unit, index|
+    unit.update(unit_type: unit_type7)
+  end
+end
+tower13.complete!
+
 condo8 = Condo.create!(
   name: 'Condomínio Parque Verde',
   registration_number: '03.855.766/0001-46',
@@ -125,6 +284,21 @@ condo8 = Condo.create!(
     zip: '30000-000'
   }
 )
+
+unit_type8 = UnitType.create!(
+  description: 'Penthouse',
+  metreage: '90.60',
+  condo: condo8
+)
+
+tower14 = Tower.create!(floor_quantity: 6, units_per_floor: 7, name: 'Theta', condo: condo8)
+
+tower14.floors.each do |floor|
+  floor.units.each_with_index do |unit, index|
+    unit.update(unit_type: unit_type8)
+  end
+end
+tower14.complete!
 
 condo9 = Condo.create!(
   name: 'Edifício Alto da Serra',
@@ -139,6 +313,21 @@ condo9 = Condo.create!(
   }
 )
 
+tower15 = Tower.create!(floor_quantity: 5, units_per_floor: 6, name: 'Iota', condo: condo9)
+
+unit_type9 = UnitType.create!(
+  description: 'Casa em condomínio',
+  metreage: '150.00',
+  condo: condo9
+)
+
+tower15.floors.each do |floor|
+  floor.units.each_with_index do |unit, index|
+    unit.update(unit_type: unit_type9)
+  end
+end
+tower15.complete!
+
 condo10 = Condo.create!(
   name: 'Residencial Bosque Azul',
   registration_number: '97.634.355/0001-74',
@@ -152,22 +341,20 @@ condo10 = Condo.create!(
   }
 )
 
-tower1 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'A', condo: condo1)
-tower2 = Tower.create!(floor_quantity: 6, units_per_floor: 7, name: 'B', condo: condo1)
-tower3 = Tower.create!(floor_quantity: 3, units_per_floor: 6, name: 'Norte', condo: condo2)
-tower4 = Tower.create!(floor_quantity: 4, units_per_floor: 8, name: 'Sul', condo: condo2)
-tower5 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'Torre 1', condo: condo3)
-tower6 = Tower.create!(floor_quantity: 7, units_per_floor: 5, name: 'Torre 2', condo: condo3)
-tower7 = Tower.create!(floor_quantity: 6, units_per_floor: 3, name: 'Alpha', condo: condo4)
-tower8 = Tower.create!(floor_quantity: 8, units_per_floor: 4, name: 'Beta', condo: condo4)
-tower9 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'Gamma', condo: condo5)
-tower10 = Tower.create!(floor_quantity: 9, units_per_floor: 3, name: 'Delta', condo: condo5)
-tower11 = Tower.create!(floor_quantity: 6, units_per_floor: 5, name: 'Epsilon', condo: condo6)
-tower12 = Tower.create!(floor_quantity: 4, units_per_floor: 6, name: 'Zeta', condo: condo6)
-tower13 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'Eta', condo: condo7)
-tower14 = Tower.create!(floor_quantity: 6, units_per_floor: 7, name: 'Theta', condo: condo8)
-tower15 = Tower.create!(floor_quantity: 5, units_per_floor: 6, name: 'Iota', condo: condo9)
 tower16 = Tower.create!(floor_quantity: 3, units_per_floor: 2, name: 'Omega', condo: condo10)
+
+unit_type10 = UnitType.create!(
+  description: 'Apartamento com varanda gourmet',
+  metreage: '65.30',
+  condo: condo10
+)
+
+tower16.floors.each do |floor|
+  floor.units.each_with_index do |unit, index|
+    unit.update(unit_type: unit_type10)
+  end
+end
+tower16.complete!
 
 resident_not_owner1 = Resident.create!(
   email: 'claudia@email.com', 
@@ -374,184 +561,6 @@ resident12 = Resident.create!(
               ]
 )
 
-unit_type1 = UnitType.create!(
-  description: 'Apartamento de 2 quartos',
-  metreage: '50.55',
-  condo: condo1
-)
-
-unit_type2 = UnitType.create!(
-  description: 'Apartamento de 1 quarto',
-  metreage: '40.25',
-  condo: condo2
-)
-
-unit_type3 = UnitType.create!(
-  description: 'Cobertura Duplex',
-  metreage: '120.80',
-  condo: condo3
-)
-
-unit_type4 = UnitType.create!(
-  description: 'Studio',
-  metreage: '35.00',
-  condo: condo4
-)
-
-unit_type5 = UnitType.create!(
-  description: 'Loft',
-  metreage: '55.75',
-  condo: condo5
-)
-
-unit_type6 = UnitType.create!(
-  description: 'Kitnet',
-  metreage: '30.50',
-  condo: condo6
-)
-
-unit_type7 = UnitType.create!(
-  description: 'Apartamento térreo com jardim',
-  metreage: '70.00',
-  condo: condo7
-)
-
-unit_type8 = UnitType.create!(
-  description: 'Penthouse',
-  metreage: '90.60',
-  condo: condo8
-)
-
-unit_type9 = UnitType.create!(
-  description: 'Casa em condomínio',
-  metreage: '150.00',
-  condo: condo9
-)
-
-unit_type10 = UnitType.create!(
-  description: 'Apartamento com varanda gourmet',
-  metreage: '65.30',
-  condo: condo10
-)
-
-unit_type11 = UnitType.create!(
-  description: 'Triplex',
-  metreage: '180.00',
-  condo: condo1
-)
-
-unit_type12 = UnitType.create!(
-  description: 'Studio com mezanino',
-  metreage: '45.80',
-  condo: condo2
-)
-
-unit_type13 = UnitType.create!(
-  description: 'Apartamento compacto',
-  metreage: '38.75',
-  condo: condo3
-)
-
-unit_type14 = UnitType.create!(
-  description: 'Casa duplex',
-  metreage: '200.00',
-  condo: condo4
-)
-
-unit_type15 = UnitType.create!(
-  description: 'Cobertura com piscina privativa',
-  metreage: '110.50',
-  condo: condo5
-)
-
-unit_type_condo_1 = [unit_type1, unit_type11]
-[tower1, tower2].each do |tower|
-  tower.floors.each do |floor|
-    floor.units.each_with_index do |unit, index|
-      unit.update(unit_type_id: unit_type_condo_1[index % unit_type_condo_1.size])
-    end
-  end
-  tower.complete!
-end
-
-unit_type_condo_2 = [unit_type2, unit_type12]
-[tower3, tower4].each do |tower|
-  tower.floors.each do |floor|
-    floor.units.each_with_index do |unit, index|
-      unit.update(unit_type_id: unit_type_condo_2[index % unit_type_condo_2.size])
-    end
-  end
-  tower.complete!
-end
-
-unit_type_condo_3 = [unit_type3, unit_type13]
-[tower5, tower6].each do |tower|
-  tower.floors.each do |floor|
-    floor.units.each_with_index do |unit, index|
-      unit.update(unit_type_id: unit_type_condo_3[index % unit_type_condo_3.size])
-    end
-  end
-  tower.complete!
-end
-
-unit_type_condo_4 = [unit_type4, unit_type14]
-[tower7, tower8].each do |tower|
-  tower.floors.each do |floor|
-    floor.units.each_with_index do |unit, index|
-      unit.update(unit_type_id: unit_type_condo_4[index % unit_type_condo_4.size])
-    end
-  end
-  tower.complete!
-end
-
-unit_type_condo_5 = [unit_type5, unit_type15]
-[tower9, tower10].each do |tower|
-  tower.floors.each do |floor|
-    floor.units.each_with_index do |unit, index|
-      unit.update(unit_type_id: unit_type_condo_5[index % unit_type_condo_5.size])
-    end
-  end
-  tower.complete!
-end
-
-unit_type_condo_6 = [unit_type6]
-[tower11, tower12].each do |tower|
-  tower.floors.each do |floor|
-    floor.units.each_with_index do |unit, index|
-      unit.update(unit_type_id: unit_type_condo_6[index % unit_type_condo_6.size])
-    end
-  end
-  tower.complete!
-end
-
-tower13.floors.each do |floor|
-  floor.units.each_with_index do |unit, index|
-    unit.update(unit_type_id: unit_type7)
-  end
-end
-tower13.complete!
-
-tower14.floors.each do |floor|
-  floor.units.each_with_index do |unit, index|
-    unit.update(unit_type_id: unit_type8)
-  end
-end
-tower14.complete!
-
-tower15.floors.each do |floor|
-  floor.units.each_with_index do |unit, index|
-    unit.update(unit_type_id: unit_type9)
-  end
-end
-tower15.complete!
-
-tower16.floors.each do |floor|
-  floor.units.each_with_index do |unit, index|
-    unit.update(unit_type_id: unit_type10)
-  end
-end
-tower16.complete!
-
 common_area1 = CommonArea.create!(
   condo_id: condo1.id,
   name: 'Churrasqueira',
@@ -569,7 +578,7 @@ common_area2 = CommonArea.create!(
 )
 
 common_area3 = CommonArea.create!(
-  condo_id: condo2.id,
+  condo_id: condo1.id,
   name: 'Salão de Festas',
   description: 'Espaço para eventos e festas',
   max_occupancy: 100,
@@ -577,7 +586,7 @@ common_area3 = CommonArea.create!(
 )
 
 common_area4 = CommonArea.create!(
-  condo_id: condo2.id,
+  condo_id: condo1.id,
   name: 'Academia',
   description: 'Equipamentos modernos de ginástica',
   max_occupancy: 20,
@@ -585,7 +594,7 @@ common_area4 = CommonArea.create!(
 )
 
 common_area5 = CommonArea.create!(
-  condo_id: condo3.id,
+  condo_id: condo1.id,
   name: 'Quadra de Esportes',
   description: 'Quadra poliesportiva',
   max_occupancy: 15,
@@ -593,7 +602,7 @@ common_area5 = CommonArea.create!(
 )
 
 common_area6 = CommonArea.create!(
-  condo_id: condo3.id,
+  condo_id: condo1.id,
   name: 'Sala de Jogos',
   description: 'Mesa de bilhar e pebolim',
   max_occupancy: 10,
@@ -601,7 +610,7 @@ common_area6 = CommonArea.create!(
 )
 
 common_area7 = CommonArea.create!(
-  condo_id: condo4.id,
+  condo_id: condo1.id,
   name: 'Sauna',
   description: 'Sauna seca e a vapor',
   max_occupancy: 10,
@@ -609,7 +618,7 @@ common_area7 = CommonArea.create!(
 )
 
 common_area8 = CommonArea.create!(
-  condo_id: condo4.id,
+  condo_id: condo1.id,
   name: 'Playground',
   description: 'Área de recreação infantil',
   max_occupancy: 20,
@@ -617,7 +626,7 @@ common_area8 = CommonArea.create!(
 )
 
 common_area9 = CommonArea.create!(
-  condo_id: condo5.id,
+  condo_id: condo2.id,
   name: 'Biblioteca',
   description: 'Espaço para leitura e estudo',
   max_occupancy: 15,
@@ -625,7 +634,7 @@ common_area9 = CommonArea.create!(
 )
 
 common_area10 = CommonArea.create!(
-  condo_id: condo5.id,
+  condo_id: condo3.id,
   name: 'Jardim',
   description: 'Jardim com bancos e pergolado',
   max_occupancy: 25,
@@ -633,7 +642,7 @@ common_area10 = CommonArea.create!(
 )
 
 common_area11 = CommonArea.create!(
-  condo_id: condo6.id,
+  condo_id: condo4.id,
   name: 'Sala de Cinema',
   description: 'Cinema com 20 lugares',
   max_occupancy: 20,
@@ -641,7 +650,7 @@ common_area11 = CommonArea.create!(
 )
 
 common_area12 = CommonArea.create!(
-  condo_id: condo6.id,
+  condo_id: condo5.id,
   name: 'Espaço Gourmet',
   description: 'Cozinha equipada para eventos',
   max_occupancy: 25,
@@ -649,7 +658,7 @@ common_area12 = CommonArea.create!(
 )
 
 common_area13 = CommonArea.create!(
-  condo_id: condo7.id,
+  condo_id: condo6.id,
   name: 'Brinquedoteca',
   description: 'Espaço com brinquedos e jogos',
   max_occupancy: 15,
