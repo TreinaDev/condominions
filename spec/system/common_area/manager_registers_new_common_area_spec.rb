@@ -32,8 +32,8 @@ describe 'Manager registers new common area' do
     end
 
     within '#condoSelectPopupForCommonAreas' do
-      expect(page).not_to have_button first_condo.name
-      expect(page).to have_button second_condo.name
+      expect(page).not_to have_link first_condo.name
+      expect(page).to have_link second_condo.name
     end
   end
 
