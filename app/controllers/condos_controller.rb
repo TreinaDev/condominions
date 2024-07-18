@@ -10,6 +10,7 @@ class CondosController < ApplicationController
     @towers = @condo.towers.order :name
     @common_areas = @condo.common_areas.order :name
     @unit_types = @condo.unit_types.order :description
+    @todays_visitors = (resident_signed_in? ? current_resident.todays_visitors : [])
   end
 
   def new

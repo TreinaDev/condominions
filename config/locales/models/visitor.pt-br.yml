@@ -1,0 +1,37 @@
+pt-BR:
+  alerts:
+    visitor:
+      not_created: 'Erro ao registrar visitante'
+      not_tenant: 'Apenas moradores podem administrar visitantes'
+      manager_block: 'Um administrador não pode administrar visitantes para uma unidade'
+      not_allowed: 'Você não pode administrar visitantes para outra unidade além da sua'
+      only_numbers_and_letters: 'só pode ter números e letras'
+  notice: 
+    visitor:
+      created: 'Visitante cadastrado com sucesso'
+      todays_empty: 'Não há visitantes/funcionários esperados para hoje.'
+  activerecord:
+    models:
+      visitor: Visitante
+    attributes:
+      visitor:
+        full_name: 'Nome Completo'
+        identity_number: 'RG'
+        
+        visit_date: 'Data da Visita'
+        category: 'Categoria'
+        categories:
+          visitor: 'Visitante'
+          employee: 'Funcionário'
+        recurrence: 'Recorrência'
+        recurrences:
+          once: 'Uma vez'
+          daily: 'Diariamente'
+          working_days: 'Dias úteis'
+          weekly: 'Semanalmente'
+          biweekly: 'Quinzenalmente'
+          monthly: 'Mensalmente'
+          bimonthly: 'Bimestralmente'
+          quarterly: 'Trimestralmente'
+          semiannual: 'Semestralmente'
+          annual: 'Anualmente'

@@ -2,20 +2,17 @@ pt-BR:
   breadcrumb:
     edit: 'Editar'
     common_area:
-      index: 'Áreas Comuns'
       new: 'Cadastrar Área Comum'
     condo:
       new: 'Cadastrar Condomínio'
       new_manager: 'Adicionar Administrador'
     tower:
-      index: 'Torres'
       new: 'Cadastrar Torre'
       floor_type: 'Pavimento Tipo'
     manager:
       new: 'Cadastrar Administrador'
       edit_photo: 'Editar Foto'
     unit_type:
-      index: 'Tipos de Unidade'
       new: 'Cadastrar Tipo de Unidade'
     resident:
       new: 'Cadastrar Morador'
@@ -25,3 +22,7 @@ pt-BR:
       new: 'Adicionar Propriedade'
     tenant:
       new: 'Adicionar Moradia'
+    visitor:
+      new: 'Cadastrar Visitante/Funcionário'
+      create: 'Cadastrar Visitante/Funcionário'
+      index: 'Listagem de Visitantes/Funcionários'
