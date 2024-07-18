@@ -3,6 +3,8 @@ class VisitorsController < ApplicationController
   before_action :set_condo, only: %i[find]
   before_action :authenticate_resident!, only: %i[index new create]
   before_action :set_breadcrumbs_for_action, only: %i[new create]
+  before_action :authenticate_manager!, only: %i[find]
+  before_action -> { authorize_condo_manager!(@condo) }, only: %i[find]
 
   def index
     @visitors = @resident.visitors

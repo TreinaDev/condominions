@@ -127,4 +127,34 @@ describe 'Manager view condo visitors list' do
     expect(current_path).to eq find_condo_visitors_path(condo)
     expect(page).to have_content I18n.l(Time.zone.today, format: :long)
   end
+
+  it 'must be authenticated' do
+    condo = create :condo
+
+    visit find_condo_visitors_path condo
+
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
+    expect(current_path).to eq new_manager_session_path
+  end
+
+  it 'and must be associated' do
+    manager = create :manager, is_super: false
+    condo = create :condo
+
+    login_as manager, scope: :manager
+    visit find_condo_visitors_path condo
+
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'Você não possui autorização para essa ação'
+  end
+
+  it 'and cannot be authenticated as a resident' do
+    resident = create :resident
+    condo = create :condo
+
+    login_as resident, scope: :resident
+    visit find_condo_visitors_path condo
+
+    expect(current_path).to eq root_path
+  end
 end
