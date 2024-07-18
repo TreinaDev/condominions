@@ -33,7 +33,7 @@ describe 'Resident reserves common area' do
     expect(page).to have_content 'Você não tem permissão para fazer isso'
   end
 
-  it 'successfully' do
+  it 'successfully if there is no confirmed reservation on the same date' do
     common_area = create :common_area, rules: 'Não pode subir no escorregador.'
     first_resident = create :resident, :with_residence, condo: common_area.condo
     second_resident = create :resident
