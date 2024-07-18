@@ -2,9 +2,11 @@ pt-BR:
   notices:
     announcement:
       created: 'Aviso criado com sucesso'
+      destroyed: 'Aviso removido com sucesso'
   alerts:    
     announcement:
       not_created: 'Erro ao criar o aviso'
+      not_destroyed: 'Não foi possível remoover aviso'
   activerecord:
     models:
       announcement:

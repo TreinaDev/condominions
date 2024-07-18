@@ -69,4 +69,24 @@ describe 'User sees announcements' do
     expect(page).to have_content announcement.created_at.strftime('%d/%m/%Y %H:%M')
     expect(page).to have_content announcement.updated_at.strftime('%d/%m/%Y %H:%M')
   end
+
+  it 'and delete an announcement' do
+    manager = create :manager, full_name: 'Rodrigo Silva', is_super: false
+    condo = create :condo
+    condo.managers << manager
+    create :announcement, condo:, manager:, title: 'Reunião de condomínio',
+                          message: 'Este é um aviso importante para todos os moradores'
+
+    login_as manager, scope: :manager
+    visit condo_announcements_path condo
+    within(:css, '.announcement_board .announcement:nth-of-type(1)') do
+      click_on 'Visualizar'
+    end
+    accept_confirm do
+      click_link 'Excluir'
+    end
+
+    expect(current_path).to eq condo_path(condo)
+    expect(page).to have_content 'Aviso removido com sucesso'
+  end
 end

@@ -48,4 +48,18 @@ describe 'Announcements' do
       expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
     end
   end
+
+  context 'DESTROY /announcements' do
+    it 'must be authenticated as Super Manager or condo associated to destroy an announcement' do
+      condo_manager = create :manager, email: 'joaquina@email.com', is_super: false
+      condo = create :condo
+      announcement = create :announcement, condo:, title: 'Reunião de condomínio'
+
+      login_as condo_manager, scope: :manager
+      delete announcement_path announcement
+
+      expect(response).to redirect_to root_path
+      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+    end
+  end
 end
