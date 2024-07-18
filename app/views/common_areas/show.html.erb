@@ -14,8 +14,9 @@
   <% if @common_area.reservations.any? %>
     <% @common_area.reservations.confirmed.each do |reservation| %>     
       <% if reservation.date == date %>
-        <% if reservation.resident == current_resident %>
+        <% if reservation.resident == current_resident || manager_signed_in? %>
           <p>Reservado por <%= reservation.resident.full_name %></p>
+          <%= button_to 'Cancelar', canceled_reservation_path(reservation), data: { turbo_confirm: 'Você tem certeza que deseja cancelar a reserva?' }, class: 'btn btn-dark rounded-pill px-4' unless manager_signed_in? %>
         <% else %>
           <p>Reservado</p>
         <% end %>

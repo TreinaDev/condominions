@@ -29,7 +29,7 @@ class ReservationsController < ApplicationController
 
   def canceled
     @reservation.canceled!
-    redirect_to @reservation, notice: t('notices.reservation.canceled')
+    redirect_to @reservation.common_area, notice: t('notices.reservation.canceled')
   end
 
   private
