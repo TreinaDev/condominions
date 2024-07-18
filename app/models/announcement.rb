@@ -3,4 +3,6 @@ class Announcement < ApplicationRecord
 
   belongs_to :manager
   belongs_to :condo
+
+  has_rich_text :message
 end
