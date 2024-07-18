@@ -8,13 +8,13 @@ describe 'Manager view condo visitors list' do
     first_condo = create :condo
     second_condo = create :condo
     first_visitor = create :visitor, condo: first_condo, resident:, category: :employee, recurrence: :weekly,
-                            visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
+                                     visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
     second_visitor = create :visitor, condo: first_condo, resident:, category: :visitor,
-                            visit_date: Time.zone.today, full_name: 'Maria Oliveira', identity_number: '45977'
+                                      visit_date: Time.zone.today, full_name: 'Maria Oliveira', identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo,
-                            visit_date: 1.day.from_now, full_name: 'Marcos Lima'
+                                     visit_date: 1.day.from_now, full_name: 'Marcos Lima'
     fourth_visitor = create :visitor, condo: second_condo,
-                            visit_date: Time.zone.today, full_name: 'Juliana Ferreira'
+                                      visit_date: Time.zone.today, full_name: 'Juliana Ferreira'
 
     login_as manager, scope: :manager
     visit condo_path first_condo
@@ -39,20 +39,20 @@ describe 'Manager view condo visitors list' do
     expect(page).not_to have_content 'Juliana Ferreira'
   end
 
-  it 'and can change the day foward' do
+  it 'and can change the day forward' do
     manager = create :manager
     tower = create :tower, name: 'Torre A'
     resident = create :resident, full_name: 'Alberto Silveira', residence: tower.floors[0].units[0]
     first_condo = create :condo
     second_condo = create :condo
     first_visitor = create :visitor, condo: first_condo, resident:, category: :employee, recurrence: :weekly,
-                            visit_date: 1.day.from_now, full_name: 'João da Silva', identity_number: '12467'
+                                     visit_date: 1.day.from_now, full_name: 'João da Silva', identity_number: '12467'
     second_visitor = create :visitor, condo: first_condo, resident:, category: :visitor,
-                            visit_date: 1.day.from_now, full_name: 'Maria Oliveira', identity_number: '45977'
+                                      visit_date: 1.day.from_now, full_name: 'Maria Oliveira', identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo, resident:,
-                            visit_date: Time.zone.today, full_name: 'Marcos Lima'
+                                     visit_date: Time.zone.today, full_name: 'Marcos Lima'
     fourth_visitor = create :visitor, condo: second_condo,
-                            visit_date: 1.day.from_now, full_name: 'Juliana Ferreira'
+                                      visit_date: 1.day.from_now, full_name: 'Juliana Ferreira'
 
     login_as manager, scope: :manager
     visit find_condo_visitors_path first_condo
@@ -84,13 +84,13 @@ describe 'Manager view condo visitors list' do
     first_condo = create :condo
     second_condo = create :condo
     first_visitor = create :visitor, condo: first_condo, resident:, category: :employee, recurrence: :weekly,
-                            visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
+                                     visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
     second_visitor = create :visitor, condo: first_condo, resident:, category: :visitor,
-                            visit_date: Time.zone.today, full_name: 'Maria Oliveira', identity_number: '45977'
+                                      visit_date: Time.zone.today, full_name: 'Maria Oliveira', identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo, resident:,
-                            visit_date: 1.day.from_now, full_name: 'Marcos Lima'
+                                     visit_date: 1.day.from_now, full_name: 'Marcos Lima'
     fourth_visitor = create :visitor, condo: second_condo,
-                            visit_date: Time.zone.today, full_name: 'Juliana Ferreira'
+                                      visit_date: Time.zone.today, full_name: 'Juliana Ferreira'
 
     login_as manager, scope: :manager
     visit find_condo_visitors_path(first_condo, date: 1.day.from_now)

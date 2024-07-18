@@ -1,5 +1,6 @@
 class VisitorsController < ApplicationController
   before_action :set_resident, only: %i[index new create]
+  before_action :set_condo, only: %i[find]
   before_action :authenticate_resident!, only: %i[index new create]
   before_action :set_breadcrumbs_for_action, only: %i[new create]
 
@@ -9,10 +10,10 @@ class VisitorsController < ApplicationController
 
   def find
     @date = params[:date].present? ? params[:date].to_date : Time.zone.today
-    @condo = Condo.find(params[:condo_id])
     unless @date >= Time.zone.today
       return redirect_to find_condo_visitors_path(@condo), alert: I18n.t('alerts.visitor.invalid_date')
     end
+
     @visitors = @condo.expected_visitors(@date)
   end
 
@@ -56,6 +57,10 @@ class VisitorsController < ApplicationController
 
   def set_resident
     @resident = Resident.find(params[:resident_id])
+  end
+
+  def set_condo
+    @condo = Condo.find(params[:condo_id])
   end
 
   def visitor_params

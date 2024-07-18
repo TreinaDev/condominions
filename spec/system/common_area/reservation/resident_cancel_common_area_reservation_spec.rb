@@ -7,7 +7,9 @@ describe 'Resident cancel common area reservation' do
 
     login_as resident, scope: :resident
     visit reservation_path reservation
-    click_on 'Cancelar'
+    page.accept_confirm do
+      click_on 'Cancelar'
+    end
     reservation.reload
 
     expect(current_path).to eq reservation_path reservation
