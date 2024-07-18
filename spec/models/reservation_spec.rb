@@ -25,7 +25,7 @@ RSpec.describe Reservation, type: :model do
                                                                  'já está reservada para esta área comum'
     end
 
-    it 'date cannot have multiple reservations' do
+    it 'date must be current or future' do
       reservation = build :reservation, date: Date.current - 1.day
 
       expect(Reservation.all.empty?).to be true
