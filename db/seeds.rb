@@ -19,7 +19,8 @@ admin2 = Manager.create!(
   full_name: "Adroaldo Silva Santos", 
   registration_number: '025.727.205-40', 
   email: "adm2@teste.com", 
-  password: "teste123"
+  password: "teste123",
+  is_super: false,
 )
 
 condo1 = Condo.create!(
@@ -34,6 +35,8 @@ condo1 = Condo.create!(
     zip: '69911-520'
   }
 )
+
+condo1.managers << admin2
 
 tower1 = Tower.create!(floor_quantity: 5, units_per_floor: 4, name: 'A', condo: condo1)
 tower2 = Tower.create!(floor_quantity: 6, units_per_floor: 7, name: 'B', condo: condo1)
@@ -719,4 +722,32 @@ common_area20 = CommonArea.create!(
   description: 'Área de lazer para crianças',
   max_occupancy: 15,
   rules: 'Acompanhamento de adulto obrigatório'
+)
+
+Announcement.create!(
+  title: 'Reunião de condomínio',
+  message: 'Participe da próxima reunião para discutir assuntos importantes do condomínio.',
+  manager: admin1,
+  condo: condo1
+)
+
+Announcement.create!(
+  title: 'Manutenção do elevador',
+  message: 'Informamos que haverá manutenção dos elevadores em breve. Pedimos desculpas pelo transtorno.',
+  manager: admin2,
+  condo: condo1
+)
+
+Announcement.create!(
+  title: 'Limpeza de fachada',
+  message: 'A limpeza da fachada será realizada nesta semana. Colabore fechando as janelas.',
+  manager: admin1,
+  condo: condo1
+)
+
+Announcement.create!(
+  title: 'Horário de coleta de lixo',
+  message: 'Confira os horários de coleta de lixo e colabore para manter o condomínio limpo.',
+  manager: admin2,
+  condo: condo1
 )
