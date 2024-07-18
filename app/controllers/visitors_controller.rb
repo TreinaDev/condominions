@@ -51,6 +51,6 @@ class VisitorsController < ApplicationController
 
   def visitor_params
     params.require(:visitor).permit(:full_name, :identity_number, :visit_date, :category,
-                                    :recurrence).merge resident: @resident
+                                    :recurrence).merge resident: @resident, condo: @resident.residence.condo
   end
 end

@@ -5,6 +5,6 @@ FactoryBot.define do
     category { :visitor }
     visit_date { 1.month.from_now.to_date }
     resident { create :resident }
-    condo { resident.condo }
+    condo { resident.residence.condo }
   end
 end
