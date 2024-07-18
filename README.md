@@ -81,6 +81,8 @@
 
 <p align="justify">Tanto administradores quanto moradores podem ver a página de listagem e detalhes de condomínio. Tendo sua exibição alterada para cada tipo de usuário.</p>
 
+<p align="justify">Moradores podem fazer uma reserva de área comum, bem como cancelar essa reserva.</p>
+
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
 <div id='instalacao-e-execucao'/> 
