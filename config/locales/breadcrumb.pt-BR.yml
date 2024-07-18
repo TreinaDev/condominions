@@ -25,3 +25,6 @@ pt-BR:
       new: 'Adicionar Propriedade'
     tenant:
       new: 'Adicionar Moradia'
+    superintendent:
+      new:  'Cadastrar Síndico'
+      show: 'Síndico'

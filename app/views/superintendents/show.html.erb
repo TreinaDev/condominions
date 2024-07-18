@@ -1,1 +1,27 @@
-<h1>Show de Síndico</h1>
+<h1>Síndico do <%= @condo.name %></h1>
+
+<div class="bg-white rounded-5 py-4 px-5 shadow">
+  <div class="d-flex align-items-center">
+    <div class="current-photo mb-4">
+        <% if @tenant.user_image.attached? %>
+        <%= image_tag @tenant.user_image, alt: 'Current Image', style: "width: 200px; height: 200px; border-radius: 20%;" %>
+        <% else %>
+        <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image', style:"width: 200px; height: 200px; border-radius: 20%;" %>
+        <% end %>
+    </div>
+    <div class="ms-4" id="superintendent_data">
+      <h2>Dados do Síndico</h2>
+      <div class="mb-3">
+        <p><strong>Nome Completo:</strong> <%= @tenant.full_name %></p>
+        <p><strong>E-mail:</strong> <%= @tenant.email %></p>
+        <p><strong>Condomínio:</strong> <%= @tenant.residence.condo.name %></p>
+      </div>
+      <div>
+        <p><strong>Torre:</strong> <%= @tenant.residence.tower.name %></p>
+        <p><strong>Unidade:</strong> <%= @tenant.residence.short_identifier %></p>
+        <p><strong>Ínicio do mandato:</strong> <%= I18n.l(@superintendent.start_date) %></p>
+        <p><strong>Fim do mandato:</strong> <%= I18n.l(@superintendent.end_date) %></p>
+      </div>
+    </div>
+  </div>
+</div>
