@@ -40,7 +40,21 @@ class Condo < ApplicationRecord
     end
   end
 
+  def units_json
+    ordered_units.map do |unit|
+      {
+        id: unit.id,
+        floor: unit.floor.identifier,
+        number: unit.short_identifier
+      }
+    end
+  end
+
   private
+
+  def ordered_units
+    towers.flat_map { |tower| tower.floors.flat_map(&:units) }
+  end
 
   def calculate_total_area
     total_area = 0
