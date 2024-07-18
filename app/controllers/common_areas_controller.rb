@@ -3,15 +3,12 @@ class CommonAreasController < ApplicationController
   before_action :set_condo, only: %i[new create]
   before_action :set_common_area, only: %i[show edit update]
   before_action :set_condo_for_details, only: %i[show edit update]
-  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show new create edit update]
+  before_action -> { authorize_condo_manager!(@condo) }, only: %i[new edit create update]
+  before_action -> { authorize_condo_manager_or_resident!(@condo) }, only: %i[show]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
 
-  def show
-    return if manager_signed_in? || resident_signed_in?
-
-    redirect_to root_path, notice: I18n.t('alerts.common_area.not_allowed')
-  end
+  def show; end
 
   def new
     @common_area = CommonArea.new

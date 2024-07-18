@@ -2,6 +2,8 @@ class Resident < ApplicationRecord
   has_one :residence, class_name: 'Unit', foreign_key: 'tenant_id', dependent: :nullify, inverse_of: :tenant
   has_many :properties, class_name: 'Unit', foreign_key: 'owner_id', dependent: :nullify, inverse_of: :owner
 
+  delegate :condo, to: :residence, allow_nil: true
+
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   validate :valid_registration_number
   validates :full_name, presence: true
