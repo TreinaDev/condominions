@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe UpdateVisitDateJob, type: :job do
   context 'should update the visit date' do
-    it 'daily recurrence' do
-      create :condo
+    it 'with daily recurrence' do
       first_visitor = create :visitor,
                              full_name: 'João Ferreira',
                              visit_date: 1.day.from_now,
@@ -16,8 +15,7 @@ RSpec.describe UpdateVisitDateJob, type: :job do
       end
     end
 
-    it 'weekly recurrence' do
-      create :condo
+    it 'with weekly recurrence' do
       first_visitor = create :visitor,
                              full_name: 'João Ferreira',
                              visit_date: 1.day.from_now,
@@ -30,8 +28,7 @@ RSpec.describe UpdateVisitDateJob, type: :job do
       end
     end
 
-    it 'biweekly recurrence' do
-      create :condo
+    it 'with biweekly recurrence' do
       first_visitor = create :visitor,
                              full_name: 'João Ferreira',
                              visit_date: 1.day.from_now,
@@ -44,8 +41,7 @@ RSpec.describe UpdateVisitDateJob, type: :job do
       end
     end
 
-    it 'monthly recurrence' do
-      create :condo
+    it 'with monthly recurrence' do
       first_visitor = create :visitor,
                              full_name: 'João Ferreira',
                              visit_date: 1.day.from_now,
@@ -58,8 +54,7 @@ RSpec.describe UpdateVisitDateJob, type: :job do
       end
     end
 
-    it 'bimonthly recurrence' do
-      create :condo
+    it 'with bimonthly recurrence' do
       first_visitor = create :visitor,
                              full_name: 'João Ferreira',
                              visit_date: 1.day.from_now,
@@ -72,8 +67,7 @@ RSpec.describe UpdateVisitDateJob, type: :job do
       end
     end
 
-    it 'quarterly recurrence' do
-      create :condo
+    it 'with quarterly recurrence' do
       first_visitor = create :visitor,
                              full_name: 'João Ferreira',
                              visit_date: 1.day.from_now,
@@ -86,8 +80,7 @@ RSpec.describe UpdateVisitDateJob, type: :job do
       end
     end
 
-    it 'semiannual recurrence' do
-      create :condo
+    it 'with semiannual recurrence' do
       first_visitor = create :visitor,
                              full_name: 'João Ferreira',
                              visit_date: 1.day.from_now,
@@ -97,12 +90,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
         UpdateVisitDateJob.perform_now(first_visitor)
         first_visitor.reload
         expect(first_visitor.visit_date).to eq (6.months.from_now - 1.day).to_date
-        expect(UpdateVisitDateJob).to have_been_enqueued.with(first_visitor).at((Date.current + 3.months).to_datetime)
+        expect(UpdateVisitDateJob).to have_been_enqueued.with(first_visitor).at((Date.current + 6.months).to_datetime)
       end
     end
 
     it 'annual recurrence' do
-      create :condo
       first_visitor = create :visitor,
                              full_name: 'João Ferreira',
                              visit_date: 1.day.from_now,
@@ -118,7 +110,6 @@ RSpec.describe UpdateVisitDateJob, type: :job do
     context 'working days' do
       it 'week daily recurrence' do
         visit_day = Time.zone.now.next_week(:monday)
-        create :condo
         first_visitor = create :visitor,
                                full_name: 'João Ferreira',
                                visit_date: visit_day,
@@ -133,7 +124,6 @@ RSpec.describe UpdateVisitDateJob, type: :job do
 
       it 'friday recurrence' do
         visit_day = Time.zone.now.next_week(:friday)
-        create :condo
         first_visitor = create :visitor,
                                full_name: 'João Ferreira',
                                visit_date: visit_day,
@@ -149,7 +139,6 @@ RSpec.describe UpdateVisitDateJob, type: :job do
 
       it 'saturday recurrence' do
         visit_day = Time.zone.today.next_occurring(:saturday)
-        create :condo
         first_visitor = create :visitor,
                                full_name: 'João Ferreira',
                                visit_date: visit_day,

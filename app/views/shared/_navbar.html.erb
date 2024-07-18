@@ -113,7 +113,7 @@
               <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
               <% condos.each do |condo| %>
                 <div class='col-auto'>
-                  <%= link_to new_condo_tower_path(condo), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 shadow-sm", data: { turbo: false }  do %>
+                  <%= link_to new_condo_tower_path(condo), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 shadow-sm", data: { turbo: false } do %>
                     <i class="bi bi-bookmark-plus me-2 mb-1"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p> 
                   <% end %>
                 </div>
@@ -145,7 +145,7 @@
               <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
               <% condos.each do |condo| %>
                 <div class='col-auto'>
-                  <%= link_to new_condo_unit_type_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false }  do %>
+                  <%= link_to new_condo_unit_type_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false } do %>
                     <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p> 
                   <% end %>
                 </div>
@@ -177,7 +177,7 @@
               <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
               <% condos.each do |condo| %>
               <div class='col-auto'>
-                  <%= link_to new_condo_common_area_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false }  do %>
+                  <%= link_to new_condo_common_area_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false } do %>
                     <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p> 
                   <% end %>
                 </div>

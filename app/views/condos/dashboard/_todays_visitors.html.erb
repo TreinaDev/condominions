@@ -14,12 +14,12 @@
 
     <% if @todays_visitors.any? %>
       <% @todays_visitors.each do |visitor| %>
-        <div class="row justify-content-between align-items-center my-1" id="visitor-<%=visitor.id%>">
+        <div class="row justify-content-between align-items-center my-1" id="visitor-<%= visitor.id %>">
           <div class="col d-flex">
             <i class="bi bi-person"></i>
             <p class="m-0 ms-1"><%= visitor.full_name %></p>
           </div>
-          <span class="col-3 badge bg-dark-subtle text-dark rounded-pill me-3"><%= I18n.t("activerecord.attributes.visitor.categories.#{visitor.category}") %></span>
+          <span class="col-3 badge bg-dark-subtle text-dark rounded-pill me-3"><%= I18n.t("activerecord.attributes.visitor.categories.#{ visitor.category }") %></span>
         </div>
         <hr class="m-0">
       <% end %>

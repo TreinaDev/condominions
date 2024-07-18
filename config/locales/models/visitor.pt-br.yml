@@ -5,6 +5,7 @@ pt-BR:
       not_tenant: 'Apenas moradores podem administrar visitantes'
       manager_block: 'Um administrador não pode administrar visitantes para uma unidade'
       not_allowed: 'Você não pode administrar visitantes para outra unidade além da sua'
+      only_numbers_and_letters: 'só pode ter números e letras'
   notice: 
     visitor:
       created: 'Visitante cadastrado com sucesso'

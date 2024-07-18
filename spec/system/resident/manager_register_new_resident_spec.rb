@@ -57,4 +57,29 @@ describe 'Manager registers new resident' do
     expect(page).to have_content 'Nome Completo não pode ficar em branco'
     expect(page).to have_content 'CPF inválido'
   end
+
+  it 'and theres already a resident' do
+    manager = create :manager
+    condo = create :condo, name: 'Condominio A'
+    tower = create :tower, 'condo' => condo, name: 'Torre A', floor_quantity: 2, units_per_floor: 2
+    unit11 = tower.floors[0].units[0]
+    resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', properties: [unit11],
+                                                  email: 'adroaldo@email.com', registration_number: '678.490.811-29'
+    login_as manager, scope: :manager
+
+    visit root_path
+
+    within 'nav' do
+      click_on id: 'side-menu'
+      click_on 'Gerenciar Usuários'
+      click_on 'Cadastrar Morador'
+    end
+
+    fill_in 'CPF',	with: '678.490.811-29'
+
+    click_on 'Enviar'
+
+    expect(current_path).to eq resident_path resident
+    expect(page).to have_content 'Morador já cadastro, redirecionado para a página de detalhes do morador'
+  end
 end

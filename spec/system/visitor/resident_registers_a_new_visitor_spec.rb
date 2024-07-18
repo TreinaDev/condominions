@@ -5,6 +5,8 @@ describe 'Resident registers a new visitor' do
     condo = create :condo
     tower = create(:tower, condo:)
     resident = create :resident, residence: tower.floors[0].units[0]
+    update_visit_date_job_spy = spy(UpdateVisitDateJob)
+    stub_const('UpdateVisitDateJob', update_visit_date_job_spy)
 
     login_as resident, scope: :resident
     visit condo_path condo
@@ -21,12 +23,15 @@ describe 'Resident registers a new visitor' do
     expect(page).to have_content 'Visitante'
     expect(page).to have_content '12311'
     expect(page).to have_content I18n.l(1.month.from_now.to_date)
+    expect(update_visit_date_job_spy).not_to have_received(:perform_later).with(Visitor.last)
   end
 
   it 'as an employee' do
     condo = create :condo
     tower = create(:tower, condo:)
     resident = create :resident, residence: tower.floors[0].units[0]
+    update_visit_date_job_spy = spy(UpdateVisitDateJob)
+    stub_const('UpdateVisitDateJob', update_visit_date_job_spy)
 
     login_as resident, scope: :resident
     visit condo_path condo
@@ -46,9 +51,10 @@ describe 'Resident registers a new visitor' do
       expect(page).to have_content I18n.l(1.month.from_now.to_date)
       expect(page).to have_content 'Semanalmente'
     end
+    expect(update_visit_date_job_spy).to have_received(:perform_later).with(Visitor.last)
   end
 
-  it 'only if tenant' do
+  it 'only if as a tenant' do
     resident = create :resident
 
     login_as resident, scope: :resident
@@ -62,6 +68,8 @@ describe 'Resident registers a new visitor' do
     condo = create :condo
     tower = create(:tower, condo:)
     resident = create :resident, residence: tower.floors[0].units[0]
+    update_visit_date_job_spy = spy(UpdateVisitDateJob)
+    stub_const('UpdateVisitDateJob', update_visit_date_job_spy)
 
     login_as resident, scope: :resident
     visit new_resident_visitor_path resident
@@ -75,6 +83,80 @@ describe 'Resident registers a new visitor' do
     expect(page).to have_content 'Nome Completo não pode ficar em branco'
     expect(page).to have_content 'RG não pode ficar em branco'
     expect(page).to have_content 'Data da Visita não pode ficar em branco'
+    expect(update_visit_date_job_spy).not_to have_received(:perform_later).with(Visitor.last)
+  end
+
+  it 'date must be future' do
+    condo = create :condo
+    tower = create(:tower, condo:)
+    resident = create :resident, residence: tower.floors[0].units[0]
+    update_visit_date_job_spy = spy(UpdateVisitDateJob)
+    stub_const('UpdateVisitDateJob', update_visit_date_job_spy)
+
+    login_as resident, scope: :resident
+    visit new_resident_visitor_path resident
+    fill_in 'Nome Completo',	with: 'João da Silva'
+    fill_in 'RG',	with: '12345'
+    fill_in 'Data da Visita',	with: 2.days.ago.to_date
+    click_on 'Cadastrar'
+
+    expect(page).to have_content 'Erro ao registrar visitante'
+    expect(current_path).to eq new_resident_visitor_path resident
+    expect(page).to have_content 'Data da Visita deve ser futura'
+    expect(update_visit_date_job_spy).not_to have_received(:perform_later).with(Visitor.last)
+  end
+
+  context 'identity number' do
+    it 'must have at least 5 characters' do
+      condo = create :condo
+      tower = create(:tower, condo:)
+      resident = create :resident, residence: tower.floors[0].units[0]
+
+      login_as resident, scope: :resident
+      visit new_resident_visitor_path resident
+      fill_in 'Nome Completo',	with: 'João da Silva'
+      fill_in 'RG',	with: '1234'
+      fill_in 'Data da Visita',	with: 1.month.from_now.to_date
+      click_on 'Cadastrar'
+
+      expect(page).to have_content 'Erro ao registrar visitante'
+      expect(current_path).to eq new_resident_visitor_path resident
+      expect(page).to have_content 'RG é muito curto (mínimo: 5 caracteres)'
+    end
+
+    it 'must have a maximum of 10 characters' do
+      condo = create :condo
+      tower = create(:tower, condo:)
+      resident = create :resident, residence: tower.floors[0].units[0]
+
+      login_as resident, scope: :resident
+      visit new_resident_visitor_path resident
+      fill_in 'Nome Completo',	with: 'João da Silva'
+      fill_in 'RG',	with: '12345678911'
+      fill_in 'Data da Visita',	with: 1.month.from_now.to_date
+      click_on 'Cadastrar'
+
+      expect(page).to have_content 'Erro ao registrar visitante'
+      expect(current_path).to eq new_resident_visitor_path resident
+      expect(page).to have_content 'RG é muito longo (máximo: 10 caracteres)'
+    end
+
+    it 'must have only numbers and letters' do
+      condo = create :condo
+      tower = create(:tower, condo:)
+      resident = create :resident, residence: tower.floors[0].units[0]
+
+      login_as resident, scope: :resident
+      visit new_resident_visitor_path resident
+      fill_in 'Nome Completo',	with: 'João da Silva'
+      fill_in 'RG',	with: '//////'
+      fill_in 'Data da Visita',	with: 1.month.from_now.to_date
+      click_on 'Cadastrar'
+
+      expect(page).to have_content 'Erro ao registrar visitante'
+      expect(current_path).to eq new_resident_visitor_path resident
+      expect(page).to have_content 'RG só pode ter números e letras'
+    end
   end
 
   it 'only if authenticated' do

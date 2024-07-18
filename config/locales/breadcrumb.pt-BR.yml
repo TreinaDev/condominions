@@ -16,14 +16,13 @@ pt-BR:
       new: 'Cadastrar Tipo de Unidade'
     resident:
       new: 'Cadastrar Morador'
-      edit_photo: 'Editar Foto'
-    visitor_entry:
-      new: 'Registrar Nova Entrada'
-      index: 'Registros de Entradas'
+      edit_photo: 'Editar Foto' 
+      show: 'Visualizar Morador'
     owner:
       new: 'Adicionar Propriedade'
     tenant:
       new: 'Adicionar Moradia'
     visitor:
       new: 'Cadastrar Visitante/Funcionário'
+      create: 'Cadastrar Visitante/Funcionário'
       index: 'Listagem de Visitantes/Funcionários'
