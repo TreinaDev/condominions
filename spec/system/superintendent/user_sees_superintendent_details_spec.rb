@@ -38,7 +38,7 @@ describe 'User sees superintendent details' do
       unit11 = tower.floors.first.units.first
       resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                              end_date: Time.zone.today >> 2)
+                                               end_date: Time.zone.today >> 2)
       manager = create :manager, is_super: false
 
       login_as manager, scope: :manager
@@ -51,14 +51,13 @@ describe 'User sees superintendent details' do
   end
 
   context 'as resident' do
-
     it 'from condo details page' do
       condo = create :condo, name: 'Condomínio X'
       tower = create(:tower, condo:)
       unit11 = tower.floors.first.units.first
       resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                              end_date: Time.zone.today >> 2)
+                                               end_date: Time.zone.today >> 2)
       resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,
                                  filename: 'resident_photo.jpg')
 
