@@ -1,7 +1,7 @@
 pt-BR:
   notices:
     tenant:
-      updated: 'Cadastro realizado com sucesso!'
+      updated: 'Atualizado com sucesso!'
   alerts:    
     tenant:
       not_updated: 'Não foi possível cadastrar a residência'

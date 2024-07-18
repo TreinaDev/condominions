@@ -3,9 +3,12 @@ class Condo < ApplicationRecord
   has_many :towers, dependent: :destroy
   has_many :common_areas, dependent: :destroy
   has_many :unit_types, dependent: :destroy
-  has_many :units, through: :unit_types
   has_many :condo_managers, dependent: :destroy
   has_many :managers, through: :condo_managers
+  has_many :floors, through: :towers
+  has_many :units, through: :floors
+  has_many :owners, through: :units
+  has_many :tenants, through: :units
 
   delegate :city, to: :address
   delegate :state, to: :address
@@ -15,6 +18,10 @@ class Condo < ApplicationRecord
   validate :validate_cnpj
 
   accepts_nested_attributes_for :address
+
+  def residents
+    (tenants + owners).uniq
+  end
 
   def full_address
     <<~HEREDOC.strip
@@ -33,7 +40,21 @@ class Condo < ApplicationRecord
     end
   end
 
+  def units_json
+    ordered_units.map do |unit|
+      {
+        id: unit.id,
+        floor: unit.floor.identifier,
+        number: unit.short_identifier
+      }
+    end
+  end
+
   private
+
+  def ordered_units
+    towers.flat_map { |tower| tower.floors.flat_map(&:units) }
+  end
 
   def calculate_total_area
     total_area = 0

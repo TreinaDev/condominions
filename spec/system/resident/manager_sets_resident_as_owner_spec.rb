@@ -151,4 +151,27 @@ describe 'managers access page to set a resident as owner' do
     expect(current_path).to eq new_resident_owner_path resident
     expect(page).to have_content 'Unidade já possui proprietário'
   end
+
+  it 'and can not remove a owner from a condo that its not associated' do
+    manager = create :manager, is_super: false
+    condo = create :condo, name: 'Condominio Errado'
+    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
+    unit11 = tower.floors[0].units[0]
+    second_condo = create :condo, name: 'Condominio Certo'
+    second_tower = create :tower, 'condo' => second_condo, name: 'Torre Secundaria', floor_quantity: 2,
+                                  units_per_floor: 2
+    second_unit22 = second_tower.floors[0].units[0]
+    resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', properties: [unit11, second_unit22]
+    second_condo.managers << manager
+
+    login_as manager, scope: :manager
+    visit new_resident_owner_path resident
+
+    within '.units-array .unit:nth-of-type(1)' do
+      expect(page).not_to have_button 'Remover'
+    end
+    within '.units-array .unit:nth-of-type(2)' do
+      expect(page).to have_button 'Remover'
+    end
+  end
 end
