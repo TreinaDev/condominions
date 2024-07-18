@@ -6,7 +6,6 @@ FactoryBot.define do
     password { '123456' }
     status { :mail_confirmed }
 
-
     trait :with_residence do
       transient do
         tower { create(:tower) }

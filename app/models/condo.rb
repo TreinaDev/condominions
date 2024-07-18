@@ -5,7 +5,7 @@ class Condo < ApplicationRecord
   has_many :unit_types, dependent: :destroy
   has_many :condo_managers, dependent: :destroy
   has_many :managers, through: :condo_managers
-  has_many :visitors
+  has_many :visitors, dependent: :destroy
   has_many :floors, through: :towers
   has_many :units, through: :floors
   has_many :owners, through: :units

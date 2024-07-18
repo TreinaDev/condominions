@@ -6,10 +6,10 @@ describe 'Manager view condo visitors list' do
       manager = create :manager
       first_condo = create :condo
       second_condo = create :condo
-      first_visitor = create :visitor, condo: first_condo, visit_date: Date.today, full_name: 'João da Silva'
-      second_visitor = create :visitor, condo: first_condo, visit_date: Date.today, full_name: 'Maria Oliveira'
-      third_visitor = create :visitor, condo: first_condo, visit_date: 1.day.from_now, full_name: 'Marcos Lima'
-      fourth_visitor = create :visitor, condo: second_condo, visit_date: Date.today, full_name: 'Juliana Ferreira'
+      create :visitor, condo: first_condo, visit_date: Time.zone.today, full_name: 'João da Silva'
+      create :visitor, condo: first_condo, visit_date: Time.zone.today, full_name: 'Maria Oliveira'
+      create :visitor, condo: first_condo, visit_date: 1.day.from_now, full_name: 'Marcos Lima'
+      create :visitor, condo: second_condo, visit_date: Time.zone.today, full_name: 'Juliana Ferreira'
 
       login_as manager, scope: :manager
       visit condo_path first_condo
@@ -26,8 +26,8 @@ describe 'Manager view condo visitors list' do
       manager = create :manager
       first_condo = create :condo
       second_condo = create :condo
-      first_visitor = create :visitor, condo: second_condo, visit_date: Date.today, full_name: 'João da Silva'
-      second_visitor = create :visitor, condo: second_condo, visit_date: Date.today, full_name: 'Maria Oliveira'
+      create :visitor, condo: second_condo, visit_date: Time.zone.today, full_name: 'João da Silva'
+      create :visitor, condo: second_condo, visit_date: Time.zone.today, full_name: 'Maria Oliveira'
 
       login_as manager, scope: :manager
       visit condo_path first_condo
@@ -38,6 +38,5 @@ describe 'Manager view condo visitors list' do
         expect(page).not_to have_content 'Maria Oliveira'
       end
     end
-
   end
 end
