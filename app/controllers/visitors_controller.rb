@@ -14,10 +14,10 @@ class VisitorsController < ApplicationController
   def create
     @visitor = Visitor.new(visitor_params)
     unless @visitor.save
-      set_visit_date_job
       flash.now[:alert] = t('alerts.visitor.not_created')
       return render :new, status: :unprocessable_entity
     end
+    set_visit_date_job
     redirect_to resident_visitors_path(@resident), notice: I18n.t('notice.visitor.created')
   end
 
