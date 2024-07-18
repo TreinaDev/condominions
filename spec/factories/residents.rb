@@ -7,13 +7,10 @@ FactoryBot.define do
     status { :mail_confirmed }
 
     trait :with_residence do
-      transient do
-        tower { create(:tower) }
-      end
+      transient { condo { create :condo } }
 
       after(:create) do |resident, evaluator|
-        tower = evaluator.tower
-        resident.residence = tower.floors[0].units[0]
+        resident.residence = create(:unit, floor: create(:floor, tower: create(:tower, condo: evaluator.condo)))
       end
     end
   end

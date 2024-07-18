@@ -3,18 +3,22 @@
     <h1>Agenda de visitantes/funcionários</h1>
   </div>
 
-  <div class="d-flex justify-content-evenly">
-    <% unless @date == Time.zone.today %>
-      <%= link_to find_condo_visitors_path(@condo, date: @date - 1.day), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 px-4 shadow-sm" do %>
-          <i class="bi bi-caret-left-fill mb-1 me-2"></i>
-          Dia Anterior
+  <div class="row justify-content-center">
+    <div class="col-3 d-flex justify-content-end">
+      <% unless @date == Time.zone.today %>
+        <%= link_to find_condo_visitors_path(@condo, date: @date - 1.day), class:"btn btn-dark rounded-pill d-inline-flex align-items-center mb-2 px-4 shadow-sm" do %>
+            <i class="bi bi-caret-left-fill mb-1 me-2"></i>
+            Dia Anterior
+        <% end %>
       <% end %>
-    <% end %>
-    <h2><%= I18n.l(@date, format: :long) %></h2>
-    <%= link_to find_condo_visitors_path(@condo, date: @date + 1.day), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 px-4 shadow-sm" do %>
-        Dia Seguinte
-        <i class="bi bi-caret-right-fill mb-1 ms-2"></i>
-    <% end %>
+    </div>
+    <h2 class="col-5 text-center"><%= I18n.l(@date, format: :long) %></h2>
+    <div class="col-3">
+      <%= link_to find_condo_visitors_path(@condo, date: @date + 1.day), class:"btn btn-dark rounded-pill d-inline-flex align-items-center mb-2 px-4 shadow-sm" do %>
+          Dia Seguinte
+          <i class="bi bi-caret-right-fill mb-1 ms-2"></i>
+      <% end %>
+    </div>
   </div>
 
   <table class="table table-sm">
