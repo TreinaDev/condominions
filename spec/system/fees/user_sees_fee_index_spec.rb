@@ -53,6 +53,7 @@ describe "user access a list of bills for it's units" do
   it "and there's an error due to connection lost" do
     condo = create :condo
     resident = create(:resident, :with_residence, condo:)
+    allow(Faraday).to receive(:get).and_raise(Faraday::ConnectionFailed)
 
     login_as resident, scope: :resident
     visit bills_path

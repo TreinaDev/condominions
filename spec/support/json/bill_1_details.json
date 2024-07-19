@@ -8,5 +8,6 @@
   "values": {
     "base_fee_value_cents": 250,
     "shared_fee_value_cents": 750
-  }
+  },
+  "denied": true
 }
