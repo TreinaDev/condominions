@@ -1,0 +1,12 @@
+<div class='bg-white rounded-5 py-3 px-5 shadow py-4'>
+  <h1 class="mb-3">Sua Reserva</h1>
+
+  <p><strong>Data:</strong> <%= I18n.l @reservation.date %></p>
+  <p><strong>Local:</strong> <%= @common_area.name %></p>
+  <p><strong>Status:</strong> <%= t(@reservation.status) %></p>
+
+  <strong>Atenção às Regras de Uso!</strong>
+  <p><%= @common_area.rules %></p>
+
+  <%= button_to 'Cancelar', canceled_reservation_path(@reservation), data: { turbo_confirm: 'Você tem certeza que deseja cancelar a reserva?' }, class: 'btn btn-dark rounded-pill px-4' if resident_signed_in? && @reservation.confirmed? %>
+</div>

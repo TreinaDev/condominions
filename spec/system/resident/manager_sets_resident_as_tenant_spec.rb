@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'managers access page to set a resident as tenant' do
+describe 'managers sets resident as tenant' do
   it 'and is not authenticated' do
     resident = create :resident
 
@@ -36,6 +36,7 @@ describe 'managers access page to set a resident as tenant' do
     select '2', from: 'Unidade'
     click_on 'Atualizar Morador'
 
+    sleep 3
     expect(current_path).to eq resident_path resident
     expect(mail).to have_received(:deliver).once
     expect(page).to have_content 'Atualizado com sucesso!'
@@ -65,8 +66,9 @@ describe 'managers access page to set a resident as tenant' do
     select '2', from: 'Unidade'
     click_on 'Não reside neste condomínio'
 
-    expect(page).to have_content 'Atualizado com sucesso!'
+    sleep 3
     expect(current_path).to eq resident_path resident
+    expect(page).to have_content 'Atualizado com sucesso!'
     resident.reload
     expect(resident.residence).to eq nil
   end

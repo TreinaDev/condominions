@@ -5,5 +5,13 @@ FactoryBot.define do
     sequence(:email) { |n| "João#{n}@example.com" }
     password { '123456' }
     status { :mail_confirmed }
+
+    trait :with_residence do
+      transient { condo { create :condo } }
+
+      after(:create) do |resident, evaluator|
+        resident.residence = create(:unit, floor: create(:floor, tower: create(:tower, condo: evaluator.condo)))
+      end
+    end
   end
 end

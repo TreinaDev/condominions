@@ -51,7 +51,7 @@ class VisitorEntriesController < ApplicationController
   end
 
   def authenticate_manager!
-    return redirect_to root_path, notice: I18n.t('alerts.visitor_entry.access_denied') if resident_signed_in?
+    return redirect_to root_path, alert: I18n.t('alerts.visitor_entry.access_denied') if resident_signed_in?
 
     super
   end
