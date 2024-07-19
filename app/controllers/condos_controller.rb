@@ -11,6 +11,7 @@ class CondosController < ApplicationController
     @common_areas = @condo.common_areas.order :name
     @unit_types = @condo.unit_types.order :description
     @todays_visitors = (resident_signed_in? ? current_resident.todays_visitors : [])
+    request_bills
   end
 
   def new
@@ -82,5 +83,11 @@ class CondosController < ApplicationController
 
   def set_condo
     @condo = Condo.find_by(id: params[:id])
+  end
+
+  def request_bills
+    return unless resident_signed_in? && current_resident.residence.present?
+
+    @bills = Bill.request_open_bills(current_resident.residence.id)
   end
 end
