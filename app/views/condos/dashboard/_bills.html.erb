@@ -25,7 +25,7 @@
         <% end %>
         <% if @bills.count > 3 %>
           <div class='d-flex'>
-            <%= link_to root_path, class:"btn py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 w-25 fs-6 text-muted", style: "width: 100%;" do %>
+            <%= link_to bills_path, class:"btn py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 w-25 fs-6 text-muted small", style: "width: 100%;" do %>
               <strong>ver mais</strong>
             <% end %>
           </div>
