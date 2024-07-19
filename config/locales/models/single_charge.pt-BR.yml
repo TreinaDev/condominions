@@ -1,11 +1,7 @@
 pt-BR:
-  notices:
-    single_charge:
-      updated: 'Pavimento Tipo atualizado com sucesso!'
   alerts:    
     single_charge:
-      not_created: 'Não foi possível cadastrar o andar.'
-      not_ready: 'Você deve atualizar o pavimento tipo antes de acessar essa página'
+      fine_not_created: 'Não foi possível lançar a multa.'
   activerecord:
     models:
       single_charge:

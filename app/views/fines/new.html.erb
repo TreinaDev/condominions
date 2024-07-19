@@ -1,3 +1,4 @@
+<%= render 'shared/errors', model: @fine %>
 <div class="mt-5">
   <h2 class="text-center mt-4">Lançar Multa</h2>
   <%= form_with model: [@condo, @fine], url:condo_fines_path(@condo, @fine) do |f| %>

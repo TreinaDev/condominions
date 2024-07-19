@@ -1,29 +1,29 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ 'condo', 'tower', 'floor', 'unit' ]
+  static targets = ['condo', 'tower', 'floor', 'unit']
 
-  searchTowers(condoId){
+  searchTowers(condoId) {
     fetch(`${window.origin}/residents/find_towers?id=${condoId}`)
-    .then((response)=>{
-      return response.json()
-    })
-    .then((towers)=>{
-      this.towerTarget.innerHTML = ""
-      towers.forEach(tower => {
-        this.towerTarget.options.add(new Option(tower.name, tower.id))
-      });
-      this.towers = towers
-      this.changeTower()
-    })
-    .catch(()=>{console.log('Towers not found')})
+      .then((response) => {
+        return response.json()
+      })
+      .then((towers) => {
+        this.towerTarget.innerHTML = ""
+        towers.forEach(tower => {
+          this.towerTarget.options.add(new Option(tower.name, tower.id))
+        });
+        this.towers = towers
+        this.changeTower()
+      })
+      .catch(() => { console.log('Towers not found') })
   }
 
-  connect(){
+  connect() {
     this.searchTowers(this.element.getAttribute('condo-id'))
   }
 
-  changeTower(){
+  changeTower() {
     let tower = this.towers[this.towerTarget.selectedIndex]
     console.log(tower)
     this.unitTarget.innerHTML = ""
