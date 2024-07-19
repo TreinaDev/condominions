@@ -17,5 +17,5 @@ def request_open_bills_list
 end
 
 def connection_refused
-  redirect_to root_path, notice: t('alerts.bill.lost_connection')
+  redirect_to root_path, alert: t('alerts.bill.lost_connection')
 end

@@ -49,4 +49,15 @@ describe "user access a list of bills for it's units" do
     expect(page).to have_content 'Minhas Faturas'
     expect(page).to have_content 'Não há faturas em aberto'
   end
+
+  it "and there's an error due to connection lost" do
+    condo = create :condo
+    resident = create(:resident, :with_residence, condo:)
+
+    login_as resident, scope: :resident
+    visit bills_path
+
+    expect(page).to have_content 'Não foi possível conectar no servidor do PagueAluguel'
+    expect(current_path).to eq root_path
+  end
 end
