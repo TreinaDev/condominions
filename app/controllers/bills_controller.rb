@@ -3,19 +3,20 @@ class BillsController < ApplicationController
   before_action :unit_for_current_resident
   rescue_from Faraday::ConnectionFailed, with: :connection_refused
   before_action :request_open_bills_list
+
   def index; end
-end
 
-private
+  private
 
-def unit_for_current_resident
-  @unit = current_resident.residence
-end
+  def unit_for_current_resident
+    @unit = current_resident.residence
+  end
 
-def request_open_bills_list
-  @bills = Bill.request_open_bills(@unit.id)
-end
+  def request_open_bills_list
+    @bills = Bill.request_open_bills(@unit.id)
+  end
 
-def connection_refused
-  redirect_to root_path, alert: t('alerts.bill.lost_connection')
+  def connection_refused
+    redirect_to root_path, alert: t('alerts.bill.lost_connection')
+  end
 end
