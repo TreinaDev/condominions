@@ -3,9 +3,8 @@ require 'rails_helper'
 describe 'user access condo show' do
   it 'and see fees on dashboard' do
     condo = create :condo
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    unit11 = tower.floors[0].units[0]
-    resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', residence: unit11
+    resident = create(:resident, :with_residence, condo:)
+    unit11 = resident.residence
     json_data = Rails.root.join('spec/support/json/two_bills.json').read
     fake_response = double('faraday_response', body: json_data, success?: true)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/units/#{unit11.id}/bills").and_return(fake_response)
@@ -22,11 +21,10 @@ describe 'user access condo show' do
     expect(page).to have_content 'Valor: R$ 30,00'
   end
 
-  it 'and do not see more than 3 ordered by more recente' do
+  it 'and do not see more than 3 ordered by more recent' do
     condo = create :condo
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    unit11 = tower.floors[0].units[0]
-    resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', residence: unit11
+    resident = create(:resident, :with_residence, condo:)
+    unit11 = resident.residence
     json_data = Rails.root.join('spec/support/json/five_bills.json').read
     fake_response = double('faraday_response', body: json_data, success?: true)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/units/#{unit11.id}/bills").and_return(fake_response)
@@ -52,11 +50,25 @@ describe 'user access condo show' do
     expect(page).not_to have_content 'Valor: R$ 12,34'
   end
 
-  it 'and do not see more than 3 ordered by more recente' do
+  it "and there's no data returned" do
     condo = create :condo
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    unit11 = tower.floors[0].units[0]
-    resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', residence: unit11
+    resident = create(:resident, :with_residence, condo:)
+    unit11 = resident.residence
+    json_data = Rails.root.join('spec/support/json/empty_bills.json').read
+    fake_response = double('faraday_response', body: json_data, success?: true)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/units/#{unit11.id}/bills").and_return(fake_response)
+
+    login_as resident, scope: :resident
+
+    visit condo_path condo
+    click_on 'Faturas em Aberto'
+
+    expect(page).to have_content 'Não existem faturas em aberto.'
+  end
+
+  it 'and connection is lost with the external API' do
+    condo = create :condo
+    resident = create(:resident, :with_residence, condo:)
 
     login_as resident, scope: :resident
 
