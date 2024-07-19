@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'User access calendar' do
   context 'as a resident' do
     it 'and sees only confirmed reservations' do
-      resident = create :resident, full_name: 'Maria Pereira'
       common_area = create :common_area
+      resident = create :resident, :with_residence, condo: common_area.condo, full_name: 'Maria Pereira'
 
       travel_to '01/07/2024' do
         create :reservation, common_area:, resident:, date: '05/07/2024', status: :confirmed
@@ -24,9 +24,9 @@ describe 'User access calendar' do
     end
 
     it 'and does not see other resident names and buttons on reservations' do
-      resident = create :resident, full_name: 'Maria Pereira'
-      other_resident = create :resident, full_name: 'José da Silva'
       common_area = create :common_area
+      resident = create :resident, :with_residence, condo: common_area.condo, full_name: 'Maria Pereira'
+      other_resident = create :resident, full_name: 'José da Silva'
 
       travel_to '01/07/2024' do
         create :reservation,

@@ -1,0 +1,23 @@
+<% if @common_area.reservations.confirmed.any? %>
+  <%= month_calendar do |date| %>
+    <strong><%= date.day %></strong>
+    <% @common_area.reservations.confirmed.each do |reservation| %>
+      <% if reservation.date == date %>
+        <% if reservation.resident == current_resident || manager_signed_in? %>
+          <p>Reservado por <%= reservation.resident.full_name %></p>
+          <%= button_to 'Cancelar', canceled_reservation_path(reservation), data: { turbo_confirm: 'Você tem certeza que deseja cancelar a reserva?' }, class: 'btn btn-dark rounded-pill px-4' unless manager_signed_in? %>
+        <% else %>
+          <p>Reservado</p>
+        <% end %>
+      <% else %>
+        <%= button_to 'Reservar', common_area_reservations_path(@common_area, date: date), data: { turbo_confirm: "Você tem certeza que deseja reservar o dia #{I18n.l(date)}?" }, class: 'btn btn-dark rounded-pill px-4' unless manager_signed_in? %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= month_calendar do |date| %>
+    <strong><%= date.day %></strong>
+    <%= button_to 'Reservar', common_area_reservations_path(@common_area, date: date), data: { turbo_confirm: "Você tem certeza que deseja reservar o dia #{I18n.l(date)}?" }, class: 'btn btn-dark rounded-pill px-4' unless manager_signed_in? %>
+  <% end %>
+<% end %>
+

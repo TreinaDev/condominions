@@ -17,11 +17,11 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = Reservation.new reservation_params
-    @reservation.resident = current_resident
-    @reservation.common_area = @common_area
+    @reservation = Reservation.new date: params.require(:date),
+                                   resident: current_resident,
+                                   common_area: @common_area
 
-    return redirect_to @reservation, notice: t('notices.reservation.created') if @reservation.save
+    return redirect_to @common_area, notice: t('notices.reservation.created') if @reservation.save
 
     flash.now[:alert] = I18n.t 'alerts.reservation.not_created'
     render 'new', status: :unprocessable_entity
@@ -33,10 +33,6 @@ class ReservationsController < ApplicationController
   end
 
   private
-
-  def reservation_params
-    params.require(:reservation).permit :date
-  end
 
   def set_common_area
     @common_area = CommonArea.find params[:common_area_id]
@@ -65,24 +61,12 @@ class ReservationsController < ApplicationController
   end
 
   def authorize_user
-    return if !authenticate_user || super_manager? || can_access_condo? || reservation_owner?
+    return if !authenticate_user ||
+              super_manager? ||
+              condo_manager?(@reservation.common_area.condo) ||
+              reservation_owner?
 
     redirect_to root_path, alert: t('alerts.reservation.not_authorized')
-  end
-
-  def authenticate_user
-    return true if manager_signed_in? || resident_signed_in?
-
-    redirect_to signup_choice_path
-    false
-  end
-
-  def super_manager?
-    manager_signed_in? && current_manager.is_super
-  end
-
-  def can_access_condo?
-    manager_signed_in? && current_manager.condos.include?(@reservation.common_area.condo)
   end
 
   def reservation_owner?

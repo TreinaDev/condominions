@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'Resident cancel common area reservation' do
   it 'from the reservation details page' do
-    resident = create :resident
     common_area = create :common_area
+    resident = create :resident, :with_residence, condo: common_area.condo
 
     travel_to '01/07/2024' do
       reservation = create :reservation,
