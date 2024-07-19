@@ -1,19 +1,14 @@
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[show canceled]
-  before_action :set_common_area, only: %i[new create]
-  before_action :set_breadcrumbs, only: [:new]
-  before_action :block_manager_from_resident_sign_in, only: %i[new create]
-  before_action :authenticate_resident!, only: %i[new create]
+  before_action :set_common_area, only: %i[create]
+  before_action :block_manager_from_resident_sign_in, only: %i[create]
+  before_action :authenticate_resident!, only: %i[create]
   before_action :authenticate_for_cancelation, only: [:canceled]
   before_action :authorize_user, only: [:show]
 
   def show
     @common_area = @reservation.common_area
     set_breadcrumbs
-  end
-
-  def new
-    @reservation = Reservation.new common_area: @common_area
   end
 
   def create

@@ -11,10 +11,10 @@ describe 'Manager edits common area' do
 
   it 'and does not see edit button if is a resident' do
     common_area = create :common_area
-    resident = create :resident
+    resident = create :resident, :with_residence, condo: common_area.condo
 
     login_as resident, scope: :resident
-    visit new_common_area_reservation_path common_area
+    visit common_area_path common_area
 
     expect(page).not_to have_link 'Editar'
   end
