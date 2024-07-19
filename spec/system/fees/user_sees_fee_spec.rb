@@ -51,4 +51,18 @@ describe 'user access condo show' do
     expect(page).not_to have_content 'Vencimento: 10/02/2024'
     expect(page).not_to have_content 'Valor: R$ 12,34'
   end
+
+  it 'and do not see more than 3 ordered by more recente' do
+    condo = create :condo
+    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
+    unit11 = tower.floors[0].units[0]
+    resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', residence: unit11
+
+    login_as resident, scope: :resident
+
+    visit condo_path condo
+    click_on 'Faturas em Aberto'
+
+    expect(page).to have_content 'Conexão perdida com o servidor do PagueAlugel.'
+  end
 end
