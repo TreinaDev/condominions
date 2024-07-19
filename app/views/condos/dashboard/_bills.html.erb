@@ -7,7 +7,7 @@
   
   <div id="bills" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
     <div class="accordion-body">
-      <% if @bills.present? && @bills.any? %>
+      <% if !@refused && @bills.present? && @bills.any? %>
         <% @bills.take(3).each do |bill| %>
           <div class="d-flex align-items-center my-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar mx-2" viewBox="0 0 16 16">
@@ -30,6 +30,8 @@
             <% end %>
           </div>
         <% end %>
+      <% elsif %>
+        <div class="alert alert-warning text-center">Conexão perdida com o servidor do PagueAlugel.</div>
       <% else %>
         <div class="alert alert-warning text-center">Não existem faturas abertas.</div>
       <% end %>
