@@ -35,15 +35,17 @@ describe 'Manager confirms visitor' do
       expect(visitor.reload.confirmed?).to eq false
     end
 
-    it 'only if associated with condo' do
+    it 'successfully only if associated with the condo' do
       manager = create :manager, is_super: false
-      visitor = create :visitor
+      visitor = create :visitor, visit_date: Time.zone.today
       manager.condos << visitor.condo
 
       login_as manager, scope: :manager
       post confirm_entry_visitor_path(visitor)
 
       expect(response).to redirect_to find_condo_visitors_path(visitor.condo)
+      expect(flash[:notice]).to eq 'Entrada do visitante registrada com sucesso.'
+      expect(visitor.reload.confirmed?).to be_truthy
     end
 
     it 'only if visitor not confirmed' do

@@ -1,7 +1,6 @@
 pt-BR:
   alerts:
     visitor:
-      invalid_list_date: 'Não é possível acessar uma data passada'
       not_created: 'Erro ao registrar visitante'
       not_tenant: 'Apenas moradores podem administrar visitantes'
       manager_block: 'Um administrador não pode administrar visitantes para uma unidade'
@@ -10,6 +9,7 @@ pt-BR:
       only_numbers_and_letters: 'só pode ter números e letras'
       already_confirmed: 'Visitante já confirmado'
       invalid_date: 'Só é possível confirmar visitantes do dia atual'
+      invalid_list_date: 'Não é possível acessar uma data passada'
   notice: 
     visitor:
       created: 'Visitante cadastrado com sucesso'
