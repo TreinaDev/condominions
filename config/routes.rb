@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     patch 'update_photo', on: :member
   end
 
+  resources :visitors do
+    post 'confirm_entry', on: :member
+  end
+
   resource :units do
     get 'find_units', on: :collection
   end

@@ -7,9 +7,9 @@ describe 'Manager view condo visitors list' do
     resident = create :resident, full_name: 'Alberto Silveira', residence: tower.floors[0].units[0]
     first_condo = create :condo
     second_condo = create :condo
-    first_visitor = create :visitor, condo: first_condo, resident:, category: :employee, recurrence: :weekly,
+    first_visitor = create :visitor, condo: first_condo, resident:,
                                      visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
-    second_visitor = create :visitor, condo: first_condo, resident:, category: :visitor,
+    second_visitor = create :visitor, condo: first_condo, resident:,
                                       visit_date: Time.zone.today, full_name: 'Maria Oliveira', identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo,
                                      visit_date: 1.day.from_now, full_name: 'Marcos Lima'
@@ -45,9 +45,9 @@ describe 'Manager view condo visitors list' do
     resident = create :resident, full_name: 'Alberto Silveira', residence: tower.floors[0].units[0]
     first_condo = create :condo
     second_condo = create :condo
-    first_visitor = create :visitor, condo: first_condo, resident:, category: :employee, recurrence: :weekly,
+    first_visitor = create :visitor, condo: first_condo, resident:,
                                      visit_date: 1.day.from_now, full_name: 'João da Silva', identity_number: '12467'
-    second_visitor = create :visitor, condo: first_condo, resident:, category: :visitor,
+    second_visitor = create :visitor, condo: first_condo, resident:,
                                       visit_date: 1.day.from_now, full_name: 'Maria Oliveira', identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo, resident:,
                                      visit_date: Time.zone.today, full_name: 'Marcos Lima'
@@ -83,9 +83,9 @@ describe 'Manager view condo visitors list' do
     resident = create :resident, full_name: 'Alberto Silveira', residence: tower.floors[0].units[0]
     first_condo = create :condo
     second_condo = create :condo
-    first_visitor = create :visitor, condo: first_condo, resident:, category: :employee, recurrence: :weekly,
+    first_visitor = create :visitor, condo: first_condo, resident:,
                                      visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
-    second_visitor = create :visitor, condo: first_condo, resident:, category: :visitor,
+    second_visitor = create :visitor, condo: first_condo, resident:,
                                       visit_date: Time.zone.today, full_name: 'Maria Oliveira', identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo, resident:,
                                      visit_date: 1.day.from_now, full_name: 'Marcos Lima'
@@ -156,5 +156,27 @@ describe 'Manager view condo visitors list' do
     visit find_condo_visitors_path condo
 
     expect(current_path).to eq root_path
+  end
+
+  context 'and confirms presence of a visitor' do
+    it 'for today' do
+      manager = create :manager
+      condo = create :condo
+      resident = create(:resident, :with_residence, condo:)
+      visitor = create :visitor, condo:, resident:, visit_date: Time.zone.today, full_name: 'João Almeida'
+
+      login_as manager, scope: :manager
+      visit find_condo_visitors_path condo
+      within("#visitor-#{visitor.id}") { page.accept_confirm { find('.confirm').click } }
+
+      expect(current_path).to eq find_condo_visitors_path condo
+      expect(page).to have_content 'Entrada do visitante registrada com sucesso'
+      expect(VisitorEntry.where(full_name: 'João Almeida').any?).to be true
+      expect(visitor.reload.status).to eq 'confirmed'
+      within("#visitor-#{visitor.id}") do
+        expect(page).not_to have_css '.confirm'
+        expect(page).to have_content('Entrada Confirmada')
+      end
+    end
   end
 end
