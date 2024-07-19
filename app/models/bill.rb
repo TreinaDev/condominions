@@ -19,7 +19,7 @@ class Bill
 
     bills_data = JSON.parse(response.body)['bills']
     bills_array = bills_data.map { |bill_data| new(bill_data) }
-    bills_array.sort_by { |bill| bill.due_date.to_time.to_i }
+    bills_array.sort_by { |bill| bill.due_date.to_time.to_i }.reverse
   end
 
   def total_value_formatted
