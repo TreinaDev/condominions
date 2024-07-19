@@ -23,7 +23,7 @@ describe 'Manager confirms visitor' do
       expect(visitor.reload.confirmed?).to eq false
     end
 
-    it 'only if manager is associated' do
+    it 'cannot if not associated with condo' do
       manager = create :manager, is_super: false
       visitor = create :visitor
 
@@ -33,6 +33,17 @@ describe 'Manager confirms visitor' do
       expect(response).to redirect_to root_path
       expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
       expect(visitor.reload.confirmed?).to eq false
+    end
+
+    it 'only if associated with condo' do
+      manager = create :manager, is_super: false
+      visitor = create :visitor
+      manager.condos << visitor.condo
+
+      login_as manager, scope: :manager
+      post confirm_entry_visitor_path(visitor)
+
+      expect(response).to redirect_to find_condo_visitors_path(visitor.condo)
     end
 
     it 'only if visitor not confirmed' do

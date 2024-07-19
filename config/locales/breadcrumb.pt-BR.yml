@@ -33,3 +33,4 @@ pt-BR:
       new: 'Cadastrar Visitante/Funcionário'
       create: 'Cadastrar Visitante/Funcionário'
       index: 'Listagem de Visitantes/Funcionários'
+      find: 'Agenda de Visitantes/Funcionários'

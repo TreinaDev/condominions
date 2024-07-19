@@ -3,9 +3,9 @@ class VisitorsController < ApplicationController
   before_action :set_condo, only: %i[find]
   before_action :set_visitor, only: %i[confirm_entry]
   before_action :authenticate_resident!, only: %i[index new create]
-  before_action :set_breadcrumbs_for_action, only: %i[new create]
+  before_action :set_breadcrumbs_for_action, only: %i[index new create find]
   before_action :authenticate_manager!, only: %i[find confirm_entry]
-  before_action -> { authorize_condo_manager!(@condo) }, only: %i[find confirm_entry]
+  before_action -> { authorize_condo_manager!(find_condo) }, only: %i[find confirm_entry]
 
   def index
     @visitors = @resident.visitors
@@ -25,7 +25,6 @@ class VisitorsController < ApplicationController
 
     VisitorEntry.create(visitor_entry_params)
     @visitor.confirmed!
-
     redirect_to find_condo_visitors_path(@visitor.condo), notice: I18n.t('notice.visitor.entry_confirmed')
   end
 
@@ -66,7 +65,8 @@ class VisitorsController < ApplicationController
   end
 
   def set_breadcrumbs_for_action
-    add_breadcrumb @resident.residence.condo.name, @resident.residence.condo
+    condo = @condo || @resident.residence.condo
+    add_breadcrumb condo.name, condo
     add_breadcrumb I18n.t("breadcrumb.visitor.#{action_name}")
   end
 
@@ -109,5 +109,9 @@ class VisitorsController < ApplicationController
   def visitor_params
     params.require(:visitor).permit(:full_name, :identity_number, :visit_date, :category,
                                     :recurrence).merge resident: @resident, condo: @resident.residence.condo
+  end
+
+  def find_condo
+    @condo.nil? ? @visitor.condo : @condo
   end
 end
