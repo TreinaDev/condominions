@@ -11,7 +11,7 @@ class SingleCharge < ApplicationRecord
   enum charge_type: { fine: 0, common_area_fee: 1 }
 
   def unit_valid?
-    return false if unit.owner
+    return true if unit.owner
 
     errors.add(:unit, 'Não há proprietário para a unidade selecionada')
   end

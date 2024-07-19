@@ -26,7 +26,7 @@ describe 'Superintendent register fine' do
       click_on 'Lançar Multa'
     end
 
-    expect(current_path).to eq condo_path condo
+    expect(page).to have_current_path condo_path(condo), wait: 2
     expect(page).to have_content 'Multa lançada com sucesso para a Unidade 22'
     expect(SingleCharge.last.unit).to eq unit22
     expect(SingleCharge.last.value_cents).to eq 50_000
@@ -54,6 +54,7 @@ describe 'Superintendent register fine' do
       click_on 'Lançar Multa'
     end
 
+    sleep 5
     expect(page).to have_content 'Não foi possível lançar a multa'
     expect(page).to have_content 'Valor não pode ficar em branco'
     expect(page).to have_content 'Descrição não pode ficar em branco'
@@ -83,6 +84,7 @@ describe 'Superintendent register fine' do
       click_on 'Lançar Multa'
     end
 
+    sleep 2
     expect(page).to have_content 'Não foi possível lançar a multa'
     expect(page).to have_content 'Não há proprietário para a unidade selecionada'
     expect(SingleCharge.last).to eq nil
