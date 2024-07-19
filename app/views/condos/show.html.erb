@@ -78,5 +78,11 @@
 
       <%= render 'condos/dashboard/common_area_list' %>
     </div>
+
+    <div class="accordion mt-2">
+      <% if resident_signed_in? %>
+        <%= render 'condos/dashboard/bills' %>
+      <% end %>
+    </div>
   </div>
 </div>
