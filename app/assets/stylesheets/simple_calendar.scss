@@ -1,4 +1,13 @@
 .simple-calendar {
+
+  .calendar-heading {
+    color: #000;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: bold;
+  }
+
   table {
     -webkit-border-horizontal-spacing: 0px;
     -webkit-border-vertical-spacing: 0px;
@@ -22,7 +31,8 @@
     border-right: 1px solid rgb(221, 221, 221);
     border-top: 0px none rgb(51, 51, 51);
     box-sizing: border-box;
-    text-align: left;
+    background-color: #577998;
+    text-align: center;
   }
 
   td {
@@ -43,6 +53,7 @@
     border-left-color: rgb(221, 221, 221);
     border-left-style: solid;
     border-left-width: 1px;
+    text-align: center;
   }
 
   .calendar-heading nav {
@@ -65,7 +76,9 @@
     background: #FFFFC0
   }
 
-  .past {}
+  .past {
+    background: #DDD;
+  }
   .future {}
 
   .start-date {}
@@ -78,5 +91,7 @@
   }
   .current-month {}
 
-  .has-events {}
+  .has-events {
+    background-color: #829ab1;
+  }
 }
