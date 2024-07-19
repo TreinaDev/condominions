@@ -5,3 +5,4 @@ pt-BR:
   alerts:    
     bill:
       lost_connection: 'Não foi possível conectar no servidor do PagueAluguel'
+      not_found: 'Fatura não encontrada'

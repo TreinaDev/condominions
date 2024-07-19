@@ -1,6 +1,6 @@
 class Bill
   attr_accessor :unit_id, :id, :condo_id, :issue_date, :due_date,
-                :total_value_cents, :status, :values, :denied, :description
+                :total_value_cents, :status, :values, :denied, :bill_details
 
   def initialize(params = {})
     @unit_id = params.fetch('unit_id', nil)
@@ -12,7 +12,7 @@ class Bill
     @status = params.fetch('status', nil)
     @values = params.fetch('values', [])
     @denied = params.fetch('denied', nil)
-    @description = params.fetch('description', [])
+    @bill_details = params.fetch('description', [])
   end
 
   def self.request_open_bills(unit_id)
@@ -27,7 +27,7 @@ class Bill
 
   def self.request_bill_details(bill_id)
     response = Faraday.get("http://localhost:4000/api/v1/bills/#{bill_id}")
-    return [] unless response.success?
+    return nil unless response.success?
 
     bill_data = JSON.parse(response.body)
     new(bill_data)

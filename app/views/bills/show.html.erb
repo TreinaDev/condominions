@@ -37,10 +37,10 @@
       </tr>
     </thead>
     <tbody>
-      <% @bill.description do |bill| %>
+      <% @bill.bill_details do |detail| %>
         <tr id="visitor-<%= visitor.id %>">
-          <td><%= bill.description %></td>
-          <td><%= bill.value %></td>
+          <td><%= detail.description %></td>
+          <td><%= detail.value %></td>
         </tr>
       <% end %>
     </tbody>
