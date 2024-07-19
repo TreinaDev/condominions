@@ -32,3 +32,4 @@ pt-BR:
       index: 'Listagem de Visitantes/Funcionários'
     bill:
       index: 'Lista de faturas'
+      show: 'Detalhes de fatura'

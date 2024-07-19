@@ -1,0 +1,12 @@
+{
+  "unit_id": 1,
+  "condo_id": 2,
+  "issue_date": "2024-07-01",
+  "due_date": "2024-07-28",
+  "total_value_cents": 1000,
+  "status": "pending",
+  "values": {
+    "base_fee_value_cents": 250,
+    "shared_fee_value_cents": 750
+  }
+}

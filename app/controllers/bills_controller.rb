@@ -1,11 +1,13 @@
 class BillsController < ApplicationController
-  before_action :authenticate_resident!, only: %i[index]
+  before_action :authenticate_resident!, only: %i[index show]
   before_action :unit_for_current_resident
   rescue_from Faraday::ConnectionFailed, with: :connection_refused
   before_action :request_open_bills_list
   before_action :set_breadcrumbs_for_index, only: %i[index]
 
   def index; end
+
+  def show; end
 
   private
 
