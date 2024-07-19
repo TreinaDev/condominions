@@ -16,4 +16,8 @@ class Reservation < ApplicationRecord
   def date_must_be_actual_or_future
     errors.add(:date, 'deve ser atual ou futura') if date&.past?
   end
+
+  def start_time
+    date
+  end
 end

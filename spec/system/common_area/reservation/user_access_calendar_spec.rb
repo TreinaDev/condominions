@@ -45,6 +45,26 @@ describe 'User access calendar' do
         expect(page).not_to have_button 'Cancelar'
       end
     end
+
+    it 'and does not see buttons to make reservations for past days' do
+      common_area = create :common_area
+      resident = create :resident, :with_residence, condo: common_area.condo
+
+      travel_to '05/07/2024' do
+        login_as resident, scope: :resident
+        visit common_area_path common_area
+      end
+
+      within('.table > tbody > tr:nth-child(1) > .wday-4') do
+        expect(page).not_to have_button 'Reservar'
+      end
+      within('.table > tbody > tr:nth-child(1) > .wday-5') do
+        expect(page).to have_button 'Reservar'
+      end
+      within('.table > tbody > tr:nth-child(1) > .wday-6') do
+        expect(page).to have_button 'Reservar'
+      end
+    end
   end
 
   context 'as a manager' do
@@ -70,6 +90,10 @@ describe 'User access calendar' do
       within('.table > tbody > tr:nth-child(2) > .wday-1') do
         expect(page).to have_content 'Reservado por João da Silva'
         expect(page).not_to have_button 'Cancelar'
+      end
+
+      within('.table > tbody') do
+        expect(page).not_to have_button 'Reservar'
       end
     end
   end
