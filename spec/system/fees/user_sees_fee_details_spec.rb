@@ -30,6 +30,20 @@ describe 'user access the show bill page' do
     end
 
     expect(page).to have_content 'Minha Fatura'
+    expect(page).to have_content 'Conta de Água'
+    expect(page).to have_content 'R$ 300,00'
+    expect(page).to have_content 'Conta de Luz'
+    expect(page).to have_content 'R$ 100,00'
+    expect(page).to have_content 'Taxa de Condomínio'
+    expect(page).to have_content 'R$ 100,00'
+    expect(page).to have_content 'Taxa de Manutenção'
+    expect(page).to have_content 'R$ 111,00'
+    expect(page).to have_content 'Multa por barulho'
+    expect(page).to have_content 'R$ 111,00'
+    expect(page).to have_content 'Acordo entre proprietário e morador'
+    expect(page).to have_content 'R$ 333,00'
+    expect(page).to have_content 'Total'
+    expect(page).to have_content 'R$ 2255,00'
   end
 
   it "and there's no data for bill" do

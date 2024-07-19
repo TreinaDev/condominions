@@ -12,7 +12,7 @@ class Bill
     @status = params.fetch('status', nil)
     @values = params.fetch('values', [])
     @denied = params.fetch('denied', nil)
-    @bill_details = params.fetch('description', [])
+    @bill_details = params.fetch('bill_details', [])
   end
 
   def self.request_open_bills(unit_id)
@@ -35,6 +35,10 @@ class Bill
 
   def total_value_formatted
     "R$ #{format('%.2f', total_value_cents / 100.0).gsub('.', ',')}"
+  end
+
+  def self.format_value(value)
+    "R$ #{format('%.2f', value / 100.0).gsub('.', ',')}"
   end
 
   def due_date_formatted

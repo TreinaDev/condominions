@@ -37,12 +37,16 @@
       </tr>
     </thead>
     <tbody>
-      <% @bill.bill_details do |detail| %>
-        <tr id="visitor-<%= visitor.id %>">
-          <td><%= detail.description %></td>
-          <td><%= detail.value %></td>
+      <% @bill.bill_details.each do |detail| %>
+        <tr>
+          <td><%= detail['description'] %></td>
+          <td><%= Bill.format_value detail['value_cents'] %></td>
         </tr>
       <% end %>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td><strong><%= @bill.total_value_formatted %></strong></td>
+      </tr>
     </tbody>
   </table>
 </section>
