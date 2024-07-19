@@ -20,9 +20,11 @@ pt-BR:
       visitor: Visitante
     attributes:
       visitor:
+        visit_date_query: 'Data Autorizada'
         full_name: 'Nome Completo'
         identity_number: 'RG'
-        
+        visitor_name: 'Nome do Visitante'
+        resident_name: 'Nome do Morador'
         visit_date: 'Data da Visita'
         category: 'Categoria'
         categories:

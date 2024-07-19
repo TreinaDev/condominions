@@ -1,6 +1,6 @@
 class VisitorsController < ApplicationController
   before_action :set_resident, only: %i[index new create]
-  before_action :set_condo, only: %i[find]
+  before_action :set_condo, only: %i[find all]
   before_action :set_visitor, only: %i[confirm_entry]
   before_action :authenticate_resident!, only: %i[index new create]
   before_action :set_breadcrumbs_for_action, only: %i[index new create find]
@@ -18,6 +18,20 @@ class VisitorsController < ApplicationController
     end
 
     @visitors = @condo.expected_visitors(@date)
+  end
+
+  def all
+    return @visitors = @condo.visitors if check_empty_params
+
+    query_params = params.permit(:identity_number, :visitor_name, :resident_name, :visit_date)
+    @result = []
+    query_params.each do |key, value|
+      key = 'full_name' if key == 'visitor_name'
+
+      @result << find_visitors(key, value) if value.present?
+    end
+
+    @visitors = @result.reduce(:&)
   end
 
   def confirm_entry
@@ -113,5 +127,16 @@ class VisitorsController < ApplicationController
 
   def find_condo
     @condo.nil? ? @visitor.condo : @condo
+  end
+
+  def check_empty_params
+    params[:identity_number].blank? && params[:visitor_name].blank? &&
+      params[:visit_date].blank? && params[:resident_name].blank?
+  end
+
+  def find_visitors(key, value)
+    return @condo.search_visitors_by_resident_name(value) if key == 'resident_name'
+
+    @condo.search_visitors_by_params(key, value)
   end
 end

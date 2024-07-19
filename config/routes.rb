@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
     resources :visitors do
       get 'find', on: :collection
+      get 'all', on: :collection
     end
 
     resources :towers, only: [:new, :create] do

@@ -55,6 +55,14 @@ class Condo < ApplicationRecord
     visitors.where(visit_date: date)
   end
 
+  def search_visitors_by_resident_name(resident_name)
+    visitors.joins(:resident).where('residents.full_name LIKE ?', "%#{resident_name}%")
+  end
+
+  def search_visitors_by_params(key, value)
+    visitors.where("#{key} LIKE ?", "%#{value}%")
+  end
+
   private
 
   def ordered_units
