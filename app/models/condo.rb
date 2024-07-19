@@ -23,6 +23,14 @@ class Condo < ApplicationRecord
     (tenants + owners).uniq
   end
 
+  def filtered_not_tenants
+    (tenants.not_tenant + owners.not_tenant).uniq
+  end
+
+  def filtered_not_owners
+    (tenants.not_owner + owners.not_owner).uniq
+  end
+
   def full_address
     <<~HEREDOC.strip
       #{address.public_place}, #{address.number}, #{address.neighborhood} - \

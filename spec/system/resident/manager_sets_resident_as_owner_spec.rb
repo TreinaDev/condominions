@@ -13,12 +13,12 @@ describe 'managers access page to set a resident as owner' do
     manager = create :manager
     create :condo, name: 'Condominio Errado'
     condo = create :condo, name: 'Condominio Certo'
-    create :tower, 'condo' => condo, name: 'Torre errada'
+    tower = create :tower, 'condo' => condo, name: 'Torre errada'
     create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
+    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva',
+                                             properties: [tower.floors[0].units[1]]
 
     login_as manager, scope: :manager
-
     visit root_path
     click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
              'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
@@ -44,9 +44,7 @@ describe 'managers access page to set a resident as owner' do
 
     login_as manager, scope: :manager
 
-    visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
-             'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
+    visit new_resident_owner_path resident
 
     click_on 'Finalizar Cadastro'
 
@@ -86,10 +84,7 @@ describe 'managers access page to set a resident as owner' do
     resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
     login_as manager, scope: :manager
 
-    visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
-             'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
-
+    visit new_resident_owner_path resident
     click_on 'Adicionar Propriedade'
 
     expect(current_path).to eq new_resident_owner_path(resident)
@@ -104,11 +99,7 @@ describe 'managers access page to set a resident as owner' do
 
     login_as manager, scope: :manager
 
-    visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
-             'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
-    select 'Condominio Certo', from: 'Condomínio'
-    sleep 3
+    visit new_resident_owner_path resident
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
     select '2', from: 'Unidade'
@@ -138,9 +129,7 @@ describe 'managers access page to set a resident as owner' do
     resident = create :resident, :not_owner, full_name: 'Sandra Soares'
 
     login_as manager, scope: :manager
-    visit root_path
-    click_on 'Cadastro de Sandra Soares incompleto, por favor, ' \
-             'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
+    visit new_resident_owner_path resident
     select 'Condominio Certo', from: 'Condomínio'
     sleep 2
     select 'Torre correta', from: 'Torre'

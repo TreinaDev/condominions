@@ -17,6 +17,7 @@ describe 'managers sets resident as tenant' do
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
     resident.properties << tower.floors[0].units[1]
+    resident.save
 
     mail = double 'mail', deliver: true
     mailer_double = double 'ResidentMailer', notify_new_resident: mail
@@ -55,7 +56,6 @@ describe 'managers sets resident as tenant' do
     resident.properties << tower.floors[0].units[1]
 
     login_as manager, scope: :manager
-
     visit root_path
     click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
              'indique a sua residência ou se não reside no condomínio.'
@@ -82,11 +82,7 @@ describe 'managers sets resident as tenant' do
     resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager
-
-    visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
-             'indique a sua residência ou se não reside no condomínio.'
-
+    visit new_resident_tenant_path resident
     click_on 'Não reside neste condomínio'
 
     expect(page).to have_content 'É necessário vincular uma moradia ou propriedade ao morador'
@@ -97,16 +93,10 @@ describe 'managers sets resident as tenant' do
 
   it "and there's on unit selected (fail)" do
     manager = create :manager
-    create :condo, name: 'Condominio Errado'
-
     resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager
-
-    visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
-             'indique a sua residência ou se não reside no condomínio.'
-
+    visit new_resident_tenant_path resident
     click_on 'Atualizar Morador'
 
     expect(current_path).to eq new_resident_tenant_path resident
@@ -122,7 +112,7 @@ describe 'managers sets resident as tenant' do
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     unit11 = tower.floors[0].units[0]
     create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', residence: unit11, email: 'Adroaldo@email.com'
-    resident = create :resident, :not_tenant, full_name: 'Sandra Soares'
+    resident = create :resident, :not_tenant, full_name: 'Sandra Soares', properties: [unit11]
 
     login_as manager, scope: :manager
     visit root_path
@@ -142,8 +132,9 @@ describe 'managers sets resident as tenant' do
   it 'and the specified unit do not have owner' do
     manager = create :manager
     condo = create :condo, name: 'Condominio Certo'
-    create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva', email: 'Adroaldo@email.com'
+    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
+    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
+    resident.properties << tower.floors[0].units[1]
 
     login_as manager, scope: :manager
     visit root_path
@@ -151,8 +142,8 @@ describe 'managers sets resident as tenant' do
              'indique a sua residência ou se não reside no condomínio.'
     select 'Condominio Certo', from: 'Condomínio'
     select 'Torre correta', from: 'Torre'
-    select '1', from: 'Andar'
-    select '1', from: 'Unidade'
+    select '2', from: 'Andar'
+    select '2', from: 'Unidade'
     click_on 'Atualizar Morador'
 
     expect(current_path).to eq new_resident_tenant_path resident
@@ -164,19 +155,15 @@ describe 'managers sets resident as tenant' do
     create :condo, name: 'Condominio Errado'
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
+    create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva'
-    resident.properties << tower.floors[0].units[1]
-    resident.residence = tower.floors[0].units[1]
 
     login_as manager, scope: :manager
-
     visit new_resident_tenant_path resident
-
     click_on 'Não reside neste condomínio'
 
-    expect(current_path).to eq resident_path resident
     expect(page).to have_content 'Atualizado com sucesso!'
+    expect(current_path).to eq resident_path resident
     resident.reload
     expect(resident.residence).to eq nil
   end

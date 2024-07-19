@@ -40,7 +40,7 @@ class TenantsController < ResidentsController
       render 'new', status: :unprocessable_entity
       return
     end
-    return if unit && authorize_condo_manager!(unit.condo)
+    return if unit && authorize_condo_manager(unit.condo)
 
     return @resident.update residence: unit unless params[:commit] == 'Não reside neste condomínio'
 

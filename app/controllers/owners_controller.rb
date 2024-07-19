@@ -23,7 +23,7 @@ class OwnersController < ResidentsController
 
   def destroy
     unit = Unit.find params[:id]
-    return if authorize_condo_manager!(unit.condo)
+    return if authorize_condo_manager(unit.condo)
 
     unit.update(owner: nil)
     redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
@@ -60,6 +60,6 @@ class OwnersController < ResidentsController
   end
 
   def any_redirect?(unit)
-    inexistent_unit(unit) || authorize_condo_manager!(unit.condo)
+    inexistent_unit(unit) || authorize_condo_manager(unit.condo)
   end
 end

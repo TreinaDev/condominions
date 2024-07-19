@@ -13,6 +13,12 @@ class Resident < ApplicationRecord
 
   enum status: { not_owner: 0, not_tenant: 1, mail_not_confirmed: 2, mail_confirmed: 3 }
 
+  def condos
+    units = properties.any? ? properties.clone : []
+    units << residence if residence
+    units.map(&:condo).uniq
+  end
+
   def todays_visitors
     visitors.where(visit_date: Date.current)
   end
