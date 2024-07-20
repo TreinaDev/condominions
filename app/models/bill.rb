@@ -1,6 +1,6 @@
 class Bill
-  attr_accessor :unit_id, :id, :condo_id, :issue_date, :due_date,
-                :total_value_cents, :status, :values, :denied, :bill_details
+  attr_reader :unit_id, :id, :condo_id, :issue_date, :due_date,
+              :total_value_cents, :status, :values, :denied, :bill_details
 
   def initialize(params = {})
     @unit_id = params.fetch('unit_id', nil)
