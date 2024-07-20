@@ -26,7 +26,14 @@ pt-BR:
       new: 'Adicionar Propriedade'
     tenant:
       new: 'Adicionar Moradia'
+    visitor_entry:
+      new: 'Cadastrar Entrada de Visitante'
+      index: 'Listagem de Entradas de Visitantes'
     visitor:
       new: 'Cadastrar Visitante/Funcionário'
       create: 'Cadastrar Visitante/Funcionário'
       index: 'Listagem de Visitantes/Funcionários'
+      find: 'Agenda de Visitantes/Funcionários'
+    bill:
+      index: 'Lista de faturas'
+      show: 'Detalhes de fatura'

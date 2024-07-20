@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_16_185242) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_18_231004) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -185,6 +185,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_16_185242) do
     t.integer "resident_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "condo_id", null: false
+    t.integer "status", default: 0
+    t.index ["condo_id"], name: "index_visitors_on_condo_id"
     t.index ["resident_id"], name: "index_visitors_on_resident_id"
   end
 
@@ -205,5 +208,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_16_185242) do
   add_foreign_key "units", "unit_types"
   add_foreign_key "visitor_entries", "condos"
   add_foreign_key "visitor_entries", "units"
+  add_foreign_key "visitors", "condos"
   add_foreign_key "visitors", "residents"
 end

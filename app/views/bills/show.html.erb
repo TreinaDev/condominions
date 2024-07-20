@@ -1,0 +1,55 @@
+<section class="bg-white rounded-5 py-4 px-5 shadow">
+  <h1 class="mb-3">Minha Fatura</h1>
+
+  <div class="mt-4 text-muted small">
+    <p><strong>Unidade:</strong> <%= @unit.short_identifier %></p>
+    <p><strong>Condomínio:</strong> <%= @unit.condo.name %></p>
+  </div>
+
+  <div class="d-flex justify-content-center">
+      <div class="card mt-4 border border-primary shadow-lg w-25">
+        <div class="card-body d-flex flex-column align-items-center">
+          <p class="fs-3"><strong>Valor:</strong> <%= @bill.total_value_formatted %></p>
+          <strong>Vencimento:</strong> <%= @bill.due_date_formatted %>
+          <strong>Lançamento:</strong> <%= @bill.issue_date_formatted %>
+          <div>
+            <% case @bill.status %>
+            <% when 'pending' %>
+              <% if @bill.denied %>
+                <span class="badge rounded-pill text-bg-danger">Negada</span>
+              <% else %>
+                <span class="badge rounded-pill text-bg-warning">Não paga</span>
+              <% end %>
+            <% when 'awaiting' %>
+              <span class="badge rounded-pill text-bg-info">Em análise</span>
+            <% when 'paid' %>
+              <span class="badge rounded-pill text-bg-success">Paga</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <h2 class="mb-3">Detalhamento</h2>
+
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Descrição</th>
+        <th scope="col">Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @bill.bill_details.each do |detail| %>
+        <tr>
+          <td><%= detail['description'] %></td>
+          <td><%= Bill.format_value detail['value_cents'] %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td><strong><%= @bill.total_value_formatted %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+</section>

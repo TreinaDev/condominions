@@ -3,7 +3,7 @@ class UnitTypesController < ApplicationController
   before_action :set_condo, only: %i[new create]
   before_action :authenticate_manager!
   before_action :set_condo_for_details, only: %i[show edit update]
-  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show new create edit update]
+  before_action -> { authorize_condo_manager(@condo) }, only: %i[show new create edit update]
   before_action :set_breadcrumb_for_details, only: %i[show edit update]
   before_action :set_breadcrumb_for_register, only: %i[new create]
 

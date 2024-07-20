@@ -1,0 +1,55 @@
+<section class="bg-white rounded-5 py-4 px-5 shadow">
+  <div class="d-flex mb-5 justify-content-between">
+    <h1>Agenda de visitantes/funcionários</h1>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-3 d-flex justify-content-end">
+      <% unless @date == Time.zone.today %>
+        <%= link_to find_condo_visitors_path(@condo, date: @date - 1.day), class:"btn btn-dark rounded-pill d-inline-flex align-items-center mb-2 px-4 shadow-sm" do %>
+            <i class="bi bi-caret-left-fill mb-1 me-2"></i>
+            Dia Anterior
+        <% end %>
+      <% end %>
+    </div>
+    <h2 class="col-5 text-center"><%= I18n.l(@date, format: :long) %></h2>
+    <div class="col-3">
+      <%= link_to find_condo_visitors_path(@condo, date: @date + 1.day), class:"btn btn-dark rounded-pill d-inline-flex align-items-center mb-2 px-4 shadow-sm" do %>
+          Dia Seguinte
+          <i class="bi bi-caret-right-fill mb-1 ms-2"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover table-sm align-middle ">
+      <thead>
+        <tr>
+          <th scope="col" class="col-4">Nome Completo</th>
+          <th scope="col" class="col-1">RG</th>
+          <th scope="col" class="col-4">Responsavel</th>
+          <th scope="col" class="col-1">Unidade</th>
+          <th scope="col" class="col-2">Confirmar Entrada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @visitors.each do |visitor| %>
+          <tr id="visitor-<%= visitor.id %>">
+            <td><%= visitor.full_name %></td>
+            <td class="fw-bold"><%= visitor.identity_number %></td>
+            <td><%= visitor.resident.full_name %></td>
+            <td><%= visitor.resident.residence.tower_identifier %></td>
+            <td>
+              <% if visitor.pending? %>
+                <%= button_to confirm_entry_visitor_path(visitor), method: :post, data: { turbo_confirm: 'Deseja registrar a entrada desse visitante?'}, class: "confirm btn btn-sm btn-light border-dark rounded-pill align-items-center justify-content-center m-0 p-0 px-6 shadow-sm" do %>
+                  <i class="bi bi-check2-circle mb-1 pt-0 fs-6"></i>
+                <% end %>
+              <% else %>
+                <span class="badge bg-success py-2 rounded-pill">Entrada Confirmada</span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

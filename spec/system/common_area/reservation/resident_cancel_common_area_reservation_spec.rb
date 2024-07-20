@@ -16,7 +16,7 @@ describe 'Resident cancel common area reservation' do
       visit common_area_path common_area
 
       within('.table > tbody > tr:nth-child(1) > .wday-5') do
-        click_on 'Cancelar'
+        accept_confirm { click_on 'Cancelar' }
         reservation.reload
 
         expect(page).not_to have_content 'Reservado'

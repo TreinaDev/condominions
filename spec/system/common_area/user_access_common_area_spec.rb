@@ -1,15 +1,15 @@
 require 'rails_helper'
 
 describe 'User access common area details' do
+  it 'only if authenticated' do
+    common_area = create :common_area
+
+    visit common_area_path common_area
+
+    expect(current_path).to eq signup_choice_path
+  end
+
   context 'as a manager' do
-    it 'only if authenticated' do
-      common_area = create :common_area
-
-      visit common_area_path common_area
-
-      expect(current_path).to eq signup_choice_path
-    end
-
     it 'from the condo details page' do
       condo = create :condo
       condo_manager = create :manager, is_super: false
