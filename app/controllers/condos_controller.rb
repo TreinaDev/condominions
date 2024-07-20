@@ -94,7 +94,7 @@ class CondosController < ApplicationController
   end
 
   def announcements_for_dashboard
-    @announcements = @condo.three_more_recent_announcements
+    @announcements = @condo.three_most_recent_announcements
     @more_than_3_announcements = @condo.more_than_3_announcements
   end
 end

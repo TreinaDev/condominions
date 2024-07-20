@@ -19,7 +19,7 @@ describe 'Manager edits announcement' do
     fill_in_trix_editor 'announcement_message', with: 'Todos os moradores devem fazer silêncio.'
     click_on 'Salvar'
 
-    expect(current_path).to eq announcement_path announcement
+    expect(page).to have_current_path announcement_path announcement
     expect(page).to have_content 'Aviso Importante'
     expect(page).to have_content 'Todos os moradores devem fazer silêncio.'
     expect(page).to have_content 'Aviso atualizado com sucesso'

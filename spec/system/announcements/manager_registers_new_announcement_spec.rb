@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Manager registers announcement' do
-  it 'must be authenticated' do
+  it 'and must be authenticated' do
     condo = create :condo
     visit new_condo_announcement_path condo
 
@@ -22,7 +22,7 @@ describe 'Manager registers announcement' do
     find('#announcement_message').click.set('Todos os moradores devem fazer silêncio.')
     click_on 'Salvar'
 
-    expect(current_path).to eq condo_path condo
+    expect(page).to have_current_path condo_path condo
     expect(page).to have_content 'Aviso criado com sucesso'
 
     within '#announcement_board' do

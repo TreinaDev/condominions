@@ -29,6 +29,7 @@ pt-BR:
     announcement:
       index: 'Avisos'
       new: 'Novo Aviso'
+      create: 'Novo Aviso'
       edit: 'Editar Aviso'
     visitor_entry:
       new: 'Cadastrar Entrada de Visitante'

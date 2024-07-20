@@ -64,7 +64,7 @@ class Condo < ApplicationRecord
     visitors.where(visit_date: date)
   end
 
-  def three_more_recent_announcements
+  def three_most_recent_announcements
     announcements.order(updated_at: :desc).limit(3)
   end
 

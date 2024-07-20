@@ -9,8 +9,8 @@
 
   <div class="mt-4 text-muted small">
     <p><strong>Autor:</strong> <%= @announcement.manager.full_name %></p>
-    <p><strong>Criado em:</strong> <%= @announcement.created_at.strftime('%d/%m/%Y %H:%M') %></p>
-    <p><strong>Atualizado em:</strong> <%= @announcement.updated_at.strftime('%d/%m/%Y %H:%M') %></p>
+    <p><strong>Criado em:</strong> <%= I18n.l(@announcement.created_at, format: :custom) %></p>
+    <p><strong>Atualizado em:</strong> <%= I18n.l(@announcement.updated_at, format: :custom) %></p>
   </div>
 
   <div class="d-flex justify-content-center mt-4">

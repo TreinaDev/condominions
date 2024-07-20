@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Manager deletes announcement' do
-  it 'and delete an announcement' do
+  it 'successfully' do
     manager = create :manager, full_name: 'Rodrigo Silva', is_super: false
     condo = create :condo
     condo.managers << manager

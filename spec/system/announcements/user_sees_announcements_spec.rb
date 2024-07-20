@@ -20,19 +20,19 @@ describe 'User sees announcements' do
     expect(current_path).to eq condo_announcements_path condo
     expect(page).to have_content 'Reunião de condomínio'
     expect(page).to have_content 'Rodrigo Silva'
-    expect(page).to have_content first_announcement.updated_at.strftime('%d/%m/%Y %H:%M')
+    expect(page).to have_content I18n.l(first_announcement.updated_at, format: :custom)
 
     expect(page).to have_content 'Manutenção do elevador'
     expect(page).to have_content 'Rodrigo Silva'
-    expect(page).to have_content second_announcement.updated_at.strftime('%d/%m/%Y %H:%M')
+    expect(page).to have_content I18n.l(second_announcement.updated_at, format: :custom)
 
     expect(page).to have_content 'Limpeza de fachada'
     expect(page).to have_content 'Joaquina Rodrigues'
-    expect(page).to have_content third_announcement.updated_at.strftime('%d/%m/%Y %H:%M')
+    expect(page).to have_content I18n.l(third_announcement.updated_at, format: :custom)
 
     expect(page).to have_content 'Horário de coleta de lixo'
     expect(page).to have_content 'Joaquina Rodrigues'
-    expect(page).to have_content fourth_announcement.updated_at.strftime('%d/%m/%Y %H:%M')
+    expect(page).to have_content I18n.l(fourth_announcement.updated_at, format: :custom)
   end
 
   it 'and see the details of an announcement from announcement board' do
