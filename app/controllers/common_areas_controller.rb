@@ -9,9 +9,7 @@ class CommonAreasController < ApplicationController
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
 
   def show
-    return @reservations = @common_area.reservations if manager_signed_in? || resident_signed_in?
-
-    redirect_to root_path, notice: I18n.t('alerts.common_area.not_allowed')
+    @reservations = @common_area.reservations if authorize_user(@common_area.condo)
   end
 
   def new

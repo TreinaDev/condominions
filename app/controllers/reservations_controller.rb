@@ -14,15 +14,16 @@ class ReservationsController < ApplicationController
   end
 
   def canceled
-    if Time.zone.today < @reservation.date
-      @reservation.canceled!
-      return redirect_to @common_area, notice: t('notices.reservation.canceled')
-    end
+    return redirect_to @common_area, notice: t('notices.reservation.canceled') if cancel_reservation
 
     redirect_to @common_area, alert: t('alerts.reservation.cancelation_failed')
   end
 
   private
+
+  def cancel_reservation
+    Time.zone.today < @reservation.date && @reservation.canceled!
+  end
 
   def authenticate_resident!
     @residents = @common_area.condo.residents
