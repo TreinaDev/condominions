@@ -4,6 +4,10 @@ body {
 
 // Colors
 
+.bg-light-gray {
+  background-color: #ececec;
+}
+
 .bg-light-yellow {
   background-color: #FDE879;
 }
@@ -15,7 +19,6 @@ body {
 .bg-medium-blue {
   background-color: #4c677f;
 }
-
 
 // Images
 .user-image-200 {
@@ -31,12 +34,36 @@ body {
 }
 
 // layout
+.opc-9 {
+  opacity: 0.9;
+}
+
+.mt-20p {
+  margin-top: 20%;
+}
+
+.w-100vw {
+  width: 100vw
+}
+
 .h-150px {
   height: 150px;
 }
 
+.max-h-300px {
+  max-height: 300px;
+}
+
+.max-w-auto {
+  max-width: auto;
+}
+
 .m-0auto {
   margin: 0 auto;
+}
+
+.w-fit {
+  width: fit-content;
 }
 
 // Text
