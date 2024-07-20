@@ -1,0 +1,80 @@
+body {
+  margin-bottom: 4rem;
+}
+
+// Colors
+
+.bg-light-gray {
+  background-color: #ececec;
+}
+
+.bg-light-yellow {
+  background-color: #FDE879;
+}
+
+.bg-medium-blue-lighter {
+  background-color: #577998;
+}
+
+.bg-medium-blue {
+  background-color: #4c677f;
+}
+
+// Images
+.user-image-200 {
+  width: 200px;
+  height: 200px;
+  border-radius: 20%;
+}
+
+.nav-profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+// layout
+.opc-9 {
+  opacity: 0.9;
+}
+
+.mt-20p {
+  margin-top: 20%;
+}
+
+.w-100vw {
+  width: 100vw
+}
+
+.h-150px {
+  height: 150px;
+}
+
+.max-h-300px {
+  max-height: 300px;
+}
+
+.max-w-auto {
+  max-width: auto;
+}
+
+.m-0auto {
+  margin: 0 auto;
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+// Text
+.fw-600 {
+  font-weight: 600;
+}
+
+.fs-sm{
+  font-size: small;
+}
+
+.td-none {
+  text-decoration: none;
+}

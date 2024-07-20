@@ -1,8 +1,6 @@
-@import 'custom_spacers';
+@import 'custom';
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'simple_calendar';
+@import 'style.scss';
 
-body {
-  margin-bottom: 4rem;
-}

@@ -1,6 +1,6 @@
 <div class="accordion-item rounded-5 shadow-sm">
   <h2 class="accordion-header">
-    <button class="accordion-button collapsed rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#bills" aria-expanded="false" aria-controls="collapseOne">
+    <button class="accordion-button collapsed rounded-pill py-3 bg-light-yellow" type="button" data-bs-toggle="collapse" data-bs-target="#bills" aria-expanded="false" aria-controls="collapseOne">
       <strong class="position-absolute top-50 start-50 translate-middle text-black">Faturas em Aberto</strong>
     </button>
   </h2>
@@ -20,14 +20,14 @@
               <div class="text-muted small">Vencimento: <%= bill.due_date_formatted %></div>
             </div>
             <%= link_to bill_path(bill.id), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill" do %>
-              <p style="margin: 0; font-size: 14px;">Detalhes</p> <i class="bi bi-search ms-1"></i>
+              <p class="m-0 fs-sm">Detalhes</p> <i class="bi bi-search ms-1"></i>
             <% end %>
           </div>
           <hr class="m-0">
         <% end %>
         <% if @bills.count > 3 %>
           <div class='d-flex'>
-            <%= link_to bills_path, class:"btn py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 w-25 fs-6 text-muted small", style: "width: 100%;" do %>
+            <%= link_to bills_path, class:"btn py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 w-25 fs-6 text-muted small w-100" do %>
               <strong>ver mais</strong>
             <% end %>
           </div>
