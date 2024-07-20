@@ -67,12 +67,6 @@ class CondosController < ApplicationController
 
   private
 
-  def authenticate_manager!
-    return redirect_to root_path if resident_signed_in?
-
-    super
-  end
-
   def set_breadcrumbs_for_details
     add_breadcrumb @condo.name.to_s, condo_path(@condo)
   end

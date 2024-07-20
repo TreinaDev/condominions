@@ -8,6 +8,7 @@ pt-BR:
       not_created: 'Não foi possível cadastrar área comum'
       not_updated: 'Não foi possível atualizar área comum'
       not_allowed: 'Você deve estar autenticado para continuar'
+      not_authorized: 'Você não tem permissão para fazer isso.'
   activerecord:
     models:
       common_area:

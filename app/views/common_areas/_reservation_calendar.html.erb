@@ -1,0 +1,30 @@
+<%= month_calendar(events: @common_area.reservations.confirmed) do |date, reservations| %>
+  <strong><%= date.day %></strong>
+  
+  <% if reservations.any? %>
+    <% reservations.each do |reservation| %>
+      <% if reservation.date == date %>
+        <% if reservation.resident == current_resident || manager_signed_in? %>
+          <div class="card text-center">
+            <div class="card-body">
+              <p class="card-text">Reservado por <%= reservation.resident.full_name %></p>
+              <% if reservation.date >= Date.current %>
+                <%= button_to 'Cancelar', canceled_reservation_path(reservation), data: { turbo_confirm: 'Você tem certeza que deseja cancelar a reserva?' }, class: 'btn btn-warning btn-sm rounded-pill' unless manager_signed_in? %>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <div class="card text-center">
+            <div class="card-body">
+              <p class="card-text">Reservado</p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% if date >= Date.current %>
+      <%= button_to 'Reservar', common_area_reservations_path(@common_area, date: date), data: { turbo_confirm: "Você tem certeza que deseja reservar o dia #{I18n.l(date)}?" }, class: 'btn btn-dark btn-sm rounded-pill mt-2' unless manager_signed_in? %>
+    <% end %>
+  <% end %>
+<% end %>

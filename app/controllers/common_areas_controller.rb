@@ -4,6 +4,7 @@ class CommonAreasController < ApplicationController
   before_action :set_common_area, only: %i[show edit update]
   before_action :set_condo_for_details, only: %i[show edit update]
   before_action -> { authorize_condo_manager!(@condo) }, only: %i[show new create edit update]
+  before_action :authorize_user, only: %i[show]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
 
@@ -41,7 +42,32 @@ class CommonAreasController < ApplicationController
     end
   end
 
+  def authenticate_resident!
+    @common_area = CommonArea.find(params[:id])
+
+    if resident_signed_in? && !@common_area.access_allowed?(current_resident)
+      return redirect_to root_path,
+                         alert: t('alerts.reservation.not_authorized')
+    end
+
+    super
+  end
+
   private
+
+  def authorize_user
+    return if !authenticate_user || super_manager? || condo_manager?(@common_area.condo) || condo_resident?
+
+    redirect_to root_path, alert: t('alerts.reservation.not_authorized')
+  end
+
+  def condo_resident?
+    resident_signed_in? && @common_area.condo == current_resident.residence.condo
+  end
+
+  def set_reservation
+    @reservation = Reservation.find params[:id]
+  end
 
   def set_condo_for_details
     @condo = @common_area.condo

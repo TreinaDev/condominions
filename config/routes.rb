@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   end
 
   resources :common_areas, only: [:show, :edit, :update] do
-    resources :reservations, only: [:new, :create, :update]
+    resources :reservations, only: [:create, :update]
   end
 
   resources :reservations, only: [:show] do

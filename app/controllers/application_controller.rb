@@ -31,6 +31,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authenticate_user
+    return true if manager_signed_in? || resident_signed_in?
+
+    redirect_to signup_choice_path
+    false
+  end
+
+  def super_manager?
+    manager_signed_in? && current_manager.is_super
+  end
+
+  def condo_manager?(condo)
+    manager_signed_in? && current_manager.condos.include?(condo)
+  end
+
   def block_manager_from_resident_sign_in
     redirect_to root_path if manager_signed_in? && request.path == new_resident_session_path
   end
