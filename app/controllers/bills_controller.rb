@@ -10,7 +10,21 @@ class BillsController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new
+    @bill_id = params[:bill_id]
+  end
+
+  def create
+    image = params[:image]
+    id = params[:id]
+
+    filename = image.original_filename
+    tempfile = image.tempfile
+
+    puts filename
+    puts tempfile
+
+  end
 
   private
 
@@ -24,7 +38,7 @@ class BillsController < ApplicationController
 
   def request_bill_details
     @bill_id = params[:id]
-    @bill = Bill.request_bill_details(@bill_id)
+    @bill = Bill.request_bill_details(params[:id])
 
     redirect_to bills_path, alert: t('alerts.bill.not_found') unless @bill
   end

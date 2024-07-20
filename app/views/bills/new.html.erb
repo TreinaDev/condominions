@@ -1,7 +1,7 @@
 <div class='bg-white rounded-5 py-3 px-5 shadow'>
   <h1>Comprovante de Pagamento</h1>
 
-  <%= form_with url: bills_path, local: true, multipart: true do |f| %>
+  <%= form_with url: bill_bills_path(@bill_id), local: true, multipart: true do |f| %>
     <div class="form-row row p-2">
       <div class="form-group col-md-6 pe-3 mb-2">
         <%= f.label :image, "Comprovante" %>
