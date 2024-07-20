@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'resident visit the details view from bill' do
-  it 'and see a button to send receipt' do
+  it 'and click a button to send receipt' do
     condo = create :condo
     resident = create(:resident, :with_residence, condo:)
     first_bill_id_from_five_json = 11
@@ -12,7 +12,10 @@ describe 'resident visit the details view from bill' do
     login_as resident, scope: :resident
     visit bill_path first_bill_id_from_five_json
 
-    expect(page).to have_content 'Enviar Comprovante'
+    click_on 'Enviar Comprovante'
+
+    expect(current_path).to eq new_bill_path
+    expect(page).to have_content 'Comprovante de Pagamento'
   end
 
   it "and do not see the send button if the bill isn't pending" do

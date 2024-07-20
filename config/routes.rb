@@ -38,7 +38,7 @@ Rails.application.routes.draw do
 
   resources :unit_types, only: [:show, :edit, :update]
 
-  resources :bills, only: [:index, :show]
+  resources :bills, only: [:index, :show, :new, :create]
 
   resources :condos, only: [:new, :create, :show, :edit, :update] do
     get 'residents', on: :member

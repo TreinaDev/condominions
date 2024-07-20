@@ -10,6 +10,8 @@ class BillsController < ApplicationController
 
   def show; end
 
+  def new; end
+
   private
 
   def unit_for_current_resident
