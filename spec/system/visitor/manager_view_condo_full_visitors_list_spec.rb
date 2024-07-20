@@ -70,7 +70,7 @@ describe 'Manager view condo full visitors list' do
       fill_in 'RG', with: '467'
       click_on 'Pesquisar'
 
-      expect(page).to have_content '2 resultados encontrados'
+      expect(page).to have_content '2 visitantes encontrados'
       within("#visitor-#{first_visitor.id}") do
         expect(page).to have_content 'João da Silva'
         expect(page).to have_content '12467'
@@ -106,7 +106,7 @@ describe 'Manager view condo full visitors list' do
       fill_in 'Nome do Visitante', with: 'João'
       click_on 'Pesquisar'
 
-      expect(page).to have_content '2 resultados encontrados'
+      expect(page).to have_content '2 visitantes encontrados'
       within("#visitor-#{first_visitor.id}") do
         expect(page).to have_content 'João da Silva'
         expect(page).to have_content '12467'
@@ -142,7 +142,7 @@ describe 'Manager view condo full visitors list' do
       fill_in 'Nome do Morador', with: 'Alberto'
       click_on 'Pesquisar'
 
-      expect(page).to have_content '2 resultados encontrados'
+      expect(page).to have_content '2 visitantes encontrados'
       within("#visitor-#{first_visitor.id}") do
         expect(page).to have_content 'João da Silva'
         expect(page).to have_content '12467'
@@ -179,7 +179,7 @@ describe 'Manager view condo full visitors list' do
       fill_in 'Data Autorizada', with: 2.days.from_now.to_date
       click_on 'Pesquisar'
 
-      expect(page).to have_content '2 resultados encontrados'
+      expect(page).to have_content '2 visitantes encontrados'
       within("#visitor-#{first_visitor.id}") do
         expect(page).to have_content 'João da Silva'
         expect(page).to have_content '12467'
@@ -198,6 +198,57 @@ describe 'Manager view condo full visitors list' do
         expect(page).to have_content 'Semanal'
       end
       expect(page).not_to have_content 'Marcos Lima'
+    end
+
+    it 'all filters' do
+      manager = create :manager
+      resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
+      condo = resident.residence.condo
+      first_visitor = create :visitor, condo:, resident:,
+                                       visit_date: 2.days.from_now, full_name: 'João da Silva', identity_number: '12467'
+      create :visitor, condo:, full_name: 'Bruna Lima'
+      create :visitor, condo:, full_name: 'Marcos Ferreira'
+
+      login_as manager, scope: :manager
+      visit all_condo_visitors_path condo
+      fill_in 'Nome do Visitante', with: 'João da Silva'
+      fill_in 'RG', with: '12467'
+      fill_in 'Nome do Morador', with: 'Alberto Silveira'
+      fill_in 'Data Autorizada', with: 2.days.from_now.to_date
+      click_on 'Pesquisar'
+
+      expect(page).to have_content '1 visitante encontrado'
+      within("#visitor-#{first_visitor.id}") do
+        expect(page).to have_content 'João da Silva'
+        expect(page).to have_content '12467'
+        expect(page).to have_content 'Visitante'
+        expect(page).to have_content 'Torre A - 11'
+        expect(page).to have_content 'Alberto Silveira'
+        expect(page).to have_content I18n.l(2.days.from_now.to_date)
+      end
+      expect(page).not_to have_content 'Bruna Lima'
+      expect(page).not_to have_content 'Marcos Ferreira'
+    end
+
+    it 'no filters' do
+      manager = create :manager
+      condo = create :condo
+      create :visitor, condo:, full_name: 'João da Silva'
+      create :visitor, condo:, full_name: 'Bruna Lima'
+      create :visitor, condo:, full_name: 'Marcos Ferreira'
+
+      login_as manager, scope: :manager
+      visit all_condo_visitors_path condo
+      fill_in 'Nome do Visitante', with: ''
+      fill_in 'RG', with: ''
+      fill_in 'Nome do Morador', with: ''
+      fill_in 'Data Autorizada', with: ''
+      click_on 'Pesquisar'
+
+      expect(page).to have_content 'João da Silva'
+      expect(page).to have_content 'Bruna Lima'
+      expect(page).to have_content 'Marcos Ferreira'
+      expect(page).not_to have_content '3 resultados encontrados'
     end
   end
 end

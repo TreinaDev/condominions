@@ -7,8 +7,7 @@ pt-BR:
       resident_block: 'Você não possui autorização para essa ação'
       not_allowed: 'Você não pode administrar visitantes para outra unidade além da sua'
       only_numbers_and_letters: 'só pode ter números e letras'
-      already_confirmed: 'Visitante já confirmado'
-      invalid_date: 'Só é possível confirmar visitantes do dia atual'
+      entry_denied: 'Essa entrada já foi confirmada antes ou não é referente ao dia de hoje'
       invalid_list_date: 'Não é possível acessar uma data passada'
   notice: 
     visitor:
@@ -17,7 +16,9 @@ pt-BR:
       entry_confirmed: 'Entrada do visitante registrada com sucesso.'
   activerecord:
     models:
-      visitor: Visitante
+      visitor:
+        one: 'Visitante'
+        other: 'Visitantes'
     attributes:
       visitor:
         visit_date_query: 'Data Autorizada'
@@ -26,6 +27,9 @@ pt-BR:
         visitor_name: 'Nome do Visitante'
         resident_name: 'Nome do Morador'
         visit_date: 'Data da Visita'
+        found:
+          one: 'Encontrado'
+          other: 'Encontrados'
         category: 'Categoria'
         categories:
           visitor: 'Visitante'

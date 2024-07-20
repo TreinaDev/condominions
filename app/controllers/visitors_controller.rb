@@ -35,7 +35,9 @@ class VisitorsController < ApplicationController
   end
 
   def confirm_entry
-    return redirect_to find_condo_visitors_path(@visitor.condo) unless check_visitor(@visitor)
+    unless @visitor.visit_date == Time.zone.today && @visitor.pending?
+      return redirect_to find_condo_visitors_path(@visitor.condo), alert: I18n.t('alerts.visitor.entry_denied')
+    end
 
     VisitorEntry.create(visitor_entry_params)
     @visitor.confirmed!
@@ -57,20 +59,6 @@ class VisitorsController < ApplicationController
   end
 
   private
-
-  def check_visitor(visitor)
-    if visitor.confirmed?
-      flash[:alert] = I18n.t('alerts.visitor.already_confirmed')
-      return false
-    end
-
-    unless visitor.visit_date == Time.zone.today
-      flash[:alert] = I18n.t('alerts.visitor.invalid_date')
-      return false
-    end
-
-    true
-  end
 
   def set_visit_date_job
     return unless @visitor.employee?
