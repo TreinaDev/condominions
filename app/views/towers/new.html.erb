@@ -1,5 +1,3 @@
-<%= render 'shared/errors', model: @tower %>
-
 <section class="bg-white rounded-5 py-4 px-5 shadow">
   <h1>Cadastrar Torre</h1>
   
@@ -7,19 +5,22 @@
     <div class="form-row p-2">
       <div class="form-group col-md-12 pe-3">
         <%= f.label :name %>
-        <%= f.text_field :name, class:"form-control" %>
+        <%= f.text_field :name, class: "form-control #{'is-invalid' if @tower.errors[:name].any?}" %>
+        <%= render("shared/errors", model: @tower, attribute: :name) if @tower.errors[:name].any? %>
       </div>
     </div>
     
     <div class="form-row d-flex p-2">
       <div class="form-group col-md-6 pe-3">
         <%= f.label :floor_quantity %>
-        <%= f.number_field :floor_quantity, class:"form-control", min: 1, step: 1 %>
+        <%= f.number_field :floor_quantity, class:"form-control #{'is-invalid' if @tower.errors[:floor_quantity].any?}", min: 1, step: 1 %>
+        <%= render("shared/errors", model: @tower, attribute: :floor_quantity) if @tower.errors[:floor_quantity].any? %>
       </div>
       
       <div class="form-group col-md-6 pe-3">
         <%= f.label :units_per_floor %>
-        <%= f.number_field :units_per_floor, class:"form-control", min: 1, step: 1 %>
+        <%= f.number_field :units_per_floor, class:"form-control #{'is-invalid' if @tower.errors[:units_per_floor].any?}", min: 1, step: 1 %>
+        <%= render("shared/errors", model: @tower, attribute: :units_per_floor) if @tower.errors[:units_per_floor].any? %>
       </div>
     </div>
 
