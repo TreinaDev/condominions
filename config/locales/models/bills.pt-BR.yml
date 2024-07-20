@@ -1,7 +1,4 @@
 pt-BR:
-  notices:
-    bill:
-      access: 'Servidor do PagueAluguel conectado com sucesso'
   alerts:    
     bill:
       lost_connection: 'Não foi possível conectar no servidor do PagueAluguel'
