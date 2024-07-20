@@ -2,7 +2,7 @@ pt-BR:
   alerts:
     visitor:
       not_created: 'Erro ao registrar visitante'
-      residence_registration_pending: 'Apenas moradores podem administrar visitantes'
+      residence_pending: 'Apenas moradores podem administrar visitantes'
       manager_block: 'Um administrador não pode administrar visitantes para uma unidade'
       resident_block: 'Você não possui autorização para essa ação'
       not_allowed: 'Você não pode administrar visitantes para outra unidade além da sua'
