@@ -145,7 +145,7 @@ describe 'Manager view condo visitors list' do
     visit find_condo_visitors_path condo
 
     expect(current_path).to eq root_path
-    expect(page).to have_content 'Você não possui autorização para essa ação'
+    expect(page).to have_content 'Você não tem permissão para fazer isso'
   end
 
   it 'and cannot be authenticated as a resident' do

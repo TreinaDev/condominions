@@ -5,7 +5,7 @@ class VisitorsController < ApplicationController
   before_action :authenticate_resident!, only: %i[index new create]
   before_action :set_breadcrumbs_for_action, only: %i[index new create find]
   before_action :authenticate_manager!, only: %i[find confirm_entry]
-  before_action -> { authorize_condo_manager!(find_condo) }, only: %i[find confirm_entry]
+  before_action -> { authorize_condo_manager(find_condo) }, only: %i[find confirm_entry]
 
   def index
     @visitors = @resident.visitors
@@ -13,8 +13,10 @@ class VisitorsController < ApplicationController
 
   def find
     @date = params[:date].present? ? params[:date].to_date : Time.zone.today
-    unless @date >= Time.zone.today
-      return redirect_to find_condo_visitors_path(@condo), alert: I18n.t('alerts.visitor.invalid_list_date')
+
+    if @date.past?
+      return redirect_to find_condo_visitors_path(@condo),
+                         alert: I18n.t('alerts.visitor.invalid_list_date')
     end
 
     @visitors = @condo.expected_visitors(@date)

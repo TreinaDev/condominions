@@ -31,7 +31,7 @@ describe 'Manager confirms visitor' do
       post confirm_entry_visitor_path(visitor)
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
       expect(visitor.reload.confirmed?).to eq false
     end
 
