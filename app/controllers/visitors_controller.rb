@@ -13,8 +13,10 @@ class VisitorsController < ApplicationController
 
   def find
     @date = params[:date].present? ? params[:date].to_date : Time.zone.today
-    unless @date >= Time.zone.today
-      return redirect_to find_condo_visitors_path(@condo), alert: I18n.t('alerts.visitor.invalid_list_date')
+
+    if @date.past?
+      return redirect_to find_condo_visitors_path(@condo),
+                         alert: I18n.t('alerts.visitor.invalid_list_date')
     end
 
     @visitors = @condo.expected_visitors(@date)
