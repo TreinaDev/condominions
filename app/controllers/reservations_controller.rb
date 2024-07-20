@@ -1,15 +1,9 @@
 class ReservationsController < ApplicationController
-  before_action :set_reservation, only: %i[show canceled]
-  before_action :set_common_area, only: %i[create]
-  before_action :block_manager_from_resident_sign_in, only: %i[create]
-  before_action :authenticate_resident!, only: %i[create]
-  before_action :authenticate_for_cancelation, only: [:canceled]
-  before_action :authorize_user, only: [:show]
-
-  def show
-    @common_area = @reservation.common_area
-    set_breadcrumbs
-  end
+  before_action :set_common_area, only: %i[create canceled]
+  before_action :set_reservation, only: :canceled
+  before_action :block_manager_from_resident_sign_in, only: :create
+  before_action :authenticate_resident!, only: :create
+  before_action :authenticate_for_cancelation, only: :canceled
 
   def create
     @reservation = Reservation.new date: params.require(:date),
@@ -22,17 +16,13 @@ class ReservationsController < ApplicationController
   def canceled
     if Time.zone.today < @reservation.date
       @reservation.canceled!
-      return redirect_to @reservation.common_area, notice: t('notices.reservation.canceled')
+      return redirect_to @common_area, notice: t('notices.reservation.canceled')
     end
 
-    redirect_to @reservation.common_area, alert: t('alerts.reservation.cancelation_failed')
+    redirect_to @common_area, alert: t('alerts.reservation.cancelation_failed')
   end
 
   private
-
-  def set_common_area
-    @common_area = CommonArea.find params[:common_area_id]
-  end
 
   def authenticate_resident!
     @residents = @common_area.condo.residents
@@ -51,16 +41,7 @@ class ReservationsController < ApplicationController
                          alert: t('alerts.reservation.access_denied')
     end
 
-    return unless manager_signed_in? || (resident_signed_in? && @reservation.resident != current_resident)
-
-    redirect_to root_path, alert: t('alerts.reservation.not_authorized')
-  end
-
-  def authorize_user
-    return if !authenticate_user ||
-              super_manager? ||
-              condo_manager?(@reservation.common_area.condo) ||
-              reservation_owner?
+    return if reservation_owner?
 
     redirect_to root_path, alert: t('alerts.reservation.not_authorized')
   end
@@ -69,13 +50,11 @@ class ReservationsController < ApplicationController
     resident_signed_in? && @reservation.resident == current_resident
   end
 
-  def set_reservation
-    @reservation = Reservation.find params[:id]
+  def set_common_area
+    @common_area = CommonArea.find params[:common_area_id]
   end
 
-  def set_breadcrumbs
-    add_breadcrumb @common_area.condo.name, @common_area.condo
-    add_breadcrumb @common_area.name, @common_area
-    add_breadcrumb I18n.t "breadcrumb.reservation.#{action_name}"
+  def set_reservation
+    @reservation = Reservation.find params[:id]
   end
 end

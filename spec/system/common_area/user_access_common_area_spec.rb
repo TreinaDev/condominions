@@ -29,9 +29,10 @@ describe 'User access common area details' do
 
       expect(current_path).to eq common_area_path common_area
       expect(page).to have_content 'Churrasqueira'
-      expect(page).to have_content 'Descrição: Churrasco comunitário'
+      expect(page).to have_content 'Churrasco comunitário'
       expect(page).to have_content 'Capacidade Máxima: 50 pessoas'
-      expect(page).to have_content 'Regras de Uso: Proibido fumar'
+      expect(page).to have_content 'Regras de Uso'
+      expect(page).to have_content 'Proibido fumar'
     end
   end
 

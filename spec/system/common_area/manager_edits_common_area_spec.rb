@@ -34,9 +34,9 @@ describe 'Manager edits common area' do
 
     expect(page).to have_content 'Área comum atualizada com sucesso'
     expect(page).to have_content 'Churrasqueira'
-    expect(page).to have_content 'Descrição: Reuna a família em um churrasco'
+    expect(page).to have_content 'Reuna a família em um churrasco'
     expect(page).to have_content 'Capacidade Máxima: 30 pessoas'
-    expect(page).to have_content 'Regras de Uso: Deixe o espaço organizado após o uso'
+    expect(page).to have_content 'Deixe o espaço organizado após o uso'
   end
 
   it 'with incomplete data' do
