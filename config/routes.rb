@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   end
 
   resources :unit_types, only: [:show, :edit, :update]
+  resources :announcements, only: [:show, :edit, :update, :destroy]
 
   resources :bills, only: [:index, :show]
 
@@ -43,6 +44,7 @@ Rails.application.routes.draw do
     resources :common_areas, only: [:new, :create]
     resources :unit_types, only: [:new, :create]
     resources :visitor_entries, only: [:index, :new, :create]
+    resources :announcements, only: [:index, :new, :create]
 
     resources :visitors do
       get 'find', on: :collection
