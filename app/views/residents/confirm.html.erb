@@ -4,7 +4,7 @@
   <h1 class="mb-5">Confirme o seu cadastro</h1>
 
   <div>
-    <div class="p-0" style="width: fit-content;">
+    <div class="p-0 w-fit">
       <p>Nome Completo: <%= @resident.full_name %></p>
       <p>E-mail: <%= @resident.email %></p>
       <p>CPF: <%= @resident.registration_number %></p>
@@ -54,7 +54,7 @@
 
   <% if @resident.user_image.attached? %>
     <div class="current-photo d-flex justify-content-start mb-4">
-      <%= image_tag @resident.user_image, alt: 'Current Image', style: "width: 200px; height: 200px; border-radius: 20%;" %>
+      <%= image_tag @resident.user_image, alt: 'Current Image', class:"user-image-200" %>
     </div>
   <% end %>
 
