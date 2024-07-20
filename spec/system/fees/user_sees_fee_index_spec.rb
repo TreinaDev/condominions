@@ -7,6 +7,7 @@ describe "user access a list of bills for it's units" do
     expect(current_path).to eq new_resident_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
+
   it 'from the dashboard' do
     condo = create :condo
     resident = create(:resident, :with_residence, condo:)
