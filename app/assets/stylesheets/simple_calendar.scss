@@ -4,7 +4,6 @@
     text-align: center;
     margin-top: 30px;
     margin-bottom: 20px;
-    font-weight: bold;
     display: flex;
     flex-direction: column;
   }
@@ -19,7 +18,7 @@
   }
 
   .calendar-heading nav a {
-    margin: 0 2px;
+    margin: 0 8px;
   }
 
   table {
@@ -28,7 +27,7 @@
     border-collapse: collapse;
     box-sizing: border-box;
     max-width: 100%;
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
