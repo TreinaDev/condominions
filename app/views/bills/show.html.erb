@@ -13,13 +13,16 @@
           <strong>Vencimento:</strong> <%= @bill.due_date_formatted %>
           <strong>Lançamento:</strong> <%= @bill.issue_date_formatted %>
           <div>
-            <% if @bill.status == 'pending' && @bill.denied %>
-              <span class="badge rounded-pill text-bg-danger">Negada</span>
-            <% elsif @bill.status == 'pending' %>
-              <span class="badge rounded-pill text-bg-warning">Não paga</span>
-            <% elsif @bill.status == 'awaiting' %>
+            <% case @bill.status %>
+            <% when 'pending' %>
+              <% if @bill.denied %>
+                <span class="badge rounded-pill text-bg-danger">Negada</span>
+              <% else %>
+                <span class="badge rounded-pill text-bg-warning">Não paga</span>
+              <% end %>
+            <% when 'awaiting' %>
               <span class="badge rounded-pill text-bg-info">Em análise</span>
-            <% elsif @bill.status == 'paid' %>
+            <% when 'paid' %>
               <span class="badge rounded-pill text-bg-success">Paga</span>
             <% end %>
           </div>

@@ -56,7 +56,7 @@ describe 'user access the show bill page' do
 
     first_bill_id_from_five_json = 11
     json_data_details = Rails.root.join('spec/support/json/empty_bills.json').read
-    fake_response_details = double('faraday_response', body: json_data_details, success?: false, status: 404)
+    fake_response_details = double('faraday_response', body: json_data_details, success?: false, status: :not_found)
     allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/bills/#{first_bill_id_from_five_json}").and_return(fake_response_details)
 
     login_as resident, scope: :resident
@@ -74,7 +74,7 @@ describe 'user access the show bill page' do
     login_as resident, scope: :resident
     visit bills_path
 
-    expect(page).to have_content 'Não foi possível conectar no servidor do PagueAluguel'
+    expect(page).to have_content 'Conexão perdida com o servidor do PagueAlugel.'
     expect(current_path).to eq root_path
   end
 end

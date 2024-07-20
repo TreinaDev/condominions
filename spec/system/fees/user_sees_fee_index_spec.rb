@@ -59,7 +59,7 @@ describe "user access a list of bills for it's units" do
     login_as resident, scope: :resident
     visit bills_path
 
-    expect(page).to have_content 'Não foi possível conectar no servidor do PagueAluguel'
+    expect(page).to have_content 'Conexão perdida com o servidor do PagueAlugel.'
     expect(current_path).to eq root_path
   end
 end
