@@ -25,6 +25,10 @@ class Bill
     bills_array.sort_by { |bill| bill.due_date.to_time.to_i }.reverse
   end
 
+  def self.safe_request_open_bills(unit_id)
+    BillService.request_open_bills(unit_id)
+  end
+
   def self.request_bill_details(bill_id)
     response = Faraday.get("http://localhost:4000/api/v1/bills/#{bill_id}")
     return nil unless response.success?
