@@ -7,6 +7,7 @@ describe "user access a list of bills for it's units" do
     expect(current_path).to eq new_resident_session_path
     expect(page).to have_content 'Para continuar, faça login ou registre-se.'
   end
+
   it 'from the dashboard' do
     condo = create :condo
     resident = create(:resident, :with_residence, condo:)
@@ -53,11 +54,12 @@ describe "user access a list of bills for it's units" do
   it "and there's an error due to connection lost" do
     condo = create :condo
     resident = create(:resident, :with_residence, condo:)
+    allow(Faraday).to receive(:get).and_raise(Faraday::ConnectionFailed)
 
     login_as resident, scope: :resident
     visit bills_path
 
-    expect(page).to have_content 'Não foi possível conectar no servidor do PagueAluguel'
+    expect(page).to have_content 'Conexão perdida com o servidor do PagueAlugel.'
     expect(current_path).to eq root_path
   end
 end

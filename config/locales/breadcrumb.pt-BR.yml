@@ -36,3 +36,4 @@ pt-BR:
       find: 'Agenda de Visitantes/Funcionários'
     bill:
       index: 'Lista de faturas'
+      show: 'Detalhes de fatura'
