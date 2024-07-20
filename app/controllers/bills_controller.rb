@@ -23,7 +23,8 @@ class BillsController < ApplicationController
   end
 
   def request_bill_details
-    @bill = Bill.request_bill_details(params[:id])
+    @bill_id = params[:id]
+    @bill = Bill.request_bill_details(@bill_id)
 
     redirect_to bills_path, alert: t('alerts.bill.not_found') unless @bill
   end

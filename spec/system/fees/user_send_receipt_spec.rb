@@ -14,7 +14,7 @@ describe 'resident visit the details view from bill' do
 
     click_on 'Enviar Comprovante'
 
-    expect(current_path).to eq new_bill_path
+    expect(current_path).to eq new_bill_bill_path first_bill_id_from_five_json
     expect(page).to have_content 'Comprovante de Pagamento'
   end
 
