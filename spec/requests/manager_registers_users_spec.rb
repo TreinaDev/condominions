@@ -18,7 +18,7 @@ describe 'Manager registers users' do
                                                email: 'julia@email.com', password: 'password' } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
       expect(Manager.last.full_name).not_to eq 'Julia Silva'
     end
   end

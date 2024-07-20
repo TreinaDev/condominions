@@ -8,17 +8,17 @@
 
 
 admin1 = Manager.create!(
-  full_name: "Ednaldo Pereira", 
-  registration_number: '745.808.535-55', 
-  email: "adm@teste.com", 
-  password: "teste123", 
+  full_name: "Ednaldo Pereira",
+  registration_number: '745.808.535-55',
+  email: "adm@teste.com",
+  password: "teste123",
   is_super: true
 )
 
 admin2 = Manager.create!(
-  full_name: "Adroaldo Silva Santos", 
-  registration_number: '025.727.205-40', 
-  email: "adm2@teste.com", 
+  full_name: "Adroaldo Silva Santos",
+  registration_number: '025.727.205-40',
+  email: "adm2@teste.com",
   password: "teste123"
 )
 
@@ -356,54 +356,54 @@ tower16.floors.each do |floor|
 end
 tower16.complete!
 
-resident_not_owner1 = Resident.create!(
-  email: 'claudia@email.com', 
-  password: 'teste123', 
-  status: :not_owner, 
-  full_name: 'Cláudia Rodrigues Gomes', 
+resident_property_registration_pending1 = Resident.create!(
+  email: 'claudia@email.com',
+  password: 'teste123',
+  status: :property_registration_pending,
+  full_name: 'Cláudia Rodrigues Gomes',
   registration_number: '458.456.480-92',
   residence: tower1.floors[0].units[0]
 )
-  
-resident_not_owner2 = Resident.create!(
-  email: 'joao@email.com', 
-  password: 'teste123', 
-  status: :not_owner, 
-  full_name: 'João da Silva', 
+
+resident_property_registration_pending2 = Resident.create!(
+  email: 'joao@email.com',
+  password: 'teste123',
+  status: :property_registration_pending,
+  full_name: 'João da Silva',
   registration_number: '478.040.830-09',
   residence: tower1.floors[1].units[0]
 )
 
-resident_not_owner3 = Resident.create!(
-  email: 'maria@email.com', 
-  password: 'teste123', 
-  status: :not_owner, 
-  full_name: 'Maria Oliveira', 
+resident_property_registration_pending3 = Resident.create!(
+  email: 'maria@email.com',
+  password: 'teste123',
+  status: :property_registration_pending,
+  full_name: 'Maria Oliveira',
   registration_number: '231.887.610-07',
   residence: tower1.floors[2].units[0]
 )
 
-resident_not_owner4 = Resident.create!(
-  email: 'pedro@email.com', 
-  password: 'teste123', 
-  status: :not_tenant, 
-  full_name: 'Pedro Alves', 
+resident_property_registration_pending4 = Resident.create!(
+  email: 'pedro@email.com',
+  password: 'teste123',
+  status: :residence_registration_pending,
+  full_name: 'Pedro Alves',
   registration_number: '185.894.110-52',
   residence: tower1.floors[3].units[0]
 )
 
-resident_not_owner5 = Resident.create!(
-  email: 'ana@email.com', 
-  password: 'teste123', 
-  status: :not_tenant, 
-  full_name: 'Ana Souza', 
+resident_property_registration_pending5 = Resident.create!(
+  email: 'ana@email.com',
+  password: 'teste123',
+  status: :residence_registration_pending,
+  full_name: 'Ana Souza',
   registration_number: '031.661.130-10',
   residence: tower1.floors[4].units[0]
 )
 
 resident1 = Resident.create!(
   email:'fernando@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Fernando Marques Gomes',
   registration_number: '065.858.303-42',
@@ -416,7 +416,7 @@ resident1 = Resident.create!(
 
 resident2 = Resident.create!(
   email: 'marina@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Marina Santos Oliveira',
   registration_number: '077.497.020-08',
@@ -433,7 +433,7 @@ resident2 = Resident.create!(
 
 resident3 = Resident.create!(
   email: 'rafael@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Rafael Souza Lima',
   registration_number: '533.621.940-10',
@@ -446,7 +446,7 @@ resident3 = Resident.create!(
 
 resident4 = Resident.create!(
   email: 'carla@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Carla Oliveira Silva',
   registration_number: '013.484.600-16',
@@ -459,7 +459,7 @@ resident4 = Resident.create!(
 
 resident5 = Resident.create!(
   email: 'gustavo@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Gustavo Pereira Santos',
   registration_number: '896.562.710-92',
@@ -472,7 +472,7 @@ resident5 = Resident.create!(
 
 resident6 = Resident.create!(
   email: 'isabela@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Isabela Almeida Costa',
   registration_number: '614.881.230-47',
@@ -485,7 +485,7 @@ resident6 = Resident.create!(
 
 resident7 = Resident.create!(
   email: 'pedro2@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Pedro Machado Barbosa',
   registration_number: '277.796.720-26',
@@ -498,7 +498,7 @@ resident7 = Resident.create!(
 
 resident8 = Resident.create!(
   email: 'ana2@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Ana Luiza Cardoso',
   registration_number: '318.953.470-50',
@@ -511,7 +511,7 @@ resident8 = Resident.create!(
 
 resident9 = Resident.create!(
   email: 'bruno@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Bruno Oliveira Santos',
   registration_number: '516.791.320-91',
@@ -524,7 +524,7 @@ resident9 = Resident.create!(
 
 resident10 = Resident.create!(
   email: 'camila@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Camila Rodrigues Ferreira',
   registration_number: '564.830.190-17',
@@ -537,7 +537,7 @@ resident10 = Resident.create!(
 
 resident11 = Resident.create!(
   email: 'lucas@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Lucas Almeida Pereira',
   registration_number: '314.787.200-93',
@@ -550,7 +550,7 @@ resident11 = Resident.create!(
 
 resident12 = Resident.create!(
   email: 'julia@email.com',
-  password: 'teste123', 
+  password: 'teste123',
   status: :mail_confirmed,
   full_name: 'Julia Ferreira Lima',
   registration_number: '922.771.400-66',

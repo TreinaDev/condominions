@@ -1,6 +1,6 @@
 class ManagersController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create]
-  before_action :authorize_super_manager!, only: %i[new create]
+  before_action :authorize_super_manager, only: %i[new create]
   before_action :set_manager, only: %i[edit_photo update_photo]
 
   def new

@@ -3,7 +3,7 @@ class TowersController < ApplicationController
   before_action :set_tower, only: %i[show edit_floor_units update_floor_units]
   before_action :set_condo, only: %i[new edit_floor_units create]
   before_action :set_condo_for_details, only: %i[show update_floor_units]
-  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show new create edit_floor_units update_floor_units]
+  before_action -> { authorize_condo_manager(@condo) }, only: %i[show new create edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_details, only: %i[show edit_floor_units update_floor_units]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
 
