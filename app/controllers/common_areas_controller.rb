@@ -9,7 +9,7 @@ class CommonAreasController < ApplicationController
   before_action :set_breadcrumbs_for_details, only: %i[show edit update]
 
   def show
-    @reservations = @common_area.reservations if authorize_user(@common_area.condo)
+    @reservations = @common_area.reservations
   end
 
   def new
@@ -59,12 +59,12 @@ class CommonAreasController < ApplicationController
   end
 
   def set_breadcrumbs_for_register
-    add_breadcrumb @condo.name.to_s, condo_path(@condo)
+    add_breadcrumb @condo.name, condo_path(@condo)
     add_breadcrumb I18n.t('breadcrumb.common_area.new')
   end
 
   def set_breadcrumbs_for_details
-    add_breadcrumb @common_area.condo.name.to_s, condo_path(@common_area.condo)
-    add_breadcrumb @common_area.name.to_s, common_area_path(@common_area)
+    add_breadcrumb @common_area.condo.name, condo_path(@common_area.condo)
+    add_breadcrumb @common_area.name, common_area_path(@common_area)
   end
 end
