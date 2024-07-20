@@ -3,7 +3,7 @@ class VisitorsController < ApplicationController
   before_action :set_condo, only: %i[find all]
   before_action :set_visitor, only: %i[confirm_entry]
   before_action :authenticate_resident!, only: %i[index new create]
-  before_action :set_breadcrumbs_for_action, only: %i[index new create find]
+  before_action :set_breadcrumbs_for_action, only: %i[index new create find all]
   before_action :authenticate_manager!, only: %i[find confirm_entry all]
   before_action -> { authorize_condo_manager(find_condo) }, only: %i[find confirm_entry all]
 
