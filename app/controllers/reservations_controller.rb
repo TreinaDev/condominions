@@ -16,15 +16,16 @@ class ReservationsController < ApplicationController
                                    resident: current_resident,
                                    common_area: @common_area
 
-    return redirect_to @common_area, notice: t('notices.reservation.created') if @reservation.save
-
-    flash.now[:alert] = I18n.t 'alerts.reservation.not_created'
-    render 'new', status: :unprocessable_entity
+    redirect_to @common_area, notice: t('notices.reservation.created') if @reservation.save
   end
 
   def canceled
-    @reservation.canceled!
-    redirect_to @reservation.common_area, notice: t('notices.reservation.canceled')
+    if Time.zone.today < @reservation.date
+      @reservation.canceled!
+      return redirect_to @reservation.common_area, notice: t('notices.reservation.canceled')
+    end
+
+    redirect_to @reservation.common_area, alert: t('alerts.reservation.cancelation_failed')
   end
 
   private

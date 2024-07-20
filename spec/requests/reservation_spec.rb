@@ -75,5 +75,21 @@ describe 'Reservation' do
       expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso.'
       expect(reservation.confirmed?).to be true
     end
+
+    it 'and cannot cancel when the reservation date is in the past' do
+      common_area = create :common_area
+      resident = create :resident, :with_residence, condo: common_area.condo
+
+      travel_to '01/07/2024' do
+        reservation = create :reservation, resident:, common_area:, date: '01/07/2024'
+
+        login_as resident, scope: :resident
+        post canceled_reservation_path reservation
+
+        expect(response).to redirect_to common_area
+        expect(flash[:alert]).to eq 'Não é possível cancelar reservas passadas ou do dia atual.'
+        expect(reservation.canceled?).to be false
+      end
+    end
   end
 end

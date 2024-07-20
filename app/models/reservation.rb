@@ -17,6 +17,12 @@ class Reservation < ApplicationRecord
     errors.add(:date, 'deve ser atual ou futura') if date&.past?
   end
 
+  def status=(new_status)
+    return if new_status == :canceled && Time.zone.today >= date
+
+    super
+  end
+
   def start_time
     date
   end
