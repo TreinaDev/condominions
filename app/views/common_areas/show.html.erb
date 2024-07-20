@@ -6,6 +6,7 @@
   <p><strong>Regras de Uso:</strong> <%= @common_area.rules %></p>
 
   <%= link_to 'Editar', edit_common_area_path(@common_area), class: 'btn btn-dark rounded-pill px-4' if manager_signed_in? %>
+
+  <%= render 'common_areas/reservation_calendar' %> 
 </div>
 
-<%= render 'common_areas/reservation_calendar' %> 

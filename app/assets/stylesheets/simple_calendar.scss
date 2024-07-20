@@ -1,22 +1,40 @@
 .simple-calendar {
 
   .calendar-heading {
-    color: #000;
     text-align: center;
     margin-top: 30px;
     margin-bottom: 20px;
-    font-size: bold;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .calendar-heading time {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+  }
+
+  .calendar-heading nav {
+    font-size: 1rem;
+  }
+
+  .calendar-heading nav a {
+    margin: 0 2px;
   }
 
   table {
-    -webkit-border-horizontal-spacing: 0px;
-    -webkit-border-vertical-spacing: 0px;
     background-color: rgba(0, 0, 0, 0);
     border: 1px solid rgb(221, 221, 221);
     border-collapse: collapse;
     box-sizing: border-box;
     max-width: 100%;
-    width: 100%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  tbody {
+    font-size: 14px;
   }
 
   tr {
@@ -39,7 +57,6 @@
     padding: 6px;
     vertical-align: top;
     width: 14%;
-
     border: 1px solid #ddd;
     border-top-color: rgb(221, 221, 221);
     border-top-style: solid;
@@ -64,24 +81,18 @@
     height: 80px;
   }
 
-  .wday-0 {}
-  .wday-1 {}
-  .wday-2 {}
-  .wday-3 {}
-  .wday-4 {}
-  .wday-5 {}
-  .wday-6 {}
+  .day .card {
+    background-color: rgba(87, 121, 152, 0.3);
+  }
 
   .today {
-    background: #FFFFC0
+    background: #ffeeba
   }
 
   .past {
     background: #DDD;
+    opacity: 0.5;
   }
-  .future {}
-
-  .start-date {}
 
   .prev-month {
     background: #DDD;
@@ -89,9 +100,8 @@
   .next-month {
     background: #DDD;
   }
-  .current-month {}
 
   .has-events {
-    background-color: #829ab1;
+    background: rgba(87, 121, 152, 0.5);
   }
 }
