@@ -1,4 +1,6 @@
 pt-BR:
+  confirmed: 'Confirmado'
+  canceled: 'Cancelado'
   notices:
     common_area:
       created: 'Área comum cadastrada com sucesso'

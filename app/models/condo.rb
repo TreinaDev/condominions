@@ -24,6 +24,14 @@ class Condo < ApplicationRecord
     (tenants + owners).uniq
   end
 
+  def filtered_residence_registration_pendings
+    (tenants.residence_registration_pending + owners.residence_registration_pending).uniq
+  end
+
+  def filtered_property_registration_pendings
+    (tenants.property_registration_pending + owners.property_registration_pending).uniq
+  end
+
   def full_address
     <<~HEREDOC.strip
       #{address.public_place}, #{address.number}, #{address.neighborhood} - \

@@ -7,8 +7,9 @@ describe 'Manager sees residents list' do
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     unit11 = tower.floors[0].units[0]
     create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', properties: [unit11], email: 'Adroaldo@email.com'
-    create :resident, :not_owner, full_name: 'Sandra Soares', residence: unit11, email: 'sandra@email'
-    create :resident, :not_owner, full_name: 'João Soares', email: 'joao@email'
+    create :resident, :property_registration_pending, full_name: 'Sandra Soares', residence: unit11,
+                                                      email: 'sandra@email'
+    create :resident, :property_registration_pending, full_name: 'João Soares', email: 'joao@email'
 
     login_as manager, scope: :manager
     visit condo_path(condo)

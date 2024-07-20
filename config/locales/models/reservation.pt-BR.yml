@@ -1,6 +1,4 @@
 pt-BR:
-  confirmed: 'Confirmado'
-  canceled: 'Cancelado'
   notices:
     reservation:
       created: 'Reserva realizada com sucesso!'
