@@ -24,7 +24,7 @@ describe 'Manager sees resident details' do
     click_on 'Lista de Moradores'
     find('#resident-1').click
 
-    expect(current_path).to eq resident_path resident
+    expect(page).to have_current_path resident_path(resident), wait: 3
     within '#personal_data' do
       expect(page).to have_content 'Adroaldo Silva'
       expect(page).to have_content 'adroaldo@email.com'
