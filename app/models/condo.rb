@@ -27,8 +27,8 @@ class Condo < ApplicationRecord
     (tenants.residence_registration_pending + owners.residence_registration_pending).uniq
   end
 
-  def filtered_not_owners
-    (tenants.not_owner + owners.not_owner).uniq
+  def filtered_property_registration_pendings
+    (tenants.property_registration_pending + owners.property_registration_pending).uniq
   end
 
   def full_address

@@ -15,8 +15,8 @@ describe 'managers access page to set a resident as owner' do
     condo = create :condo, name: 'Condominio Certo'
     tower = create :tower, 'condo' => condo, name: 'Torre errada'
     create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva',
-                                             properties: [tower.floors[0].units[1]]
+    resident = create :resident, :property_registration_pending, full_name: 'Adroaldo Silva',
+                                                                 properties: [tower.floors[0].units[1]]
 
     login_as manager, scope: :manager
     visit root_path
@@ -40,7 +40,7 @@ describe 'managers access page to set a resident as owner' do
 
   it 'and the resident do not have properties on condo' do
     manager = create :manager
-    resident = create(:resident, :not_owner, full_name: 'Adroaldo Silva')
+    resident = create(:resident, :property_registration_pending, full_name: 'Adroaldo Silva')
 
     login_as manager, scope: :manager
 
@@ -60,7 +60,7 @@ describe 'managers access page to set a resident as owner' do
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
+    resident = create :resident, :property_registration_pending, full_name: 'Adroaldo Silva'
 
     resident.properties << tower.floors.first.units.first
     resident.properties << tower.floors.last.units.last
@@ -81,7 +81,7 @@ describe 'managers access page to set a resident as owner' do
 
   it 'and try to inform with blank fields' do
     manager = create :manager
-    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
+    resident = create :resident, :property_registration_pending, full_name: 'Adroaldo Silva'
     login_as manager, scope: :manager
 
     visit new_resident_owner_path resident
@@ -95,7 +95,7 @@ describe 'managers access page to set a resident as owner' do
     manager = create :manager
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
+    resident = create :resident, :property_registration_pending, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager
 
@@ -130,7 +130,7 @@ describe 'managers access page to set a resident as owner' do
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     unit11 = tower.floors[0].units[0]
     create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', properties: [unit11], email: 'Adroaldo@email.com'
-    resident = create :resident, :not_owner, full_name: 'Sandra Soares'
+    resident = create :resident, :property_registration_pending, full_name: 'Sandra Soares'
 
     login_as manager, scope: :manager
     visit new_resident_owner_path resident

@@ -356,34 +356,34 @@ tower16.floors.each do |floor|
 end
 tower16.complete!
 
-resident_not_owner1 = Resident.create!(
+resident_property_registration_pending1 = Resident.create!(
   email: 'claudia@email.com',
   password: 'teste123',
-  status: :not_owner,
+  status: :property_registration_pending,
   full_name: 'Cláudia Rodrigues Gomes',
   registration_number: '458.456.480-92',
   residence: tower1.floors[0].units[0]
 )
 
-resident_not_owner2 = Resident.create!(
+resident_property_registration_pending2 = Resident.create!(
   email: 'joao@email.com',
   password: 'teste123',
-  status: :not_owner,
+  status: :property_registration_pending,
   full_name: 'João da Silva',
   registration_number: '478.040.830-09',
   residence: tower1.floors[1].units[0]
 )
 
-resident_not_owner3 = Resident.create!(
+resident_property_registration_pending3 = Resident.create!(
   email: 'maria@email.com',
   password: 'teste123',
-  status: :not_owner,
+  status: :property_registration_pending,
   full_name: 'Maria Oliveira',
   registration_number: '231.887.610-07',
   residence: tower1.floors[2].units[0]
 )
 
-resident_not_owner4 = Resident.create!(
+resident_property_registration_pending4 = Resident.create!(
   email: 'pedro@email.com',
   password: 'teste123',
   status: :residence_registration_pending,
@@ -392,7 +392,7 @@ resident_not_owner4 = Resident.create!(
   residence: tower1.floors[3].units[0]
 )
 
-resident_not_owner5 = Resident.create!(
+resident_property_registration_pending5 = Resident.create!(
   email: 'ana@email.com',
   password: 'teste123',
   status: :residence_registration_pending,
