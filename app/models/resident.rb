@@ -24,6 +24,10 @@ class Resident < ApplicationRecord
     visitors.where(visit_date: Date.current)
   end
 
+  def search_visitors_by_params(key, value)
+    visitors.where("#{key} LIKE ?", "%#{value}%")
+  end
+
   def description
     "#{full_name} - #{email}"
   end

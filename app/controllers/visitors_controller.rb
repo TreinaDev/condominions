@@ -4,20 +4,25 @@ class VisitorsController < ApplicationController
   before_action :set_visitor, only: %i[confirm_entry]
   before_action :authenticate_resident!, only: %i[index new create]
   before_action :set_breadcrumbs_for_action, only: %i[index new create find]
-  before_action :authenticate_manager!, only: %i[find confirm_entry]
-  before_action -> { authorize_condo_manager(find_condo) }, only: %i[find confirm_entry]
+  before_action :authenticate_manager!, only: %i[find confirm_entry all]
+  before_action -> { authorize_condo_manager(find_condo) }, only: %i[find confirm_entry all]
 
   def index
-    @visitors = @resident.visitors
+    return @visitors = @resident.visitors if check_empty_params
+
+    @result = []
+    params.permit(:visitor_name, :category).each do |key, value|
+      key = 'full_name' if key == 'visitor_name'
+      @result << search_visitors(key, value, @resident) if value.present?
+    end
+
+    @visitors = @result.reduce(:&)
   end
 
   def find
     @date = params[:date].present? ? params[:date].to_date : Time.zone.today
 
-    if @date.past?
-      return redirect_to find_condo_visitors_path(@condo),
-                         alert: I18n.t('alerts.visitor.invalid_list_date')
-    end
+    return redirect_to find_condo_visitors_path(@condo), alert: t('alerts.visitor.invalid_list_date') if @date.past?
 
     @visitors = @condo.expected_visitors(@date)
   end
@@ -25,12 +30,11 @@ class VisitorsController < ApplicationController
   def all
     return @visitors = @condo.visitors if check_empty_params
 
-    query_params = params.permit(:identity_number, :visitor_name, :resident_name, :visit_date)
     @result = []
-    query_params.each do |key, value|
+    params.permit(:identity_number, :visitor_name, :resident_name, :visit_date).each do |key, value|
       key = 'full_name' if key == 'visitor_name'
 
-      @result << find_visitors(key, value) if value.present?
+      @result << search_visitors(key, value, @condo) if value.present?
     end
 
     @visitors = @result.reduce(:&)
@@ -104,10 +108,8 @@ class VisitorsController < ApplicationController
   end
 
   def visitor_entry_params
-    {
-      full_name: @visitor.full_name, identity_number: @visitor.identity_number,
-      unit_id: @visitor.resident.residence.id, condo_id: @visitor.condo_id
-    }
+    { full_name: @visitor.full_name, identity_number: @visitor.identity_number,
+      unit_id: @visitor.resident.residence.id, condo_id: @visitor.condo_id }
   end
 
   def visitor_params
@@ -121,12 +123,12 @@ class VisitorsController < ApplicationController
 
   def check_empty_params
     params[:identity_number].blank? && params[:visitor_name].blank? &&
-      params[:visit_date].blank? && params[:resident_name].blank?
+      params[:visit_date].blank? && params[:resident_name].blank? && params[:category].blank?
   end
 
-  def find_visitors(key, value)
-    return @condo.search_visitors_by_resident_name(value) if key == 'resident_name'
+  def search_visitors(key, value, model)
+    return model.search_visitors_by_resident_name(value) if key == 'resident_name'
 
-    @condo.search_visitors_by_params(key, value)
+    model.search_visitors_by_params(key, value)
   end
 end

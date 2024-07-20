@@ -807,3 +807,61 @@ visitor_10 = Visitor.create!(
   category: :employee,
   recurrence: :semiannual
 )
+
+visitor_entry1 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Maria Fernandes',
+  identity_number: '1234567',
+  unit: tower1.floors[0].units[0]
+)
+visitor_entry2 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'João Pereira',
+  identity_number: '2345678',
+  unit: tower1.floors[0].units[1]
+)
+visitor_entry3 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Ana Souza',
+  identity_number: '3456789',
+  unit: tower1.floors[1].units[3]
+)
+visitor_entry4 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Carlos Lima',
+  identity_number: '4567890'
+)
+visitor_entry5 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Patricia Mendes',
+  identity_number: '5678901'
+)
+visitor_entry6 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Lucas Alves',
+  identity_number: '6789012',
+  unit: tower1.floors[2].units[0]
+)
+visitor_entry7 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Mariana Costa',
+  identity_number: '7890123',
+  unit: tower2.floors[2].units[0]
+)
+visitor_entry8 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Fernando Gomes',
+  identity_number: '8901234',
+  unit: tower2.floors[0].units[0]
+)
+visitor_entry9 = VisitorEntry.create!(
+  condo: condo2,
+  full_name: 'Juliana Oliveira',
+  identity_number: '9012345',
+  unit: tower3.floors[0].units[0]
+)
+visitor_entry10 = VisitorEntry.create!(
+  condo: condo2,
+  full_name: 'Gustavo Ferreira',
+  identity_number: '0123456'
+)

@@ -1,7 +1,10 @@
 <section class="bg-white rounded-5 py-4 px-5 shadow">
   <div class="d-flex mb-5 justify-content-between">
     <h1>Agenda de visitantes/funcionários</h1>
-    <%= link_to 'Ver Lista Completa', all_condo_visitors_path(@condo), class:'btn btn-dark rounded-pill px-4 m-2' %>
+    <%= link_to all_condo_visitors_path(@condo), class:'btn btn-dark d-inline-flex align-items-center rounded-pill px-4 m-2' do %>
+      Ver Lista Completa
+      <i class="bi bi-list-ul ms-2"></i>
+    <% end %>
   </div>
 
   <div class="row justify-content-center">
