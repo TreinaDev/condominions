@@ -8,7 +8,7 @@ class TenantsController < ResidentsController
   def create
     return unless update_resident_for_valid_unit
 
-    @resident.mail_not_confirmed! && send_email if @resident.not_tenant?
+    @resident.mail_not_confirmed! && send_email if @resident.residence_registration_pending?
 
     redirect_to @resident, notice: t('notices.tenant.updated')
   end
@@ -40,7 +40,7 @@ class TenantsController < ResidentsController
       render 'new', status: :unprocessable_entity
       return
     end
-    return if unit && authorize_condo_manager!(unit.condo)
+    return if unit && authorize_condo_manager(unit.condo)
 
     return @resident.update residence: unit unless params[:commit] == 'Não reside neste condomínio'
 
@@ -48,7 +48,9 @@ class TenantsController < ResidentsController
   end
 
   def property_residence?
-    @resident.not_tenant? && @resident.properties.empty? && params[:commit] == 'Não reside neste condomínio'
+    @resident.residence_registration_pending? &&
+      @resident.properties.empty? &&
+      params[:commit] == 'Não reside neste condomínio'
   end
 
   def select_alert_message(unit)

@@ -101,9 +101,9 @@ RSpec.describe Condo, type: :model do
       unit11 = tower.floors[0].units[0]
       first_resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva',
                                                           properties: [unit11], email: 'Adroaldo@email.com'
-      second_resident = create :resident, :not_owner, full_name: 'Sandra Soares',
-                                                      residence: unit11, email: 'sandra@email'
-      not_resident = create :resident, :not_owner, full_name: 'João Soares', email: 'joao@email'
+      second_resident = create :resident, :property_registration_pending, full_name: 'Sandra Soares',
+                                                                          residence: unit11, email: 'sandra@email'
+      not_resident = create :resident, :property_registration_pending, full_name: 'João Soares', email: 'joao@email'
 
       expect(condo.residents).to include first_resident
       expect(condo.residents).to include second_resident
