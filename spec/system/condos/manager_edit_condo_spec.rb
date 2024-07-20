@@ -27,8 +27,7 @@ describe 'Manager edits condo' do
     fill_in 'CEP', with: '88352-272'
     click_on 'Salvar'
 
-    sleep 3
-    expect(current_path).to eq condo_path(condo)
+    expect(page).to have_current_path condo_path(condo), wait: 3
     expect(page).to have_content 'Condomínio atualizado com sucesso'
     expect(page).to have_content 'Condominio Editado'
     expect(page).to have_content 'CNPJ: 34.474.564/0001-88'

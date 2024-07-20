@@ -33,8 +33,8 @@ describe 'Administrator sees common area details' do
   end
 
   it 'and the resident can see a common area details page too' do
-    resident = create :resident
     common_area = create :common_area
+    resident = create :resident, :with_residence, condo: common_area.condo
 
     login_as resident, scope: :resident
     visit common_area_path common_area

@@ -38,7 +38,10 @@ class VisitorsController < ApplicationController
     return redirect_to root_path, alert: I18n.t('alerts.visitor.manager_block') if manager_signed_in?
 
     if resident_signed_in?
-      return redirect_to root_path, alert: I18n.t('alerts.visitor.not_tenant') if @resident.residence.nil?
+      if @resident.residence.nil?
+        return redirect_to root_path,
+                           alert: I18n.t('alerts.visitor.residence_registration_pending')
+      end
       return redirect_to root_path, alert: I18n.t('alerts.visitor.not_allowed') unless current_resident == @resident
     end
 
