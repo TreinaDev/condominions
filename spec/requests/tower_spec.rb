@@ -53,7 +53,7 @@ describe 'Towers' do
                                                 units_per_floor: 4 } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
   end
 
@@ -112,7 +112,7 @@ describe 'Towers' do
       tower.reload
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
   end
 end

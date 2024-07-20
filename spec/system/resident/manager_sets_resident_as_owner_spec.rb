@@ -13,12 +13,12 @@ describe 'managers access page to set a resident as owner' do
     manager = create :manager
     create :condo, name: 'Condominio Errado'
     condo = create :condo, name: 'Condominio Certo'
-    create :tower, 'condo' => condo, name: 'Torre errada'
+    tower = create :tower, 'condo' => condo, name: 'Torre errada'
     create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
+    resident = create :resident, :property_registration_pending, full_name: 'Adroaldo Silva',
+                                                                 properties: [tower.floors[0].units[1]]
 
     login_as manager, scope: :manager
-
     visit root_path
     click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
              'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
@@ -40,20 +40,18 @@ describe 'managers access page to set a resident as owner' do
 
   it 'and the resident do not have properties on condo' do
     manager = create :manager
-    resident = create(:resident, :not_owner, full_name: 'Adroaldo Silva')
+    resident = create(:resident, :property_registration_pending, full_name: 'Adroaldo Silva')
 
     login_as manager, scope: :manager
 
-    visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
-             'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
+    visit new_resident_owner_path resident
 
     click_on 'Finalizar Cadastro'
 
     expect(current_path).to eq new_resident_tenant_path resident
     expect(page).to have_content 'Propriedades cadastradas com sucesso!'
     resident.reload
-    expect(resident.not_tenant?).to eq true
+    expect(resident.residence_registration_pending?).to eq true
   end
 
   it 'and can remove an unit from resident' do
@@ -62,7 +60,7 @@ describe 'managers access page to set a resident as owner' do
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
+    resident = create :resident, :property_registration_pending, full_name: 'Adroaldo Silva'
 
     resident.properties << tower.floors.first.units.first
     resident.properties << tower.floors.last.units.last
@@ -83,13 +81,10 @@ describe 'managers access page to set a resident as owner' do
 
   it 'and try to inform with blank fields' do
     manager = create :manager
-    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
+    resident = create :resident, :property_registration_pending, full_name: 'Adroaldo Silva'
     login_as manager, scope: :manager
 
-    visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
-             'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
-
+    visit new_resident_owner_path resident
     click_on 'Adicionar Propriedade'
 
     expect(current_path).to eq new_resident_owner_path(resident)
@@ -100,21 +95,21 @@ describe 'managers access page to set a resident as owner' do
     manager = create :manager
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_owner, full_name: 'Adroaldo Silva'
+    resident = create :resident, :property_registration_pending, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager
 
-    visit root_path
-    click_on 'Cadastro de Adroaldo Silva incompleto, por favor, ' \
-             'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
+    visit new_resident_owner_path resident
+
     select 'Condominio Certo', from: 'Condomínio'
-    sleep 3
+    sleep 1
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
     select '2', from: 'Unidade'
     click_on 'Adicionar Propriedade'
 
     select 'Condominio Certo', from: 'Condomínio'
+    sleep 1
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
     select '2', from: 'Unidade'
@@ -135,14 +130,12 @@ describe 'managers access page to set a resident as owner' do
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     unit11 = tower.floors[0].units[0]
     create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', properties: [unit11], email: 'Adroaldo@email.com'
-    resident = create :resident, :not_owner, full_name: 'Sandra Soares'
+    resident = create :resident, :property_registration_pending, full_name: 'Sandra Soares'
 
     login_as manager, scope: :manager
-    visit root_path
-    click_on 'Cadastro de Sandra Soares incompleto, por favor, ' \
-             'adicione unidades possuídas, caso haja, ou finalize o cadastro.'
+    visit new_resident_owner_path resident
     select 'Condominio Certo', from: 'Condomínio'
-    sleep 2
+    sleep 1
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
     select '1', from: 'Unidade'

@@ -23,7 +23,7 @@ class OwnersController < ResidentsController
 
   def destroy
     unit = Unit.find params[:id]
-    return if authorize_condo_manager!(unit.condo)
+    return if authorize_condo_manager(unit.condo)
 
     unit.update(owner: nil)
     redirect_to new_resident_owner_path(@resident), notice: t('notices.owner.unit_removed')
@@ -44,7 +44,7 @@ class OwnersController < ResidentsController
   def finish_ownership_register
     return unless params[:commit] == 'Finalizar Cadastro de Propriedades'
 
-    @resident.not_tenant! if @resident.not_owner?
+    @resident.residence_registration_pending! if @resident.property_registration_pending?
     redirect_to new_resident_tenant_path(@resident), notice: t('notices.owner.finalized')
   end
 
@@ -60,6 +60,6 @@ class OwnersController < ResidentsController
   end
 
   def any_redirect?(unit)
-    inexistent_unit(unit) || authorize_condo_manager!(unit.condo)
+    inexistent_unit(unit) || authorize_condo_manager(unit.condo)
   end
 end
