@@ -4,12 +4,17 @@ pt-BR:
       not_created: 'Erro ao registrar visitante'
       residence_registration_pending: 'Apenas moradores podem administrar visitantes'
       manager_block: 'Um administrador não pode administrar visitantes para uma unidade'
+      resident_block: 'Você não possui autorização para essa ação'
       not_allowed: 'Você não pode administrar visitantes para outra unidade além da sua'
       only_numbers_and_letters: 'só pode ter números e letras'
+      already_confirmed: 'Visitante já confirmado'
+      invalid_date: 'Só é possível confirmar visitantes do dia atual'
+      invalid_list_date: 'Não é possível acessar uma data passada'
   notice: 
     visitor:
       created: 'Visitante cadastrado com sucesso'
       todays_empty: 'Não há visitantes/funcionários esperados para hoje.'
+      entry_confirmed: 'Entrada do visitante registrada com sucesso.'
   activerecord:
     models:
       visitor: Visitante

@@ -13,7 +13,7 @@ class CondosController < ApplicationController
     @unit_types = @condo.unit_types.order :description
     @announcements = @condo.announcements.order(updated_at: :desc).limit(3)
     @more_than_3_announcements = @condo.announcements.count > 3
-    @todays_visitors = (resident_signed_in? ? current_resident.todays_visitors : [])
+    @todays_visitors = visitors_list(@condo)
     request_bills
   end
 
@@ -80,6 +80,10 @@ class CondosController < ApplicationController
 
   def set_condo
     @condo = Condo.find_by(id: params[:id])
+  end
+
+  def visitors_list(condo)
+    resident_signed_in? ? current_resident.todays_visitors : condo.expected_visitors(Time.zone.today)
   end
 
   def request_bills

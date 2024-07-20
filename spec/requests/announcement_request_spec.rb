@@ -8,7 +8,7 @@ describe 'Announcements' do
       post condo_announcements_path condo, params: { announcement: { title: 'Novo Aviso' } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
 
     it "and he's not associated or is not a super" do
@@ -19,7 +19,7 @@ describe 'Announcements' do
       post condo_announcements_path condo, params: { announcement: { title: 'Novo Aviso' } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
   end
 
@@ -31,7 +31,7 @@ describe 'Announcements' do
       patch announcement_path announcement, params: { announcement: { title: 'Aviso Editado' } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
 
     it 'must be authenticated as Super Manager or condo associated Manager to edit and announcement' do
@@ -43,7 +43,7 @@ describe 'Announcements' do
       patch announcement_path announcement, params: { announcement: { title: 'Aviso Editado' } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
   end
 
@@ -57,7 +57,7 @@ describe 'Announcements' do
       get condo_announcements_path condo
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
 
     it 'must be a resident of the condo to see announcements list' do
@@ -69,7 +69,7 @@ describe 'Announcements' do
       get condo_announcements_path condo
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
 
     it 'must be authenticated as Super Manager or condo associated to see announcement details' do
@@ -81,7 +81,7 @@ describe 'Announcements' do
       get announcement_path announcement
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
 
     it 'must be a resident of the condo to see announcement details' do
@@ -93,7 +93,7 @@ describe 'Announcements' do
       get announcement_path announcement
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
   end
 
@@ -107,7 +107,7 @@ describe 'Announcements' do
       delete announcement_path announcement
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
   end
 end

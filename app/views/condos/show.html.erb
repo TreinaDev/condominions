@@ -34,8 +34,14 @@
         <strong>Lista de Entradas</strong>
         <i class="bi bi-search ms-1"></i>
       <% end %>
-    <% end %>    
-    <%= render 'condos/dashboard/todays_visitors' %> 
+      <%= link_to find_condo_visitors_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm", style: "width: 100%; background-color: #FDE879;" do %>
+        <strong>Agenda de visitantes/funcionários</strong>
+        <i class="bi bi-search ms-1"></i>
+      <% end %>
+    <% end %>
+    <% if resident_signed_in? && current_resident.residence&.condo == @condo %>
+      <%= render 'condos/dashboard/todays_visitors' %> 
+    <% end %>
   </div>
 
   <div class="col">
