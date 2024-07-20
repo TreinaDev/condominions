@@ -18,32 +18,32 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_super_manager
-    authorize_redirect unless current_manager.is_super
+    not_authorized_redirect unless current_manager.is_super
   end
 
   def authorize_condo_manager(condo)
-    authorize_redirect unless authorize_manager(condo)
+    not_authorized_redirect unless authorize_manager(condo)
   end
 
   def authorize_condo_resident(condo)
-    authorize_redirect if authorize_resident(condo)
+    not_authorized_redirect if authorize_resident(condo)
   end
 
   def authorize_user(condo)
-    authorize_redirect unless authorize_manager(condo) || authorize_resident(condo)
+    not_authorized_redirect unless authorize_manager(condo) || authorize_resident(condo)
   end
 
   def authorize_manager(condo)
     return unless manager_signed_in?
 
-    current_manager.is_super || current_manager.condos.include?(condo) if manager_signed_in?
+    current_manager.is_super || current_manager.condos.include?(condo)
   end
 
   def authorize_resident(condo)
     resident_signed_in? && condo.residents.include?(current_resident)
   end
 
-  def authorize_redirect
+  def not_authorized_redirect
     redirect_to root_path, alert: I18n.t('alerts.not_authorized')
   end
 
