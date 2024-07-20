@@ -5,19 +5,19 @@
 
   <%= form_with url: all_condo_visitors_path(@condo), method: :get do |f| %>
     <div class="form-row p-2 row">
-      <div class="form-group col-md-2 pe-3">
-        <%= f.label :identity_number, I18n.t("activerecord.attributes.visitor.identity_number") %>
-        <%= f.text_field :identity_number, class: "form-control" %>
-      </div>
       <div class="form-group col-md-4 pe-3">
         <%= f.label :resident_name, I18n.t("activerecord.attributes.visitor.resident_name") %>
         <%= f.text_field :resident_name, class: "form-control" %>
       </div>
       <div class="form-group col-md-2 pe-3">
+        <%= f.label :identity_number, I18n.t("activerecord.attributes.visitor.identity_number") %>
+        <%= f.text_field :identity_number, class: "form-control" %>
+      </div>
+      <div class="form-group col-md-4 pe-3">
         <%= f.label :visitor_name, I18n.t("activerecord.attributes.visitor.visitor_name") %>
         <%= f.text_field :visitor_name, class: "form-control" %>
       </div>
-      <div class="form-group col-md-4 pe-3">
+      <div class="form-group col-md-2 pe-3">
         <%= f.label :visit_date, I18n.t("activerecord.attributes.visitor.visit_date_query") %>
         <%= f.date_field :visit_date, class: "form-control" %>
       </div>
@@ -45,19 +45,26 @@
         </tr>
       </thead>
       <tbody>
-        <% @visitors.each do |visitor| %>
-          <tr id="visitor-<%= visitor.id %>">
-            <td><%= visitor.full_name %></td>
-            <td><%= visitor.identity_number %></td>
-            <td><%= I18n.t("activerecord.attributes.visitor.categories.#{visitor.category}") %></td>
-            <td><%= visitor.resident.residence.tower_identifier %></td>
-            <td><%= visitor.resident.full_name %></td>
-            <td><%= I18n.l(visitor.visit_date) %> 
-              <% if visitor.employee? %>
-                  <span class="badge text-bg-warning ms-1 rounded-pill"><%= I18n.t("activerecord.attributes.visitor.recurrences.#{visitor.recurrence}") %></span>
-              <% end %>
-            </td>
-          </tr>
+        <% if @visitors.any? %>
+          <% @visitors.each do |visitor| %>
+            <tr id="visitor-<%= visitor.id %>">
+              <td><%= visitor.full_name %></td>
+              <td><%= visitor.identity_number %></td>
+              <td><%= I18n.t("activerecord.attributes.visitor.categories.#{visitor.category}") %></td>
+              <td><%= visitor.resident.residence.tower_identifier %></td>
+              <td><%= visitor.resident.full_name %></td>
+              <td><%= I18n.l(visitor.visit_date) %> 
+                <% if visitor.employee? %>
+                    <span class="badge text-bg-warning ms-1 rounded-pill"><%= I18n.t("activerecord.attributes.visitor.recurrences.#{visitor.recurrence}") %></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+      
+        <% elsif @result %>
+          <p class="alert alert-warning text-center">Não foi possível encontrar visitantes com os filtros informados</p>
+        <% else %>
+          <p class="alert alert-warning text-center">No momento, não há visitantes cadastrados para este condomínio</p>
         <% end %>
       </tbody>
     </table>

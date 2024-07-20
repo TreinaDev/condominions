@@ -53,8 +53,18 @@ describe 'Manager view condo full visitors list' do
     expect(page).not_to have_content 'Juliana Ferreira'
   end
 
-  context 'and search with' do
-    it 'identity number filter' do
+  it 'and sees if list is empty' do
+    manager = create :manager
+    condo = create :condo
+
+    login_as manager, scope: :manager
+    visit all_condo_visitors_path condo
+
+    expect(page).to have_content 'No momento, não há visitantes cadastrados para este condomínio'
+  end
+
+  context 'and search visitors' do
+    it 'with identity number filter' do
       manager = create :manager
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
@@ -90,7 +100,7 @@ describe 'Manager view condo full visitors list' do
       end
       expect(page).not_to have_content 'Marcos Lima'
     end
-    it 'visitors name filter' do
+    it 'with visitors name filter' do
       manager = create :manager
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
@@ -126,7 +136,7 @@ describe 'Manager view condo full visitors list' do
       end
       expect(page).not_to have_content 'Marcos Lima'
     end
-    it 'resident name filter' do
+    it 'with resident name filter' do
       manager = create :manager
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
@@ -163,7 +173,7 @@ describe 'Manager view condo full visitors list' do
       expect(page).not_to have_content 'Marcos Lima'
     end
 
-    it 'visit date filter' do
+    it 'with visit date filter' do
       manager = create :manager
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
@@ -200,7 +210,7 @@ describe 'Manager view condo full visitors list' do
       expect(page).not_to have_content 'Marcos Lima'
     end
 
-    it 'all filters' do
+    it 'with all filters' do
       manager = create :manager
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
@@ -230,7 +240,7 @@ describe 'Manager view condo full visitors list' do
       expect(page).not_to have_content 'Marcos Ferreira'
     end
 
-    it 'no filters' do
+    it 'with no filters' do
       manager = create :manager
       condo = create :condo
       create :visitor, condo:, full_name: 'João da Silva'
@@ -249,6 +259,21 @@ describe 'Manager view condo full visitors list' do
       expect(page).to have_content 'Bruna Lima'
       expect(page).to have_content 'Marcos Ferreira'
       expect(page).not_to have_content '3 resultados encontrados'
+    end
+
+    it 'and finds no one' do
+      manager = create :manager
+      condo = create :condo
+      create :visitor, condo:, full_name: 'João da Silva'
+      create :visitor, condo:, full_name: 'Bruna Lima'
+      create :visitor, condo:, full_name: 'Marcos Ferreira'
+
+      login_as manager, scope: :manager
+      visit all_condo_visitors_path condo
+      fill_in 'Nome do Visitante', with: 'Pedro'
+      click_on 'Pesquisar'
+
+      expect(page).to have_content 'Não foi possível encontrar visitantes com os filtros informados'
     end
   end
 end
