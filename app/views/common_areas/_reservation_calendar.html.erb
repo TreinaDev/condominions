@@ -12,7 +12,7 @@
               <div class="card-body">
                 <p class="card-text">Reservado por <%= reservation.resident.full_name %></p>
                 <% if reservation.date > Time.zone.today %>
-                  <%= button_to 'Cancelar', canceled_common_area_reservation_path(@common_area, reservation), data: { turbo_confirm: 'Você tem certeza que deseja cancelar a reserva?' }, class: 'btn btn-warning btn-sm rounded-pill' unless manager_signed_in? %>
+                  <%= button_to 'Cancelar', canceled_common_area_reservation_path(@common_area, reservation), data: { turbo_confirm: 'Você tem certeza que deseja cancelar a reserva?' }, class: 'btn btn-warning btn-sm rounded-pill shadow-sm' unless manager_signed_in? %>
                 <% end %>
               </div>
             </div>
@@ -27,7 +27,7 @@
       <% end %>
     <% else %>
       <% if date >= Time.zone.today %>
-        <%= button_to 'Reservar', common_area_reservations_path(@common_area, date: date), data: { turbo_confirm: "Você tem certeza que deseja reservar o dia #{I18n.l(date)}?" }, class: 'btn btn-dark btn-sm rounded-pill mt-2 mb-4' unless manager_signed_in? %>
+        <%= button_to 'Reservar', common_area_reservations_path(@common_area, date: date), data: { turbo_confirm: "Você tem certeza que deseja reservar o dia #{I18n.l(date)}?" }, class: 'btn btn-dark btn-sm rounded-pill mt-2 mb-4 shadow-sm' unless manager_signed_in? %>
       <% end %>
     <% end %>
   <% end %>
