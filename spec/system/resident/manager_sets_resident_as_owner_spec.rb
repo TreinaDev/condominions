@@ -100,12 +100,16 @@ describe 'managers access page to set a resident as owner' do
     login_as manager, scope: :manager
 
     visit new_resident_owner_path resident
+
+    select 'Condominio Certo', from: 'Condomínio'
+    sleep 1
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
     select '2', from: 'Unidade'
     click_on 'Adicionar Propriedade'
 
     select 'Condominio Certo', from: 'Condomínio'
+    sleep 1
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
     select '2', from: 'Unidade'
@@ -131,7 +135,7 @@ describe 'managers access page to set a resident as owner' do
     login_as manager, scope: :manager
     visit new_resident_owner_path resident
     select 'Condominio Certo', from: 'Condomínio'
-    sleep 2
+    sleep 1
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
     select '1', from: 'Unidade'

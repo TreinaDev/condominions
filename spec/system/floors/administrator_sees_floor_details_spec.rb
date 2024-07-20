@@ -59,8 +59,7 @@ describe "Administrator sees floor's details" do
     login_as user, scope: :manager
     visit tower_floor_path(tower, floor)
 
-    sleep 3
-    expect(current_path).to eq edit_floor_units_condo_tower_path(tower.condo, tower)
+    expect(current_path).to eq edit_floor_units_condo_tower_path(tower.condo, tower), wait: 3
     expect(page).to have_content 'Você deve atualizar o pavimento tipo antes de acessar essa página'
   end
 end

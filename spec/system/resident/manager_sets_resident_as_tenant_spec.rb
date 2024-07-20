@@ -37,8 +37,7 @@ describe 'managers sets resident as tenant' do
     select '2', from: 'Unidade'
     click_on 'Atualizar Morador'
 
-    sleep 3
-    expect(current_path).to eq resident_path resident
+    expect(current_path).to eq resident_path resident, wait: 3
     expect(mail).to have_received(:deliver).once
     expect(page).to have_content 'Atualizado com sucesso!'
     resident.reload
@@ -66,7 +65,7 @@ describe 'managers sets resident as tenant' do
     select '2', from: 'Unidade'
     click_on 'Não reside neste condomínio'
 
-    sleep 3
+    sleep 1
     expect(current_path).to eq resident_path resident
     expect(page).to have_content 'Atualizado com sucesso!'
     resident.reload
@@ -118,8 +117,9 @@ describe 'managers sets resident as tenant' do
     visit root_path
     click_on 'Cadastro de Sandra Soares incompleto, por favor, ' \
              'indique a sua residência ou se não reside no condomínio.'
-    sleep 2
+
     select 'Condominio Certo', from: 'Condomínio'
+    sleep 1
     select 'Torre correta', from: 'Torre'
     select '1', from: 'Andar'
     select '1', from: 'Unidade'
