@@ -1,8 +1,8 @@
 <div class="text-center row justify-content-center">
-  <div class="p-0" style="width: fit-content;">
+  <div class="p-0 w-fit">
     <h1 class="text-center"><%= @condo.name %></h1>
-    <p class="mb-1 text-secondary" style="font-size: 14px;"><%= @condo.full_address %></p>
-    <p class="text-secondary" style="font-size: 14px;">CNPJ: <%= @condo.registration_number %></p>
+    <p class="mb-1 text-secondary fs-sm" ><%= @condo.full_address %></p>
+    <p class="text-secondary fs-sm">CNPJ: <%= @condo.registration_number %></p>
   </div>
 </div>
 
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <%= link_to '#', class: 'btn d-flex align-items-center justify-content-center rounded-pill py-2 mt-2 fw-bolder shadow-sm bg-light-yellow' do %>
+    <%= link_to '#', class: 'btn btn-warning border-0 d-flex align-items-center justify-content-center rounded-pill py-2 mt-2 fw-bolder shadow-sm bg-light-yellow' do %>
       <p class="m-0">Ver registro de reclamações e ocorrências</p>
       <span class="badge text-bg-light mt-1 ms-1 rounded-pill">Em breve</span>
     <% end %>
@@ -32,15 +32,15 @@
 
   <div class="col">
     <% if manager_signed_in? %>
-      <%= link_to new_condo_visitor_entry_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
+      <%= link_to new_condo_visitor_entry_path(@condo), class:"btn py-2 btn-warning border-0 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
         <strong>Registrar entrada de visitante</strong>
         <i class="bi bi-pencil-square pb-1 ms-1"></i>
       <% end %>
-      <%= link_to condo_visitor_entries_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
+      <%= link_to condo_visitor_entries_path(@condo), class:"btn btn-warning border-0 py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
         <strong>Lista de Entradas</strong>
         <i class="bi bi-search ms-1"></i>
       <% end %>
-      <%= link_to find_condo_visitors_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
+      <%= link_to find_condo_visitors_path(@condo), class:"btn py-2 btn-warning border-0 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
         <strong>Agenda de visitantes/funcionários</strong>
         <i class="bi bi-search ms-1"></i>
       <% end %>
@@ -52,13 +52,13 @@
 
   <div class="col">
     <% if manager_signed_in? %>
-      <%= link_to edit_condo_path, class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
+      <%= link_to edit_condo_path, class:"btn btn-warning border-0 py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
         <strong>Editar Condomínio</strong>
         <i class="bi bi-pencil-square pb-1 ms-1"></i>
       <% end %>
         <div class="accordion">
           <% if current_manager.is_super %>
-            <%= link_to add_manager_condo_path(@condo), class:"btn py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
+            <%= link_to add_manager_condo_path(@condo), class:"btn btn-warning border-0 py-2 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-100" do %>
               <strong>Adicionar Administrador</strong>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill-add pb-0 ms-1" viewBox="0 0 16 16">
                 <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
