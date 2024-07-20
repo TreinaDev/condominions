@@ -1,6 +1,6 @@
 <div class="accordion-item rounded-5 shadow-sm">
   <h2 class="accordion-header">
-    <button class="accordion-button collapsed rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#towers" aria-expanded="false" aria-controls="collapseOne">
+    <button class="accordion-button collapsed rounded-pill py-3 bg-light-yellow" type="button" data-bs-toggle="collapse" data-bs-target="#towers" aria-expanded="false" aria-controls="collapseOne">
       <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Torres</strong>
     </button>
   </h2>
@@ -15,7 +15,7 @@
             </svg>
             <p class="m-0 ms-1"><%= tower.name %></p>
             <%= link_to tower_path(tower.id), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill", id: "tower-#{tower.id}" do %>
-              <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
+              <p class="m-0 fs-sm">Visualizar</p> <i class="bi bi-search ms-1"></i>
             <% end %>
           </div>
           <hr class="m-0">

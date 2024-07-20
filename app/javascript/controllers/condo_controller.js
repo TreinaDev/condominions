@@ -68,7 +68,7 @@ export default class extends Controller {
         </svg>
         <p class="m-0 ms-1">${resident.full_name}</p>
         <a href='/residents/${resident.id}' id='resident-${resident.id}' class="ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill">
-          <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
+          <p class="m-0 fs-sm">Visualizar</p> <i class="bi bi-search ms-1"></i>
         </a>
       </div>
       <hr class="m-0">
