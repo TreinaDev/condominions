@@ -1,0 +1,16 @@
+{
+  "bills": [
+    {
+      "id": 1,
+      "issue_date": "2024-07-01",
+      "due_date": "2024-07-10",
+      "total_value_cents": 1000
+    },
+    {
+      "id": 3,
+      "issue_date": "2024-05-01",
+      "due_date": "2024-05-10",
+      "total_value_cents": 3000
+    }
+  ]
+}

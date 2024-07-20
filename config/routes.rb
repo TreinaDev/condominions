@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   resources :unit_types, only: [:show, :edit, :update]
   resources :announcements, only: [:show, :edit, :update, :destroy]
 
+  resources :bills, only: [:index, :show]
+
   resources :condos, only: [:new, :create, :show, :edit, :update] do
     get 'residents', on: :member
     resources :common_areas, only: [:new, :create]

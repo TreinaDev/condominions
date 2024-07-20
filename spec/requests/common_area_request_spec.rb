@@ -36,7 +36,7 @@ describe 'Common Areas' do
                                                                    rules: 'Não pode ser utilizado após as 22 horas' } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
   end
 
@@ -63,7 +63,7 @@ describe 'Common Areas' do
 
       expect(response).to redirect_to root_path
       expect(common_area.name).not_to eq 'Área Comum Editada'
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
     end
   end
 end

@@ -2,9 +2,9 @@ class CondosController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create edit update residents]
   before_action :set_condo, only: %i[show edit update add_manager associate_manager residents]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update add_manager associate_manager]
-  before_action :authorize_super_manager!, only: %i[new create add_manager associate_manager]
-  before_action -> { authorize_condo_manager!(@condo) }, only: %i[edit update]
-  before_action -> { authorize_condo_manager_or_resident!(@condo) }, only: %i[show]
+  before_action :authorize_super_manager, only: %i[new create add_manager associate_manager]
+  before_action -> { authorize_condo_manager(@condo) }, only: %i[edit update residents]
+  before_action -> { authorize_user(@condo) }, only: [:show]
 
   def show
     @residents = @condo.residents
@@ -14,6 +14,7 @@ class CondosController < ApplicationController
     @announcements = @condo.announcements.order(updated_at: :desc).limit(3)
     @more_than_3_announcements = @condo.announcements.count > 3
     @todays_visitors = (resident_signed_in? ? current_resident.todays_visitors : [])
+    request_bills
   end
 
   def new
@@ -68,12 +69,6 @@ class CondosController < ApplicationController
 
   private
 
-  def authenticate_manager!
-    return redirect_to root_path if resident_signed_in?
-
-    super
-  end
-
   def set_breadcrumbs_for_details
     add_breadcrumb @condo.name.to_s, condo_path(@condo)
   end
@@ -85,5 +80,13 @@ class CondosController < ApplicationController
 
   def set_condo
     @condo = Condo.find_by(id: params[:id])
+  end
+
+  def request_bills
+    return unless resident_signed_in? && current_resident.residence.present?
+
+    result = Bill.safe_request_open_bills(current_resident.residence.id)
+    @bills = result[:bills]
+    @bills_error = result[:error]
   end
 end

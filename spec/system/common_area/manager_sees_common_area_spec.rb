@@ -33,11 +33,8 @@ describe 'Administrator sees common area details' do
   end
 
   it 'and the resident can see a common area details page too' do
-    condo = create :condo
-    tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    unit11 = tower.floors[0].units[0]
-    resident = create :resident, residence: unit11
-    common_area = create(:common_area, condo:)
+    common_area = create :common_area
+    resident = create :resident, :with_residence, condo: common_area.condo
 
     login_as resident, scope: :resident
     visit common_area_path common_area
