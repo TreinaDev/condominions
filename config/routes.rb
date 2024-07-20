@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     patch 'update_photo', on: :member
   end
 
+  resources :visitors do
+    post 'confirm_entry', on: :member
+  end
+
   resource :units do
     get 'find_units', on: :collection
   end
@@ -41,6 +45,10 @@ Rails.application.routes.draw do
     resources :common_areas, only: [:new, :create]
     resources :unit_types, only: [:new, :create]
     resources :visitor_entries, only: [:index, :new, :create]
+
+    resources :visitors do
+      get 'find', on: :collection
+    end
 
     resources :towers, only: [:new, :create] do
       member do
