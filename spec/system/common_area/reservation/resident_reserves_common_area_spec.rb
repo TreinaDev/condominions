@@ -15,7 +15,7 @@ describe 'Resident reserves common area' do
 
       login_as first_resident, scope: :resident
       visit common_area_path common_area
-      within('.table > tbody > tr:nth-child(1) > .wday-5') { click_on 'Reservar' }
+      within('.table > tbody > tr:nth-child(1) > .wday-5') { accept_confirm { click_on 'Reservar' } }
     end
 
     expect(current_path).to eq common_area_path common_area
