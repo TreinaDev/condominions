@@ -1,12 +1,3 @@
-<% if model.errors.any? %>
-  <section class="alert alert-danger pb-0" role="alert">
-    <strong>Verifique os Erros Abaixo</strong>
-    <div class="my-0">
-      <ul>
-        <% model.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  </section>
+<% model.errors.full_messages_for(attribute).each do |message| %>
+  <div class="invalid-feedback"><%= message %></div>
 <% end %>

@@ -1,26 +1,27 @@
-<%= render 'shared/errors', model: @resident %>
-
 <div class="bg-white rounded-5 py-4 px-5 shadow">
   <h1>Cadastrar Morador</h1>
-
   
     <%= form_with(model: @resident) do |f| %>
       <div class="form-row d-flex p-2">
         <div class="form-group col-md-12 pe-3">
           <%= f.label :full_name %>
-          <%= f.text_field :full_name, class: 'form-control' %>
+          <%= f.text_field :full_name, class: "form-control #{'is-invalid' if @resident.errors[:full_name].any?}" %>
+          <%= render("shared/errors", model: @resident, attribute: :full_name) if @resident.errors[:full_name].any? %>
         </div>
       </div>
 
       <div class="form-row d-flex p-2">
         <div class="form-group col-md-6 pe-3", data-controller="mask">
           <%= f.label :registration_number %>
-          <%= f.text_field :registration_number, class: 'form-control', maxlength: '14', :'data-action' => 'keyup -> mask#registrationNumberFormated' %>
+          <%= f.text_field :registration_number, class: "form-control #{'is-invalid' if @resident.errors[:registration_number].any?}", 
+            maxlength: '14', :'data-action' => 'keyup -> mask#registrationNumberFormated' %>
+          <%= render("shared/errors", model: @resident, attribute: :registration_number) if @resident.errors[:registration_number].any? %>
         </div>
 
         <div class="form-group col-md-6 pe-3">
           <%= f.label :email %>
-          <%= f.email_field :email, class: 'form-control' %>
+          <%= f.email_field :email, class: "form-control #{'is-invalid' if @resident.errors[:email].any?}" %>
+          <%= render("shared/errors", model: @resident, attribute: :email) if @resident.errors[:email].any? %>
         </div>
       </div>
 
