@@ -20,13 +20,13 @@
       <% end %>
       <% if @more_than_3_announcements %>
         <div class='d-flex'>
-          <%= link_to condo_announcements_path(@condo), class:"btn py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 w-25 fs-6", style: "width: 100%;" do %>
+          <%= link_to condo_announcements_path(@condo), class:"btn py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 w-25 fs-6" do %>
             <strong>ver mais</strong>
           <% end %>
         </div>
       <% end %>
     <div class='d-flex justify-content-center mt-3'>
-      <%= link_to new_condo_announcement_path(@condo), class:"btn py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm w-50", style: "width: 100%; background-color: #FDE879;" do %>
+      <%= link_to new_condo_announcement_path(@condo), class:"btn btn-warning border-0 py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-50" do %>
         <strong>Novo</strong>
       <% end %>
     </div>
