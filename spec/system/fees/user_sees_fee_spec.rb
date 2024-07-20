@@ -69,6 +69,7 @@ describe 'user access condo show' do
   it 'and connection is lost with the external API' do
     condo = create :condo
     resident = create(:resident, :with_residence, condo:)
+    allow(Faraday).to receive(:get).and_raise(Faraday::ConnectionFailed)
 
     login_as resident, scope: :resident
 

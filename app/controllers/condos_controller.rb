@@ -1,5 +1,4 @@
 class CondosController < ApplicationController
-  rescue_from Faraday::ConnectionFailed, with: :connection_refused
   before_action :authenticate_manager!, only: %i[new create edit update residents]
   before_action :set_condo, only: %i[show edit update add_manager associate_manager residents]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update add_manager associate_manager]
@@ -84,11 +83,8 @@ class CondosController < ApplicationController
   def request_bills
     return unless resident_signed_in? && current_resident.residence.present?
 
-    @bills = Bill.request_open_bills(current_resident.residence.id)
-  end
-
-  def connection_refused
-    @refused = true
-    render 'show', status: :unprocessable_entity
+    result = Bill.safe_request_open_bills(current_resident.residence.id)
+    @bills = result[:bills]
+    @bills_error = result[:error]
   end
 end
