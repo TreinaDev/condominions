@@ -51,7 +51,7 @@ describe 'managers access page to set a resident as owner' do
     expect(current_path).to eq new_resident_tenant_path resident
     expect(page).to have_content 'Propriedades cadastradas com sucesso!'
     resident.reload
-    expect(resident.not_tenant?).to eq true
+    expect(resident.residence_registration_pending?).to eq true
   end
 
   it 'and can remove an unit from resident' do

@@ -43,7 +43,7 @@ module Warnings
   def generate_incomplete_resident_messages(condos)
     condos.each do |condo|
       generate_filtered_not_owners_messages condo
-      generate_filtered_not_tenants_messages condo
+      generate_filtered_residence_registration_pendings_messages condo
     end
   end
 
@@ -54,10 +54,10 @@ module Warnings
     end
   end
 
-  def generate_filtered_not_tenants_messages(condo)
-    condo.filtered_not_tenants.each do |resident|
+  def generate_filtered_residence_registration_pendings_messages(condo)
+    condo.filtered_residence_registration_pendings.each do |resident|
       flash.now[:warning] ||= ''
-      flash.now[:warning] << resident_not_tenant_message(resident)
+      flash.now[:warning] << resident_residence_registration_pending_message(resident)
     end
   end
 end

@@ -1,5 +1,5 @@
 module WarningHelper
-  def resident_not_tenant_message(resident)
+  def resident_residence_registration_pending_message(resident)
     view_context.link_to(
       view_context.sanitize(resident.warning_html_message_tenant), new_resident_tenant_path(resident),
       class: 'link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover'

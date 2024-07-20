@@ -44,7 +44,7 @@ class OwnersController < ResidentsController
   def finish_ownership_register
     return unless params[:commit] == 'Finalizar Cadastro de Propriedades'
 
-    @resident.not_tenant! if @resident.not_owner?
+    @resident.residence_registration_pending! if @resident.not_owner?
     redirect_to new_resident_tenant_path(@resident), notice: t('notices.owner.finalized')
   end
 

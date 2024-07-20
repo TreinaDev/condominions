@@ -15,7 +15,7 @@ describe 'managers sets resident as tenant' do
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
+    resident = create :resident, :residence_registration_pending, full_name: 'Adroaldo Silva'
     resident.properties << tower.floors[0].units[1]
     resident.save
 
@@ -37,7 +37,7 @@ describe 'managers sets resident as tenant' do
     select '2', from: 'Unidade'
     click_on 'Atualizar Morador'
 
-    expect(current_path).to eq resident_path resident, wait: 3
+    expect(page).to have_current_path resident_path(resident), wait: 3
     expect(mail).to have_received(:deliver).once
     expect(page).to have_content 'Atualizado com sucesso!'
     resident.reload
@@ -51,7 +51,7 @@ describe 'managers sets resident as tenant' do
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
+    resident = create :resident, :residence_registration_pending, full_name: 'Adroaldo Silva'
     resident.properties << tower.floors[0].units[1]
 
     login_as manager, scope: :manager
@@ -78,7 +78,7 @@ describe 'managers sets resident as tenant' do
     condo = create :condo, name: 'Condominio Certo'
     create :tower, 'condo' => condo, name: 'Torre errada'
     create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
+    resident = create :resident, :residence_registration_pending, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager
     visit new_resident_tenant_path resident
@@ -87,12 +87,12 @@ describe 'managers sets resident as tenant' do
     expect(page).to have_content 'É necessário vincular uma moradia ou propriedade ao morador'
     resident.reload
     expect(resident.residence).to eq nil
-    expect(resident.not_tenant?).to eq true
+    expect(resident.residence_registration_pending?).to eq true
   end
 
   it "and there's on unit selected (fail)" do
     manager = create :manager
-    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
+    resident = create :resident, :residence_registration_pending, full_name: 'Adroaldo Silva'
 
     login_as manager, scope: :manager
     visit new_resident_tenant_path resident
@@ -102,7 +102,7 @@ describe 'managers sets resident as tenant' do
     expect(page).to have_content 'Unidade não pode ficar em branco'
     resident.reload
     expect(resident.residence).to eq nil
-    expect(resident.not_tenant?).to eq true
+    expect(resident.residence_registration_pending?).to eq true
   end
 
   it 'and cannot set as tenant for an unit that already has an tenant' do
@@ -111,7 +111,7 @@ describe 'managers sets resident as tenant' do
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
     unit11 = tower.floors[0].units[0]
     create :resident, :mail_confirmed, full_name: 'Adroaldo Silva', residence: unit11, email: 'Adroaldo@email.com'
-    resident = create :resident, :not_tenant, full_name: 'Sandra Soares', properties: [unit11]
+    resident = create :resident, :residence_registration_pending, full_name: 'Sandra Soares', properties: [unit11]
 
     login_as manager, scope: :manager
     visit root_path
@@ -133,7 +133,7 @@ describe 'managers sets resident as tenant' do
     manager = create :manager
     condo = create :condo, name: 'Condominio Certo'
     tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
-    resident = create :resident, :not_tenant, full_name: 'Adroaldo Silva'
+    resident = create :resident, :residence_registration_pending, full_name: 'Adroaldo Silva'
     resident.properties << tower.floors[0].units[1]
 
     login_as manager, scope: :manager

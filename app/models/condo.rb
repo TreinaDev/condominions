@@ -23,8 +23,8 @@ class Condo < ApplicationRecord
     (tenants + owners).uniq
   end
 
-  def filtered_not_tenants
-    (tenants.not_tenant + owners.not_tenant).uniq
+  def filtered_residence_registration_pendings
+    (tenants.residence_registration_pending + owners.residence_registration_pending).uniq
   end
 
   def filtered_not_owners
