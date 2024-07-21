@@ -1,0 +1,34 @@
+<div class="card rounded-5 shadow-sm" id="announcement_board">
+  <strong class="card-header text-center rounded-top-5" style="background-color: #FDE879;">Mural de Avisos
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box2" viewBox="0 0 16 16">
+      <path d="M2.95.4a1 1 0 0 1 .8-.4h8.5a1 1 0 0 1 .8.4l2.85 3.8a.5.5 0 0 1 .1.3V15a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4.5a.5.5 0 0 1 .1-.3zM7.5 1H3.75L1.5 4h6zm1 0v3h6l-2.25-3zM15 5H1v10h14z"/>
+    </svg>
+  </strong>
+  <div class="card-body announcement_board">
+    <% @announcements.each do |announcement| %>
+      <div class="d-flex align-items-center my-1 announcement">
+        <i class="bi bi-envelope-fill mx-3"></i>
+        <div class="d-flex-column my-1">
+          <p class="m-0 ms-1"><span style="font-size: smaller; font-weight: bold;"><%= announcement.manager.full_name %></span></p>
+          <p class="m-0 ms-1"><%= announcement.title %></p>
+        </div>
+        <%= link_to announcement_path(announcement), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill" do %>
+          <p class="m-0 fs-sm">Visualizar</p> <i class="bi bi-search ms-1"></i>
+        <% end %>   
+      </div>
+      <hr class="m-0">
+      <% end %>
+      <% if @more_than_3_announcements %>
+        <div class='d-flex'>
+          <%= link_to condo_announcements_path(@condo), class:"btn py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 w-25 fs-6" do %>
+            <strong>ver mais</strong>
+          <% end %>
+        </div>
+      <% end %>
+    <div class='d-flex justify-content-center mt-3'>
+      <%= link_to new_condo_announcement_path(@condo), class:"btn btn-warning border-0 py-1 rounded-pill d-flex justify-content-center align-items-center mb-2 shadow-sm bg-light-yellow w-50" do %>
+        <strong>Novo</strong>
+      <% end %>
+    </div>
+  </div>
+</div>

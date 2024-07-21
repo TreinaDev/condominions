@@ -8,7 +8,7 @@ pt-BR:
       not_created: 'Não foi possível realizar a reserva'
       unavailable: 'Essa data já está reservada para outro morador'
       access_denied: 'Para continuar, faça login ou registre-se.'
-      not_authorized: 'Você não tem permissão para fazer isso.'
+      cancelation_failed: 'Não é possível cancelar reservas passadas ou do dia atual.'
   activerecord:
     models:
       reservation:

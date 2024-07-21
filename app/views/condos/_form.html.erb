@@ -2,13 +2,15 @@
   <div class="form-row d-flex p-2">
     <div class="form-group col-md-6 pe-3">
       <%= f.label :name %>
-      <%= f.text_field :name, class:"form-control" %>
+      <%= f.text_field :name, class:"form-control #{'is-invalid' if @condo.errors[:name].any?}" %>
+      <%= render("shared/errors", model: @condo, attribute: :name) if @condo.errors[:name].any? %>
     </div>
     
     <div class="form-group col-md-6" data-controller="mask">
       <%= f.label :registration_number %>
-      <%= f.text_field :registration_number, class:"form-control", placeholder: "00.111.222/3333-44" ,
-          maxlength: "18", :'data-action' => 'keyup->mask#RegistrationNumberPressed' %>
+      <%= f.text_field :registration_number, class:"form-control #{'is-invalid' if @condo.errors[:registration_number].any?}", 
+          placeholder: "00.111.222/3333-44", maxlength: "18", :'data-action' => 'keyup->mask#RegistrationNumberPressed' %>
+      <%= render("shared/errors", model: @condo, attribute: :registration_number) if @condo.errors[:registration_number].any? %>
     </div>
   </div>
 
@@ -17,24 +19,28 @@
       <div class="form-row d-flex p-2">
         <div class="form-group col-md-6 pe-3">
           <%= address_f.label :public_place %>
-          <%= address_f.text_field :public_place, class:"form-control" %>
+          <%= address_f.text_field :public_place, class:"form-control #{'is-invalid' if address_f.object.errors[:public_place].any?}" %>
+          <%= render("shared/errors", model: address_f.object, attribute: :public_place) if address_f.object.errors[:public_place].any? %>
         </div>
 
         <div class="form-group col-md-2 pe-3">
           <%= address_f.label :number %>
-          <%= address_f.text_field :number, class:"form-control" %>
+          <%= address_f.text_field :number, class:"form-control #{'is-invalid' if address_f.object.errors[:number].any?}" %>
+          <%= render("shared/errors", model: address_f.object, attribute: :number) if address_f.object.errors[:number].any? %>
         </div>
 
         <div class="form-group col-md-4 pe-3">
           <%= address_f.label :neighborhood %>
-          <%= address_f.text_field :neighborhood, class:"form-control" %>
+          <%= address_f.text_field :neighborhood, class:"form-control #{'is-invalid' if address_f.object.errors[:neighborhood].any?}" %>
+          <%= render("shared/errors", model: address_f.object, attribute: :neighborhood) if address_f.object.errors[:neighborhood].any? %>
         </div>
       </div>
 
       <div class="form-row d-flex p-2">
         <div class="form-group col-md-6 pe-3">
           <%= address_f.label :city %>
-          <%= address_f.text_field :city, class:"form-control"  %>
+          <%= address_f.text_field :city, class:"form-control #{'is-invalid' if address_f.object.errors[:city].any?}" %>
+          <%= render("shared/errors", model: address_f.object, attribute: :city) if address_f.object.errors[:city].any? %>
         </div>
 
         <div class="form-group col-md-2 pe-3">
@@ -45,8 +51,9 @@
 
         <div class="form-group col-md-4 pe-3" data-controller="mask">
           <%= address_f.label :zip %>
-          <%= address_f.text_field :zip, class:"form-control", placeholder: "12345-678" ,
+          <%= address_f.text_field :zip, class:"form-control #{'is-invalid' if address_f.object.errors[:zip].any?}", placeholder: "12345-678",
           maxlength: "9", :'data-action' => 'keyup->mask#zipPressed' %>
+          <%= render("shared/errors", model: address_f.object, attribute: :zip) if address_f.object.errors[:zip].any? %>
         </div>
       </div>
     <% end %>

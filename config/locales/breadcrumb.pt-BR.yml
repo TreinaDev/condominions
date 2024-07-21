@@ -26,6 +26,11 @@ pt-BR:
       new: 'Adicionar Propriedade'
     tenant:
       new: 'Adicionar Moradia'
+    announcement:
+      index: 'Avisos'
+      new: 'Novo Aviso'
+      create: 'Novo Aviso'
+      edit: 'Editar Aviso'
     visitor_entry:
       new: 'Cadastrar Entrada de Visitante'
       index: 'Listagem de Entradas de Visitantes'

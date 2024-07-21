@@ -11,10 +11,10 @@ describe 'Manager edits common area' do
 
   it 'and does not see edit button if is a resident' do
     common_area = create :common_area
-    resident = create :resident
+    resident = create :resident, :with_residence, condo: common_area.condo
 
     login_as resident, scope: :resident
-    visit new_common_area_reservation_path common_area
+    visit common_area_path common_area
 
     expect(page).not_to have_link 'Editar'
   end
@@ -34,9 +34,9 @@ describe 'Manager edits common area' do
 
     expect(page).to have_content 'Área comum atualizada com sucesso'
     expect(page).to have_content 'Churrasqueira'
-    expect(page).to have_content 'Descrição: Reuna a família em um churrasco'
+    expect(page).to have_content 'Reuna a família em um churrasco'
     expect(page).to have_content 'Capacidade Máxima: 30 pessoas'
-    expect(page).to have_content 'Regras de Uso: Deixe o espaço organizado após o uso'
+    expect(page).to have_content 'Deixe o espaço organizado após o uso'
   end
 
   it 'with incomplete data' do

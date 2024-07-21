@@ -5,6 +5,7 @@ class CondosController < ApplicationController
   before_action :authorize_super_manager, only: %i[new create add_manager associate_manager]
   before_action -> { authorize_condo_manager(@condo) }, only: %i[edit update residents]
   before_action -> { authorize_user(@condo) }, only: [:show]
+  before_action :announcements_for_dashboard, only: :show
 
   def show
     @residents = @condo.residents
@@ -90,5 +91,10 @@ class CondosController < ApplicationController
     result = Bill.safe_request_open_bills(current_resident.residence.id)
     @bills = result[:bills]
     @bills_error = result[:error]
+  end
+
+  def announcements_for_dashboard
+    @announcements = @condo.three_most_recent_announcements
+    @more_than_3_announcements = @condo.more_than_3_announcements
   end
 end

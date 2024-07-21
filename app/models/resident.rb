@@ -4,6 +4,8 @@ class Resident < ApplicationRecord
   has_many :reservations, dependent: :destroy
   has_many :visitors, dependent: :destroy
 
+  delegate :condo, to: :residence, allow_nil: true
+
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   validate :valid_registration_number
   validates :full_name, presence: true
