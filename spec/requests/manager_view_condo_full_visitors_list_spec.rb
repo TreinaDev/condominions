@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Manager view condo full visitors list' do
   context 'GET /condos/:id/visitors/all' do
     it 'only if authenticated' do
-      condo = create(:condo)
+      condo = create :condo
 
       get all_condo_visitors_path condo
 
@@ -12,8 +12,8 @@ describe 'Manager view condo full visitors list' do
     end
 
     it 'only if associated with the condo' do
-      condo = create(:condo)
-      manager = create(:manager, is_super: false)
+      condo = create :condo
+      manager = create :manager, is_super: false
 
       login_as manager, scope: :manager
       get all_condo_visitors_path condo
@@ -23,8 +23,8 @@ describe 'Manager view condo full visitors list' do
     end
 
     it 'successfully if associated with the condo' do
-      condo = create(:condo)
-      manager = create(:manager, is_super: false)
+      condo = create :condo
+      manager = create :manager, is_super: false
       manager.condos << condo
 
       login_as manager, scope: :manager
@@ -34,8 +34,8 @@ describe 'Manager view condo full visitors list' do
     end
 
     it 'and cannot be authenticated as resident' do
-      condo = create(:condo)
-      resident = create(:resident)
+      condo = create :condo
+      resident = create :resident
 
       login_as resident, scope: :resident
       get all_condo_visitors_path condo
