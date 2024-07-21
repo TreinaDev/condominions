@@ -236,6 +236,7 @@ describe 'Resident sees own visitors list' do
       expect(page).not_to have_css "#visitor-#{third_visitor.id}"
       expect(page).not_to have_content 'Fernando Dias'
     end
+
     it 'and no visitor is found' do
       resident = create :resident, :with_residence
       first_visitor = create :visitor, resident:, category: :visitor,
