@@ -2,15 +2,18 @@ class CondosController < ApplicationController
   before_action :authenticate_manager!, only: %i[new create edit update residents]
   before_action :set_condo, only: %i[show edit update add_manager associate_manager residents]
   before_action :set_breadcrumbs_for_details, only: %i[show edit update add_manager associate_manager]
-  before_action :authorize_super_manager!, only: %i[new create add_manager associate_manager]
-  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show edit update residents]
+  before_action :authorize_super_manager, only: %i[new create add_manager associate_manager]
+  before_action -> { authorize_condo_manager(@condo) }, only: %i[edit update residents]
+  before_action -> { authorize_user(@condo) }, only: [:show]
+  before_action :announcements_for_dashboard, only: :show
 
   def show
     @residents = @condo.residents
     @towers = @condo.towers.order :name
     @common_areas = @condo.common_areas.order :name
     @unit_types = @condo.unit_types.order :description
-    @todays_visitors = (resident_signed_in? ? current_resident.todays_visitors : [])
+    @todays_visitors = visitors_list(@condo)
+    request_bills
   end
 
   def new
@@ -65,12 +68,6 @@ class CondosController < ApplicationController
 
   private
 
-  def authenticate_manager!
-    return redirect_to root_path if resident_signed_in?
-
-    super
-  end
-
   def set_breadcrumbs_for_details
     add_breadcrumb @condo.name.to_s, condo_path(@condo)
   end
@@ -82,5 +79,22 @@ class CondosController < ApplicationController
 
   def set_condo
     @condo = Condo.find_by(id: params[:id])
+  end
+
+  def visitors_list(condo)
+    resident_signed_in? ? current_resident.todays_visitors : condo.expected_visitors(Time.zone.today)
+  end
+
+  def request_bills
+    return unless resident_signed_in? && current_resident.residence.present?
+
+    result = Bill.safe_request_open_bills(current_resident.residence.id)
+    @bills = result[:bills]
+    @bills_error = result[:error]
+  end
+
+  def announcements_for_dashboard
+    @announcements = @condo.three_most_recent_announcements
+    @more_than_3_announcements = @condo.more_than_3_announcements
   end
 end

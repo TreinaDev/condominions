@@ -1,6 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe Reservation, type: :model do
+  describe 'Cancel reservation' do
+    it 'for a future day' do
+      travel_to '01/07/2024' do
+        reservation = build :reservation, date: '02/07/2024'
+
+        reservation.update status: :canceled
+
+        expect(reservation.canceled?).to be true
+      end
+    end
+
+    it 'but cannot cancel for the present or past days' do
+      travel_to '01/07/2024' do
+        reservation = build :reservation, date: '01/07/2024'
+
+        reservation.update status: :canceled
+
+        expect(reservation.canceled?).to be false
+      end
+    end
+  end
+
   describe '#valid' do
     it 'date must be present' do
       reservation = build :reservation, date: nil

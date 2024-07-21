@@ -3,13 +3,10 @@ require 'rails_helper'
 describe 'Manager edit superintendent' do
   it 'succesfully' do
     condo = create :condo, name: 'Condomínio X'
-    tower = create(:tower, condo:)
-    unit11 = tower.floors.first.units.first
-    unit12 = tower.floors.first.units[1]
-    resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-    resident2 = create :resident, full_name: 'Havana Silva', residence: unit12, email: 'havana@email.com'
-    superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                                             end_date: Time.zone.today >> 2)
+    resident = create(:resident, :with_residence, full_name: 'Dona Alvara', condo:)
+    resident2 = create(:resident, :with_residence, full_name: 'Havana Silva', email: 'email@email.com', condo:)
+    superintendent = create(:superintendent, tenant: resident, condo:)
+
     manager = create :manager
 
     resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,
@@ -33,11 +30,8 @@ describe 'Manager edit superintendent' do
 
   it 'with missing params' do
     condo = create :condo, name: 'Condomínio X'
-    tower = create(:tower, condo:)
-    unit11 = tower.floors.first.units.first
-    resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-    create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                            end_date: Time.zone.today >> 2)
+    resident = create(:resident, :with_residence, full_name: 'Dona Alvara', condo:)
+    create(:superintendent, tenant: resident, condo:, start_date: Time.zone.today, end_date: Time.zone.today >> 2)
     manager = create :manager
 
     resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,

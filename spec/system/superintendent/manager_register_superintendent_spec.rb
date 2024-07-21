@@ -3,10 +3,8 @@ require 'rails_helper'
 describe 'Manager register superintendent' do
   it 'Successfully' do
     condo = create :condo, name: 'Condomínio X'
-    tower = create(:tower, condo:)
-    unit11 = tower.floors.first.units.first
+    resident = create(:resident, :with_residence, full_name: 'Alvus Dumbledore', condo:)
     manager = create :manager
-    resident = create :resident, full_name: 'Alvus Dumbledore', residence: unit11
     date = Time.zone.today
 
     login_as manager, scope: :manager
@@ -57,11 +55,8 @@ describe 'Manager register superintendent' do
 
   it 'and condo has superintedent' do
     condo = create :condo, name: 'Condomínio X'
-    tower = create(:tower, condo:)
-    unit11 = tower.floors.first.units.first
-    resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-    superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                                             end_date: Time.zone.today >> 2)
+    superintendent = create(:superintendent, condo:)
+    resident = superintendent.tenant
     manager = create :manager
 
     resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,

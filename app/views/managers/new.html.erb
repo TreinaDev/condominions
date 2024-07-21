@@ -1,8 +1,6 @@
 <div class='bg-white rounded-5 py-4 px-5 shadow'>
   <h1>Cadastrar Administrador</h1>
 
-  <%= render 'shared/errors', model: @manager %>
-
   <%= form_with(model: @manager, class: 'text-center') do |f| %>
     <div class="form-row row p-2">
       <div class="form-group col-md-6 pe-3 mb-2 text-start">
@@ -11,19 +9,24 @@
       </div>
       <div class="form-group col-md-6 pe-3 mb-2 text-start">
         <%= f.label :full_name %>
-        <%= f.text_field :full_name, class: 'form-control' %>
+        <%= f.text_field :full_name, class: "form-control #{'is-invalid' if @manager.errors[:full_name].any?}" %>
+        <%= render("shared/errors", model: @manager, attribute: :full_name) if @manager.errors[:full_name].any? %>
       </div>
       <div class="form-group col-md-6 pe-3 mb-2 text-start" data-controller="mask">
         <%= f.label :registration_number %>
-        <%= f.text_field :registration_number, class: 'form-control', maxlength: "14", :'data-action' => 'keyup -> mask#registrationNumberFormated' %>
+        <%= f.text_field :registration_number, class: "form-control #{'is-invalid' if @manager.errors[:registration_number].any?}", 
+          maxlength: "14", :'data-action' => 'keyup -> mask#registrationNumberFormated' %>
+        <%= render("shared/errors", model: @manager, attribute: :registration_number) if @manager.errors[:registration_number].any? %>
       </div>
       <div class="form-group col-md-6 pe-3 mb-2 text-start">
         <%= f.label :email %>
-        <%= f.email_field :email, class: 'form-control' %>
+        <%= f.email_field :email, class: "form-control #{'is-invalid' if @manager.errors[:email].any?}" %>
+        <%= render("shared/errors", model: @manager, attribute: :email) if @manager.errors[:email].any? %>
       </div>
       <div class="form-group col-md-6 pe-3 mb-2 text-start">
         <%= f.label :password %>
-        <%= f.password_field :password, class: 'form-control' %>
+        <%= f.password_field :password, class: "form-control #{'is-invalid' if @manager.errors[:password].any?}" %>
+        <%= render("shared/errors", model: @manager, attribute: :password) if @manager.errors[:password].any? %>
       </div>
       <div class="form-group col-md-6 pe-3 mb-2 text-start">
         <%= f.label :is_super %>

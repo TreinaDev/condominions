@@ -1,4 +1,3 @@
-<%= render 'shared/errors', model: @fine %>
 <div class="mt-5">
   <h2 class="text-center mt-4">Lançar Multa</h2>
   <%= form_with model: [@condo, @fine], url:condo_fines_path(@condo, @fine) do |f| %>
@@ -6,28 +5,33 @@
       <div class="for d-flex p-2">
         <div class="form-group col-md-4 pe-3">
           <%= f.label :tower_id%>
-          <%= f.collection_select :tower_id, {}, {}, {}, {}, :'data-fines-target' => "tower", :'data-action' => "change->fines#changeTower", class: 'form-control form-select' %>
+          <%= f.collection_select :tower_id, {}, {}, {}, {}, :'data-fines-target' => "tower", :'data-action' => "change->fines#changeTower", class: "form-control form-select #{'is-invalid'if @fine.errors[:tower_id].any?}" %>
+          <%= render("shared/errors", model: @fine, attribute: :tower_id) if @fine.errors[:tower_id].any? %>
         </div>
 
         <div class="form-group col-md-4 pe-3">
           <%= f.label :floor %>
-          <%= f.collection_select :floor, {}, {}, {}, {}, :'data-fines-target' => "floor", class: 'form-control form-select' %>
+          <%= f.collection_select :floor, {}, {}, {}, {}, :'data-fines-target' => "floor", class: "form-control form-select #{'is-invalid'if @fine.errors[:floor].any?}" %>
+          <%= render("shared/errors", model: @fine, attribute: :floor) if @fine.errors[:floor].any? %>
         </div>
 
         <div class="form-group col-md-4 pe-3">
           <%= f.label :unit %>
-          <%= f.collection_select :unit, {}, {}, {}, {}, :'data-fines-target' => "unit", class: 'form-control form-select' %>
+          <%= f.collection_select :unit, {}, {}, {}, {}, :'data-fines-target' => "unit", class: "form-control form-select #{'is-invalid'if @fine.errors[:unit].any?}" %>
+          <%= render("shared/errors", model: @fine, attribute: :unit) if @fine.errors[:unit].any? %>
         </div>
       </div>
       <div class="for d-flex p-2">
         <div class="form-group col-md-10 pe-2">
           <%= f.label :description , class: "form-label"%>
-          <%= f.text_field :description, class: "form-control"  %>
+          <%= f.text_field :description, class: "form-control #{'is-invalid'if @fine.errors[:description].any?}"  %>
+          <%= render("shared/errors", model: @fine, attribute: :description) if @fine.errors[:description].any? %>
         </div>
 
         <div class="form-group col-md-2 pe-2">
           <%= f.label :value, class: "form-label" %>
-          <%= f.text_field :value, value: @fine.value_cents, placeholder: '0,00', step: '0.01', pattern: '\d+(\,\d{2})?', class: "form-control" %>
+          <%= f.text_field :value, value: @fine.value_cents, placeholder: '0,00', step: '0.01', pattern: '\d+(\,\d{2})?', class: "form-control #{'is-invalid'if @fine.errors[:value].any?}" %>
+          <%= render("shared/errors", model: @fine, attribute: :value) if @fine.errors[:value].any? %>
         </div>
 
       </div>

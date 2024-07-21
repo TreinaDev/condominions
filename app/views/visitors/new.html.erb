@@ -1,5 +1,3 @@
-<%= render 'shared/errors', model: @visitor %>
-
 <div class="bg-white rounded-5 py-4 px-5 shadow">
     <h1>Cadastrar Visitante/Funcionário</h1>
 
@@ -7,11 +5,13 @@
         <div class="form-row p-2 row">
             <div class="form-group col-md-6 pe-3">
                 <%= f.label :full_name %>
-                <%= f.text_field :full_name, class: 'form-control' %>
+                <%= f.text_field :full_name, class: "form-control #{'is-invalid' if @visitor.errors[:full_name].any?}" %>
+                <%= render("shared/errors", model: @visitor, attribute: :full_name) if @visitor.errors[:full_name].any? %>
             </div>
             <div class="form-group col-md-6 pe-3">
                 <%= f.label :identity_number %>
-                <%= f.text_field :identity_number, class: 'form-control' %>
+                <%= f.text_field :identity_number, class: "form-control #{'is-invalid' if @visitor.errors[:identity_number].any?}" %>
+                <%= render("shared/errors", model: @visitor, attribute: :identity_number) if @visitor.errors[:identity_number].any? %>
             </div>
             <div class="form-row row m-0 p-0" data-controller="hiddenfield">
                 <div class="form-group col-md-6 pe-3">
@@ -20,14 +20,16 @@
                 </div>
                 <div class="form-group col-md-6 pe-3">
                     <%= f.label :visit_date %>
-                    <%= f.date_field :visit_date, class: 'form-control' %>
+                    <%= f.date_field :visit_date, class: "form-control #{'is-invalid' if @visitor.errors[:visit_date].any?}" %>
+                    <%= render("shared/errors", model: @visitor, attribute: :visit_date) if @visitor.errors[:visit_date].any? %>
                 </div>
                 <div class="form-group col-md-6 pe-3 d-none" data-hiddenfield-target="field">
                     <%= f.label :recurrence %>
-                    <%= f.select :recurrence, Visitor.recurrences.keys.map { |recurrence| [I18n.t("activerecord.attributes.visitor.recurrences.#{recurrence}").capitalize, recurrence] }, { prompt: "Selecione uma recorrência" }, class: 'form-control form-select' %>
+                    <%= f.select :recurrence, Visitor.recurrences.keys.map { |recurrence| [I18n.t("activerecord.attributes.visitor.recurrences.#{recurrence}").capitalize, recurrence] },
+                        { prompt: "Selecione uma recorrência" }, class: "form-control form-select #{'is-invalid' if @visitor.errors[:recurrence].any?}" %>
+                    <%= render("shared/errors", model: @visitor, attribute: :recurrence) if @visitor.errors[:recurrence].any? %>
                 </div>
             </div>
-           
         </div>
         
         <div class="d-flex justify-content-center">

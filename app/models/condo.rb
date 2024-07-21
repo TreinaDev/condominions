@@ -5,6 +5,8 @@ class Condo < ApplicationRecord
   has_many :unit_types, dependent: :destroy
   has_many :condo_managers, dependent: :destroy
   has_many :managers, through: :condo_managers
+  has_many :announcements, dependent: :destroy
+  has_many :visitors, dependent: :destroy
   has_many :floors, through: :towers
   has_many :units, through: :floors
   has_many :owners, through: :units
@@ -22,6 +24,14 @@ class Condo < ApplicationRecord
 
   def residents
     (tenants + owners).uniq
+  end
+
+  def filtered_residence_registration_pendings
+    (tenants.residence_registration_pending + owners.residence_registration_pending).uniq
+  end
+
+  def filtered_property_registration_pendings
+    (tenants.property_registration_pending + owners.property_registration_pending).uniq
   end
 
   def full_address
@@ -49,6 +59,18 @@ class Condo < ApplicationRecord
         number: unit.short_identifier
       }
     end
+  end
+
+  def expected_visitors(date)
+    visitors.where(visit_date: date)
+  end
+
+  def three_most_recent_announcements
+    announcements.order(updated_at: :desc).limit(3)
+  end
+
+  def more_than_3_announcements
+    announcements.count > 3
   end
 
   private

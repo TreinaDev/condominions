@@ -23,6 +23,7 @@ describe 'Resident sees own visitors list' do
       expect(page).to have_content '145364'
       expect(page).to have_content I18n.l(2.weeks.from_now.to_date)
     end
+
     within("#visitor-#{second_visitor.id}") do
       expect(page).to have_content 'Maria Almeida'
       expect(page).to have_content 'Funcionário'
@@ -77,6 +78,7 @@ describe 'Resident sees own visitors list' do
       expect(page).to have_content 'Um administrador não pode administrar visitantes para uma unidade'
     end
   end
+
   context 'within the condo dashboard' do
     it 'see todays visitors' do
       condo = create :condo

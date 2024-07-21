@@ -1,0 +1,33 @@
+  <div class='bg-white rounded-5 py-4 px-5 shadow'>
+    <section>
+      <h1>Minhas Faturas</h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Valor</th>
+            <th scope="col">Lançamento</th>
+            <th scope="col">Vencimento</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody class="bills-list">
+          <% if @bills.present? && @bills.any? %>
+            <% @bills.each do |bill| %>
+              <tr class="bill">          
+                <td><%= bill.total_value_formatted %></td>
+                <td><%= bill.issue_date_formatted %></td>
+                <td><%= bill.due_date_formatted %></td>
+                <td>
+                  <%= link_to bill_path(bill.id), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill" do %>
+                    <p class="m-0 fs-sm">Detalhes</p> <i class="bi bi-search ms-1"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <p>Não há faturas em aberto</p>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+  </div>

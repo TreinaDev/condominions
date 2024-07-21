@@ -30,7 +30,23 @@ pt-BR:
       new:  'Cadastrar Síndico'
       show: 'Síndico'
       edit: 'Atualizar Síndico'
+    announcement:
+      index: 'Avisos'
+      new: 'Novo Aviso'
+      create: 'Novo Aviso'
+      edit: 'Editar Aviso'
+    visitor_entry:
+      new: 'Cadastrar Entrada de Visitante'
+      index: 'Listagem de Entradas de Visitantes'
     visitor:
       new: 'Cadastrar Visitante/Funcionário'
       create: 'Cadastrar Visitante/Funcionário'
       index: 'Listagem de Visitantes/Funcionários'
+      find: 'Agenda de Visitantes/Funcionários'
+    bill:
+      index: 'Lista de faturas'
+      show: 'Detalhes de fatura'
+    receipt:
+      new: 'Comprovante'
+    fine:
+      new: 'Lançar Multa'

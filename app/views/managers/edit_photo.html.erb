@@ -3,7 +3,7 @@
 
   <% if @manager.user_image.attached? %>
     <div class="current-photo d-flex justify-content-start mb-4">
-      <%= image_tag @manager.user_image, alt: 'Current Image', style: "width: 200px; height: 200px; border-radius: 20%;" %>
+      <%= image_tag @manager.user_image, alt: 'Current Image', class:"user-image-200" %>
     </div>
   <% end %>
 

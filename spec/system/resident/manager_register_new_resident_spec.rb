@@ -79,7 +79,7 @@ describe 'Manager registers new resident' do
 
     click_on 'Enviar'
 
-    expect(current_path).to eq resident_path resident
+    expect(page).to have_current_path resident_path(resident), wait: 3
     expect(page).to have_content 'Morador já cadastro, redirecionado para a página de detalhes do morador'
   end
 end

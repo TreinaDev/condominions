@@ -2,10 +2,13 @@ class Visitor < ApplicationRecord
   ID_REGEX = /\A[a-zA-Z0-9]+\z/
 
   belongs_to :resident
+  belongs_to :condo
   enum category: { visitor: 0, employee: 1 }
 
   enum recurrence: { once: 0, daily: 1, working_days: 2, weekly: 3, biweekly: 4,
                      monthly: 5, bimonthly: 6, quarterly: 7, semiannual: 8, annual: 9 }
+
+  enum status: { pending: 0, confirmed: 1 }
 
   validates :visit_date, :full_name, :identity_number, :category, presence: true
   validate :date_is_future, on: :create

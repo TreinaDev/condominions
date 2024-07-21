@@ -1,6 +1,7 @@
 class FinesController < ApplicationController
   before_action :set_condo, only: %i[new create]
   before_action :authorize_superintendent, only: %i[new create]
+  before_action :set_breadcrumbs_for_register, only: %i[new create]
 
   def new
     @fine = SingleCharge.new(condo: @condo)
@@ -18,6 +19,11 @@ class FinesController < ApplicationController
   end
 
   private
+
+  def set_breadcrumbs_for_register
+    add_breadcrumb @condo.name.to_s, @condo
+    add_breadcrumb I18n.t('breadcrumb.fine.new')
+  end
 
   def authorize_superintendent
     return if resident_signed_in? && @condo.superintendent && @condo.superintendent.tenant == current_resident

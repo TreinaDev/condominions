@@ -5,7 +5,7 @@ class SuperintendentsController < ApplicationController
   before_action :set_breadcrumbs_condo, only: %i[new create edit update]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
   before_action :set_breadcrumbs_for_edit, only: %i[edit update]
-  before_action -> { authorize_condo_manager!(@condo) }, only: %i[show new create edit update]
+  before_action -> { authorize_user(@condo) }, only: %i[show new create edit update]
 
   def show
     @tenant = @superintendent.tenant

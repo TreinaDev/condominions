@@ -6,3 +6,6 @@ import HelloComponent from './components/hello_vue.js'
 
 createApp(HelloComponent).mount('#vue-app')
 import "./controllers"
+
+import "trix"
+import "@rails/actiontext"

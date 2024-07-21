@@ -81,7 +81,7 @@ describe 'Manager' do
       condo.reload
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não possui autorização para essa ação'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
       expect(condo.managers).not_to include other_manager
     end
   end
