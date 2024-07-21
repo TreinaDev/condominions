@@ -41,6 +41,12 @@ class Bill
     "R$ #{format('%.2f', total_value_cents / 100.0).gsub('.', ',')}"
   end
 
+  def rent_fee_value_formatted
+    return "R$ #{format('%.2f', values['rent_fee_cents'] / 100.0).gsub('.', ',')}" if values['rent_fee_cents'].positive?
+
+    false
+  end
+
   def self.format_value(value)
     "R$ #{format('%.2f', value / 100.0).gsub('.', ',')}"
   end
@@ -51,6 +57,17 @@ class Bill
 
   def issue_date_formatted
     format_date(@issue_date)
+  end
+
+  def self.render_message(response)
+    response.success? ? { notice: I18n.t('notices.receipt.sended') } : { alert: I18n.t('alerts.receipt.not_sended') }
+  end
+
+  def self.send_post_request(resident, id)
+    image_attached_blob = resident.receipt.attachment.blob
+    url = Rails.application.routes.url_helpers.rails_blob_url(image_attached_blob, host: 'localhost:3000')
+    Faraday.post('http://localhost:4000/api/v1/receipts',
+                 { receipt: url, bill_id: id }.to_json, 'Content-Type' => 'application/json')
   end
 
   private
