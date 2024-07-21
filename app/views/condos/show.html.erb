@@ -2,7 +2,14 @@
   <div class="p-0 w-fit">
     <h1 class="text-center"><%= @condo.name %></h1>
     <p class="mb-1 text-secondary fs-sm" ><%= @condo.full_address %></p>
-    <p class="text-secondary fs-sm">CNPJ: <%= @condo.registration_number %></p>
+    <p class="mb-1 text-secondary fs-sm">CNPJ: <%= @condo.registration_number %></p>
+    <p class="mb-1 text-secondary fs-sm">Síndico: 
+      <% if @condo.superintendent%>
+        <%= link_to @condo.superintendent.tenant.full_name, condo_superintendent_path(@condo, @condo.superintendent) %>
+      <% else %>
+        Não há um síndico ativo
+      <% end %>  
+    </p>
   </div>
 </div>
 
