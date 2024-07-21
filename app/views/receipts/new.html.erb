@@ -1,10 +1,12 @@
+
 <div class='bg-white rounded-5 py-3 px-5 shadow'>
   <h1>Comprovante de Pagamento</h1>
 
   <%= form_with url: bill_receipts_path(@bill_id), local: true, multipart: true do |f| %>
     <div class="form-floating mb-3 w-75">
-      <%= f.file_field :image, class: 'form-control' %>
+      <%= f.file_field :image, accept: 'application/pdf, image/jpeg, image/jpg, image/png', class: "form-control #{'is-invalid' if @resident.errors[:receipt].any?}" %>
       <%= f.label :image, "Comprovante" %>
+      <%= render("shared/errors", model: @resident, attribute: :receipt) if @resident.errors[:receipt].any? %>
     </div>
 
     <%= f.submit 'Enviar', class: 'btn btn-dark rounded-pill px-4 mt-1' %>
