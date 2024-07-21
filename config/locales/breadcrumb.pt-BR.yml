@@ -42,3 +42,5 @@ pt-BR:
     bill:
       index: 'Lista de faturas'
       show: 'Detalhes de fatura'
+    receipt:
+      new: 'Comprovante'
