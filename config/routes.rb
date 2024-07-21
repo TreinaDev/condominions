@@ -29,11 +29,9 @@ Rails.application.routes.draw do
   end
 
   resources :common_areas, only: [:show, :edit, :update] do
-    resources :reservations, only: [:new, :create, :update]
-  end
-
-  resources :reservations, only: [:show] do
-    post 'canceled', on: :member
+    resources :reservations, only: [:create, :update] do
+      post 'canceled', on: :member
+    end
   end
 
   resources :unit_types, only: [:show, :edit, :update]

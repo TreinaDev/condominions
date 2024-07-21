@@ -1,10 +1,15 @@
-<div class='bg-white rounded-5 py-4 px-5 shadow'>
-  <h1 class="mb-3"><%= @common_area.name %></h1>
+<div class='bg-white rounded-5 py-4 px-5 shadow text-center'>
+  <h1 class="my-4"><%= @common_area.name %></h1>
 
-  <p><strong>Descrição:</strong> <%= @common_area.description %></p>
+  <p><%= @common_area.description %></p>
   <p><strong>Capacidade Máxima:</strong> <%= @common_area.max_occupancy %> pessoas</p>
-  <p><strong>Regras de Uso:</strong> <%= @common_area.rules %></p>
+  
+  <% if @common_area.rules.present? %>
+    <strong>Regras de Uso</strong>
+    <p><%= @common_area.rules %></p>
+  <% end %>
 
   <%= link_to 'Editar', edit_common_area_path(@common_area), class: 'btn btn-dark rounded-pill px-4' if manager_signed_in? %>
-  <%= link_to 'Reservar', new_common_area_reservation_path(@common_area), class: 'btn btn-dark rounded-pill px-4' if resident_signed_in? %>
 </div>
+
+<%= render 'common_areas/reservation_calendar' %> 

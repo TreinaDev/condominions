@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def anyone_signed_in?
+    manager_signed_in? || resident_signed_in?
+  end
+
   def devise_controller?
     devise_controller_name = %w[sessions]
     devise_controller_name.include?(controller_name)

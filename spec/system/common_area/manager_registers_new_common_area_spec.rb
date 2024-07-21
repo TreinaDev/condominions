@@ -51,9 +51,9 @@ describe 'Manager registers new common area' do
 
     expect(page).to have_content 'Área comum cadastrada com sucesso'
     expect(page).to have_content 'Salão de Festas'
-    expect(page).to have_content 'Descrição: Realize sua festa em nosso salão de festas'
+    expect(page).to have_content 'Realize sua festa em nosso salão de festas'
     expect(page).to have_content 'Capacidade Máxima: 100 pessoas'
-    expect(page).to have_content 'Regras de Uso: Salão de festas não pode ser utilizado após as 22 horas'
+    expect(page).to have_content 'Salão de festas não pode ser utilizado após as 22 horas'
   end
 
   it 'with incomplete data' do
