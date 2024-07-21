@@ -11,6 +11,8 @@ class Resident < ApplicationRecord
 
   has_one_attached :user_image
 
+  has_many_attached :receipts
+
   enum status: { property_registration_pending: 0, residence_registration_pending: 1, mail_not_confirmed: 2,
                  mail_confirmed: 3 }
 

@@ -2,11 +2,9 @@
   <h1>Comprovante de Pagamento</h1>
 
   <%= form_with url: bill_bills_path(@bill_id), local: true, multipart: true do |f| %>
-    <div class="form-row row p-2">
-      <div class="form-group col-md-6 pe-3 mb-2">
-        <%= f.label :image, "Comprovante" %>
-        <%= f.file_field :image, class: 'form-control' %>
-      </div>
+    <div class="form-floating mb-3 w-75">
+      <%= f.file_field :image, class: 'form-control' %>
+      <%= f.label :image, "Comprovante" %>
     </div>
 
     <%= f.submit 'Enviar', class: 'btn btn-dark rounded-pill px-4 mt-1' %>
