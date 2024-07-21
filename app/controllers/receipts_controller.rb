@@ -6,12 +6,9 @@ class ReceiptsController < ApplicationController
   end
 
   def create
-    image = current_resident.user_image
-    attached = image.attachment
-    blob = attached.blob
-
-    url = Rails.application.routes.url_helpers.rails_blob_url(blob, host: 'localhost:3000')
-    Faraday.post('http://localhost:4000/api/v1/receipts', { receipt: url, bill_id: 4 }.to_json,
-                 'Content-Type' => 'application/json')
+    current_resident.update(receipt: params[:image])
+    response = Bill.send_post_request(current_resident, params[:bill_id])
+    message = Bill.render_message(response)
+    redirect_to bills_path, flash: message
   end
 end

@@ -53,6 +53,17 @@ class Bill
     format_date(@issue_date)
   end
 
+  def self.render_message(response)
+    response.success? ? { notice: I18n.t('notices.receipt.sended') } : { alert: I18n.t('alerts.receipt.not_sended') }
+  end
+
+  def self.send_post_request(resident, id)
+    image_attached_blob = resident.receipt.attachment.blob
+    url = Rails.application.routes.url_helpers.rails_blob_url(image_attached_blob, host: 'localhost:3000')
+    Faraday.post('http://localhost:4000/api/v1/receipts',
+                 { receipt: url, bill_id: id }.to_json, 'Content-Type' => 'application/json')
+  end
+
   private
 
   def format_date(date)

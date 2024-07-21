@@ -12,8 +12,7 @@ class Resident < ApplicationRecord
   validates :registration_number, uniqueness: true
 
   has_one_attached :user_image
-
-  has_many_attached :receipts
+  has_one_attached :receipt
 
   enum status: { property_registration_pending: 0, residence_registration_pending: 1, mail_not_confirmed: 2,
                  mail_confirmed: 3 }
