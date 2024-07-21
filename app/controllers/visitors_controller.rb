@@ -122,8 +122,7 @@ class VisitorsController < ApplicationController
   end
 
   def check_empty_params
-    params[:identity_number].blank? && params[:visitor_name].blank? &&
-      params[:visit_date].blank? && params[:resident_name].blank? && params[:category].blank?
+    params.values_at(:identity_number, :visitor_name, :visit_date, :resident_name, :category).all?(&:blank?)
   end
 
   def search_visitors(key, value, model)

@@ -8,9 +8,8 @@ class VisitorEntriesController < ApplicationController
   def index
     return @visitor_entries = @condo.visitor_entries.order('created_at DESC') if check_empty_params
 
-    query_params = params.permit(:full_name, :visit_date, :identity_number)
     @result = []
-    query_params.each do |key, value|
+    params.permit(:full_name, :visit_date, :identity_number).each do |key, value|
       key = 'created_at' if key == 'visit_date'
       @result << find_visitor_entries(key, value) if value.present?
     end
@@ -43,7 +42,7 @@ class VisitorEntriesController < ApplicationController
   end
 
   def check_empty_params
-    params[:full_name].blank? && params[:visit_date].blank? && params[:identity_number].blank?
+    params.values_at(:identity_number, :full_name, :visit_date).all?(&:blank?)
   end
 
   def find_visitor_entries(key, value)

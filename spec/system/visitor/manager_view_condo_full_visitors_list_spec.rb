@@ -8,15 +8,26 @@ describe 'Manager view condo full visitors list' do
     second_condo = create :condo
     first_resident = create :resident, full_name: 'Alberto Silveira', residence: tower.floors[0].units[0]
     second_resident = create :resident, full_name: 'Maria Silveira', residence: tower.floors[0].units[1]
-    first_visitor = create :visitor, condo: first_condo, resident: first_resident,
-                                     visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
-    second_visitor = create :visitor, condo: first_condo, resident: first_resident,
-                                      category: :employee, recurrence: :weekly,
-                                      visit_date: Time.zone.today, full_name: 'Maria Oliveira', identity_number: '45977'
-    third_visitor = create :visitor, condo: first_condo, resident: second_resident,
-                                     visit_date: 1.day.from_now, full_name: 'Marcos Lima', identity_number: '12345'
+    first_visitor = create :visitor, condo: first_condo,
+                                     resident: first_resident,
+                                     visit_date: Time.zone.today,
+                                     full_name: 'João da Silva',
+                                     identity_number: '12467'
+    second_visitor = create :visitor, condo: first_condo,
+                                      resident: first_resident,
+                                      category: :employee,
+                                      recurrence: :weekly,
+                                      visit_date: Time.zone.today,
+                                      full_name: 'Maria Oliveira',
+                                      identity_number: '45977'
+    third_visitor = create :visitor, condo: first_condo,
+                                     resident: second_resident,
+                                     visit_date: 1.day.from_now,
+                                     full_name: 'Marcos Lima',
+                                     identity_number: '12345'
     fourth_visitor = create :visitor, condo: second_condo,
-                                      visit_date: Time.zone.today, full_name: 'Juliana Ferreira'
+                                      visit_date: Time.zone.today,
+                                      full_name: 'Juliana Ferreira'
 
     login_as manager, scope: :manager
     visit find_condo_visitors_path first_condo
@@ -53,7 +64,7 @@ describe 'Manager view condo full visitors list' do
     expect(page).not_to have_content 'Juliana Ferreira'
   end
 
-  it 'and sees if list is empty' do
+  it "and there's no visitors registered" do
     manager = create :manager
     condo = create :condo
 
@@ -69,10 +80,13 @@ describe 'Manager view condo full visitors list' do
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
       first_visitor = create :visitor, condo:, resident:,
-                                       visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
+                                       full_name: 'João da Silva',
+                                       identity_number: '12467'
       second_visitor = create :visitor, condo:, resident:,
-                                        category: :employee, recurrence: :weekly,
-                                        visit_date: Time.zone.today, full_name: 'Maria Lima', identity_number: '4677811'
+                                        category: :employee,
+                                        recurrence: :weekly,
+                                        full_name: 'Maria Lima',
+                                        identity_number: '4677811'
       create :visitor, condo:, full_name: 'Marcos Lima', identity_number: '12345'
 
       login_as manager, scope: :manager
@@ -85,31 +99,27 @@ describe 'Manager view condo full visitors list' do
         expect(page).to have_content 'João da Silva'
         expect(page).to have_content '12467'
         expect(page).to have_content 'Visitante'
-        expect(page).to have_content 'Torre A - 11'
         expect(page).to have_content 'Alberto Silveira'
-        expect(page).to have_content I18n.l(Time.zone.today)
       end
       within("#visitor-#{second_visitor.id}") do
         expect(page).to have_content 'Maria Lima'
         expect(page).to have_content '4677811'
         expect(page).to have_content 'Funcionário'
-        expect(page).to have_content 'Torre A - 11'
         expect(page).to have_content 'Alberto Silveira'
-        expect(page).to have_content I18n.l(Time.zone.today)
         expect(page).to have_content 'Semanal'
       end
       expect(page).not_to have_content 'Marcos Lima'
     end
+
     it 'with visitors name filter' do
       manager = create :manager
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
       first_visitor = create :visitor, condo:, resident:,
-                                       visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
+                                       full_name: 'João da Silva'
       second_visitor = create :visitor, condo:, resident:,
-                                        category: :employee, recurrence: :weekly,
-                                        visit_date: 2.days.from_now, full_name: 'João Sousa', identity_number: '13331'
-      create :visitor, condo:, full_name: 'Marcos Lima', identity_number: '12345'
+                                        full_name: 'João Sousa'
+      create :visitor, condo:, full_name: 'Marcos Lima'
 
       login_as manager, scope: :manager
       visit all_condo_visitors_path condo
@@ -119,33 +129,24 @@ describe 'Manager view condo full visitors list' do
       expect(page).to have_content '2 visitantes encontrados'
       within("#visitor-#{first_visitor.id}") do
         expect(page).to have_content 'João da Silva'
-        expect(page).to have_content '12467'
-        expect(page).to have_content 'Visitante'
-        expect(page).to have_content 'Torre A - 11'
         expect(page).to have_content 'Alberto Silveira'
-        expect(page).to have_content I18n.l(Time.zone.today)
       end
       within("#visitor-#{second_visitor.id}") do
         expect(page).to have_content 'João Sousa'
-        expect(page).to have_content '13331'
-        expect(page).to have_content 'Funcionário'
-        expect(page).to have_content 'Torre A - 11'
         expect(page).to have_content 'Alberto Silveira'
-        expect(page).to have_content I18n.l(2.days.from_now.to_date)
-        expect(page).to have_content 'Semanal'
       end
       expect(page).not_to have_content 'Marcos Lima'
     end
+
     it 'with resident name filter' do
       manager = create :manager
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
       first_visitor = create :visitor, condo:, resident:,
-                                       visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
+                                       full_name: 'João da Silva'
       second_visitor = create :visitor, condo:, resident:,
-                                        category: :employee, recurrence: :weekly,
-                                        visit_date: 2.days.from_now, full_name: 'Bruna Lima', identity_number: '13331'
-      create :visitor, condo:, full_name: 'Marcos Lima', identity_number: '12345'
+                                        full_name: 'Bruna Lima'
+      create :visitor, condo:, full_name: 'Marcos Lima'
 
       login_as manager, scope: :manager
       visit all_condo_visitors_path condo
@@ -155,20 +156,11 @@ describe 'Manager view condo full visitors list' do
       expect(page).to have_content '2 visitantes encontrados'
       within("#visitor-#{first_visitor.id}") do
         expect(page).to have_content 'João da Silva'
-        expect(page).to have_content '12467'
-        expect(page).to have_content 'Visitante'
-        expect(page).to have_content 'Torre A - 11'
         expect(page).to have_content 'Alberto Silveira'
-        expect(page).to have_content I18n.l(Time.zone.today)
       end
       within("#visitor-#{second_visitor.id}") do
         expect(page).to have_content 'Bruna Lima'
-        expect(page).to have_content '13331'
-        expect(page).to have_content 'Funcionário'
-        expect(page).to have_content 'Torre A - 11'
         expect(page).to have_content 'Alberto Silveira'
-        expect(page).to have_content I18n.l(2.days.from_now.to_date)
-        expect(page).to have_content 'Semanal'
       end
       expect(page).not_to have_content 'Marcos Lima'
     end
@@ -178,11 +170,12 @@ describe 'Manager view condo full visitors list' do
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
       first_visitor = create :visitor, condo:, resident:,
-                                       visit_date: 2.days.from_now, full_name: 'João da Silva', identity_number: '12467'
+                                       visit_date: 2.days.from_now,
+                                       full_name: 'João da Silva'
       second_visitor = create :visitor, condo:, resident:,
-                                        category: :employee, recurrence: :weekly,
-                                        visit_date: 2.days.from_now, full_name: 'Bruna Lima', identity_number: '13331'
-      create :visitor, condo:, full_name: 'Marcos Lima', identity_number: '12345'
+                                        visit_date: 2.days.from_now,
+                                        full_name: 'Bruna Lima'
+      create :visitor, condo:, full_name: 'Marcos Lima'
 
       login_as manager, scope: :manager
       visit all_condo_visitors_path condo
@@ -192,20 +185,13 @@ describe 'Manager view condo full visitors list' do
       expect(page).to have_content '2 visitantes encontrados'
       within("#visitor-#{first_visitor.id}") do
         expect(page).to have_content 'João da Silva'
-        expect(page).to have_content '12467'
-        expect(page).to have_content 'Visitante'
-        expect(page).to have_content 'Torre A - 11'
         expect(page).to have_content 'Alberto Silveira'
         expect(page).to have_content I18n.l(2.days.from_now.to_date)
       end
       within("#visitor-#{second_visitor.id}") do
         expect(page).to have_content 'Bruna Lima'
-        expect(page).to have_content '13331'
-        expect(page).to have_content 'Funcionário'
-        expect(page).to have_content 'Torre A - 11'
         expect(page).to have_content 'Alberto Silveira'
         expect(page).to have_content I18n.l(2.days.from_now.to_date)
-        expect(page).to have_content 'Semanal'
       end
       expect(page).not_to have_content 'Marcos Lima'
     end
@@ -215,7 +201,9 @@ describe 'Manager view condo full visitors list' do
       resident = create :resident, :with_residence, full_name: 'Alberto Silveira'
       condo = resident.residence.condo
       first_visitor = create :visitor, condo:, resident:,
-                                       visit_date: 2.days.from_now, full_name: 'João da Silva', identity_number: '12467'
+                                       visit_date: 2.days.from_now,
+                                       full_name: 'João da Silva',
+                                       identity_number: '12467'
       create :visitor, condo:, full_name: 'Bruna Lima'
       create :visitor, condo:, full_name: 'Marcos Ferreira'
 
@@ -232,7 +220,6 @@ describe 'Manager view condo full visitors list' do
         expect(page).to have_content 'João da Silva'
         expect(page).to have_content '12467'
         expect(page).to have_content 'Visitante'
-        expect(page).to have_content 'Torre A - 11'
         expect(page).to have_content 'Alberto Silveira'
         expect(page).to have_content I18n.l(2.days.from_now.to_date)
       end

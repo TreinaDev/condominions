@@ -34,7 +34,7 @@ describe 'manager see visitor entries list' do
     expect(page).not_to have_content 'Nome Terceiro Visitante'
   end
 
-  it 'and sees if list is empty' do
+  it "and there's no visitors entries" do
     manager = create :manager
     condo = create :condo
 
@@ -96,6 +96,9 @@ describe 'manager see visitor entries list' do
     it 'with visit date filter' do
       manager = create :manager
       condo = create :condo
+      travel_to 1.day.ago do
+        create :visitor_entry, condo:, full_name: 'Nome Visitante Ontem'
+      end
       create :visitor_entry, condo:, full_name: 'Nome Primeiro Visitante'
       create :visitor_entry, condo:, full_name: 'Nome Último Visitante'
 
@@ -107,6 +110,7 @@ describe 'manager see visitor entries list' do
       expect(page).to have_content '2 entradas de visitante encontrada'
       within('.table > tbody > tr:nth-child(1)') { expect(page).to have_content 'Nome Último Visitante' }
       within('.table > tbody > tr:nth-child(2)') { expect(page).to have_content 'Nome Primeiro Visitante' }
+      expect(page).not_to have_content 'Nome Visitante Ontem'
     end
 
     it 'with identity number filter' do
