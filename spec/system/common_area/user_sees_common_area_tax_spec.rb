@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User sees common area tax' do
+describe 'User sees common area fee' do
   context 'as a resident' do
     it 'successfully' do
       condo = create :condo
@@ -20,7 +20,7 @@ describe 'User sees common area tax' do
       expect(page).to have_content 'Taxa da reserva: R$300,00'
     end
 
-    it 'and see a message if the tax is not found' do
+    it 'and see a message if the fee is not found' do
       condo = create :condo
       resident = create(:resident, :with_residence, condo:)
       common_area = create :common_area, condo:, id: 99
