@@ -26,6 +26,10 @@ pt-BR:
       new: 'Adicionar Propriedade'
     tenant:
       new: 'Adicionar Moradia'
+    superintendent:
+      new:  'Cadastrar Síndico'
+      show: 'Síndico'
+      edit: 'Atualizar Síndico'
     announcement:
       index: 'Avisos'
       new: 'Novo Aviso'
@@ -39,6 +43,7 @@ pt-BR:
       create: 'Cadastrar Visitante/Funcionário'
       index: 'Listagem de Visitantes/Funcionários'
       find: 'Agenda de Visitantes/Funcionários'
+      all: 'Listagem completa de Visitantes/Funcionários'
     bill:
       index: 'Lista de faturas'
       show: 'Detalhes de fatura'

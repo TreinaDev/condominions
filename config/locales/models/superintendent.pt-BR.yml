@@ -1,0 +1,21 @@
+pt-BR:
+  notices:
+    superintendent:
+      created: 'Mandato de síndico cadastro com sucesso!'
+      updated: 'Mandato de síndico atualizado com sucesso!'
+  alerts:    
+    superintendent:
+      not_created: 'Não foi possível cadastrar o mandato.'
+      not_updated: 'Não foi possível atualizar o mandato.'
+      exists: 'Esse condomínio já possui um síndico cadastrado!'
+  activerecord:
+    models:
+      superintendent:
+        one: 'Síndico'
+        other: 'Síndicos'
+    attributes:
+      superintendent:
+        start_date: 'Data de ínicio'
+        end_date: 'Data de conclusão'
+        tenant_id: 'Morador'
+        tenant: 'Morador'

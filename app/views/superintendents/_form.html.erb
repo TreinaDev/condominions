@@ -1,0 +1,36 @@
+
+<section class="bg-white rounded-5 py-4 px-5 shadow">
+
+  <%=  form_with model: [@condo, @superintendent] do |f| %>
+
+    <div class="form-row p-2">
+      <div class="form-group col-md-12 pe-3">
+        <%= f.label :start_date %>
+        <%= f.date_field :start_date, class:"form-control #{'is-invalid'if @superintendent.errors[:start_date].any?}", min: Date.today %>
+        <%= render("shared/errors", model: @superintendent, attribute: :start_date) if @superintendent.errors[:start_date].any? %>
+      </div>
+    </div>
+
+    <div class="form-row p-2">
+      <div class="form-group col-md-12 pe-3">
+        <%= f.label :end_date %>
+        <%= f.date_field :end_date, class:"form-control #{'is-invalid'if @superintendent.errors[:end_date].any?}", min: Date.today %>
+        <%= render("shared/errors", model: @superintendent, attribute: :end_date) if @superintendent.errors[:end_date].any? %>
+      </div>
+    </div>
+
+    <div class="form-row d-flex p-2">
+      <div class="form-group col-md-12 pe-3">
+        <%= f.label :tenant_id %>
+        <%= f.collection_select :tenant_id, @tenants, :id, :full_name, {} , class: "form-control form-select #{'is-invalid'if @superintendent.errors[:tenant].any?}" %>
+        <%= render("shared/errors", model: @superintendent, attribute: :tenant) if @superintendent.errors[:tenant].any? %>
+      </div>
+    </div>
+
+    <div class="form-group d-flex justify-content-center">
+      <%= f.submit 'Enviar', class:'btn btn-dark rounded-pill px-4 mt-3' %>
+    </div>
+
+  <% end %>
+
+</section>

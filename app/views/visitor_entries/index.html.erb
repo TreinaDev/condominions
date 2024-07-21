@@ -5,7 +5,30 @@
     <%= link_to 'Registrar nova Entrada de Visitante', new_condo_visitor_entry_path(@condo), class:'btn btn-dark rounded-pill px-4 m-2' %>
   </div>
 
-  <table class="table table-sm">
+  <%= form_with url: condo_visitor_entries_path(@condo), method: :get do |f| %>
+    <div class="form-row p-2 row">
+      <div class="form-group col-md-4 pe-3">
+        <%= f.label :full_name, I18n.t("activerecord.attributes.visitor_entry.full_name") %>
+        <%= f.text_field :full_name, class: "form-control" %>
+      </div>
+      <div class="form-group col-md-4 pe-3">
+        <%= f.label :identity_number, I18n.t("activerecord.attributes.visitor_entry.identity_number") %>
+        <%= f.text_field :identity_number, class: "form-control" %>
+      </div>
+      <div class="form-group col-md-4 pe-3">
+        <%= f.label :visit_date, I18n.t("activerecord.attributes.visitor_entry.visit_date") %>
+        <%= f.date_field :visit_date, class: "form-control" %>
+      </div>
+      <div class="d-flex justify-content-center">
+        <%= f.submit "Pesquisar", class: "btn btn-dark rounded-pill d-inline-flex align-items-center mt-3 px-4 shadow-sm" %>
+      </div>
+    </div>
+  <% end %>
+  <table class="table table-hover table-sm align-middle caption-top">
+    <% if @result %>
+      <caption><%= "#{@visitor_entries.count} #{VisitorEntry.model_name.human(count: @visitor_entries.count).downcase} #{I18n.t('activerecord.attributes.visitor_entry.found', count: @visitor_entries.count).downcase}" %></caption>
+    <% end %>
+      
     <thead>
       <tr>
         <th scope="col">Nome Completo</th>
@@ -15,18 +38,24 @@
       </tr>
     </thead>
     <tbody>
-      <% @visitor_entries.each do |visitor| %>
-        <tr>
-          <td><%= visitor.full_name %></td>
-          <td><%= visitor.identity_number %></td>
-          <td><%= I18n.l(visitor.created_at, format: :long) %></td>
+      <% if @visitor_entries.any? %>
+        <% @visitor_entries.each do |visitor| %>
+          <tr>
+            <td><%= visitor.full_name %></td>
+            <td><%= visitor.identity_number %></td>
+            <td><%= I18n.l(visitor.created_at, format: :long) %></td>
 
-          <% if visitor.unit.nil? %>
-            <td>Sem unidade referenciada</td>
-          <% else %>
-            <td><%= visitor.unit.floor.tower.name %> - <%= visitor.unit.short_identifier %></td>
-          <% end %>
-        </tr>
+            <% if visitor.unit.nil? %>
+              <td>Sem unidade referenciada</td>
+            <% else %>
+              <td><%= visitor.unit.floor.tower.name %> - <%= visitor.unit.short_identifier %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% elsif @result %>
+        <p class="alert alert-warning text-center">Não foi possível encontrar entradas de visitantes com os filtros informados</p>
+      <% else %>
+        <p class="alert alert-warning text-center">No momento, não há entradas de visitantes cadastradas</p>
       <% end %>
     </tbody>
   </table>
