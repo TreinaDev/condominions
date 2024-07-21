@@ -25,26 +25,26 @@ class ReservationsController < ApplicationController
     Time.zone.today < @reservation.date && @reservation.canceled!
   end
 
+  def resident_access_restricted?
+    resident_signed_in? && !@common_area.access_allowed?(current_resident)
+  end
+
   def authenticate_resident!
     @residents = @common_area.condo.residents
+    return super unless manager_signed_in? || resident_access_restricted?
 
-    if manager_signed_in? || (resident_signed_in? && !@common_area.access_allowed?(current_resident))
-      return redirect_to root_path,
-                         alert: t('alerts.reservation.not_authorized')
-    end
-
-    super
+    redirect_to root_path, alert: I18n.t('alerts.not_authorized')
   end
 
   def authenticate_for_cancelation
-    unless resident_signed_in? || manager_signed_in?
+    unless anyone_signed_in?
       return redirect_to new_resident_session_path,
-                         alert: t('alerts.reservation.access_denied')
+                         alert: I18n.t('alerts.reservation.access_denied')
     end
 
     return if reservation_owner?
 
-    redirect_to root_path, alert: t('alerts.reservation.not_authorized')
+    redirect_to root_path, alert: I18n.t('alerts.not_authorized')
   end
 
   def reservation_owner?

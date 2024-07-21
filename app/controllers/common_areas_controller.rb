@@ -31,13 +31,12 @@ class CommonAreasController < ApplicationController
   def update
     add_breadcrumb I18n.t('breadcrumb.edit')
 
-    if @common_area.update(common_area_params)
-      return redirect_to @common_area,
-                         notice: I18n.t('notices.common_area.updated')
+    unless @common_area.update(common_area_params)
+      flash.now[:alert] = I18n.t('alerts.common_area.not_updated')
+      return render :edit, status: :unprocessable_entity
     end
 
-    flash.now[:alert] = I18n.t('alerts.common_area.not_updated')
-    render :edit, status: :unprocessable_entity
+    redirect_to @common_area, notice: I18n.t('notices.common_area.updated')
   end
 
   private

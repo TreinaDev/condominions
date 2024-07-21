@@ -20,7 +20,7 @@ describe 'Reservation' do
       post common_area_reservations_path common_area, params: { reservation: { date: I18n.l(Date.current + 1.week) } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso.'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
       expect(Reservation.all.empty?).to be true
     end
 
@@ -35,7 +35,7 @@ describe 'Reservation' do
       post common_area_reservations_path common_area, params: { reservation: { date: I18n.l(Date.current + 1.week) } }
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso.'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
       expect(Reservation.all.empty?).to be true
     end
   end
@@ -61,7 +61,7 @@ describe 'Reservation' do
       post canceled_common_area_reservation_path reservation.common_area, reservation
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso.'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
       expect(reservation.confirmed?).to be true
     end
 
@@ -74,7 +74,7 @@ describe 'Reservation' do
       post canceled_common_area_reservation_path reservation.common_area, reservation
 
       expect(response).to redirect_to root_path
-      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso.'
+      expect(flash[:alert]).to eq 'Você não tem permissão para fazer isso'
       expect(reservation.confirmed?).to be true
     end
 

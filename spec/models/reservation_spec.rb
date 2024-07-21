@@ -6,7 +6,7 @@ RSpec.describe Reservation, type: :model do
       travel_to '01/07/2024' do
         reservation = build :reservation, date: '02/07/2024'
 
-        reservation.canceled!
+        reservation.update status: :canceled
 
         expect(reservation.canceled?).to be true
       end
