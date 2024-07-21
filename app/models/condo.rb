@@ -57,7 +57,8 @@ class Condo < ApplicationRecord
       {
         id: unit.id,
         floor: unit.floor.identifier,
-        number: unit.short_identifier
+        number: unit.short_identifier,
+        tower_name: unit.tower.name
       }
     end
   end

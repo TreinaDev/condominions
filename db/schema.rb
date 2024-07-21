@@ -233,6 +233,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_231004) do
   add_foreign_key "floors", "towers"
   add_foreign_key "reservations", "common_areas"
   add_foreign_key "reservations", "residents"
+  add_foreign_key "superintendents", "condos"
+  add_foreign_key "superintendents", "residents", column: "tenant_id"
   add_foreign_key "towers", "condos"
   add_foreign_key "unit_types", "condos"
   add_foreign_key "units", "floors"
