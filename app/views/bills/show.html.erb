@@ -53,6 +53,12 @@
           <td><%= Bill.format_value detail['value_cents'] %></td>
         </tr>
       <% end %>
+      <% if @bill.rent_fee_value_formatted %>
+      <tr>
+        <td> Aluguel </td>
+        <td> <%= @bill.rent_fee_value_formatted %>
+      </tr>
+      <% end%>
       <tr>
         <td><strong>Total</strong></td>
         <td><strong><%= @bill.total_value_formatted %></strong></td>
