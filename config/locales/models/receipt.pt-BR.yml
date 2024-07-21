@@ -1,0 +1,8 @@
+pt-BR:
+  notices:
+    receipt:
+      sended: 'Comprovante enviado ao servidor do PagueAluguel'
+  alerts:    
+    receipt:
+      not_sended: 'Impossível enviar o comprovante ao servidor do PagueAluguel'
+      inexistent_image: 'Comprovante não pode ficar em branco'

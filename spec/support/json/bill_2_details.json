@@ -1,0 +1,46 @@
+{
+  "unit_id": 1,
+  "condo_id": 1,
+  "issue_date": "2024-07-01",
+  "due_date": "2024-07-29",
+  "total_value_cents": 225500,
+  "status": "wating",
+  "values": {
+    "base_fee_value_cents": 21100,
+    "shared_fee_value_cents": 40000,
+    "single_charge_value_cents": 44400,
+    "rent_fee_cents": 120000
+  },
+  "bill_details": [
+    {
+      "value_cents": 30000,
+      "description": "Conta de Água",
+      "fee_type": "shared_fee"
+    },
+    {
+      "value_cents": 10000,
+      "description": "Conta de Luz",
+      "fee_type": "shared_fee"
+    },
+    {
+      "value_cents": 10000,
+      "description": "Taxa de Condomínio",
+      "fee_type": "base_fee"
+    },
+    {
+      "value_cents": 11100,
+      "description": "Taxa de Manutenção",
+      "fee_type": "base_fee"
+    },
+    {
+      "value_cents": 11100,
+      "description": "Multa por barulho",
+      "fee_type": "fine"
+    },
+    {
+      "value_cents": 33300,
+      "description": "Acordo entre proprietário e morador",
+      "fee_type": "other"
+    }
+  ]
+}
