@@ -1,0 +1,29 @@
+<div class='bg-white rounded-5 py-4 px-5 shadow'>
+  <section>
+    <h1>Mural de Avisos</h1>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Título</th>
+          <th scope="col">Autor</th>
+          <th scope="col">Última atualização</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="announcement_board">
+        <% @announcements.each do |announcement| %>
+          <tr class="announcement">          
+            <td><%= announcement.title %></td>
+            <td><%= announcement.manager.full_name %></td>
+            <td><%= I18n.l(announcement.updated_at, format: :custom) %></td>
+            <td>
+              <%= link_to announcement_path(announcement), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill" do %>
+                <p class="m-0 fs-sm">Visualizar</p> <i class="bi bi-search ms-1"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>

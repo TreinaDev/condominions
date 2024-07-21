@@ -4,9 +4,7 @@ describe 'Manager edits superintendent' do
   context 'GET /condos/:condo_id/superintendents/new' do
     it 'must be authenticated to edit an superintendent' do
       condo = create :condo, name: 'Condomínio X'
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
+      resident = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
                                                end_date: Time.zone.today >> 2)
 
@@ -18,9 +16,7 @@ describe 'Manager edits superintendent' do
     it 'must be authenticated as condo manager to edit a superintendent' do
       condo_manager = create :manager, is_super: false
       condo = create :condo, name: 'Condomínio X'
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
+      resident = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
                                                end_date: Time.zone.today >> 2)
 
@@ -33,9 +29,7 @@ describe 'Manager edits superintendent' do
 
     it 'must be authenticated as manager' do
       condo = create :condo, name: 'Condomínio X'
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
+      resident = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
                                                end_date: Time.zone.today >> 2)
 
@@ -50,11 +44,8 @@ describe 'Manager edits superintendent' do
   context 'patch /condos/:condo_id/superintendents' do
     it 'must be authenticated to edit an superintendent' do
       condo = create :condo, name: 'Condomínio X'
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      unit12 = tower.floors.first.units[1]
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-      resident2 = create :resident, full_name: 'Havana Silva', residence: unit12, email: 'havana@email.com'
+      resident = create(:resident, :with_residence, condo:)
+      resident2 = create(:resident, :with_residence, email: 'Adrolado@email.com', condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
                                                end_date: Time.zone.today >> 2)
 
@@ -68,11 +59,8 @@ describe 'Manager edits superintendent' do
 
     it 'must be authenticated as condo manager to edit a superintendent' do
       condo = create :condo, name: 'Condomínio X'
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      unit12 = tower.floors.first.units[1]
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-      resident2 = create :resident, full_name: 'Havana Silva', residence: unit12, email: 'havana@email.com'
+      resident = create(:resident, :with_residence, condo:)
+      resident2 = create(:resident, :with_residence, email: 'Adrolado@email.com', condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
                                                end_date: Time.zone.today >> 2)
 
@@ -89,11 +77,8 @@ describe 'Manager edits superintendent' do
 
     it 'must be authenticated as manager' do
       condo = create :condo, name: 'Condomínio X'
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      unit12 = tower.floors.first.units[1]
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-      resident2 = create :resident, full_name: 'Havana Silva', residence: unit12, email: 'havana@email.com'
+      resident = create(:resident, :with_residence, condo:)
+      resident2 = create(:resident, :with_residence, email: 'Adrolado@email.com', condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
                                                end_date: Time.zone.today >> 2)
 

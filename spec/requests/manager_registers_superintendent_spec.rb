@@ -36,9 +36,7 @@ describe 'Manager registers superintendent' do
   context 'POST /condos/:condo_id/superintendents' do
     it 'must be authenticated to register an superintendent' do
       condo = create :condo
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
+      resident = create(:resident, :with_residence, condo:)
 
       params = { superintendent: { start_date: Time.zone.today, end_date: Time.zone.today >> 2,
                                    tenant_id: resident.id }, condo_id: condo.id }
@@ -51,11 +49,9 @@ describe 'Manager registers superintendent' do
 
     it 'must be authenticated as condo manager to register a superintendent' do
       condo = create :condo
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-
+      resident = create(:resident, :with_residence, condo:)
       condo_manager = create :manager, is_super: false
+
       login_as condo_manager, scope: :manager
 
       params = { superintendent: { start_date: Time.zone.today, end_date: Time.zone.today >> 2,
@@ -69,9 +65,7 @@ describe 'Manager registers superintendent' do
 
     it 'must be authenticated as manager' do
       condo = create :condo
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
+      resident = create(:resident, :with_residence, condo:)
 
       login_as resident, scope: :resident
 

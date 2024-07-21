@@ -4,9 +4,9 @@
   <div class="d-flex align-items-center">
     <div class="current-photo mb-4">
         <% if @tenant.user_image.attached? %>
-        <%= image_tag @tenant.user_image, alt: 'Current Image', style: "width: 200px; height: 200px; border-radius: 20%;" %>
+        <%= image_tag @tenant.user_image, alt: 'Current Image', class:"user-image-200" %>
         <% else %>
-        <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image', style:"width: 200px; height: 200px; border-radius: 20%;" %>
+        <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image',  class:"user-image-200" %>
         <% end %>
     </div>
     <div class="ms-4" id="superintendent_data">

@@ -1,6 +1,6 @@
 <div class="accordion-item rounded-5 shadow-sm">
   <h2 class="accordion-header">
-    <button class="accordion-button collapsed rounded-pill py-3" style="background-color: #FDE879" type="button" data-bs-toggle="collapse" data-bs-target="#common-areas" aria-expanded="false" aria-controls="collapseOne">
+    <button class="accordion-button collapsed rounded-pill py-3 bg-light-yellow" type="button" data-bs-toggle="collapse" data-bs-target="#common-areas" aria-expanded="false" aria-controls="collapseOne">
       <strong class="position-absolute top-50 start-50 translate-middle text-black">Lista de Áreas Comuns</strong>
     </button>
   </h2>
@@ -13,7 +13,7 @@
             <i class="bi bi-signpost-split"></i>
             <p class="m-0 ms-1"><%= common_area.name %></p>
             <%= link_to common_area_path(common_area), class: "ms-auto btn btn-dark d-inline-flex align-items-center rounded-pill", id: "common-area-#{common_area.id}" do %>
-              <p style="margin: 0; font-size: 14px;">Visualizar</p> <i class="bi bi-search ms-1"></i>
+              <p class="m-0 fs-sm">Visualizar</p> <i class="bi bi-search ms-1"></i>
             <% end %>
           </div>
           <hr class="m-0">

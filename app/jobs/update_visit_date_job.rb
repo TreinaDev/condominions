@@ -8,7 +8,7 @@ class UpdateVisitDateJob < ApplicationJob
 
     return if new_visit_date.nil?
 
-    visitor.update(visit_date: new_visit_date)
+    visitor.update(visit_date: new_visit_date, status: :pending)
     UpdateVisitDateJob.set(wait_until: (new_visit_date + 1.day).to_datetime).perform_later(visitor)
   end
 end

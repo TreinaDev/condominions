@@ -1,13 +1,13 @@
 <nav class="navbar fixed-top py-0">
-  <div class="container-fluid py-2" style="background-color: #FDE879">
-    <%= link_to 'CondoMinions', root_path, class:"navbar-brand ms-3", style: "font-weight: 600" %>
+  <div class="container-fluid py-2 bg-light-yellow">
+    <%= link_to 'CondoMinions', root_path, class:"navbar-brand ms-3 fw-600" %>
     <% if resident_signed_in? %>
-      <div class="d-inline-flex align-items-center" style="margin: 0 auto;">
-        <%= link_to edit_photo_resident_path(current_resident), style: 'text-decoration: none;' do %>
+      <div class="d-inline-flex align-items-center m-0auto">
+        <%= link_to edit_photo_resident_path(current_resident), class:"td-none" do %>
           <% if current_resident.user_image.attached? %>
-            <%= image_tag current_resident.user_image, alt: 'Image profile', id: 'resident-profile-image', style:"width: 40px; height: 40px; border-radius: 50%" %>
+            <%= image_tag current_resident.user_image, alt: 'Image profile', id: 'resident-profile-image', class:"nav-profile-image" %>
           <% else %>
-            <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image', style:"width: 40px; height: 40px; border-radius: 50%" %>
+            <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'resident-profile-image', class:"nav-profile-image" %>
           <% end %>
         <% end %>
 
@@ -18,16 +18,16 @@
         <% end %>
       </div>
     <% elsif manager_signed_in? %>
-      <div class="d-inline-flex align-items-center" style="margin: 0 auto;">
-        <%= link_to edit_photo_manager_path(current_manager), style: 'text-decoration: none;' do %>
+      <div class="d-inline-flex align-items-center" class="m-0auto">
+        <%= link_to edit_photo_manager_path(current_manager), class: 'td-none' do %>
           <% if current_manager.user_image.attached? %>
-            <%= image_tag current_manager.user_image, alt: 'Image profile', id: 'manager-profile-image', style:"width: 40px; height: 40px; border-radius: 50%" %>
+            <%= image_tag current_manager.user_image, alt: 'Image profile', id: 'manager-profile-image', class:"nav-profile-image" %>
           <% else %>
-            <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'manager-profile-image', style:"width: 40px; height: 40px; border-radius: 50%" %>
+            <%= image_tag 'blank-profile-icon.webp', alt: 'No image profile', id: 'manager-profile-image', class:"nav-profile-image" %>
           <% end %>
         <% end %>
 
-        <p class="my-0 ms-3 me-3"><%= current_manager.description %> - <span style="font-size: smaller; font-weight: bold;"><%= current_manager.is_super? ? 'Super' : 'Admin' %></span></p>
+        <p class="my-0 ms-3 me-3"><%= current_manager.description %> - <span class="fs-sm fw-bold"><%= current_manager.is_super? ? 'Super' : 'Admin' %></span></p>
 
         <%= button_to destroy_manager_session_path, method: :delete, class: 'btn btn-outline-dark d-inline-flex align-items-center justify-content-center rounded-5' do %>
           <i class="bi bi-power pb-1 me-1"></i> Sair
@@ -38,7 +38,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" style="background-color: #577998">
+      <div class="offcanvas offcanvas-end bg-medium-blue-lighter" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Gerenciamento</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -51,7 +51,7 @@
                 <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Gerenciar Usuários
                 </a>
-                <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #4c677f">
+                <ul class="dropdown-menu dropdown-menu-dark bg-medium-blue">
                   <li><%= link_to 'Cadastrar Morador', new_resident_path, class: "dropdown-item" %></li>
                   <li><hr class="nav-divider m-0"></li>
                   <li class="nav-item">
@@ -118,7 +118,7 @@
               <% condos.each do |condo| %>
                 <div class='col-auto'>
                   <%= link_to new_condo_tower_path(condo), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 shadow-sm", data: { turbo: false } do %>
-                    <i class="bi bi-bookmark-plus me-2 mb-1"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p> 
+                    <i class="bi bi-bookmark-plus me-2"></i> <p class="m-0 fs-sm" ><%= condo.name %></p> 
                   <% end %>
                 </div>
               <% end %>
@@ -149,8 +149,8 @@
               <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
               <% condos.each do |condo| %>
                 <div class='col-auto'>
-                  <%= link_to new_condo_unit_type_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false } do %>
-                    <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p> 
+                  <%= link_to new_condo_unit_type_path(condo), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 shadow-sm", data: { turbo: false } do %>
+                    <i class="bi bi-bookmark-plus me-2"></i> <p class="m-0 fs-sm"><%= condo.name %></p> 
                   <% end %>
                 </div>
               <% end %>
@@ -181,8 +181,8 @@
               <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
               <% condos.each do |condo| %>
               <div class='col-auto'>
-                  <%= link_to new_condo_common_area_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false } do %>
-                    <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p> 
+                  <%= link_to new_condo_common_area_path(condo), class:"btn btn-dark rounded-pill d-flex align-items-center mb-2 shadow-sm", data: { turbo: false } do %>
+                    <i class="bi bi-bookmark-plus me-2"></i> <p class="m-0 fs-sm"><%= condo.name %></p> 
                   <% end %>
                 </div>
               <% end %>
@@ -214,7 +214,7 @@
               <% condos.each do |condo| %>
                 <div class='col-auto'>
                   <%= link_to new_condo_superintendent_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false } do %>
-                  <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p>
+                    <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p>
                   <% end %>
                 </div>
               <% end %>

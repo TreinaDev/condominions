@@ -3,10 +3,11 @@ require 'rails_helper'
 RSpec.describe UpdateVisitDateJob, type: :job do
   context 'should update the visit date' do
     it 'with daily recurrence' do
-      first_visitor = create :visitor,
-                             full_name: 'João Ferreira',
-                             visit_date: 1.day.from_now,
-                             category: :employee, recurrence: :daily
+      resident = create(:resident, :with_residence)
+      first_visitor = create :visitor,  resident:,
+                                        full_name: 'João Ferreira',
+                                        visit_date: 1.day.from_now,
+                                        category: :employee, recurrence: :daily
 
       travel_to 2.days.from_now do
         UpdateVisitDateJob.perform_now(first_visitor)
@@ -16,10 +17,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
     end
 
     it 'with weekly recurrence' do
-      first_visitor = create :visitor,
-                             full_name: 'João Ferreira',
-                             visit_date: 1.day.from_now,
-                             category: :employee, recurrence: :weekly
+      resident = create(:resident, :with_residence)
+      first_visitor = create :visitor, resident:,
+                                       full_name: 'João Ferreira',
+                                       visit_date: 1.day.from_now,
+                                       category: :employee, recurrence: :weekly
 
       travel_to 2.days.from_now do
         UpdateVisitDateJob.perform_now(first_visitor)
@@ -29,10 +31,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
     end
 
     it 'with biweekly recurrence' do
-      first_visitor = create :visitor,
-                             full_name: 'João Ferreira',
-                             visit_date: 1.day.from_now,
-                             category: :employee, recurrence: :biweekly
+      resident = create(:resident, :with_residence)
+      first_visitor = create :visitor, resident:,
+                                       full_name: 'João Ferreira',
+                                       visit_date: 1.day.from_now,
+                                       category: :employee, recurrence: :biweekly
 
       travel_to 2.days.from_now do
         UpdateVisitDateJob.perform_now(first_visitor)
@@ -42,10 +45,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
     end
 
     it 'with monthly recurrence' do
-      first_visitor = create :visitor,
-                             full_name: 'João Ferreira',
-                             visit_date: 1.day.from_now,
-                             category: :employee, recurrence: :monthly
+      resident = create(:resident, :with_residence)
+      first_visitor = create :visitor, resident:,
+                                       full_name: 'João Ferreira',
+                                       visit_date: 1.day.from_now,
+                                       category: :employee, recurrence: :monthly
 
       travel_to 2.days.from_now do
         UpdateVisitDateJob.perform_now(first_visitor)
@@ -55,10 +59,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
     end
 
     it 'with bimonthly recurrence' do
-      first_visitor = create :visitor,
-                             full_name: 'João Ferreira',
-                             visit_date: 1.day.from_now,
-                             category: :employee, recurrence: :bimonthly
+      resident = create(:resident, :with_residence)
+      first_visitor = create :visitor, resident:,
+                                       full_name: 'João Ferreira',
+                                       visit_date: 1.day.from_now,
+                                       category: :employee, recurrence: :bimonthly
 
       travel_to 2.days.from_now do
         UpdateVisitDateJob.perform_now(first_visitor)
@@ -68,10 +73,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
     end
 
     it 'with quarterly recurrence' do
-      first_visitor = create :visitor,
-                             full_name: 'João Ferreira',
-                             visit_date: 1.day.from_now,
-                             category: :employee, recurrence: :quarterly
+      resident = create(:resident, :with_residence)
+      first_visitor = create :visitor, resident:,
+                                       full_name: 'João Ferreira',
+                                       visit_date: 1.day.from_now,
+                                       category: :employee, recurrence: :quarterly
 
       travel_to 2.days.from_now do
         UpdateVisitDateJob.perform_now(first_visitor)
@@ -81,10 +87,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
     end
 
     it 'with semiannual recurrence' do
-      first_visitor = create :visitor,
-                             full_name: 'João Ferreira',
-                             visit_date: 1.day.from_now,
-                             category: :employee, recurrence: :semiannual
+      resident = create(:resident, :with_residence)
+      first_visitor = create :visitor, resident:,
+                                       full_name: 'João Ferreira',
+                                       visit_date: 1.day.from_now,
+                                       category: :employee, recurrence: :semiannual
 
       travel_to 2.days.from_now do
         UpdateVisitDateJob.perform_now(first_visitor)
@@ -95,10 +102,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
     end
 
     it 'annual recurrence' do
-      first_visitor = create :visitor,
-                             full_name: 'João Ferreira',
-                             visit_date: 1.day.from_now,
-                             category: :employee, recurrence: :annual
+      resident = create(:resident, :with_residence)
+      first_visitor = create :visitor, resident:,
+                                       full_name: 'João Ferreira',
+                                       visit_date: 1.day.from_now,
+                                       category: :employee, recurrence: :annual
 
       travel_to 2.days.from_now do
         UpdateVisitDateJob.perform_now(first_visitor)
@@ -110,10 +118,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
     context 'working days' do
       it 'week daily recurrence' do
         visit_day = Time.zone.now.next_week(:monday)
-        first_visitor = create :visitor,
-                               full_name: 'João Ferreira',
-                               visit_date: visit_day,
-                               category: :employee, recurrence: :working_days
+        resident = create(:resident, :with_residence)
+        first_visitor = create :visitor, resident:,
+                                         full_name: 'João Ferreira',
+                                         visit_date: visit_day,
+                                         category: :employee, recurrence: :working_days
 
         travel_to(visit_day + 1.day) do
           UpdateVisitDateJob.perform_now(first_visitor)
@@ -124,10 +133,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
 
       it 'friday recurrence' do
         visit_day = Time.zone.now.next_week(:friday)
-        first_visitor = create :visitor,
-                               full_name: 'João Ferreira',
-                               visit_date: visit_day,
-                               category: :employee, recurrence: :working_days
+        resident = create(:resident, :with_residence)
+        first_visitor = create :visitor, resident:,
+                                         full_name: 'João Ferreira',
+                                         visit_date: visit_day,
+                                         category: :employee, recurrence: :working_days
 
         travel_to(visit_day + 1.day) do
           UpdateVisitDateJob.perform_now(first_visitor)
@@ -139,10 +149,11 @@ RSpec.describe UpdateVisitDateJob, type: :job do
 
       it 'saturday recurrence' do
         visit_day = Time.zone.today.next_occurring(:saturday)
-        first_visitor = create :visitor,
-                               full_name: 'João Ferreira',
-                               visit_date: visit_day,
-                               category: :employee, recurrence: :working_days
+        resident = create(:resident, :with_residence)
+        first_visitor = create :visitor, resident:,
+                                         full_name: 'João Ferreira',
+                                         visit_date: visit_day,
+                                         category: :employee, recurrence: :working_days
 
         travel_to(visit_day + 1.day) do
           UpdateVisitDateJob.perform_now(first_visitor)

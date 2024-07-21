@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_17_033755) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_18_231004) do
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -48,6 +58,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_17_033755) do
     t.string "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "announcements", force: :cascade do |t|
+    t.string "title"
+    t.integer "manager_id", null: false
+    t.integer "condo_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["condo_id"], name: "index_announcements_on_condo_id"
+    t.index ["manager_id"], name: "index_announcements_on_manager_id"
   end
 
   create_table "common_areas", force: :cascade do |t|
@@ -196,11 +216,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_17_033755) do
     t.integer "resident_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "condo_id", null: false
+    t.integer "status", default: 0
+    t.index ["condo_id"], name: "index_visitors_on_condo_id"
     t.index ["resident_id"], name: "index_visitors_on_resident_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "announcements", "condos"
+  add_foreign_key "announcements", "managers"
   add_foreign_key "common_areas", "condos"
   add_foreign_key "condo_managers", "condos"
   add_foreign_key "condo_managers", "managers"
@@ -216,5 +241,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_17_033755) do
   add_foreign_key "units", "unit_types"
   add_foreign_key "visitor_entries", "condos"
   add_foreign_key "visitor_entries", "units"
+  add_foreign_key "visitors", "condos"
   add_foreign_key "visitors", "residents"
 end

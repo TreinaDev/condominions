@@ -34,11 +34,7 @@ describe 'User sees superintendent details' do
 
     it 'and is not a condo manager' do
       condo = create :condo, name: 'Condomínio X'
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-      superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                                               end_date: Time.zone.today >> 2)
+      superintendent = create(:superintendent, condo:)
       manager = create :manager, is_super: false
 
       login_as manager, scope: :manager
@@ -46,7 +42,7 @@ describe 'User sees superintendent details' do
       visit condo_superintendent_path(condo, superintendent)
 
       expect(current_path).to eq root_path
-      expect(page).to have_content 'Você não possui autorização para essa ação'
+      expect(page).to have_content 'Você não tem permissão para fazer isso'
     end
   end
 
@@ -83,20 +79,15 @@ describe 'User sees superintendent details' do
 
     it 'and is not a condo resident' do
       condo = create :condo, name: 'Condomínio X'
-      tower = create(:tower, condo:)
-      unit11 = tower.floors.first.units.first
-      condo_resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-      superintendent = create(:superintendent, condo:, tenant: condo_resident, start_date: Time.zone.today,
-                                               end_date: Time.zone.today >> 2)
-
+      superintendent = create(:superintendent, condo:)
       resident = create :resident
 
       login_as resident, scope: :resident
 
       visit condo_superintendent_path(condo, superintendent)
 
+      expect(page).to have_content 'Você não tem permissão para fazer isso'
       expect(current_path).to eq root_path
-      expect(page).to have_content 'Você não possui autorização para essa ação'
     end
   end
 end
