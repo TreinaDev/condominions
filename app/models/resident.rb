@@ -3,6 +3,8 @@ class Resident < ApplicationRecord
   has_many :properties, class_name: 'Unit', foreign_key: 'owner_id', dependent: :nullify, inverse_of: :owner
   has_many :reservations, dependent: :destroy
   has_many :visitors, dependent: :destroy
+  has_one :superintendent, class_name: 'Superintendent', foreign_key: 'tenant_id', dependent: :nullify,
+                           inverse_of: :tenant
 
   delegate :condo, to: :residence, allow_nil: true
 
@@ -26,6 +28,10 @@ class Resident < ApplicationRecord
 
   def todays_visitors
     visitors.where(visit_date: Date.current)
+  end
+
+  def search_visitors_by_params(key, value)
+    visitors.where("#{key} LIKE ?", "%#{value}%")
   end
 
   def description

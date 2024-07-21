@@ -56,7 +56,7 @@ describe 'Manager confirms visitor' do
       post confirm_entry_visitor_path(visitor)
 
       expect(response).to redirect_to find_condo_visitors_path(visitor.condo)
-      expect(flash[:alert]).to eq 'Visitante já confirmado'
+      expect(flash[:alert]).to eq 'Essa entrada já foi confirmada antes ou não é referente ao dia de hoje'
       expect(VisitorEntry.count).to eq 0
     end
 
@@ -70,7 +70,7 @@ describe 'Manager confirms visitor' do
           post confirm_entry_visitor_path(visitor)
 
           expect(response).to redirect_to find_condo_visitors_path(visitor.condo)
-          expect(flash[:alert]).to eq 'Só é possível confirmar visitantes do dia atual'
+          expect(flash[:alert]).to eq 'Essa entrada já foi confirmada antes ou não é referente ao dia de hoje'
           expect(visitor.reload.confirmed?).to eq false
         end
       end
@@ -83,7 +83,7 @@ describe 'Manager confirms visitor' do
         post confirm_entry_visitor_path(visitor)
 
         expect(response).to redirect_to find_condo_visitors_path(visitor.condo)
-        expect(flash[:alert]).to eq 'Só é possível confirmar visitantes do dia atual'
+        expect(flash[:alert]).to eq 'Essa entrada já foi confirmada antes ou não é referente ao dia de hoje'
         expect(visitor.reload.confirmed?).to eq false
       end
     end

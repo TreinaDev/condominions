@@ -9,9 +9,15 @@ pt-BR:
       access_denied: 'Você não tem permissão para acessar essa página.'
   activerecord:
     models:
-      visitor_entry: Entrada de Visitante
+      visitor_entry: 
+        one: 'Entrada de Visitante'
+        other: 'Entradas de Visitante'
     attributes:
       visitor_entry:
+        found:
+          one: 'Encontrada'
+          other: 'Encontradas'
+        visit_date: 'Data da Visita'
         full_name: 'Nome Completo'
         identity_number: 'RG'
         unit_id: 'Unidade visitada'
