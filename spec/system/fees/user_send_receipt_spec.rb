@@ -45,26 +45,21 @@ describe 'resident visit the details view from bill' do
   it 'and succesfully send the image to the external api' do
     condo = create :condo
     resident = create(:resident, :with_residence, condo:)
-    unit11 = resident.residence
-    login_as resident, scope: :resident
     json_data_details = Rails.root.join('spec/support/json/bill_1_details.json').read
     fake_response_details = double('faraday_response', body: json_data_details, success?: true)
-    allow(Bill).to receive(:request_bill_details).with("http://localhost:4000/api/v1/bills/#{@first_bill_id_from_five_json}").and_return(fake_response_details)
+    fake_response_open_bills = double('faraday_response', body: '{"bills":[]}', success?: true)
+    fake_response_receipt = double('faraday_response', body: '{"message":"Comprovante recebido com sucesso."}',
+                                                       success?: true)
 
-    json_data = Rails.root.join('spec/support/json/five_bills.json').read
-    fake_response = double('faraday_response', body: json_data, success?: true)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/units/#{unit11.id}/bills").and_return(fake_response)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/units/#{resident.residence.id}/bills").and_return(fake_response_open_bills)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/bills/#{@first_bill_id_from_five_json}").and_return(fake_response_details)
+    allow(Faraday).to receive(:post).and_return(fake_response_receipt)
 
-    url = 'http://localhost:3000/path/to/your/blob'
-    fake_post_response = double('faraday_response_2', body: { message: 'Recebido' }, success?: true)
-    allow(Rails.application.routes.url_helpers).to receive(:rails_blob_url).and_return(url)
-    allow(Faraday).to receive(:post)
-      .with('http://localhost:4000/api/v1/receipts', { receipt: url, bill_id: '11' }.to_json,
-            'Content-Type' => 'application/json')
-      .and_return(fake_post_response)
+    login_as resident, scope: :resident
+    visit bill_path @first_bill_id_from_five_json
+    click_on 'Enviar Comprovante'
 
-    visit new_bill_receipt_path @first_bill_id_from_five_json
-    attach_file 'Comprovante', Rails.root.join('spec/support/images/cupom-fiscal.jpg')
+    attach_file 'image', Rails.root.join('spec/support/images/cupom-fiscal.jpg')
     click_on 'Enviar'
 
     expect(page).to have_content 'Comprovante enviado ao servidor do PagueAluguel'
@@ -74,26 +69,21 @@ describe 'resident visit the details view from bill' do
   it 'and fail to sends the image to the external api' do
     condo = create :condo
     resident = create(:resident, :with_residence, condo:)
-    unit11 = resident.residence
-    login_as resident, scope: :resident
     json_data_details = Rails.root.join('spec/support/json/bill_1_details.json').read
     fake_response_details = double('faraday_response', body: json_data_details, success?: true)
-    allow(Bill).to receive(:request_bill_details).with("http://localhost:4000/api/v1/bills/#{@first_bill_id_from_five_json}").and_return(fake_response_details)
+    fake_response_open_bills = double('faraday_response', body: '{"bills":[]}', success?: true)
+    fake_response_receipt = double('faraday_response', body: '{"message":"Comprovante recebido com sucesso."}',
+                                                       success?: false)
 
-    json_data = Rails.root.join('spec/support/json/five_bills.json').read
-    fake_response = double('faraday_response', body: json_data, success?: true)
-    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/units/#{unit11.id}/bills").and_return(fake_response)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/units/#{resident.residence.id}/bills").and_return(fake_response_open_bills)
+    allow(Faraday).to receive(:get).with("http://localhost:4000/api/v1/bills/#{@first_bill_id_from_five_json}").and_return(fake_response_details)
+    allow(Faraday).to receive(:post).and_return(fake_response_receipt)
 
-    url = 'http://localhost:3000/path/to/your/blob'
-    fake_post_response = double('faraday_response_2', body: { message: 'Recebido' }, success?: false)
-    allow(Rails.application.routes.url_helpers).to receive(:rails_blob_url).and_return(url)
-    allow(Faraday).to receive(:post)
-      .with('http://localhost:4000/api/v1/receipts', { receipt: url, bill_id: '11' }.to_json,
-            'Content-Type' => 'application/json')
-      .and_return(fake_post_response)
+    login_as resident, scope: :resident
+    visit bill_path @first_bill_id_from_five_json
+    click_on 'Enviar Comprovante'
 
-    visit new_bill_receipt_path @first_bill_id_from_five_json
-    attach_file 'Comprovante', Rails.root.join('spec/support/images/cupom-fiscal.jpg')
+    attach_file 'image', Rails.root.join('spec/support/images/cupom-fiscal.jpg')
     click_on 'Enviar'
 
     expect(page).to have_content 'Impossível enviar o comprovante ao servidor do PagueAluguel'
