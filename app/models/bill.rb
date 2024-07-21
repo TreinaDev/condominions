@@ -41,6 +41,12 @@ class Bill
     "R$ #{format('%.2f', total_value_cents / 100.0).gsub('.', ',')}"
   end
 
+  def rent_fee_value_formatted
+    return "R$ #{format('%.2f', values['rent_fee_cents'] / 100.0).gsub('.', ',')}" if values['rent_fee_cents'].positive?
+
+    false
+  end
+
   def self.format_value(value)
     "R$ #{format('%.2f', value / 100.0).gsub('.', ',')}"
   end
