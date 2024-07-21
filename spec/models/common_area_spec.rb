@@ -32,4 +32,34 @@ RSpec.describe CommonArea, type: :model do
       expect(common_area.errors).not_to include(:max_occupancy)
     end
   end
+
+  describe '#tax' do
+    it 'returns the tax value from common area on external system' do
+      common_area = build :common_area
+
+      data = Rails.root.join('spec/support/json/common_areas/common_area_fee.json').read
+
+      response = double('response', body: data, success?: true)
+
+      allow(Faraday)
+        .to receive(:get)
+        .with("#{Rails.configuration.api['base_url']}/common_area_fees/#{common_area.id}")
+        .and_return(response)
+
+      expect(common_area.tax).to eq 4200
+    end
+
+    it 'returns error message if the request is not succeeded' do
+      common_area = build :common_area
+
+      data = Rails.root.join('spec/support/json/common_areas/common_area_fee_error.json').read
+
+      allow(Faraday)
+        .to receive(:get)
+        .with("#{Rails.configuration.api['base_url']}/common_area_fees/#{common_area.id}")
+        .and_return(double('response', body: data, success?: false))
+
+      expect(common_area.tax).to eq 'Não identificada'
+    end
+  end
 end
