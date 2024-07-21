@@ -7,27 +7,34 @@
   </div>
 
   <div class="d-flex justify-content-center">
-      <div class="card mt-4 border border-primary shadow-lg w-25">
-        <div class="card-body d-flex flex-column align-items-center">
-          <p class="fs-3"><strong>Valor:</strong> <%= @bill.total_value_formatted %></p>
-          <strong>Vencimento:</strong> <%= @bill.due_date_formatted %>
-          <strong>Lançamento:</strong> <%= @bill.issue_date_formatted %>
-          <div>
-            <% case @bill.status %>
-            <% when 'pending' %>
-              <% if @bill.denied %>
-                <span class="badge rounded-pill text-bg-danger">Negada</span>
-              <% else %>
-                <span class="badge rounded-pill text-bg-warning">Não paga</span>
-              <% end %>
-            <% when 'awaiting' %>
-              <span class="badge rounded-pill text-bg-info">Em análise</span>
-            <% when 'paid' %>
-              <span class="badge rounded-pill text-bg-success">Paga</span>
+    <div class="card mt-4 border border-primary shadow-lg w-25">
+      <div class="card-body d-flex flex-column align-items-center">
+        <p class="fs-3"><strong>Valor:</strong> <%= @bill.total_value_formatted %></p>
+        <strong>Vencimento:</strong> <%= @bill.due_date_formatted %>
+        <strong>Lançamento:</strong> <%= @bill.issue_date_formatted %>
+        <div>
+          <% case @bill.status %>
+          <% when 'pending' %>
+            <% if @bill.denied %>
+              <span class="badge rounded-pill text-bg-danger">Negada</span>
+            <% else %>
+              <span class="badge rounded-pill text-bg-warning">Não paga</span>
             <% end %>
-          </div>
+          <% when 'awaiting' %>
+            <span class="badge rounded-pill text-bg-info">Em análise</span>
+          <% when 'paid' %>
+            <span class="badge rounded-pill text-bg-success">Paga</span>
+          <% end %>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center mt-4">
+    <% if @bill.status == 'pending' %>
+      <%= link_to new_bill_receipt_path(@bill_id), class:"btn btn-dark rounded-pill d-flex align-items-baseline pb-2 mb-2 shadow-sm" do %>
+        <i class="bi bi-card-text me-1 fs-6"></i> <p class="m-0 fs-sm">Enviar Comprovante</p> 
+      <% end %>
+    <% end %>
   </div>
 
   <h2 class="mb-3">Detalhamento</h2>
@@ -46,6 +53,12 @@
           <td><%= Bill.format_value detail['value_cents'] %></td>
         </tr>
       <% end %>
+      <% if @bill.rent_fee_value_formatted %>
+      <tr>
+        <td> Aluguel </td>
+        <td> <%= @bill.rent_fee_value_formatted %>
+      </tr>
+      <% end%>
       <tr>
         <td><strong>Total</strong></td>
         <td><strong><%= @bill.total_value_formatted %></strong></td>

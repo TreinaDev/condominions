@@ -5,6 +5,7 @@ class Condo < ApplicationRecord
   has_many :unit_types, dependent: :destroy
   has_many :condo_managers, dependent: :destroy
   has_many :managers, through: :condo_managers
+  has_many :announcements, dependent: :destroy
   has_many :visitors, dependent: :destroy
   has_many :visitor_entries, dependent: :destroy
   has_many :floors, through: :towers
@@ -70,6 +71,14 @@ class Condo < ApplicationRecord
 
   def search_visitors_by_params(key, value)
     visitors.where("#{key} LIKE ?", "%#{value}%")
+  end
+
+  def three_most_recent_announcements
+    announcements.order(updated_at: :desc).limit(3)
+  end
+
+  def more_than_3_announcements
+    announcements.count > 3
   end
 
   private
