@@ -1,29 +1,49 @@
 class VisitorsController < ApplicationController
   before_action :set_resident, only: %i[index new create]
-  before_action :set_condo, only: %i[find]
+  before_action :set_condo, only: %i[find all]
   before_action :set_visitor, only: %i[confirm_entry]
   before_action :authenticate_resident!, only: %i[index new create]
-  before_action :set_breadcrumbs_for_action, only: %i[index new create find]
-  before_action :authenticate_manager!, only: %i[find confirm_entry]
-  before_action -> { authorize_condo_manager(find_condo) }, only: %i[find confirm_entry]
+  before_action :set_breadcrumbs_for_action, only: %i[index new create find all]
+  before_action :authenticate_manager!, only: %i[find confirm_entry all]
+  before_action -> { authorize_condo_manager(find_condo) }, only: %i[find confirm_entry all]
 
   def index
-    @visitors = @resident.visitors
+    return @visitors = @resident.visitors if check_empty_params
+
+    @result = []
+    params.permit(:visitor_name, :category).each do |key, value|
+      key = 'full_name' if key == 'visitor_name'
+      @result << search_visitors(key, value, @resident) if value.present?
+    end
+
+    @visitors = @result.reduce(:&)
   end
 
   def find
     @date = params[:date].present? ? params[:date].to_date : Time.zone.today
 
-    if @date.past?
-      return redirect_to find_condo_visitors_path(@condo),
-                         alert: I18n.t('alerts.visitor.invalid_list_date')
-    end
+    return redirect_to find_condo_visitors_path(@condo), alert: t('alerts.visitor.invalid_list_date') if @date.past?
 
     @visitors = @condo.expected_visitors(@date)
   end
 
+  def all
+    return @visitors = @condo.visitors if check_empty_params
+
+    @result = []
+    params.permit(:identity_number, :visitor_name, :resident_name, :visit_date).each do |key, value|
+      key = 'full_name' if key == 'visitor_name'
+
+      @result << search_visitors(key, value, @condo) if value.present?
+    end
+
+    @visitors = @result.reduce(:&)
+  end
+
   def confirm_entry
-    return redirect_to find_condo_visitors_path(@visitor.condo) unless check_visitor(@visitor)
+    unless @visitor.visit_date == Time.zone.today && @visitor.pending?
+      return redirect_to find_condo_visitors_path(@visitor.condo), alert: I18n.t('alerts.visitor.entry_denied')
+    end
 
     VisitorEntry.create(visitor_entry_params)
     @visitor.confirmed!
@@ -46,20 +66,6 @@ class VisitorsController < ApplicationController
 
   private
 
-  def check_visitor(visitor)
-    if visitor.confirmed?
-      flash[:alert] = I18n.t('alerts.visitor.already_confirmed')
-      return false
-    end
-
-    unless visitor.visit_date == Time.zone.today
-      flash[:alert] = I18n.t('alerts.visitor.invalid_date')
-      return false
-    end
-
-    true
-  end
-
   def set_visit_date_job
     return unless @visitor.employee?
 
@@ -76,10 +82,7 @@ class VisitorsController < ApplicationController
     return redirect_to root_path, alert: I18n.t('alerts.visitor.manager_block') if manager_signed_in?
 
     if resident_signed_in?
-      if @resident.residence.nil?
-        return redirect_to root_path,
-                           alert: I18n.t('alerts.visitor.residence_registration_pending')
-      end
+      return redirect_to root_path, alert: I18n.t('alerts.visitor.residence_pending') unless @resident.residence
       return redirect_to root_path, alert: I18n.t('alerts.visitor.not_allowed') unless current_resident == @resident
     end
 
@@ -105,10 +108,8 @@ class VisitorsController < ApplicationController
   end
 
   def visitor_entry_params
-    {
-      full_name: @visitor.full_name, identity_number: @visitor.identity_number,
-      unit_id: @visitor.resident.residence.id, condo_id: @visitor.condo_id
-    }
+    { full_name: @visitor.full_name, identity_number: @visitor.identity_number,
+      unit_id: @visitor.resident.residence.id, condo_id: @visitor.condo_id }
   end
 
   def visitor_params
@@ -118,5 +119,15 @@ class VisitorsController < ApplicationController
 
   def find_condo
     @condo.nil? ? @visitor.condo : @condo
+  end
+
+  def check_empty_params
+    params.values_at(:identity_number, :visitor_name, :visit_date, :resident_name, :category).all?(&:blank?)
+  end
+
+  def search_visitors(key, value, model)
+    return model.search_visitors_by_resident_name(value) if key == 'resident_name'
+
+    model.search_visitors_by_params(key, value)
   end
 end
