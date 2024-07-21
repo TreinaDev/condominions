@@ -13,7 +13,7 @@ describe 'Superintendent register fine' do
     single_charge =
       { single_charge: {
         description: 'Som alto',
-        value_cents: 50_000,
+        value_cents: 50_059,
         charge_type: :fine,
         issue_date: Time.zone.today,
         condo_id: condo.id,
@@ -39,7 +39,7 @@ describe 'Superintendent register fine' do
       select 'Torre X',	from: 'Torre'
       select '2',	from: 'Andar'
       select '2',	from: 'Unidade'
-      fill_in 'Valor', with: 50_000
+      fill_in 'Valor', with: '500,59'
       fill_in 'Descrição', with: 'Som alto'
       click_on 'Lançar Multa'
     end
@@ -47,7 +47,7 @@ describe 'Superintendent register fine' do
     expect(page).to have_current_path condo_path(condo), wait: 2
     expect(page).to have_content 'Multa lançada com sucesso para a Unidade 22'
     expect(SingleCharge.last.unit).to eq unit22
-    expect(SingleCharge.last.value_cents).to eq 50_000
+    expect(SingleCharge.last.value_cents).to eq 50_059
   end
 
   it 'with missing params' do
@@ -73,7 +73,7 @@ describe 'Superintendent register fine' do
     end
 
     expect(page).to have_content 'Não foi possível lançar a multa'
-    expect(page).to have_content 'Valor não pode ficar em branco'
+    expect(page).to have_content 'Valor não é um número'
     expect(page).to have_content 'Descrição não pode ficar em branco'
     expect(SingleCharge.last).to eq nil
   end

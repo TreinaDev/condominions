@@ -9,13 +9,10 @@ class FinesController < ApplicationController
   def create
     @fine = SingleCharge.new(fine_params)
 
-    if @fine.valid?
-      response = post_response
-      if response.success?
-        @fine.save
-        return redirect_to @condo, notice: "Multa lançada com sucesso para a #{@fine.unit.print_identifier}"
-      end
+    if @fine.valid? && post_response.success? && @fine.save
+      return redirect_to @condo, notice: "Multa lançada com sucesso para a #{@fine.unit.print_identifier}"
     end
+
     flash.now.alert = t('alerts.single_charge.fine_not_created')
     render 'new', status: :unprocessable_entity
   end
@@ -50,7 +47,7 @@ class FinesController < ApplicationController
   end
 
   def fine_params
-    params.require(:single_charge).permit(:value_cents,
+    params.require(:single_charge).permit(:value,
                                           :description).merge({ charge_type: :fine, condo: @condo,
                                                                 unit_id: find_unit_id })
   end

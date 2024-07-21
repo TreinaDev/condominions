@@ -19,5 +19,6 @@ pt-BR:
         condo_id: 'Condomínio'
         description: 'Descrição'
         value_cents: 'Valor'
+        value: 'Valor'
         common_area: 'Área Comum'
         charge_type: 'Tipo'

@@ -10,6 +10,8 @@ class SingleCharge < ApplicationRecord
 
   enum charge_type: { fine: 0, common_area_fee: 1 }
 
+  monetize :value_cents, as: :value, with_model_currency: :currency
+
   def unit_valid?
     return true if unit.owner
 
