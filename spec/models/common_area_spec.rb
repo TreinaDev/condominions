@@ -33,33 +33,31 @@ RSpec.describe CommonArea, type: :model do
     end
   end
 
-  describe '#tax' do
-    it 'returns the tax value from common area on external system' do
-      common_area = build :common_area
+  describe '#formatted_fee' do
+    it 'returns the fee value from common area on external system' do
+      common_area = build :common_area, id: 2
 
-      data = Rails.root.join('spec/support/json/common_areas/common_area_fee.json').read
-
-      response = double('response', body: data, success?: true)
+      data = Rails.root.join('spec/support/json/common_areas/common_area_fees.json').read
 
       allow(Faraday)
         .to receive(:get)
-        .with("#{Rails.configuration.api['base_url']}/common_area_fees/#{common_area.id}")
-        .and_return(response)
+        .with("#{Rails.configuration.api['base_url']}/condos/#{common_area.condo.id}/common_area_fees")
+        .and_return(double('response', body: data, success?: true))
 
-      expect(common_area.tax).to eq 4200
+      expect(common_area.formatted_fee).to eq 'R$300,00'
     end
 
-    it 'returns error message if the request is not succeeded' do
-      common_area = build :common_area
+    it 'returns a message if the fee is not found' do
+      common_area = build :common_area, id: 99
 
-      data = Rails.root.join('spec/support/json/common_areas/common_area_fee_error.json').read
+      data = Rails.root.join('spec/support/json/common_areas/common_area_fees.json').read
 
       allow(Faraday)
         .to receive(:get)
-        .with("#{Rails.configuration.api['base_url']}/common_area_fees/#{common_area.id}")
-        .and_return(double('response', body: data, success?: false))
+        .with("#{Rails.configuration.api['base_url']}/condos/#{common_area.condo.id}/common_area_fees")
+        .and_return(double('response', body: data, success?: true))
 
-      expect(common_area.tax).to eq 'Não identificada'
+      expect(common_area.formatted_fee).to eq 'Não informada'
     end
   end
 end

@@ -1,4 +1,6 @@
 class CommonArea < ApplicationRecord
+  include CurrencyHelper
+
   belongs_to :condo
   has_many :reservations, dependent: :destroy
 
@@ -9,8 +11,18 @@ class CommonArea < ApplicationRecord
     condo.residents.include?(resident)
   end
 
-  def tax
-    common_area_fee = JSON.parse(Faraday.get("#{Rails.configuration.api['base_url']}/common_area_fees/#{id}").body)
-    common_area_fee['errors'].present? ? 'Não identificada' : common_area_fee['value_cents']
+  def formatted_fee
+    currency = integer_to_brl(fee)
+    currency.nil? ? 'Não informada' : currency
+  end
+
+  private
+
+  def fee
+    url = "#{Rails.configuration.api['base_url']}/condos/#{condo.id}/common_area_fees"
+
+    common_area_fees = JSON.parse(Faraday.get(url).body)
+    this_fee = common_area_fees.find { |fee| fee['common_area_id'] == id }
+    this_fee.present? ? this_fee['value_cents'] : nil
   end
 end
