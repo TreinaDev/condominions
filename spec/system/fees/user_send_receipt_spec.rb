@@ -1,7 +1,15 @@
 require 'rails_helper'
 
 describe 'resident visit the details view from bill' do
-  it 'and click a button to send receipt' do
+  it 'and are unauthenticated' do
+    first_bill_id_from_five_json = 11
+    visit bill_path first_bill_id_from_five_json
+
+    expect(current_path).to eq new_resident_session_path
+    expect(page).to have_content 'Para continuar, faça login ou registre-se.'
+  end
+
+  it 'and click a button to see the submition form' do
     condo = create :condo
     resident = create(:resident, :with_residence, condo:)
     first_bill_id_from_five_json = 11
@@ -14,7 +22,7 @@ describe 'resident visit the details view from bill' do
 
     click_on 'Enviar Comprovante'
 
-    expect(current_path).to eq new_bill_bill_path first_bill_id_from_five_json
+    expect(current_path).to eq new_bill_receipt_path first_bill_id_from_five_json
     expect(page).to have_content 'Comprovante de Pagamento'
   end
 
@@ -30,5 +38,9 @@ describe 'resident visit the details view from bill' do
     visit bill_path second_bill_id_from_five_json
 
     expect(page).not_to have_content 'Enviar Comprovante'
+  end
+
+  it 'and succesfully send the form to the external api' do
+
   end
 end

@@ -126,8 +126,6 @@ GEM
     faraday (2.10.0)
       faraday-net_http (>= 2.0, < 3.2)
       logger
-    faraday-multipart (1.0.4)
-      multipart-post (~> 2)
     faraday-net_http (3.1.0)
       net-http
     ferrum (0.15)
@@ -170,7 +168,6 @@ GEM
     mini_mime (1.1.5)
     minitest (5.24.1)
     msgpack (1.7.2)
-    multipart-post (2.4.1)
     mutex_m (0.2.0)
     net-http (0.4.1)
       uri
@@ -342,7 +339,6 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faraday
-  faraday-multipart
   image_processing (>= 1.2)
   jbuilder
   jsbundling-rails
