@@ -9,13 +9,13 @@ class FinesController < ApplicationController
   def create
     @fine = SingleCharge.new(fine_params)
 
-    response = post_response
-
-    if @fine.valid? && response.success?
-      @fine.save
-      return redirect_to @condo, notice: "Multa lançada com sucesso para a #{@fine.unit.print_identifier}"
+    if @fine.valid?
+      response = post_response
+      if response.success?
+        @fine.save
+        return redirect_to @condo, notice: "Multa lançada com sucesso para a #{@fine.unit.print_identifier}"
+      end
     end
-    @fine.valid?
     flash.now.alert = t('alerts.single_charge.fine_not_created')
     render 'new', status: :unprocessable_entity
   end
@@ -60,7 +60,7 @@ class FinesController < ApplicationController
       description: @fine.description,
       value_cents: @fine.value_cents,
       charge_type: @fine.charge_type,
-      issue_date: 5.days.from_now.to_date,
+      issue_date: Time.zone.today,
       condo_id: @fine.condo.id,
       common_area_id: nil,
       unit_id: @fine.unit.id

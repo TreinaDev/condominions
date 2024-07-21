@@ -10,6 +10,24 @@ describe 'Superintendent register fine' do
     resident_super = create :resident, residence: unit11, email: 'alvara@email.com'
     create(:superintendent, condo:, tenant: resident_super, start_date: Time.zone.today,
                             end_date: Time.zone.today >> 2)
+    single_charge =
+      { single_charge: {
+        description: 'Som alto',
+        value_cents: 50_000,
+        charge_type: :fine,
+        issue_date: Time.zone.today,
+        condo_id: condo.id,
+        common_area_id: nil,
+        unit_id: unit22.id
+      } }
+
+    fake_response = instance_double(Faraday::Response, status: 201, success?: true, body: { message: :created }.to_json)
+    fake_connection = instance_double(Faraday::Connection)
+
+    allow(Faraday).to receive(:new).and_return(fake_connection)
+    allow(fake_connection).to receive(:post)
+      .with('/api/v1/single_charges/', single_charge.to_json, 'Content-Type' => 'application/json')
+      .and_return(fake_response)
 
     login_as resident_super, scope: :resident
 
@@ -54,7 +72,6 @@ describe 'Superintendent register fine' do
       click_on 'Lançar Multa'
     end
 
-    sleep 5
     expect(page).to have_content 'Não foi possível lançar a multa'
     expect(page).to have_content 'Valor não pode ficar em branco'
     expect(page).to have_content 'Descrição não pode ficar em branco'
@@ -84,7 +101,6 @@ describe 'Superintendent register fine' do
       click_on 'Lançar Multa'
     end
 
-    sleep 2
     expect(page).to have_content 'Não foi possível lançar a multa'
     expect(page).to have_content 'Não há proprietário para a unidade selecionada'
     expect(SingleCharge.last).to eq nil
