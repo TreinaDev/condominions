@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   resources :unit_types, only: [:show, :edit, :update]
 
   resources :bills, only: [:index, :show] do
-    resources :bills, only: [:new, :create]
+    resources :receipts, only: [:new, :create]
   end
 
   resources :condos, only: [:new, :create, :show, :edit, :update] do
