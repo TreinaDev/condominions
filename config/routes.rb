@@ -39,7 +39,9 @@ Rails.application.routes.draw do
   resources :unit_types, only: [:show, :edit, :update]
   resources :announcements, only: [:show, :edit, :update, :destroy]
 
-  resources :bills, only: [:index, :show]
+  resources :bills, only: [:index, :show] do
+    resources :receipts, only: [:new, :create]
+  end
 
   resources :condos, only: [:new, :create, :show, :edit, :update] do
     get 'residents', on: :member
@@ -50,6 +52,7 @@ Rails.application.routes.draw do
 
     resources :visitors do
       get 'find', on: :collection
+      get 'all', on: :collection
     end
 
     resources :towers, only: [:new, :create] do
@@ -83,6 +86,30 @@ Rails.application.routes.draw do
         resources :common_areas, only: [:index]
         resources :units, only: [:index]
       end
+    end
+  end
+
+  direct :rails_blob do |blob, options|
+    route_for(:rails_service_blob, blob.signed_id, blob.filename, options)
+  end
+
+  direct :rails_blob_variant do |variant, options|
+    route_for(:rails_service_blob_variant, variant.blob.signed_id,
+              variant.variation.key, variant.blob.filename, options)
+  end
+
+  direct :rails_blob_preview do |preview, options|
+    route_for(:rails_service_blob_preview, preview.blob.signed_id,
+              preview.variation.key, preview.blob.filename, options)
+  end
+
+  direct :rails_representation do |representation, options|
+    if representation.blob.previewable?
+      route_for(:rails_service_blob_preview, representation.blob.signed_id,
+                representation.variation.key, representation.blob.filename, options)
+    else
+      route_for(:rails_service_blob_variant, representation.blob.signed_id,
+                representation.variation.key, representation.blob.filename, options)
     end
   end
 end

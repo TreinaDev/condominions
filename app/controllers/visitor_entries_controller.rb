@@ -6,7 +6,16 @@ class VisitorEntriesController < ApplicationController
   before_action :set_breadcrumbs_for_index, only: %i[index]
 
   def index
-    @visitor_entries = VisitorEntry.all.order! 'created_at DESC'
+    return @visitor_entries = @condo.visitor_entries.order('created_at DESC') if check_empty_params
+
+    @result = []
+    params.permit(:full_name, :visit_date, :identity_number).each do |key, value|
+      key = 'created_at' if key == 'visit_date'
+      @result << find_visitor_entries(key, value) if value.present?
+    end
+
+    @visitor_entries = @result.reduce(:&)
+    @visitor_entries = @visitor_entries.order('created_at DESC') if @visitor_entries.many?
   end
 
   def new
@@ -30,6 +39,14 @@ class VisitorEntriesController < ApplicationController
 
   def visitor_entry_params
     params.require(:visitor_entry).permit :full_name, :identity_number, :unit_id
+  end
+
+  def check_empty_params
+    params.values_at(:identity_number, :full_name, :visit_date).all?(&:blank?)
+  end
+
+  def find_visitor_entries(key, value)
+    @condo.visitor_entries.where("#{key} LIKE ?", "%#{value}%")
   end
 
   def set_condo

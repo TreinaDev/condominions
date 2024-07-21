@@ -12,6 +12,8 @@ class Resident < ApplicationRecord
   validates :registration_number, uniqueness: true
 
   has_one_attached :user_image
+  has_one_attached :receipt
+  validate :correct_image_mime_type
 
   enum status: { property_registration_pending: 0, residence_registration_pending: 1, mail_not_confirmed: 2,
                  mail_confirmed: 3 }
@@ -24,6 +26,10 @@ class Resident < ApplicationRecord
 
   def todays_visitors
     visitors.where(visit_date: Date.current)
+  end
+
+  def search_visitors_by_params(key, value)
+    visitors.where("#{key} LIKE ?", "%#{value}%")
   end
 
   def description
@@ -50,6 +56,10 @@ class Resident < ApplicationRecord
       "incompleto, por favor, adicione unidades possuídas, caso haja, ou finalize o cadastro.\n"
   end
 
+  def add_error
+    errors.add(:receipt, ' não pode ficar vazio')
+  end
+
   private
 
   def valid_registration_number
@@ -58,5 +68,11 @@ class Resident < ApplicationRecord
     return if registration_number.match CPF_REGEX
 
     errors.add(:registration_number, 'deve estar no seguinte formato: XXX.XXX.XXX-XX')
+  end
+
+  def correct_image_mime_type
+    return unless receipt.attached? && !receipt.content_type.in?(%w[application/pdf image/jpeg image/jpg image/png])
+
+    errors.add(:receipt, 'deve ser um PDF, JPEG, JPG, ou PNG')
   end
 end
