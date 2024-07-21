@@ -4,8 +4,8 @@ describe 'Units API' do
   context 'GET /api/v1/condos/{id}/units' do
     it 'successfully' do
       condo = create :condo
-      first_tower = create :tower, condo:, floor_quantity: 2, units_per_floor: 2
-      second_tower = create :tower, condo:, floor_quantity: 3, units_per_floor: 2
+      first_tower = create :tower, condo:, name: 'Torre Norte', floor_quantity: 2, units_per_floor: 2
+      second_tower = create :tower, condo:, name: 'Torre Sul', floor_quantity: 3, units_per_floor: 2
       first_unit_type = create(:unit_type, description: 'Duplex com varanda', condo:)
       second_unit_type = create(:unit_type, description: 'Apartamento 1 quarto', condo:)
 
@@ -26,10 +26,12 @@ describe 'Units API' do
       expect(response.parsed_body['units'][0]['id']).to eq 1
       expect(response.parsed_body['units'][0]['floor']).to eq 1
       expect(response.parsed_body['units'][0]['number']).to eq '11'
+      expect(response.parsed_body['units'][0]['tower_name']).to eq 'Torre Norte'
 
       expect(response.parsed_body['units'][1]['id']).to eq 2
       expect(response.parsed_body['units'][1]['floor']).to eq 1
       expect(response.parsed_body['units'][1]['number']).to eq '12'
+      expect(response.parsed_body['units'][1]['tower_name']).to eq 'Torre Norte'
     end
 
     it 'and there`s no units' do
