@@ -15,6 +15,6 @@ class SingleCharge < ApplicationRecord
   def unit_valid?
     return true if unit.owner
 
-    errors.add(:unit, 'Não há proprietário para a unidade selecionada')
+    errors.add(:unit, 'não possui um proprietário.')
   end
 end

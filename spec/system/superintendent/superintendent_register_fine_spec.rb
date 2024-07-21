@@ -102,7 +102,7 @@ describe 'Superintendent register fine' do
     end
 
     expect(page).to have_content 'Não foi possível lançar a multa'
-    expect(page).to have_content 'Não há proprietário para a unidade selecionada'
+    expect(page).to have_content 'Unidade não possui um proprietário.'
     expect(SingleCharge.last).to eq nil
   end
 
