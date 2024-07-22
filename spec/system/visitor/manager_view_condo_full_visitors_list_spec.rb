@@ -10,14 +10,14 @@ describe 'Manager view condo full visitors list' do
     second_resident = create :resident, full_name: 'Maria Silveira', residence: tower.floors[0].units[1]
     first_visitor = create :visitor, condo: first_condo,
                                      resident: first_resident,
-                                     visit_date: Time.zone.today,
+                                     visit_date: Date.current,
                                      full_name: 'João da Silva',
                                      identity_number: '12467'
     second_visitor = create :visitor, condo: first_condo,
                                       resident: first_resident,
                                       category: :employee,
                                       recurrence: :weekly,
-                                      visit_date: Time.zone.today,
+                                      visit_date: Date.current,
                                       full_name: 'Maria Oliveira',
                                       identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo,
@@ -26,7 +26,7 @@ describe 'Manager view condo full visitors list' do
                                      full_name: 'Marcos Lima',
                                      identity_number: '12345'
     fourth_visitor = create :visitor, condo: second_condo,
-                                      visit_date: Time.zone.today,
+                                      visit_date: Date.current,
                                       full_name: 'Juliana Ferreira'
 
     login_as manager, scope: :manager
@@ -41,7 +41,7 @@ describe 'Manager view condo full visitors list' do
       expect(page).to have_content 'Visitante'
       expect(page).to have_content 'Torre A - 11'
       expect(page).to have_content 'Alberto Silveira'
-      expect(page).to have_content I18n.l(Time.zone.today)
+      expect(page).to have_content I18n.l(Date.current)
     end
     within("#visitor-#{second_visitor.id}") do
       expect(page).to have_content 'Maria Oliveira'
@@ -49,7 +49,7 @@ describe 'Manager view condo full visitors list' do
       expect(page).to have_content 'Funcionário'
       expect(page).to have_content 'Torre A - 11'
       expect(page).to have_content 'Alberto Silveira'
-      expect(page).to have_content I18n.l(Time.zone.today)
+      expect(page).to have_content I18n.l(Date.current)
       expect(page).to have_content 'Semanal'
     end
     within("#visitor-#{third_visitor.id}") do

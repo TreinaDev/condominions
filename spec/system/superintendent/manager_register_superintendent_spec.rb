@@ -5,7 +5,7 @@ describe 'Manager register superintendent' do
     condo = create :condo, name: 'Condomínio X'
     resident = create(:resident, :with_residence, full_name: 'Alvus Dumbledore', condo:)
     manager = create :manager
-    date = Time.zone.today
+    travel_to '2024-07-21'.to_date
 
     login_as manager, scope: :manager
     visit root_path
@@ -17,8 +17,8 @@ describe 'Manager register superintendent' do
     within '#condoSelectPopupForSuperintendent' do
       click_on 'Condomínio X'
     end
-    fill_in 'Data de ínicio', with: date
-    fill_in 'Data de conclusão', with: date >> 12
+    fill_in 'Data de ínicio', with: '2024-07-21'.to_date
+    fill_in 'Data de conclusão', with: '2025-07-21'.to_date
     select 'Alvus Dumbledore', from: 'Morador'
     click_on 'Enviar'
 

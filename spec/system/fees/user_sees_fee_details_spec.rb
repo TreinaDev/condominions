@@ -74,7 +74,7 @@ describe 'user access the show bill page' do
     login_as resident, scope: :resident
     visit bills_path
 
-    expect(page).to have_content 'Conexão perdida com o servidor do PagueAlugel.'
+    expect(page).to have_content 'Conexão perdida com o servidor do PagueAluguel'
     expect(current_path).to eq root_path
   end
 end
