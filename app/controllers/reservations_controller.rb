@@ -10,7 +10,12 @@ class ReservationsController < ApplicationController
                                    resident: current_resident,
                                    common_area: @common_area
 
-    redirect_to @common_area, notice: t('notices.reservation.created') if @reservation.save
+    return unless @reservation.generate_single_charge.status == 201
+
+    @reservation.save
+    redirect_to @common_area, notice: t('notices.reservation.created')
+  rescue Faraday::ConnectionFailed
+    redirect_to @common_area, alert: t('alerts.lost_connection')
   end
 
   def canceled
