@@ -7,8 +7,9 @@
   [![Issues][issues-shield]][issues-url]
   [![MIT License][license-shield]][license-url]
   [![Status][status-shield]][status-url]
-  <img src="http://img.shields.io/static/v1?label=Test%20Coverage&message=98.61%&color=green&style=for-the-badge"/>
-  
+  <img src="http://img.shields.io/static/v1?label=Test%20Coverage&message=97.77%&color=green&style=for-the-badge"/>
+  <img src="http://img.shields.io/static/v1?label=Tests&message=450&color=green&style=for-the-badge"/>
+
 </div>
 
 <!-- PROJECT LOGO -->
@@ -74,23 +75,23 @@
 
 ## Funcionalidades
 
-<p align="justify">Usuários administrativos podem ser cadastrados no sistema e usuários proprietários e moradores podem ser convidados por e-mail a se registrar.</p>
+<p align="justify">:trophy:Usuários administrativos podem ser cadastrados no sistema e usuários proprietários e moradores podem ser convidados por e-mail a se registrar;</p>
 
-<p align="justify">Apenas usuários administrativos categorizados como super no momento da criação podem cadastrar outros usuários administrativos, cadastrar um condomínio com endereço e associar um usuário ou mais usuários administrativos àquele condomínio.</p>
+<p align="justify">:trophy:Apenas usuários administrativos categorizados como super no momento da criação podem cadastrar outros usuários administrativos, cadastrar um condomínio com endereço e associar um usuário ou mais usuários administrativos àquele condomínio;</p>
 
-<p align="justify">Usuários administrativos regulares podem cadastrar torres, tipos de unidade, unidade de um condomínio, andares, áreas comuns e moradores.</p>
+<p align="justify">:trophy:Usuários administrativos regulares podem cadastrar torres, tipos de unidade, unidade de um condomínio, andares, áreas comuns e moradores;</p>
 
-<p align="justify">A fração ideal de cada unidade é gerada automaticamente com base no tamanho de cada uma e a quantidade de unidades em um condomínio.</p>
+<p align="justify">:trophy:A fração ideal de cada unidade é gerada automaticamente com base no tamanho de cada uma e a quantidade de unidades em um condomínio;</p>
 
-<p align="justify">Tanto administradores quanto moradores podem ver a página de listagem e detalhes de condomínio. Tendo sua exibição alterada para cada tipo de usuário.</p>
+<p align="justify">:trophy:Tanto administradores quanto moradores podem ver a página de listatrophy e detalhes de condomínio. Tendo sua exibição alterada para cada tipo de usuário;</p>
 
-<p align="justify">Moradores podem fazer uma reserva de área comum a partir de um calendário de reservas, bem como cancelar essa reserva. Gerando ou cancelando cobrança de taxa de uso dessa reserva na aplicação PagueAluguel.</p>
+<p align="justify">:trophy:Moradores podem fazer uma reserva de área comum a partir de um calendário de reservas, bem como cancelar essa reserva. Gerando ou cancelando cobrança de taxa de uso dessa reserva na aplicação PagueAluguel;</p>
 
-<p align="justify">Moradores podem consultar suas faturas e enviar comprovantes de pagamento que serão comunicados através da aplicação PagueAluguel.</p>
+<p align="justify">:trophy:Moradores podem consultar suas faturas e enviar comprovantes de pagamento que serão comunicados através da aplicação PagueAluguel;</p>
 
-<p align="justify">Administradores podem registrar entrada de visitantes no condomínio e visualizar uma lista com o histórico de visitas.</p>
+<p align="justify">:trophy:Administradores podem registrar entrada de visitantes no condomínio e visualizar uma lista com o histórico de visitas;</p>
 
-<p align="justify">Administradores podem criar avisos para serem mostrados em um mural na tela de detalhes de um condomínio.</p>
+<p align="justify">:trophy:Administradores podem criar avisos para serem mostrados em um mural na tela de detalhes de um condomínio.</p>
 
 
 
@@ -396,11 +397,11 @@ Exemplo de Resposta:
 Exemplo de Resposta:
 ```json
 {
-    "name": "Piscina",
-    "description": "Para adultos e crianças",
-    "max_occupancy": 20,
-    "rules": "Só pode ser usada até 22h",
-    "condo_id": 1
+  "name": "Piscina",
+  "description": "Para adultos e crianças",
+  "max_occupancy": 20,
+  "rules": "Só pode ser usada até 22h",
+  "condo_id": 1
 }
 ```
 
@@ -418,9 +419,13 @@ Exemplo de Resposta:
 
 <p align="justify">Você vai precisar da versão 3.2.2 do Ruby, libvips e uma versão atual de NodeJS com Yarn instalado. Recomendamos sempre a instalação das versões LTS (Long Term Support).</p>
 
-#### Instalação do [libvips](https://github.com/libvips/libvips/wiki/Build-for-Ubuntu) no ubuntu:
+Instalação do [libvips](https://github.com/libvips/libvips/wiki/Build-for-Ubuntu) com o apt-get:
 ```sh
 sudo apt install libvips
+```
+Instalação do rails
+```
+gem install rails
 ```
 
 <div id='instalacao'/> 
@@ -451,6 +456,7 @@ rails db:seed
 <div id='execucao-de-testes'/>
   
 ### Execução de Testes
+
 Para rodar os testes, execute:
 ```sh
 rake spec
