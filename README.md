@@ -7,7 +7,7 @@
   [![Issues][issues-shield]][issues-url]
   [![MIT License][license-shield]][license-url]
   [![Status][status-shield]][status-url]
-  <img src="http://img.shields.io/static/v1?label=Test%20Coverage&message=97.77%&color=green&style=for-the-badge"/>
+  <img src="http://img.shields.io/static/v1?label=Test%20Coverage&message=98.61%&color=green&style=for-the-badge"/>
   
 </div>
 
