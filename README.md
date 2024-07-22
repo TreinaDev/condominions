@@ -1,13 +1,14 @@
 <a id="readme-top"></a>
 
 <div align="center">
-
+  
   [![Contributors][contributors-shield]][contributors-url]
   [![Stargazers][stars-shield]][stars-url]
   [![Issues][issues-shield]][issues-url]
   [![MIT License][license-shield]][license-url]
   [![Status][status-shield]][status-url]
-
+  <img src="http://img.shields.io/static/v1?label=Test%20Coverage&message=97.77%&color=green&style=for-the-badge"/>
+  
 </div>
 
 <!-- PROJECT LOGO -->
@@ -29,7 +30,7 @@
     <li>
       <a href="#sobre-o-projeto">Sobre o Projeto</a>
       <ul>
-        <li><a href="#Tecnologias">Tecnologias</a></li>
+        <li><a href="#tecnologias">Tecnologias</a></li>
         <li><a href="#funcionalidade">Funcionalidade</a></li>
         <li><a href="#endpoints-da-api">Endpoints da API</a></li>
       </ul>
@@ -96,7 +97,7 @@
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
-<div id='instalacao-e-execucao'/> 
+<div id='endpoints-da-api'/> 
 
 ## Endpoints da API
 
@@ -406,6 +407,7 @@ Exemplo de Resposta:
 <p align="justify">Retorna erro `404` caso a área comum informada não esteja cadastrada para o condomínio informado.</p>
 
 <!-- GETTING STARTED -->
+<div id='instalacao-e-execucao'/> 
 ## Instalação e Execução
 
 <div id='pre-requisitos'/> 
@@ -444,13 +446,25 @@ Para popular o banco de dados:
 rails db:seed
 ```
 
-<div id='execucao-de-testes'/> 
-
+<div id='execucao-de-testes'/>
+  
 ### Execução de Testes
 Para rodar os testes, execute:
 ```sh
 rake spec
 ```
+
+### Testando E-mails
+
+Caso queria testar emails, você pode fazê-lo instalando a gem [MailCatcher](https://mailcatcher.me/):
+```sh
+gem install mailcatcher
+```
+Para executar o MailCatcher:
+```sh
+mailcatcher
+```
+Agora você pode acessá-lo através da rota http://localhost:1080/
 
 <div id='execucao-da-aplicacao'/> 
 
@@ -473,7 +487,7 @@ Agora é possível acessar a aplicação a partir da rota http://localhost:3000/
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
-<div id='banco-de-dados'/>
+<div id='seeds-de-usuarios'/>
 
 ## Seeds de Usuários
 
