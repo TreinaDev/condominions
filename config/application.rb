@@ -33,6 +33,7 @@ module Condominions
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
+    config.active_record.default_timezone = :local
     config.time_zone = "America/Sao_Paulo"
 
     config.api = config_for(:api)
