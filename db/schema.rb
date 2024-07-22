@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_18_231004) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_025316) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -131,6 +131,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_231004) do
     t.integer "resident_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "single_charge_id"
     t.index ["common_area_id"], name: "index_reservations_on_common_area_id"
     t.index ["resident_id"], name: "index_reservations_on_resident_id"
   end

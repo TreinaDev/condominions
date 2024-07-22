@@ -22,12 +22,14 @@ class ReservationsController < ApplicationController
     return redirect_to @common_area, notice: t('notices.reservation.canceled') if cancel_reservation
 
     redirect_to @common_area, alert: t('alerts.reservation.cancelation_failed')
+  rescue Faraday::ConnectionFailed
+    redirect_to @common_area, alert: t('alerts.lost_connection')
   end
 
   private
 
   def cancel_reservation
-    Time.zone.today < @reservation.date && @reservation.canceled!
+    Time.zone.today < @reservation.date && @reservation.cancel_single_charge.status == 200 && @reservation.canceled!
   end
 
   def resident_access_restricted?
