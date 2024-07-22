@@ -75,23 +75,23 @@
 
 ## Funcionalidades
 
-<p align="justify">:gem:Usuários administrativos podem ser cadastrados no sistema e usuários proprietários e moradores podem ser convidados por e-mail a se registrar.</p>
+<p align="justify">:trophy:Usuários administrativos podem ser cadastrados no sistema e usuários proprietários e moradores podem ser convidados por e-mail a se registrar;</p>
 
-<p align="justify">:gem: Apenas usuários administrativos categorizados como super no momento da criação podem cadastrar outros usuários administrativos, cadastrar um condomínio com endereço e associar um usuário ou mais usuários administrativos àquele condomínio.</p>
+<p align="justify">:trophy:Apenas usuários administrativos categorizados como super no momento da criação podem cadastrar outros usuários administrativos, cadastrar um condomínio com endereço e associar um usuário ou mais usuários administrativos àquele condomínio;</p>
 
-<p align="justify">:gem: Usuários administrativos regulares podem cadastrar torres, tipos de unidade, unidade de um condomínio, andares, áreas comuns e moradores.</p>
+<p align="justify">:trophy:Usuários administrativos regulares podem cadastrar torres, tipos de unidade, unidade de um condomínio, andares, áreas comuns e moradores;</p>
 
-<p align="justify">:gem: A fração ideal de cada unidade é gerada automaticamente com base no tamanho de cada uma e a quantidade de unidades em um condomínio.</p>
+<p align="justify">:trophy:A fração ideal de cada unidade é gerada automaticamente com base no tamanho de cada uma e a quantidade de unidades em um condomínio;</p>
 
-<p align="justify">:gem: Tanto administradores quanto moradores podem ver a página de listagem e detalhes de condomínio. Tendo sua exibição alterada para cada tipo de usuário.</p>
+<p align="justify">:trophy:Tanto administradores quanto moradores podem ver a página de listatrophy e detalhes de condomínio. Tendo sua exibição alterada para cada tipo de usuário;</p>
 
-<p align="justify">:gem: Moradores podem fazer uma reserva de área comum a partir de um calendário de reservas, bem como cancelar essa reserva. Gerando ou cancelando cobrança de taxa de uso dessa reserva na aplicação PagueAluguel.</p>
+<p align="justify">:trophy:Moradores podem fazer uma reserva de área comum a partir de um calendário de reservas, bem como cancelar essa reserva. Gerando ou cancelando cobrança de taxa de uso dessa reserva na aplicação PagueAluguel;</p>
 
-<p align="justify">:gem: Moradores podem consultar suas faturas e enviar comprovantes de pagamento que serão comunicados através da aplicação PagueAluguel.</p>
+<p align="justify">:trophy:Moradores podem consultar suas faturas e enviar comprovantes de pagamento que serão comunicados através da aplicação PagueAluguel;</p>
 
-<p align="justify">:gem: Administradores podem registrar entrada de visitantes no condomínio e visualizar uma lista com o histórico de visitas.</p>
+<p align="justify">:trophy:Administradores podem registrar entrada de visitantes no condomínio e visualizar uma lista com o histórico de visitas;</p>
 
-<p align="justify">:gem: Administradores podem criar avisos para serem mostrados em um mural na tela de detalhes de um condomínio.</p>
+<p align="justify">:trophy:Administradores podem criar avisos para serem mostrados em um mural na tela de detalhes de um condomínio.</p>
 
 
 
