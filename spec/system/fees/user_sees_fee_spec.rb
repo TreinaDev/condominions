@@ -76,6 +76,6 @@ describe 'user access condo show' do
     visit condo_path condo
     click_on 'Faturas em Aberto'
 
-    expect(page).to have_content 'Conexão perdida com o servidor do PagueAlugel.'
+    expect(page).to have_content 'Conexão perdida com o servidor do PagueAluguel'
   end
 end

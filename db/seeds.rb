@@ -728,6 +728,149 @@ common_area20 = CommonArea.create!(
   rules: 'Acompanhamento de adulto obrigatório'
 )
 
+visitor_1 = Visitor.create!(
+  condo: resident1.residence.condo,
+  resident: resident1,
+  visit_date: Time.zone.today,
+  full_name: 'João da Silva Ferreira',
+  identity_number: '1456987',
+  category: :visitor
+)
+visitor_2 = Visitor.create!(
+  condo: resident1.residence.condo,
+  resident: resident1,
+  visit_date: Time.zone.today,
+  full_name: 'Maria Gomes de Oliveira',
+  identity_number: '2345678',
+  category: :employee,
+  recurrence: :working_days
+)
+visitor_3 = Visitor.create!(
+  condo: resident2.residence.condo,
+  resident: resident2,
+  visit_date: Time.zone.today,
+  full_name: 'Pedro Souza Santos',
+  identity_number: '3214567',
+  category: :visitor
+)
+visitor_4 = Visitor.create!(
+  condo: resident2.residence.condo,
+  resident: resident2,
+  visit_date: 1.day.from_now.to_date,
+  full_name: 'Ana Pereira dos Reis',
+  identity_number: '4123456',
+  category: :employee,
+  recurrence: :monthly
+)
+visitor_5 = Visitor.create!(
+  condo: resident3.residence.condo,
+  resident: resident3,
+  visit_date: 1.day.from_now.to_date,
+  full_name: 'Carlos Silva Mendes',
+  identity_number: '5012345',
+  category: :employee,
+  recurrence: :biweekly
+)
+visitor_6 = Visitor.create!(
+  condo: resident3.residence.condo,
+  resident: resident3,
+  visit_date: Time.zone.today,
+  full_name: 'Beatriz Oliveira Costa',
+  identity_number: '6901234',
+  category: :visitor
+)
+visitor_7 = Visitor.create!(
+  condo: resident3.residence.condo,
+  resident: resident3,
+  visit_date: 2.days.from_now.to_date,
+  full_name: 'Bruno Souza Nunes',
+  identity_number: '7890123',
+  category: :visitor
+)
+visitor_8 = Visitor.create!(
+  condo: resident4.residence.condo,
+  resident: resident4,
+  visit_date: Time.zone.today,
+  full_name: 'Clara Pereira Araújo',
+  identity_number: '8765432',
+  category: :employee,
+  recurrence: :bimonthly
+)
+visitor_9 = Visitor.create!(
+  condo: resident4.residence.condo,
+  resident: resident4,
+  visit_date: 1.day.from_now,
+  full_name: 'Diego Silva Lopes',
+  identity_number: '9654321',
+  category: :visitor
+)
+visitor_10 = Visitor.create!(
+  condo: resident5.residence.condo,
+  resident: resident5,
+  visit_date: Time.zone.today,
+  full_name: 'Gabriela Oliveira Martins',
+  identity_number: '0543210',
+  category: :employee,
+  recurrence: :semiannual
+)
+
+visitor_entry1 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Maria Fernandes',
+  identity_number: '1234567',
+  unit: tower1.floors[0].units[0]
+)
+visitor_entry2 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'João Pereira',
+  identity_number: '2345678',
+  unit: tower1.floors[0].units[1]
+)
+visitor_entry3 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Ana Souza',
+  identity_number: '3456789',
+  unit: tower1.floors[1].units[3]
+)
+visitor_entry4 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Carlos Lima',
+  identity_number: '4567890'
+)
+visitor_entry5 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Patricia Mendes',
+  identity_number: '5678901'
+)
+visitor_entry6 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Lucas Alves',
+  identity_number: '6789012',
+  unit: tower1.floors[2].units[0]
+)
+visitor_entry7 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Mariana Costa',
+  identity_number: '7890123',
+  unit: tower2.floors[2].units[0]
+)
+visitor_entry8 = VisitorEntry.create!(
+  condo: condo1,
+  full_name: 'Fernando Gomes',
+  identity_number: '8901234',
+  unit: tower2.floors[0].units[0]
+)
+visitor_entry9 = VisitorEntry.create!(
+  condo: condo2,
+  full_name: 'Juliana Oliveira',
+  identity_number: '9012345',
+  unit: tower3.floors[0].units[0]
+)
+visitor_entry10 = VisitorEntry.create!(
+  condo: condo2,
+  full_name: 'Gustavo Ferreira',
+  identity_number: '0123456'
+)
 Announcement.create!(
   title: 'Reunião de condomínio',
   message: 'Participe da próxima reunião para discutir assuntos importantes do condomínio.',

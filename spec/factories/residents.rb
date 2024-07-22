@@ -10,7 +10,8 @@ FactoryBot.define do
       transient { condo { create :condo } }
 
       after(:create) do |resident, evaluator|
-        resident.residence = create(:unit, floor: create(:floor, tower: create(:tower, condo: evaluator.condo)))
+        tower = create(:tower, condo: evaluator.condo)
+        resident.residence = tower.floors[0].units[0]
       end
     end
   end
