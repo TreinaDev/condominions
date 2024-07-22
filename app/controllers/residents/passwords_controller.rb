@@ -6,7 +6,7 @@ module Residents
 
       return redirect_to root_path, alert: t('alerts.resident.invalid_token') unless valid_token?
 
-      logout_current_user
+      sign_out(current_manager || current_resident) if anyone_signed_in?
       super
     end
 
@@ -18,10 +18,6 @@ module Residents
 
     def valid_token?
       resource.present? && resource.reset_password_period_valid?
-    end
-
-    def logout_current_user
-      sign_out(current_manager || current_resident) if manager_signed_in? || resident_signed_in?
     end
   end
 end
