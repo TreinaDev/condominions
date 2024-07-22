@@ -44,9 +44,8 @@ describe 'Manager register superintendent' do
     within '#condoSelectPopupForSuperintendent' do
       click_on 'Condomínio X'
     end
-
-    fill_in 'Data de ínicio', with: '2024-07-25'.to_date
-    fill_in 'Data de conclusão', with: '2025-07-28'.to_date
+    fill_in 'Data de ínicio', with: '2024-07-21'.to_date
+    fill_in 'Data de conclusão', with: '2025-07-21'.to_date
     select 'Alvus Dumbledore', from: 'Morador'
     click_on 'Enviar'
 

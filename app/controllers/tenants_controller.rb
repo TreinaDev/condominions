@@ -29,8 +29,7 @@ class TenantsController < ResidentsController
     random_password = SecureRandom.alphanumeric 8
     @resident.update password: random_password
     @resident.send_invitation random_password
-
-    redirect_to @resident, notice: t('notices.tenant.send_email')
+    redirect_to @resident, notice: t('notices.resident.send_email')
   end
 
   def update_resident_for_valid_unit

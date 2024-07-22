@@ -2,6 +2,7 @@ pt-BR:
   alerts:    
     single_charge:
       fine_not_created: 'Não foi possível lançar a multa.'
+      server_error: 'Falha de comunicação com o servidor'
   activerecord:
     models:
       single_charge:

@@ -45,7 +45,7 @@ describe "Administrator registers condo's tower" do
     expect(Tower.last.floors.last.units.count).to eq 3
   end
 
-  it 'and only sees associtated condos' do
+  it 'and only sees associated condos' do
     condo_manager = create :manager, is_super: false
     first_condo = create :condo, name: 'Condomínio dos rubinhos'
     second_condo = create :condo, name: 'Condomínio correto'

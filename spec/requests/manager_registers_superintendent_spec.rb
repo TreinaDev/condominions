@@ -38,7 +38,7 @@ describe 'Manager registers superintendent' do
       condo = create :condo
       resident = create(:resident, :with_residence, condo:)
 
-      params = { superintendent: { start_date: Time.zone.today, end_date: Time.zone.today >> 2,
+      params = { superintendent: { start_date: Date.current, end_date: Date.current >> 2,
                                    tenant_id: resident.id }, condo_id: condo.id }
 
       post(condo_superintendents_path(condo), params:)
@@ -50,11 +50,11 @@ describe 'Manager registers superintendent' do
     it 'must be authenticated as condo manager to register a superintendent' do
       condo = create :condo
       resident = create(:resident, :with_residence, condo:)
-      condo_manager = create :manager, is_super: false
+      manager = create :manager, is_super: false
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
 
-      params = { superintendent: { start_date: Time.zone.today, end_date: Time.zone.today >> 2,
+      params = { superintendent: { start_date: Date.current, end_date: Date.current >> 2,
                                    tenant_id: resident.id }, condo_id: condo.id }
 
       post(condo_superintendents_path(condo), params:)
@@ -69,7 +69,7 @@ describe 'Manager registers superintendent' do
 
       login_as resident, scope: :resident
 
-      params = { superintendent: { start_date: Time.zone.today, end_date: Time.zone.today >> 2,
+      params = { superintendent: { start_date: Date.current, end_date: Date.current >> 2,
                                    tenant_id: resident.id }, condo_id: condo.id }
 
       post(condo_superintendents_path(condo), params:)

@@ -54,7 +54,7 @@ describe 'Reservation' do
     it 'and residents can only cancel their own reservations' do
       common_area = create :common_area
       first_resident = create :resident
-      second_resident = create :resident, email: 'second@email.com'
+      second_resident = create :resident
       reservation = create :reservation, common_area:, resident: first_resident
 
       login_as second_resident, scope: :resident

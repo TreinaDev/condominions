@@ -14,9 +14,11 @@
   <body class="bg-body-tertiary">
     <%= render 'shared/navbar' %>
 
-    <div class="container mt-10">
+    <div class="container mt-10 mb-5 min-vh-100">
       <%= flash_messages %>
-      <%= yield %>
+      <%= yield %>  
     </div>
+    
+    <%= render 'shared/footer' %>
   </body>
 </html>

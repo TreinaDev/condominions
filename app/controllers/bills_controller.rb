@@ -28,7 +28,7 @@ class BillsController < ApplicationController
   end
 
   def connection_refused
-    redirect_to root_path, alert: t('alerts.bill.lost_connection')
+    redirect_to root_path, alert: t('alerts.lost_connection')
   end
 
   def set_breadcrumbs_for_action

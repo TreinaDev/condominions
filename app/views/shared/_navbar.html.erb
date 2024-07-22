@@ -11,7 +11,7 @@
           <% end %>
         <% end %>
 
-        <p class='mx-2 mb-0'><%= current_resident.description %></p>
+        <p class='mx-2 mb-0'><%= current_resident.description %> - <span class="fs-sm fw-bold">Morador</span></p>
 
         <%= button_to destroy_manager_session_path, method: :delete, class: 'btn btn-outline-dark d-inline-flex align-items-center justify-content-center rounded-5' do %>
           <i class="bi bi-power pb-1 me-1"></i> Sair
@@ -51,7 +51,7 @@
                 <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Gerenciar Usuários
                 </a>
-                <ul class="dropdown-menu dropdown-menu-dark bg-medium-blue">
+                <ul class="dropdown-menu dropdown-menu-dark bg-medium-blue-dark">
                   <li><%= link_to 'Cadastrar Morador', new_resident_path, class: "dropdown-item" %></li>
                   <li><hr class="nav-divider m-0"></li>
                   <li class="nav-item">

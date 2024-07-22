@@ -35,6 +35,22 @@ RSpec.describe Tower, type: :model do
         .to include 'Apartamentos por Andar não é um número'
     end
 
+    it 'Floor Quantity and Units per Floor must be lesser than 200' do
+      over_floor_tower = build :tower, floor_quantity: 200, units_per_floor: 199
+      over_unit_tower = build :tower, floor_quantity: 199, units_per_floor: 200
+      valid_tower = build :tower, floor_quantity: 199, units_per_floor: 199
+
+      expect(over_floor_tower).not_to be_valid
+      expect(over_unit_tower).not_to be_valid
+      expect(valid_tower).to be_valid
+
+      expect(over_floor_tower.errors.include?(:floor_quantity)).to be true
+      expect(over_unit_tower.errors.include?(:units_per_floor)).to be true
+
+      expect(over_floor_tower.errors.full_messages).to include 'Quantidade de Andares deve ser menor que 200'
+      expect(over_unit_tower.errors.full_messages).to include 'Apartamentos por Andar deve ser menor que 200'
+    end
+
     it 'Floor quantity must be greater than 0' do
       no_floor_tower = build :tower, floor_quantity: 0, units_per_floor: 0
       one_floor_tower = build :tower, floor_quantity: 1, units_per_floor: 1

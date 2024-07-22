@@ -7,6 +7,7 @@ class Condo < ApplicationRecord
   has_many :managers, through: :condo_managers
   has_many :announcements, dependent: :destroy
   has_many :visitors, dependent: :destroy
+  has_many :visitor_entries, dependent: :destroy
   has_many :floors, through: :towers
   has_many :units, through: :floors
   has_many :owners, through: :units
@@ -56,13 +57,22 @@ class Condo < ApplicationRecord
       {
         id: unit.id,
         floor: unit.floor.identifier,
-        number: unit.short_identifier
+        number: unit.short_identifier,
+        tower_name: unit.tower.name
       }
     end
   end
 
   def expected_visitors(date)
     visitors.where(visit_date: date)
+  end
+
+  def search_visitors_by_resident_name(resident_name)
+    visitors.joins(:resident).where('residents.full_name LIKE ?', "%#{resident_name}%")
+  end
+
+  def search_visitors_by_params(key, value)
+    visitors.where("#{key} LIKE ?", "%#{value}%")
   end
 
   def three_most_recent_announcements

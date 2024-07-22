@@ -37,7 +37,7 @@ describe 'Manager confirms visitor' do
 
     it 'successfully only if associated with the condo' do
       manager = create :manager, is_super: false
-      visitor = create :visitor, visit_date: Time.zone.today
+      visitor = create :visitor, visit_date: Date.current
       manager.condos << visitor.condo
 
       login_as manager, scope: :manager
@@ -56,21 +56,21 @@ describe 'Manager confirms visitor' do
       post confirm_entry_visitor_path(visitor)
 
       expect(response).to redirect_to find_condo_visitors_path(visitor.condo)
-      expect(flash[:alert]).to eq 'Visitante já confirmado'
+      expect(flash[:alert]).to eq 'Essa entrada já foi confirmada antes ou não é referente ao dia de hoje'
       expect(VisitorEntry.count).to eq 0
     end
 
     context 'visit_date ' do
       it 'cannot be past' do
         manager = create :manager
-        visitor = create :visitor, visit_date: Time.zone.today
+        visitor = create :visitor, visit_date: Date.current
 
         login_as manager, scope: :manager
         travel_to 1.day.from_now do
           post confirm_entry_visitor_path(visitor)
 
           expect(response).to redirect_to find_condo_visitors_path(visitor.condo)
-          expect(flash[:alert]).to eq 'Só é possível confirmar visitantes do dia atual'
+          expect(flash[:alert]).to eq 'Essa entrada já foi confirmada antes ou não é referente ao dia de hoje'
           expect(visitor.reload.confirmed?).to eq false
         end
       end
@@ -83,7 +83,7 @@ describe 'Manager confirms visitor' do
         post confirm_entry_visitor_path(visitor)
 
         expect(response).to redirect_to find_condo_visitors_path(visitor.condo)
-        expect(flash[:alert]).to eq 'Só é possível confirmar visitantes do dia atual'
+        expect(flash[:alert]).to eq 'Essa entrada já foi confirmada antes ou não é referente ao dia de hoje'
         expect(visitor.reload.confirmed?).to eq false
       end
     end

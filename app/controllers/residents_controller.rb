@@ -5,10 +5,6 @@ class ResidentsController < ApplicationController
   before_action :set_condo, only: %i[find_towers]
   before_action -> { authorize_condo_manager_superintendent(@condo) }, only: %i[find_towers]
 
-  def set_condo
-    @condo = Condo.find_by(id: params[:id])
-  end
-
   def show
     add_breadcrumb I18n.t('breadcrumb.resident.show')
   end
@@ -97,6 +93,10 @@ class ResidentsController < ApplicationController
   end
 
   private
+
+  def set_condo
+    @condo = Condo.find_by(id: params[:id])
+  end
 
   def authenticate_resident!
     return redirect_to root_path if manager_signed_in?

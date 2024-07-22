@@ -12,8 +12,10 @@ class SingleCharge < ApplicationRecord
 
   monetize :value_cents, as: :value, with_model_currency: :currency
 
+  private
+
   def unit_valid?
-    return true if unit.owner
+    return true if unit&.owner
 
     errors.add(:unit, 'não possui um proprietário.')
   end

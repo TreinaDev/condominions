@@ -10,11 +10,13 @@ class FinesController < ApplicationController
   def create
     @fine = SingleCharge.new(fine_params)
 
-    if @fine.valid? && post_response.success? && @fine.save
-      return redirect_to @condo, notice: "Multa lançada com sucesso para a #{@fine.unit.print_identifier}"
-    end
+    if @fine.valid?
+      return redirect_to @condo if post_response
 
-    flash.now.alert = t('alerts.single_charge.fine_not_created')
+      flash.now.alert = t('alerts.single_charge.server_error')
+    else
+      flash.now.alert = t('alerts.single_charge.fine_not_created')
+    end
     render 'new', status: :unprocessable_entity
   end
 
@@ -53,9 +55,9 @@ class FinesController < ApplicationController
   end
 
   def fine_params
-    params.require(:single_charge).permit(:value,
-                                          :description).merge({ charge_type: :fine, condo: @condo,
-                                                                unit_id: find_unit_id })
+    params.require(:single_charge)
+          .permit(:value, :description)
+          .merge({ charge_type: :fine, condo: @condo, unit_id: find_unit_id })
   end
 
   def single_charge_params
@@ -71,8 +73,13 @@ class FinesController < ApplicationController
   end
 
   def post_response
-    Faraday.new(url: 'http://localhost:4000')
-           .post('/api/v1/single_charges/', single_charge_params.to_json,
-                 'Content-Type' => 'application/json')
+    request = Faraday.new(url: Rails.configuration.api['base_url'].to_s)
+                     .post('/api/v1/single_charges/', single_charge_params.to_json,
+                           'Content-Type' => 'application/json')
+    return flash.notice = "Multa lançada com sucesso para a #{@fine.unit.print_identifier}" if request.success?
+
+    nil
+  rescue Faraday::ConnectionFailed
+    nil
   end
 end
