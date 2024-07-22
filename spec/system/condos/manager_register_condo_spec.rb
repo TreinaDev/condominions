@@ -22,8 +22,8 @@ describe 'Super Manager register condo' do
   end
 
   it 'must be authenticated as Super Manager' do
-    condo_manager = create :manager, is_super: false
-    login_as condo_manager, scope: :manager
+    manager = create :manager, is_super: false
+    login_as manager, scope: :manager
 
     visit root_path
     within 'nav' do

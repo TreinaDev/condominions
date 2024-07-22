@@ -22,7 +22,7 @@ describe 'Resident edits photo' do
 
     it 'and cannot edit another resident photo' do
       resident = create :resident
-      other_resident = create :resident, email: 'a@email.com'
+      other_resident = create :resident
 
       login_as other_resident, scope: :resident
       get edit_photo_resident_path resident
@@ -45,18 +45,18 @@ describe 'Resident edits photo' do
       resident = create :resident
 
       login_as manager, scope: :manager
-
       patch update_photo_resident_path resident
+
       expect(response).to redirect_to root_path
     end
 
     it 'and cannot edit another resident photo' do
       resident = create :resident
-      other_resident = create :resident, email: 'a@email.com'
+      other_resident = create :resident
 
       login_as other_resident, scope: :resident
-
       patch update_photo_resident_path resident
+
       expect(response).to redirect_to root_path
     end
   end
