@@ -157,7 +157,7 @@ describe 'Resident sees own visitors list' do
     end
   end
 
-  context 'and searchs' do
+  context 'and searches' do
     it 'with visitor name filter' do
       resident = create :resident, :with_residence
       first_visitor = create :visitor, resident:, full_name: 'João Ferreira', identity_number: 145_364
