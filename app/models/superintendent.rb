@@ -8,19 +8,20 @@ class Superintendent < ApplicationRecord
 
   enum status: { pending: 0, in_action: 1, closed: 2 }
 
-  after_create :action_now_or_after?
-  after_create :program_deactivation
+  after_create :program_activate_and_desactiation?
+
+  def condo_presentation
+    "#{tenant.full_name} (#{start_date} - #{end_date})"
+  end
 
   private
 
-  def action_now_or_after?
+  def program_activate_and_desactiation?
+    DesactiveSuperintendentJob.set(wait_until: end_date.to_datetime).perform_later self
+
     return in_action! if start_date == Date.current
 
     ActiveSuperintendentJob.set(wait_until: start_date.to_datetime).perform_later self
-  end
-
-  def program_deactivation
-    DesactiveSuperintendentJob.set(wait_until: end_date.to_datetime).perform_later self
   end
 
   def start_date_must_be_valid

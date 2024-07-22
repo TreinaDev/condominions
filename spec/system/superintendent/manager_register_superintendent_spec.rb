@@ -33,7 +33,7 @@ describe 'Manager register superintendent' do
     expect(desactive_superintendent_job_spy).to have_received(:set).with({ wait_until: '2025-07-25'.to_datetime })
   end
 
-  it 'Successfully to act on 2024-07-25' do
+  it 'successfully to act on future' do
     condo = create :condo, name: 'Condomínio X'
     resident = create(:resident, :with_residence, full_name: 'Alvus Dumbledore', condo:)
     manager = create :manager

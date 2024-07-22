@@ -110,7 +110,7 @@ RSpec.describe Condo, type: :model do
   end
 
   describe 'superintendent' do
-    it 'need to display only the superintendt in action or pending (action)' do
+    it 'need to display only the superintendent in action or pending (action)' do
       condo = create :condo
       travel_to '2024-07-22'.to_date
 
@@ -121,7 +121,7 @@ RSpec.describe Condo, type: :model do
       expect(condo.superintendent).to eq superintendent_in_action
     end
 
-    it 'need to display only the superintendt in action or pending (pending)' do
+    it 'need to display only the superintendent in action or pending (pending)' do
       condo = create :condo
       travel_to '2024-07-22'.to_date
 

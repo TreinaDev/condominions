@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Manager closed superintendent' do
-  context 'delete /condos/:condo_id/superintendents/new' do
+  context 'DELETE  /condos/:condo_id/superintendents/:id' do
     it 'must be authenticated to closed an superintendent' do
       condo = create :condo
       superintendent = create :superintendent
