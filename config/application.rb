@@ -33,7 +33,7 @@ module Condominions
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    config.time_zone = "America/Sao_Paulo"
+    config.time_zone = 'America/Sao_Paulo'
 
     config.api = config_for(:api)
     # config.eager_load_paths << Rails.root.join("extras")

@@ -5,7 +5,8 @@ describe 'Manager edit superintendent' do
     condo = create :condo, name: 'Condomínio X'
     resident = create(:resident, :with_residence, full_name: 'Dona Alvara', condo:)
     resident2 = create(:resident, :with_residence, full_name: 'Havana Silva', email: 'email@email.com', condo:)
-    superintendent = create(:superintendent, tenant: resident, condo:)
+    travel_to '2024-07-21'.to_date
+    superintendent = create(:superintendent, tenant: resident, condo:, start_date: '2024-07-21'.to_date, end_date: '2024-07-25'.to_date)
 
     manager = create :manager
 
@@ -16,14 +17,14 @@ describe 'Manager edit superintendent' do
     visit condo_path condo
     click_on 'Dona Alvara'
     click_on 'Editar Síndico'
-    fill_in 'Data de conclusão', with: Date.current >> 1
+    fill_in 'Data de conclusão', with: '2024-07-25'.to_date
     select 'Havana Silva', from: 'Morador'
     click_on 'Enviar'
 
     superintendent.reload
     expect(page).to have_content 'Mandato de síndico atualizado com sucesso!'
     expect(current_path).to eq condo_superintendent_path(condo, Superintendent.last)
-    expect(superintendent.end_date).to eq Date.current >> 1
+    expect(superintendent.end_date).to eq '2024-07-25'.to_date
     expect(superintendent.tenant).to eq resident2
     expect(resident.superintendent).to eq nil
   end
@@ -44,6 +45,7 @@ describe 'Manager edit superintendent' do
     fill_in 'Data de conclusão', with: ''
     click_on 'Enviar'
 
+    wait
     expect(page).to have_content 'Não foi possível atualizar o mandato.'
     expect(Superintendent.last.end_date).to eq Date.current >> 2
   end
