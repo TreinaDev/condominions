@@ -173,6 +173,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_105115) do
     t.datetime "updated_at", null: false
     t.integer "condo_id", null: false
     t.integer "tenant_id", null: false
+    t.integer "status"
     t.index ["condo_id"], name: "index_superintendents_on_condo_id"
     t.index ["tenant_id"], name: "index_superintendents_on_tenant_id"
   end

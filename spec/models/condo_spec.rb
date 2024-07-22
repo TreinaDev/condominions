@@ -108,4 +108,29 @@ RSpec.describe Condo, type: :model do
       expect(condo.residents).not_to include not_resident
     end
   end
+
+  describe 'superintendent' do
+    it 'need to display only the superintendent in action or pending (action)' do
+      condo = create :condo
+      travel_to '2024-07-22'.to_date
+
+      create(:superintendent, :closed, condo:, start_date: '2024-07-24', end_date: '2024-07-25')
+      superintendent_in_action = create(:superintendent, condo:, start_date: '2024-07-22', end_date: '2024-07-25')
+      create(:superintendent,  :closed, condo:, start_date: '2024-07-24', end_date: '2024-07-25')
+
+      expect(condo.superintendent).to eq superintendent_in_action
+    end
+
+    it 'need to display only the superintendent in action or pending (pending)' do
+      condo = create :condo
+      travel_to '2024-07-22'.to_date
+
+      create(:superintendent, :closed, condo:, start_date: '2024-07-24', end_date: '2024-07-25')
+      superintendent_pending = create(:superintendent, :pending, condo:, start_date: '2024-07-23',
+                                                                 end_date: '2024-07-25')
+      create(:superintendent,  :closed, condo:, start_date: '2024-07-24', end_date: '2024-07-25')
+
+      expect(condo.superintendent).to eq superintendent_pending
+    end
+  end
 end

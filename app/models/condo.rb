@@ -12,7 +12,7 @@ class Condo < ApplicationRecord
   has_many :units, through: :floors
   has_many :owners, through: :units
   has_many :tenants, through: :units
-  has_one :superintendent, dependent: :destroy
+  has_many :superintendents, dependent: :destroy
 
   delegate :city, to: :address
   delegate :state, to: :address
@@ -22,6 +22,10 @@ class Condo < ApplicationRecord
   validate :validate_cnpj
 
   accepts_nested_attributes_for :address
+
+  def superintendent
+    superintendents.not_closed[0]
+  end
 
   def residents
     (tenants + owners).uniq

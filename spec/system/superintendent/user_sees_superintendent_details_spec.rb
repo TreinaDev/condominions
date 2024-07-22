@@ -30,7 +30,8 @@ describe 'User sees superintendent details' do
         expect(page).to have_content I18n.l('2024-07-21'.to_date)
         expect(page).to have_content I18n.l('2024-07-25'.to_date)
       end
-      expect(page).to have_button 'Editar Síndico'
+
+      expect(page).to have_button 'Encerrar Gestão'
     end
 
     it 'and is not a condo manager' do
@@ -76,7 +77,7 @@ describe 'User sees superintendent details' do
         expect(page).to have_content I18n.l('2024-07-25'.to_date)
       end
 
-      expect(page).not_to have_button 'Editar Síndico'
+      expect(page).not_to have_button 'Encerrar Gestão'
     end
 
     it 'and is not a condo resident' do
