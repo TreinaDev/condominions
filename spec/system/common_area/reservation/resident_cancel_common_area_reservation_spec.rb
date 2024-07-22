@@ -67,6 +67,9 @@ describe 'Resident cancel common area reservation' do
       login_as resident, scope: :resident
       visit common_area_path common_area
 
+      url = "#{Rails.configuration.api['base_url']}/single_charges/#{reservation.id}/cancel"
+      allow(Faraday).to receive(:patch).with(url).and_raise(Faraday::ConnectionFailed)
+
       within('.table > tbody > tr:nth-child(1) > .wday-5') do
         accept_confirm { click_on 'Cancelar' }
         reservation.reload

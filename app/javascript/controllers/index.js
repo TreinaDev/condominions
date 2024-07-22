@@ -20,3 +20,6 @@ application.register("resident", ResidentController)
 
 import UnitsController from "./units_controller"
 application.register("units", UnitsController)
+
+import FinesController from "./fines_controller"
+application.register("fines", FinesController)

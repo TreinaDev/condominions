@@ -1,7 +1,9 @@
 class ResidentsController < ApplicationController
-  before_action :authenticate_manager!, only: %i[new create find_towers show]
+  before_action :authenticate_manager!, only: %i[new create show]
   before_action :set_resident, only: %i[update edit_photo update_photo show]
   before_action :authenticate_resident!, only: %i[update edit_photo update_photo]
+  before_action :set_condo, only: %i[find_towers]
+  before_action -> { authorize_condo_manager_superintendent(@condo) }, only: %i[find_towers]
 
   def show
     add_breadcrumb I18n.t('breadcrumb.resident.show')
@@ -46,13 +48,12 @@ class ResidentsController < ApplicationController
   end
 
   def find_towers
-    condo = Condo.find_by(id: params[:id])
-    return render status: :not_found, json: [] unless condo
+    return render status: :not_found, json: [] unless @condo
 
-    towers = condo.towers
+    towers = @condo.towers
     return render status: :not_found, json: [] if towers.empty?
 
-    render json: condo.towers.to_json(only: %i[id name units_per_floor floor_quantity])
+    render json: @condo.towers.to_json(only: %i[id name units_per_floor floor_quantity])
   end
 
   def confirm
@@ -92,6 +93,10 @@ class ResidentsController < ApplicationController
   end
 
   private
+
+  def set_condo
+    @condo = Condo.find_by(id: params[:id])
+  end
 
   def authenticate_resident!
     return redirect_to root_path if manager_signed_in?

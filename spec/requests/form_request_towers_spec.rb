@@ -26,7 +26,7 @@ describe 'GET /residents/find_towers' do
 
     get find_towers_residents_path 'condo' => condo
 
-    expect(response).to redirect_to new_manager_session_path
+    expect(response).to redirect_to root_path
   end
 
   it 'must be authenticated as manager' do

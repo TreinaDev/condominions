@@ -365,6 +365,7 @@ resident_property_registration_pending1 = Resident.create!(
   status: :property_registration_pending,
   full_name: 'Cláudia Rodrigues Gomes',
   registration_number: '458.456.480-92',
+  properties: [tower1.floors[0].units[0]],
   residence: tower1.floors[0].units[0]
 )
 
@@ -374,6 +375,7 @@ resident_property_registration_pending2 = Resident.create!(
   status: :property_registration_pending,
   full_name: 'João da Silva',
   registration_number: '478.040.830-09',
+  properties: [tower1.floors[1].units[0]],
   residence: tower1.floors[1].units[0]
 )
 
@@ -383,6 +385,7 @@ resident_property_registration_pending3 = Resident.create!(
   status: :property_registration_pending,
   full_name: 'Maria Oliveira',
   registration_number: '231.887.610-07',
+  properties: [tower1.floors[2].units[0]],
   residence: tower1.floors[2].units[0]
 )
 
@@ -392,6 +395,7 @@ resident_property_registration_pending4 = Resident.create!(
   status: :residence_registration_pending,
   full_name: 'Pedro Alves',
   registration_number: '185.894.110-52',
+  properties: [tower1.floors[3].units[0]],
   residence: tower1.floors[3].units[0]
 )
 

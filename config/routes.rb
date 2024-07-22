@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       get 'find', on: :collection
       get 'all', on: :collection
     end
+    resources :fines, only: [:new, :create]
 
     resources :towers, only: [:new, :create] do
       member do
