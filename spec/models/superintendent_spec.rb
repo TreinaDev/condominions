@@ -54,7 +54,7 @@ RSpec.describe Superintendent, type: :model do
       desactive_superintendent_job_spy = spy 'DesactiveSuperintendentJob'
       stub_const 'DesactiveSuperintendentJob', desactive_superintendent_job_spy
       create :superintendent, start_date: '2024-07-22', end_date: '2024-07-25'
- 
+
       expect(superintendent.pending?).to eq true
       expect(active_superintendent_job_spy).to have_received(:set).with({ wait_until: '2024-07-23'.to_datetime })
       expect(desactive_superintendent_job_spy).to have_received(:set).with({ wait_until: '2024-07-25'.to_datetime })
