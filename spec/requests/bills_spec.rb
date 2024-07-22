@@ -29,6 +29,7 @@ describe 'Bills/Receipts' do
       get bill_path 1, params: { unit_id: 1 }
 
       expect(response).to redirect_to root_path
+      expect(flash[:alert]).to eq 'Você não tem permissão para acessar essa página'
     end
   end
 
@@ -60,6 +61,7 @@ describe 'Bills/Receipts' do
       get new_bill_receipt_path 1, params: { unit_id: 1 }
 
       expect(response).to redirect_to root_path
+      expect(flash[:alert]).to eq 'Você não tem permissão para acessar essa página'
     end
   end
 
@@ -104,6 +106,7 @@ describe 'Bills/Receipts' do
       post bill_receipts_path 1, params: { unit_id: 1, image: 'receipt.jpg', bill_id: 1 }
 
       expect(response).to redirect_to root_path
+      expect(flash[:alert]).to eq 'Você não tem permissão para acessar essa página'
     end
   end
 end

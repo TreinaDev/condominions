@@ -37,6 +37,6 @@ class BillsController < ApplicationController
   end
 
   def autorize_resident
-    redirect_to root_path, alert: t('alerts.bill.not_autorized') unless @bill.unit_id == @unit.id
+    redirect_to root_path, alert: t('alerts.receipt.not_autorized') unless @bill.unit_id == @unit.id
   end
 end
