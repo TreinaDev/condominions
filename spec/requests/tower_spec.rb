@@ -3,11 +3,11 @@ require 'rails_helper'
 describe 'Towers' do
   context 'GET /towers' do
     it 'must be authenticated as Super Manager or condo associated' do
-      condo_manager = create :manager, is_super: false
+      manager = create :manager, is_super: false
       condo = create :condo
       tower = create(:tower, condo:)
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
       get tower_path tower
 
       expect(response).to redirect_to root_path
@@ -42,11 +42,11 @@ describe 'Towers' do
       expect(Tower.last.name).not_to eq 'Torre do Rubinhos'
     end
 
-    it 'and he´s not associated or is not a super' do
-      condo_manager = create :manager, is_super: false
+    it 'and he is not associated or is not a super' do
+      manager = create :manager, is_super: false
       condo = create :condo
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
       post condo_towers_path condo,
                              params: { tower: { name: 'Torre do Rubinhos',
                                                 floor_quantity: 3,
@@ -97,8 +97,8 @@ describe 'Towers' do
       expect(second_unit_type.reload.fraction).to eq 7.40741
     end
 
-    it 'and he´s not associated or is not a super' do
-      condo_manager = create :manager, is_super: false
+    it 'and he is not associated or is not a super' do
+      manager = create :manager, is_super: false
       condo = create :condo
       first_unit_type = create(:unit_type, condo:, metreage: 50)
       second_unit_type = create(:unit_type, condo:, metreage: 100)
@@ -107,7 +107,7 @@ describe 'Towers' do
       tower = create(:tower, floor_quantity: 3, units_per_floor: 2, condo:)
       unit_types = { '0' => first_unit_type.id, '1' => second_unit_type.id }
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
       patch update_floor_units_condo_tower_path(condo, tower), params: { unit_types: }
       tower.reload
 

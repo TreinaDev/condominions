@@ -3,10 +3,10 @@ require 'rails_helper'
 describe 'Manager' do
   context 'sees condo' do
     it 'and cannot see details from a condo that he`s not associated' do
-      condo_manager = create :manager, is_super: false
-      condo = create :condo, name: 'Condominio Criado'
+      manager = create :manager, is_super: false
+      condo = create :condo
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
       get condo_path condo
 
       expect(response).to redirect_to root_path
@@ -15,18 +15,17 @@ describe 'Manager' do
 
   context 'register condo' do
     it 'and is not authenticated' do
-      post(condos_path, params: { condo: { name: 'Condominio Residencial Paineiras',
-                                           registration_number: '38.352.640/0001-33' } })
-      expect(response).to redirect_to(new_manager_session_path)
+      post condos_path
+
+      expect(response).to redirect_to new_manager_session_path
       expect(Condo.all).to eq []
     end
 
     it 'and must be authenticated as Super Manager' do
-      condo_manager = create :manager, is_super: false
+      manager = create :manager, is_super: false
 
-      login_as condo_manager, scope: :manager
-      post(condos_path, params: { condo: { name: 'Condominio Residencial Paineiras',
-                                           registration_number: '38.352.640/0001-33' } })
+      login_as manager, scope: :manager
+      post condos_path
 
       expect(response).to redirect_to root_path
       expect(Condo.all).to eq []
@@ -35,27 +34,27 @@ describe 'Manager' do
 
   context 'edit condo' do
     it 'and is not authenticated' do
-      condo = create(:condo, name: 'Condominio Criado')
+      condo = create :condo, name: 'Condomínio Criado'
 
-      patch(condo_path(condo), params: { condo: { name: 'Condominio Editado' } })
+      patch(condo_path(condo), params: { condo: { name: 'Condomínio Editado' } })
 
       expect(response).to redirect_to(new_manager_session_path)
-      expect(condo.name).to eq 'Condominio Criado'
+      expect(condo.name).to eq 'Condomínio Criado'
     end
 
     it 'and must be associated to the condo' do
       condo_manager = create :manager, is_super: false
-      other_manager = create :manager, email: 'naoaut@email.com', is_super: false
-      condo = create :condo, name: 'Condominio Criado'
+      other_manager = create :manager, is_super: false
+      condo = create :condo, name: 'Condomínio Criado'
       condo.managers << condo_manager
 
       login_as other_manager, scope: :manager
 
-      patch(condo_path(condo), params: { condo: { name: 'Condominio Editado' } })
+      patch(condo_path(condo), params: { condo: { name: 'Condomínio Editado' } })
       condo.reload
 
       expect(response).to redirect_to root_path
-      expect(condo.name).not_to eq 'Condominio Editado'
+      expect(condo.name).not_to eq 'Condomínio Editado'
     end
   end
 
@@ -72,11 +71,11 @@ describe 'Manager' do
     end
 
     it 'and must be authenticated as a Super Manager to delegate a manager to condo' do
-      condo_manager = create :manager, is_super: false
-      other_manager = create :manager, email: 'naoaut@email.com', is_super: false
-      condo = create :condo, name: 'Condominio Criado'
+      manager = create :manager, is_super: false
+      other_manager = create :manager, is_super: false
+      condo = create :condo, name: 'Condomínio Criado'
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
       post associate_manager_condo_path condo, params: { manager_id: other_manager.id }
       condo.reload
 

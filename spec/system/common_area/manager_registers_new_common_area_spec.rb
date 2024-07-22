@@ -18,7 +18,7 @@ describe 'Manager registers new common area' do
     expect(current_path).to eq new_condo_common_area_path(condo)
   end
 
-  it 'and only sees associtated condos' do
+  it 'and only sees associated condos' do
     condo_manager = create :manager, is_super: false
     first_condo = create :condo, name: 'Condomínio dos rubinhos'
     second_condo = create :condo, name: 'Condomínio correto'

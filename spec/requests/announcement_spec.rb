@@ -13,10 +13,10 @@ describe 'Announcements' do
     end
 
     it 'must be authenticated as Super Manager or Condo Manager to create an announcement' do
-      condo_manager = create :manager, is_super: false
+      manager = create :manager, is_super: false
       condo = create :condo
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
       post condo_announcements_path condo, params: { announcement: { title: 'Novo Aviso' } }
 
       expect(response).to redirect_to root_path
@@ -51,7 +51,7 @@ describe 'Announcements' do
     end
 
     it 'must be authenticated as Super Manager or Condo Manager to edit and announcement' do
-      manager = create :manager, email: 'joaquina@email.com', is_super: false
+      manager = create :manager, is_super: false
       condo = create :condo
       announcement = create(:announcement, condo:)
 
@@ -82,7 +82,7 @@ describe 'Announcements' do
   context 'GET /announcements' do
     context 'Manager' do
       it 'must be authenticated as Super Manager or Condo Manager to see announcements list' do
-        condo_manager = create :manager, email: 'joaquina@email.com', is_super: false
+        condo_manager = create :manager, is_super: false
         condo = create :condo
         create(:announcement, condo:)
 
@@ -94,7 +94,7 @@ describe 'Announcements' do
       end
 
       it 'must be authenticated as Super Manager or Condo Manager to see announcement details' do
-        manager = create :manager, email: 'joaquina@email.com', is_super: false
+        manager = create :manager, is_super: false
         condo = create :condo
         announcement = create :announcement, condo:, title: 'Reunião de condomínio'
 
@@ -135,7 +135,7 @@ describe 'Announcements' do
 
   context 'DESTROY /announcements' do
     it 'must be authenticated as Super Manager or Condo Manager to destroy an announcement' do
-      condo_manager = create :manager, email: 'joaquina@email.com', is_super: false
+      condo_manager = create :manager, is_super: false
       condo = create :condo
       announcement = create :announcement, condo:, title: 'Reunião de condomínio'
 

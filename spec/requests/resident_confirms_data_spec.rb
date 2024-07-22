@@ -15,7 +15,7 @@ describe 'Resident confirms data' do
 
     it 'and cannot confirm another resident data' do
       first_resident = create :resident, status: :mail_not_confirmed
-      second_resident = create :resident, email: 'pedro@email.com', status: :mail_not_confirmed
+      second_resident = create :resident, status: :mail_not_confirmed
 
       login_as second_resident, scope: :resident
       patch resident_path(first_resident), params: { resident: { password: '123456' } }

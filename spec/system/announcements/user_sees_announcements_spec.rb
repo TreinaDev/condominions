@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'User sees announcements' do
   it 'with more than 3 announcements' do
     first_manager = create :manager, full_name: 'Rodrigo Silva', is_super: true
-    second_manager = create :manager, full_name: 'Joaquina Rodrigues', email: 'joaquina@email.com', is_super: false
+    second_manager = create :manager, full_name: 'Joaquina Rodrigues', is_super: false
     condo = create :condo
     condo.managers << second_manager
     first_announcement = create :announcement, condo:, manager: first_manager, title: 'Reunião de condomínio'
