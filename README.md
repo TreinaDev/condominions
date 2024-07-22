@@ -34,6 +34,7 @@
         <li><a href="#tecnologias">Tecnologias</a></li>
         <li><a href="#funcionalidade">Funcionalidade</a></li>
         <li><a href="#endpoints-da-api">Endpoints da API</a></li>
+        <li><a href="#Telas">Telas do sistema</a></li>
       </ul>
     </li>
     <li>
@@ -408,6 +409,21 @@ Exemplo de Resposta:
 <p align="justify">Retorna erro `404` caso a área comum informada não esteja cadastrada para o condomínio informado.</p>
 
 <!-- GETTING STARTED -->
+
+<div id='Telas'/>
+
+## Telas do sistema
+
+### Página de Dashboard do Condomínio
+![Página de DashBoard do Condomínio](https://i.imgur.com/MfW1lUG.png)
+
+### Página de Agenda de Visitantes/Funcionários
+![Página de Agenda de Visitantes/Funcionários](https://i.imgur.com/7driqKo.png)
+
+### Página de Listagem Completa de Visitantes/Funcionários
+
+![Página de Agenda de Visitantes/Funcionários](https://i.imgur.com/JdRjaKV.png)
+
 
 <div id='instalacao-e-execucao'/> 
   
