@@ -20,7 +20,7 @@ RSpec.describe Superintendent, type: :model do
     end
 
     it 'end date greater than to start_date' do
-      superintendent = build :superintendent, start_date: Time.zone.today, end_date: Time.zone.today
+      superintendent = build :superintendent, start_date: Date.current, end_date: Date.current
 
       expect(superintendent).not_to be_valid
       expect(superintendent.errors).to include :end_date

@@ -97,11 +97,11 @@ describe 'Resident sees own visitors list' do
       second_resident_visitor = create :visitor, resident: second_resident, full_name: 'Fernando Dias'
       first_visitor = create :visitor, resident:,
                                        full_name: 'João Ferreira',
-                                       visit_date: Time.zone.today,
+                                       visit_date: Date.current,
                                        category: :visitor
       second_visitor = create :visitor, resident:,
                                         full_name: 'Maria Almeida',
-                                        visit_date: Time.zone.today,
+                                        visit_date: Date.current,
                                         category: :employee, recurrence: :daily
       third_visitor = create :visitor, resident:,
                                        full_name: 'João Almeida',

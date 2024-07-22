@@ -7,8 +7,9 @@ describe 'User sees superintendent details' do
       tower = create(:tower, condo:)
       unit11 = tower.floors.first.units.first
       resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-      create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                              end_date: Time.zone.today >> 2)
+      travel_to '2024-07-21'.to_date
+      create(:superintendent, tenant: resident, condo:, start_date: '2024-07-21'.to_date,
+                              end_date: '2024-07-25'.to_date)
       manager = create :manager
 
       resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,
@@ -26,8 +27,8 @@ describe 'User sees superintendent details' do
         expect(page).to have_content 'Condomínio X'
         expect(page).to have_content 'Torre A'
         expect(page).to have_content 'Unidade: 11'
-        expect(page).to have_content I18n.l Time.zone.today
-        expect(page).to have_content I18n.l(Time.zone.today >> 2)
+        expect(page).to have_content I18n.l('2024-07-21'.to_date)
+        expect(page).to have_content I18n.l('2024-07-25'.to_date)
       end
       expect(page).to have_button 'Editar Síndico'
     end
@@ -52,8 +53,9 @@ describe 'User sees superintendent details' do
       tower = create(:tower, condo:)
       unit11 = tower.floors.first.units.first
       resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-      superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                                               end_date: Time.zone.today >> 2)
+      travel_to '2024-07-21'.to_date
+      superintendent = create(:superintendent, tenant: resident, condo:, start_date: '2024-07-21'.to_date,
+                                               end_date: '2024-07-25'.to_date)
       resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,
                                  filename: 'resident_photo.jpg')
 
@@ -70,8 +72,8 @@ describe 'User sees superintendent details' do
         expect(page).to have_content 'Condomínio X'
         expect(page).to have_content 'Torre A'
         expect(page).to have_content 'Unidade: 11'
-        expect(page).to have_content I18n.l Time.zone.today
-        expect(page).to have_content I18n.l(Time.zone.today >> 2)
+        expect(page).to have_content I18n.l('2024-07-21'.to_date)
+        expect(page).to have_content I18n.l('2024-07-25'.to_date)
       end
 
       expect(page).not_to have_button 'Editar Síndico'
