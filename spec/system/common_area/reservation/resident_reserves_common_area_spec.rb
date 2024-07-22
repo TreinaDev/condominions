@@ -40,6 +40,8 @@ describe 'Resident reserves common area' do
   it 'fail if the connection is lost with external application' do
     common_area = create :common_area
     resident = create :resident, :with_residence, condo: common_area.condo
+    allow(Faraday).to receive(:get).and_raise(Faraday::ConnectionFailed)
+    allow(Faraday).to receive(:post).and_raise(Faraday::ConnectionFailed)
 
     travel_to '01/07/2024' do
       login_as resident, scope: :resident
