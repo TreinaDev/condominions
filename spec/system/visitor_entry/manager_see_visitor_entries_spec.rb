@@ -96,21 +96,28 @@ describe 'manager see visitor entries list' do
     it 'with visit date filter' do
       manager = create :manager
       condo = create :condo
-      travel_to 1.day.ago do
+      travel_to '04/07/2024' do
         create :visitor_entry, condo:, full_name: 'Nome Visitante Ontem'
       end
-      create :visitor_entry, condo:, full_name: 'Nome Primeiro Visitante'
-      create :visitor_entry, condo:, full_name: 'Nome Último Visitante'
 
-      login_as manager, scope: :manager
-      visit condo_visitor_entries_path condo
-      fill_in 'Data da Visita', with: Time.zone.today
-      click_on 'Pesquisar'
+      travel_to '05/07/2024' do
+        create :visitor_entry, condo:, full_name: 'Nome Primeiro Visitante'
+      end
 
-      expect(page).to have_content '2 entradas de visitante encontrada'
-      within('.table > tbody > tr:nth-child(1)') { expect(page).to have_content 'Nome Último Visitante' }
-      within('.table > tbody > tr:nth-child(2)') { expect(page).to have_content 'Nome Primeiro Visitante' }
-      expect(page).not_to have_content 'Nome Visitante Ontem'
+      travel_to '05/07/2024 00:30' do
+        create :visitor_entry, condo:, full_name: 'Nome Último Visitante'
+
+
+        login_as manager, scope: :manager
+        visit condo_visitor_entries_path condo
+        fill_in 'Data da Visita', with: '2024-07-05'
+        click_on 'Pesquisar'
+
+        expect(page).to have_content '2 entradas de visitante encontrada'
+        within('.table > tbody > tr:nth-child(1)') { expect(page).to have_content 'Nome Último Visitante' }
+        within('.table > tbody > tr:nth-child(2)') { expect(page).to have_content 'Nome Primeiro Visitante' }
+        expect(page).not_to have_content 'Nome Visitante Ontem'
+      end
     end
 
     it 'with identity number filter' do
@@ -130,23 +137,25 @@ describe 'manager see visitor entries list' do
     end
 
     it 'with all filters' do
-      manager = create :manager
-      condo = create :condo
-      create :visitor_entry, condo:, full_name: 'Nome Primeiro Visitante', identity_number: '145697'
-      create :visitor_entry, condo:, full_name: 'Nome Segundo Visitante', identity_number: '789354'
-      create :visitor_entry, condo:, full_name: 'Nome Terceiro Visitante', identity_number: '78935447'
+      travel_to '05/07/2024' do
+        manager = create :manager
+        condo = create :condo
+        create :visitor_entry, condo:, full_name: 'Nome Primeiro Visitante', identity_number: '145697'
+        create :visitor_entry, condo:, full_name: 'Nome Segundo Visitante', identity_number: '789354'
+        create :visitor_entry, condo:, full_name: 'Nome Terceiro Visitante', identity_number: '78935447'
 
-      login_as manager, scope: :manager
-      visit condo_visitor_entries_path condo
-      fill_in 'Nome Completo', with: 'Segundo'
-      fill_in 'RG', with: '789354'
-      fill_in 'Data da Visita', with: Time.zone.today
-      click_on 'Pesquisar'
+        login_as manager, scope: :manager
+        visit condo_visitor_entries_path condo
+        fill_in 'Nome Completo', with: 'Segundo'
+        fill_in 'RG', with: '789354'
+        fill_in 'Data da Visita', with: '2024-07-05'
+        click_on 'Pesquisar'
 
-      expect(page).to have_content '1 entrada de visitante encontrada'
-      within('.table > tbody > tr:nth-child(1)') { expect(page).to have_content 'Nome Segundo Visitante' }
-      expect(page).not_to have_content 'Nome Primeiro Visitante'
-      expect(page).not_to have_content 'Nome Terceiro Visitante'
+        expect(page).to have_content '1 entrada de visitante encontrada'
+        within('.table > tbody > tr:nth-child(1)') { expect(page).to have_content 'Nome Segundo Visitante' }
+        expect(page).not_to have_content 'Nome Primeiro Visitante'
+        expect(page).not_to have_content 'Nome Terceiro Visitante'
+      end
     end
 
     it 'with no filters' do
