@@ -78,10 +78,6 @@ class TowersController < ApplicationController
     params.require(:tower).permit :name, :floor_quantity, :units_per_floor
   end
 
-  def condo_id_param
-    params.require :condo_id
-  end
-
   def authenticate_manager!
     return redirect_to root_path, notice: I18n.t('alerts.tower.access_denied') if resident_signed_in?
 
