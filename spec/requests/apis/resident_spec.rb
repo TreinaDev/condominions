@@ -43,10 +43,8 @@ describe 'Resident API' do
                         registration_number: '076.550.640-83',
                         full_name: 'Roberto dos Santos',
                         residence: unit11
-      owner = create :resident,
-                     registration_number: '734.706.130-01',
-                     email: 'owner@email.com',
-                     properties: [unit11]
+
+      owner = create :resident, properties: [unit11]
 
       get '/api/v1/get_tenant_residence?registration_number=076.550.640-83'
 
@@ -62,6 +60,7 @@ describe 'Resident API' do
       expect(response.parsed_body['resident']['residence']['condo_name']).to include 'Belas Paisagens'
       expect(response.parsed_body['resident']['residence']['owner_id']).to eq owner.id
       expect(response.parsed_body['resident']['residence']['description']).to include 'Duplex com varanda'
+      expect(response.parsed_body['resident']['residence']['tower_name']).to include 'Torre Norte'
     end
 
     it 'and tenant exists but has no residence' do
@@ -107,8 +106,8 @@ describe 'Resident API' do
       owner = create :resident,
                      registration_number: '734.706.130-01',
                      full_name: 'Roberto dos Santos',
-                     email: 'owner@email.com',
                      properties: [unit11, unit12]
+
       resident = create :resident,
                         registration_number: '076.550.640-83',
                         full_name: 'Ednaldo Pereira',
@@ -128,6 +127,7 @@ describe 'Resident API' do
       expect(response.parsed_body['resident']['properties'][0]['condo_name']).to include 'Belas Paisagens'
       expect(response.parsed_body['resident']['properties'][0]['tenant_id']).to eq resident.id
       expect(response.parsed_body['resident']['properties'][0]['description']).to include 'Duplex com varanda'
+      expect(response.parsed_body['resident']['properties'][0]['tower_name']).to include 'Torre Norte'
 
       expect(response.parsed_body['resident']['properties'][1]['id']).to eq unit12.id
       expect(response.parsed_body['resident']['properties'][1]['area']).to include '314.58'
@@ -137,7 +137,7 @@ describe 'Resident API' do
       expect(response.parsed_body['resident']['properties'][1]['condo_id']).to eq 1
       expect(response.parsed_body['resident']['properties'][1]['condo_name']).to include 'Belas Paisagens'
       expect(response.parsed_body['resident']['properties'][1]['tenant_id']).to eq nil
-      expect(response.parsed_body['resident']['properties'][1]['description']).to include 'Triplex com sacada'
+      expect(response.parsed_body['resident']['properties'][1]['tower_name']).to include 'Torre Norte'
     end
 
     it 'and owner exists but has no properties' do

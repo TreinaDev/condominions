@@ -41,11 +41,11 @@ describe 'Manager edits superintendent' do
     end
   end
 
-  context 'patch /condos/:condo_id/superintendents' do
+  context 'PATCH /condos/:condo_id/superintendents' do
     it 'must be authenticated to edit an superintendent' do
       condo = create :condo, name: 'Condomínio X'
       resident = create(:resident, :with_residence, condo:)
-      resident2 = create(:resident, :with_residence, email: 'Adrolado@email.com', condo:)
+      resident2 = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Date.current,
                                                end_date: Date.current >> 2)
 
@@ -60,7 +60,7 @@ describe 'Manager edits superintendent' do
     it 'must be authenticated as condo manager to edit a superintendent' do
       condo = create :condo, name: 'Condomínio X'
       resident = create(:resident, :with_residence, condo:)
-      resident2 = create(:resident, :with_residence, email: 'Adrolado@email.com', condo:)
+      resident2 = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Date.current,
                                                end_date: Date.current >> 2)
 
@@ -78,7 +78,7 @@ describe 'Manager edits superintendent' do
     it 'must be authenticated as manager' do
       condo = create :condo, name: 'Condomínio X'
       resident = create(:resident, :with_residence, condo:)
-      resident2 = create(:resident, :with_residence, email: 'Adrolado@email.com', condo:)
+      resident2 = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Date.current,
                                                end_date: Date.current >> 2)
 

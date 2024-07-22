@@ -30,7 +30,8 @@ class Unit < ApplicationRecord
       floor: floor.identifier, number: short_identifier,
       unit_type_id:, condo_id: condo.id,
       condo_name: condo.name, tenant_id: tenant&.id,
-      owner_id: owner&.id, description:
+      owner_id: owner&.id, description:,
+      tower_name: tower.name
     }
   end
 

@@ -17,8 +17,6 @@ class CommonArea < ApplicationRecord
     integer_to_brl(fee) || 'Não informada'
   end
 
-  private
-
   def fee
     url = "#{Rails.configuration.api['base_url']}/condos/#{condo.id}/common_area_fees"
     response = Faraday.get(url)

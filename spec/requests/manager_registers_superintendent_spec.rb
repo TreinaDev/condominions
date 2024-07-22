@@ -50,9 +50,9 @@ describe 'Manager registers superintendent' do
     it 'must be authenticated as condo manager to register a superintendent' do
       condo = create :condo
       resident = create(:resident, :with_residence, condo:)
-      condo_manager = create :manager, is_super: false
+      manager = create :manager, is_super: false
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
 
       params = { superintendent: { start_date: Date.current, end_date: Date.current >> 2,
                                    tenant_id: resident.id }, condo_id: condo.id }

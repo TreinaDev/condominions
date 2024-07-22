@@ -88,9 +88,9 @@ describe 'User sees home page' do
   end
 
   it 'and there`s no link on side-bar when there´s no condo associated' do
-    condo_manager = create :manager, is_super: false
+    manager = create :manager, is_super: false
 
-    login_as condo_manager, scope: :manager
+    login_as manager, scope: :manager
     visit root_path
     within 'nav' do
       click_on id: 'side-menu'
