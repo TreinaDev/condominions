@@ -158,7 +158,7 @@ Exemplo de resposta:
   "tenant_id": 1,
   "owner_id": 1,
   "description": "Duplex com varanda",
-  "tower_name": 'Torre Sul'
+  "tower_name": "Torre Sul"
 }
 
 ```
