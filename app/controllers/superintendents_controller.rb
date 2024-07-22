@@ -1,12 +1,12 @@
 class SuperintendentsController < ApplicationController
-  before_action :authenticate_manager!, only: %i[new create ]
-  before_action :set_condo, only: %i[show new create  destroy]
-  before_action :set_superintendent, only: %i[show  destroy]
-  before_action :set_breadcrumbs_condo, only: %i[new create ]
+  before_action :authenticate_manager!, only: %i[new create]
+  before_action :set_condo, only: %i[show new create destroy]
+  before_action :set_superintendent, only: %i[show destroy]
+  before_action :set_breadcrumbs_condo, only: %i[new create]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
   before_action :set_breadcrumbs_for_edit, only: %i[]
   before_action -> { authorize_condo_manager(@condo) }, only: %i[destroy]
-  before_action -> { authorize_user(@condo) }, only: %i[show new create ]
+  before_action -> { authorize_user(@condo) }, only: %i[show new create]
 
   def show
     @tenant = @superintendent.tenant

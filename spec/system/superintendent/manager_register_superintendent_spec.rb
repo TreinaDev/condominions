@@ -123,7 +123,8 @@ describe 'Manager register superintendent' do
     condo = create :condo, name: 'Condomínio X'
     travel_to '2024-07-21'.to_date
 
-    superintendent = create(:superintendent, :pending, condo:, start_date: '2024-07-22'.to_date, end_date: '2024-07-25'.to_date)
+    superintendent = create(:superintendent, :pending, condo:, start_date: '2024-07-22'.to_date,
+                                                       end_date: '2024-07-25'.to_date)
     resident = superintendent.tenant
     manager = create :manager
 
