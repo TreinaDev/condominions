@@ -27,7 +27,7 @@
   <summary>Sumário</summary>
   <ol>
     <li>
-      <a href="#sobre-o-projeto">Sobre o projeto</a>
+      <a href="#sobre-o-projeto">Sobre o Projeto</a>
       <ul>
         <li><a href="#Tecnologias">Tecnologias</a></li>
         <li><a href="#funcionalidade">Funcionalidade</a></li>
@@ -39,10 +39,10 @@
       <ul>
         <li><a href="#pre-requisitos">Pré-Requisitos</a></li>
         <li><a href="#instalacao">Instalação</a></li>
-        <li><a href="#execucao-de-testes">Execução de testes</a></li>
-        <li><a href="#execucao-da-aplicacao">Execução da aplicação</a></li>
-        <li><a href="#estrutura-banco-de-dados">Estrutura banco de dados</a></li>
-        <li><a href="#banco-de-dados">Banco de dados</a></li>
+        <li><a href="#execucao-de-testes">Execução de Testes</a></li>
+        <li><a href="#execucao-da-aplicacao">Execução da Aplicação</a></li>
+        <li><a href="#estrutura-banco-de-dados">Estrutura do Banco de Dados</a></li>
+        <li><a href="#seeds-de-usuarios">Seeds de Usuários</a></li>
         <li><a href="#desenvolvedores">Desenvolvedores</a></li>
       </ul>
     </li>
@@ -79,9 +79,20 @@
 
 <p align="justify">Usuários administrativos regulares podem cadastrar torres, tipos de unidade, unidade de um condomínio, andares, áreas comuns e moradores.</p>
 
+<p align="justify">A fração ideal de cada unidade é gerada automaticamente com base no tamanho de cada uma e a quantidade de unidades em um condomínio.</p>
+
 <p align="justify">Tanto administradores quanto moradores podem ver a página de listagem e detalhes de condomínio. Tendo sua exibição alterada para cada tipo de usuário.</p>
 
-<p align="justify">Moradores podem fazer uma reserva de área comum, bem como cancelar essa reserva.</p>
+<p align="justify">Moradores podem fazer uma reserva de área comum a partir de um calendário de reservas, bem como cancelar essa reserva. Gerando ou cancelando cobrança de taxa de uso dessa reserva na aplicação PagueAluguel.</p>
+
+<p align="justify">Moradores podem consultar suas faturas e enviar comprovantes de pagamento que serão comunicados através da aplicação PagueAluguel.</p>
+
+<p align="justify">Administradores podem registrar entrada de visitantes no condomínio e visualizar uma lista com o histórico de visitas.</p>
+
+<p align="justify">Administradores podem criar avisos para serem mostrados em um mural na tela de detalhes de um condomínio.</p>
+
+
+
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
@@ -124,7 +135,7 @@ Retorna erro 404 caso não exista um condomínio cadastrado com esse id.</p>
 Exemplo de resposta:
 ```json
 {
-  "name": "Condominio Residencial Paineiras",
+  "name": "Condomínio Residencial Paineiras",
   "registration_number": "62.810.952/2718-22",
   "address": {
     "public_place": "Travessa João Edimar",
@@ -290,7 +301,7 @@ Possíveis respostas
 ```
 Retorna 404 se não existe um proprietário com o CPF informado na aplicação CondoMínios, ou se existe, mas não possui nenhuma unidade como propriedade;
 Retorna 412 se o CPF não for válido para consulta.
-Retorna 200 se o CPF é de um proprietário de alguma unidade e o seguinte JSON
+Retorna 200 se o CPF é de um proprietário de alguma unidade e o seguinte JSON.
 ```
 
 ```json
@@ -371,7 +382,7 @@ Exemplo de Resposta:
 
 ```
 
-<p align="justify">caso não existam áreas comuns cadastradas para o condomínio informado retorna o `id` do condomínio e um array vazio.</p>
+<p align="justify">Caso não existam áreas comuns cadastradas para o condomínio informado retorna o `id` do condomínio e um array vazio.</p>
 
 <p align="justify">Retorna erro `404` caso o condomínio informado não esteja cadastrado.</p>
 
@@ -420,6 +431,10 @@ Entre na pasta do projeto:
 ```sh
 cd condominions
 ```
+Instale Bundle:
+```sh
+bundle install
+```
 Instale as dependências:
 ```sh
 bin/setup
@@ -446,40 +461,39 @@ bin/dev
 ```
 Agora é possível acessar a aplicação a partir da rota http://localhost:3000/
 
+*Integração com o PagueAluguel*: Essa aplicação foi construída para ser integrada com o [PagueAluguel](https://github.com/TreinaDev/pague-aluguel). Com ambas as aplicações rodando, você poderá utilizá-la com todas as suas funcionalidades!
+
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
 <div id='estrutura-banco-de-dados'/> 
 
 ## Estrutura do Banco de Dados
 
-![Estrutura do banco de dados](https://i.imgur.com/emiKwf5.png)
+![Estrutura do banco de dados](https://github.com/user-attachments/assets/ee40045d-5e22-4404-96c8-be0c573b4fd6)
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
 <div id='banco-de-dados'/>
 
-## Banco de Dados Iniciais
+## Seeds de Usuários
 
-Dados inseridos no seeds
+Esses usuários são gerados nas seeds e você pode utilizá-los para testar a aplicação.
 
 >Administradores
->>|Nome Completo|CPF|E-mail|Senha|
->>| :--------: | :--------: |:--------: | :--------: |
->>|Murilo Pereira Rocha|745.808.535-55|adm@teste.com|teste123|
+>>|Nome Completo|E-mail|Senha|
+>>| :--------: | :--------: |:--------: |
+>>|Ednaldo Pereira|adm@teste.com|teste123|
+>>|Adroaldo Silva Santos|adm@teste.com|teste123|
 
->Endereços
->>|Rua|Número|Bairro|Cidade|Estado|CEP|ID|
->>| :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | 
->>|Travessa João Edimar|29|João Eduardo II|Rio Branco|AC|69911-520| 1 |
-
->Condominions
->>|Nome do condomínio|CNPJ|ID do endereço|
->>| :--------: | :--------: | :--------: |
->>|Condominio Residencial Paineiras|62.810.952/2718-22| 1 | 
+>Residentes
+>>|Nome Completo|E-mail|Senha|
+>>| :--------: | :--------: |:--------: |
+>>|Marina Santos Oliveira|marina@email.com|teste123|
+>>|Rafael Souza Lima|rafael@email.com|teste123|
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
-<div id='desenvolvedores'/> 
+<div id='desenvolvedores'/>
 
 ## Desenvolvedores
 
