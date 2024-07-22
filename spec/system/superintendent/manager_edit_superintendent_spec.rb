@@ -6,7 +6,8 @@ describe 'Manager edit superintendent' do
     resident = create(:resident, :with_residence, full_name: 'Dona Alvara', condo:)
     resident2 = create(:resident, :with_residence, full_name: 'Havana Silva', email: 'email@email.com', condo:)
     travel_to '2024-07-21'.to_date
-    superintendent = create(:superintendent, tenant: resident, condo:, start_date: '2024-07-21'.to_date, end_date: '2024-07-25'.to_date)
+    superintendent = create(:superintendent, tenant: resident, condo:, start_date: '2024-07-21'.to_date,
+                                             end_date: '2024-07-25'.to_date)
 
     manager = create :manager
 
@@ -32,7 +33,9 @@ describe 'Manager edit superintendent' do
   it 'with missing params' do
     condo = create :condo, name: 'Condomínio X'
     resident = create(:resident, :with_residence, full_name: 'Dona Alvara', condo:)
-    create(:superintendent, tenant: resident, condo:, start_date: Date.current, end_date: Date.current >> 2)
+    travel_to '2024-07-21'.to_date
+    create(:superintendent, tenant: resident, condo:, start_date: '2024-07-21'.to_date,
+                            end_date: '2024-07-25'.to_date)
     manager = create :manager
 
     resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,
@@ -45,8 +48,7 @@ describe 'Manager edit superintendent' do
     fill_in 'Data de conclusão', with: ''
     click_on 'Enviar'
 
-    wait
     expect(page).to have_content 'Não foi possível atualizar o mandato.'
-    expect(Superintendent.last.end_date).to eq Date.current >> 2
+    expect(Superintendent.last.end_date).to eq '2024-07-25'.to_date
   end
 end
