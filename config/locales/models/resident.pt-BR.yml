@@ -5,6 +5,10 @@ pt-BR:
       updated_photo: 'Foto atualizada com sucesso.'
       created: 'Residente cadastrado com sucesso'
       not_created: 'Falha ao cadastrar residente'
+      send_email: 'Convite para cadastro de morador enviado com sucesso!'
+  alerts:
+    resident:
+      invalid_token: 'Token inválido ou já utilizado'
   owner: 'Proprietário'
   tenant: 'Inquilino'
   not_confirmed: 'Não Confirmado'

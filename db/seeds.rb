@@ -16,9 +16,9 @@ admin1 = Manager.create!(
 )
 
 admin2 = Manager.create!(
-  full_name: "Adroaldo Silva Santos", 
-  registration_number: '025.727.205-40', 
-  email: "adm2@teste.com", 
+  full_name: "Adroaldo Silva Santos",
+  registration_number: '025.727.205-40',
+  email: "adm2@teste.com",
   password: "teste123",
   is_super: false,
 )
@@ -894,3 +894,5 @@ Announcement.create!(
   manager: admin2,
   condo: condo1
 )
+
+puts 'Seed data created successfully!'

@@ -54,7 +54,7 @@ class AnnouncementsController < ApplicationController
 
   def set_breadcrumbs_for_details
     add_breadcrumb @announcement.condo.name, condo_path(@announcement.condo)
-    add_breadcrumb @announcement.title, common_area_path(@announcement)
+    add_breadcrumb @announcement.title, @announcement
   end
 
   def set_announcement

@@ -3,11 +3,11 @@ require 'rails_helper'
 describe 'Common Areas' do
   context 'GET /common_areas' do
     it 'must be authenticated as Super Manager or condo associated' do
-      condo_manager = create :manager, is_super: false
+      manager = create :manager, is_super: false
       condo = create :condo
       common_area = create(:common_area, condo:)
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
       get common_area_path common_area
 
       expect(response).to redirect_to root_path
@@ -27,10 +27,10 @@ describe 'Common Areas' do
     end
 
     it 'and he´s not associated or is not a super' do
-      condo_manager = create :manager, is_super: false
+      manager = create :manager, is_super: false
       condo = create :condo
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
       post condo_common_areas_path condo, params: { common_area: { name: 'Salão de Festas', max_occupancy: 100,
                                                                    description: 'Realize sua festa em nosso salão',
                                                                    rules: 'Não pode ser utilizado após as 22 horas' } }
@@ -53,11 +53,11 @@ describe 'Common Areas' do
     end
 
     it 'and he´s not associated or is not a super' do
-      condo_manager = create :manager, is_super: false
+      manager = create :manager, is_super: false
       condo = create :condo
       common_area = create(:common_area, condo:)
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
       patch common_area_path common_area, params: { common_area: { name: 'Área Comum Editada' } }
       common_area.reload
 

@@ -96,14 +96,12 @@ RSpec.describe Condo, type: :model do
 
   describe '#residents' do
     it 'show list of residents' do
-      condo = create :condo, name: 'Condominio Certo'
+      condo = create :condo, name: 'Condomínio Certo'
       tower = create :tower, 'condo' => condo, name: 'Torre correta', floor_quantity: 2, units_per_floor: 2
       unit11 = tower.floors[0].units[0]
-      first_resident = create :resident, :mail_confirmed, full_name: 'Adroaldo Silva',
-                                                          properties: [unit11], email: 'Adroaldo@email.com'
-      second_resident = create :resident, :property_registration_pending, full_name: 'Sandra Soares',
-                                                                          residence: unit11, email: 'sandra@email'
-      not_resident = create :resident, :property_registration_pending, full_name: 'João Soares', email: 'joao@email'
+      first_resident = create :resident, :mail_confirmed, properties: [unit11]
+      second_resident = create :resident, :property_registration_pending, residence: unit11
+      not_resident = create :resident, :property_registration_pending
 
       expect(condo.residents).to include first_resident
       expect(condo.residents).to include second_resident

@@ -58,8 +58,8 @@
 
   <%= form_with model: @resident do |f| %>
     <div class="form-floating mb-3 w-75">
-      <%= f.label :user_image %>
       <%= f.file_field :user_image, class: 'form-control' %>
+      <%= f.label :user_image %>
     </div>
 
     <div class="actions mb-4">

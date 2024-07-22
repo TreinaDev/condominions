@@ -14,7 +14,6 @@ describe 'Unit API' do
                         residence: unit11
       owner = create :resident,
                      registration_number: '734.706.130-01',
-                     email: 'owner@email.com',
                      properties: [unit11]
 
       get '/api/v1/units/1'
@@ -37,10 +36,7 @@ describe 'Unit API' do
       unit_type = create :unit_type, description: 'Duplex com varanda', metreage: '145.54'
       unit11 = tower.floors[0].units[0]
       unit11.update(unit_type:)
-      owner = create :resident,
-                     registration_number: '734.706.130-01',
-                     email: 'owner@email.com',
-                     properties: [unit11]
+      owner = create :resident, properties: [unit11]
 
       get '/api/v1/units/1'
 

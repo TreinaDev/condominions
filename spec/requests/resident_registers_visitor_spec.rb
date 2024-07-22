@@ -27,8 +27,8 @@ describe 'Resident registers visitor request' do
 
     it 'and cannot register a visitor to another resident' do
       tower = create :tower, floor_quantity: 1, units_per_floor: 2
-      first_resident = create :resident, email: 'joao@email.com', residence: tower.floors[0].units[0]
-      second_resident = create :resident, email: 'maria@email.com', residence: tower.floors[0].units[1]
+      first_resident = create :resident, residence: tower.floors[0].units[0]
+      second_resident = create :resident, residence: tower.floors[0].units[1]
 
       login_as first_resident, scope: :resident
       post resident_visitors_path(second_resident), params: { visitor: { full_name: 'João Almeida',
