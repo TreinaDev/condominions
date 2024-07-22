@@ -9,6 +9,7 @@
         <%= f.label :password, "Nova senha" %>
         <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control #{'is-invalid' if @resident.errors[:password].any?}" %>
         <%= render("shared/errors", model: @resident, attribute: :password) if @resident.errors[:password].any? %>
+        <%= render("shared/errors2", model: @resident, attribute: :reset_password_token) if @resident.errors[:reset_password_token].any? %>
       </div>
 
       <div class="form-group col-md-6">

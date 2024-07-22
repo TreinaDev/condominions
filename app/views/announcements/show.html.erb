@@ -13,8 +13,10 @@
     <p><strong>Atualizado em:</strong> <%= I18n.l(@announcement.updated_at, format: :custom) %></p>
   </div>
 
-  <div class="d-flex justify-content-center mt-4">
-    <%= link_to "Editar", edit_announcement_path(@announcement), class: "btn btn-dark rounded-pill px-4 me-2" %>
-    <%= link_to "Excluir", announcement_path(@announcement), data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir?" }, class: "btn btn-danger rounded-pill px-4" %>
-  </div>
+  <% if manager_signed_in? %>
+    <div class="d-flex justify-content-center mt-4">
+      <%= link_to "Editar", edit_announcement_path(@announcement), class: "btn btn-dark rounded-pill px-4 me-2" %>
+      <%= link_to "Excluir", announcement_path(@announcement), data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir?" }, class: "btn btn-danger rounded-pill px-4" %>
+    </div>
+  <% end %>
 </section>
