@@ -35,6 +35,7 @@ describe 'Resident reserves common area' do
 
     expect(Reservation.last.resident).to eq first_resident
     expect(common_area.reservations.last.date).to eq Date.new(2024, 7, 5)
+    expect(common_area.reservations.last.single_charge_id).to eq 1
   end
 
   it 'fail if the connection is lost with external application' do
