@@ -9,6 +9,8 @@
       <%= render("shared/errors", model: @resident, attribute: :receipt) if @resident.errors[:receipt].any? %>
     </div>
 
+    <%= f.hidden_field :unit_id, value: @unit_id %>
+
     <%= f.submit 'Enviar', class: 'btn btn-dark rounded-pill px-4 mt-1' %>
   <% end %>
 </div>
