@@ -34,7 +34,7 @@ RSpec.describe Reservation, type: :model do
     it 'date cannot have multiple reservations' do
       common_area = create :common_area, rules: 'Não pode subir no escorregador.'
       first_resident = build :resident
-      second_resident = build :resident, email: 'morador@mail.com'
+      second_resident = build :resident
 
       first_reservation = build :reservation, common_area:, date: Date.current + 1.week, resident: first_resident
       common_area.reservations << first_reservation

@@ -22,6 +22,7 @@ pt-BR:
       new: 'Cadastrar Morador'
       edit_photo: 'Editar Foto' 
       show: 'Visualizar Morador'
+      edit_password: 'Redefinir Senha'
     owner:
       new: 'Adicionar Propriedade'
     tenant:
@@ -49,3 +50,5 @@ pt-BR:
       show: 'Detalhes de fatura'
     receipt:
       new: 'Comprovante'
+    fine:
+      new: 'Lançar Multa'

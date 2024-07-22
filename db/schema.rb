@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_22_025316) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_22_105115) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -152,6 +152,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_025316) do
     t.index ["reset_password_token"], name: "index_residents_on_reset_password_token", unique: true
   end
 
+  create_table "single_charges", force: :cascade do |t|
+    t.text "description"
+    t.integer "value_cents", null: false
+    t.integer "charge_type", null: false
+    t.integer "condo_id", null: false
+    t.integer "unit_id", null: false
+    t.integer "common_area_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["common_area_id"], name: "index_single_charges_on_common_area_id"
+    t.index ["condo_id"], name: "index_single_charges_on_condo_id"
+    t.index ["unit_id"], name: "index_single_charges_on_unit_id"
+  end
+
   create_table "superintendents", force: :cascade do |t|
     t.date "start_date", null: false
     t.date "end_date", null: false
@@ -204,6 +218,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_025316) do
     t.integer "unit_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "database_datetime", null: false
     t.index ["condo_id"], name: "index_visitor_entries_on_condo_id"
     t.index ["unit_id"], name: "index_visitor_entries_on_unit_id"
   end
@@ -234,6 +249,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_22_025316) do
   add_foreign_key "floors", "towers"
   add_foreign_key "reservations", "common_areas"
   add_foreign_key "reservations", "residents"
+  add_foreign_key "single_charges", "common_areas"
+  add_foreign_key "single_charges", "condos"
+  add_foreign_key "single_charges", "units"
   add_foreign_key "superintendents", "condos"
   add_foreign_key "superintendents", "residents", column: "tenant_id"
   add_foreign_key "towers", "condos"

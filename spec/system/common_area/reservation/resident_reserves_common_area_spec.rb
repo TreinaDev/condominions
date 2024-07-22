@@ -41,8 +41,20 @@ describe 'Resident reserves common area' do
   it 'fail if the connection is lost with external application' do
     common_area = create :common_area
     resident = create :resident, :with_residence, condo: common_area.condo
-    allow(Faraday).to receive(:get).and_raise(Faraday::ConnectionFailed)
-    allow(Faraday).to receive(:post).and_raise(Faraday::ConnectionFailed)
+    url = "#{Rails.configuration.api['base_url']}/single_charges/"
+    single_charge_json = { single_charge: {
+      description: nil,
+      value_cents: common_area.fee,
+      charge_type: 'common_area_fee',
+      issue_date: Date.new(2024, 7, 5),
+      condo_id: common_area.condo.id,
+      common_area_id: common_area.id,
+      unit_id: resident.residence.id
+    } }.to_json
+
+    allow(Faraday).to receive(:post)
+      .with(url, single_charge_json, 'Content-Type' => 'application/json')
+      .and_raise(Faraday::ConnectionFailed)
 
     travel_to '01/07/2024' do
       login_as resident, scope: :resident

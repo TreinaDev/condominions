@@ -25,6 +25,12 @@ class ApplicationController < ActionController::Base
     not_authorized_redirect unless current_manager.is_super
   end
 
+  def authorize_condo_manager_superintendent(condo)
+    return if authorize_manager(condo) || (authorize_resident(condo) && current_resident&.superintendent)
+
+    not_authorized_redirect
+  end
+
   def authorize_condo_manager(condo)
     not_authorized_redirect unless authorize_manager(condo)
   end
@@ -44,7 +50,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_resident(condo)
-    resident_signed_in? && condo.residents.include?(current_resident)
+    resident_signed_in? && condo && condo.residents.include?(current_resident)
   end
 
   def not_authorized_redirect

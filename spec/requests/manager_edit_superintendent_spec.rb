@@ -14,13 +14,13 @@ describe 'Manager edits superintendent' do
     end
 
     it 'must be authenticated as condo manager to edit a superintendent' do
-      condo_manager = create :manager, is_super: false
+      manager = create :manager, is_super: false
       condo = create :condo, name: 'Condomínio X'
       resident = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Date.current,
                                                end_date: Date.current >> 2)
 
-      login_as condo_manager, scope: :manager
+      login_as manager, scope: :manager
 
       get edit_condo_superintendent_path(condo, superintendent)
 
@@ -41,11 +41,11 @@ describe 'Manager edits superintendent' do
     end
   end
 
-  context 'patch /condos/:condo_id/superintendents' do
+  context 'PATCH /condos/:condo_id/superintendents' do
     it 'must be authenticated to edit an superintendent' do
       condo = create :condo, name: 'Condomínio X'
       resident = create(:resident, :with_residence, condo:)
-      resident2 = create(:resident, :with_residence, email: 'Adrolado@email.com', condo:)
+      resident2 = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Date.current,
                                                end_date: Date.current >> 2)
 
@@ -60,12 +60,12 @@ describe 'Manager edits superintendent' do
     it 'must be authenticated as condo manager to edit a superintendent' do
       condo = create :condo, name: 'Condomínio X'
       resident = create(:resident, :with_residence, condo:)
-      resident2 = create(:resident, :with_residence, email: 'Adrolado@email.com', condo:)
+      resident2 = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Date.current,
                                                end_date: Date.current >> 2)
 
-      condo_manager = create :manager, is_super: false
-      login_as condo_manager, scope: :manager
+      manager = create :manager, is_super: false
+      login_as manager, scope: :manager
 
       params = { superintendent: { tenant_id: resident2.id }, condo_id: condo.id }
 
@@ -78,7 +78,7 @@ describe 'Manager edits superintendent' do
     it 'must be authenticated as manager' do
       condo = create :condo, name: 'Condomínio X'
       resident = create(:resident, :with_residence, condo:)
-      resident2 = create(:resident, :with_residence, email: 'Adrolado@email.com', condo:)
+      resident2 = create(:resident, :with_residence, condo:)
       superintendent = create(:superintendent, condo:, tenant: resident, start_date: Date.current,
                                                end_date: Date.current >> 2)
 

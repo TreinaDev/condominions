@@ -1,0 +1,25 @@
+pt-BR:
+  alerts:    
+    single_charge:
+      fine_not_created: 'Não foi possível lançar a multa.'
+      server_error: 'Falha de comunicação com o servidor'
+  activerecord:
+    models:
+      single_charge:
+        one: 'Cobrança Avulsa'
+        other: 'Cobranças Avulsa'
+    attributes:
+      single_charge:
+        tower: 'Torre'
+        tower_id: 'Torre'
+        floor: 'Andar'
+        floor_id: 'Andar'
+        unit: 'Unidade'
+        unit_id: 'Unidade'
+        condo: 'Condomínio'
+        condo_id: 'Condomínio'
+        description: 'Descrição'
+        value_cents: 'Valor'
+        value: 'Valor'
+        common_area: 'Área Comum'
+        charge_type: 'Tipo'

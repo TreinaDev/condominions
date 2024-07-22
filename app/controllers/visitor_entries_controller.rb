@@ -10,7 +10,7 @@ class VisitorEntriesController < ApplicationController
 
     @result = []
     params.permit(:full_name, :visit_date, :identity_number).each do |key, value|
-      key = 'created_at' if key == 'visit_date'
+      key = 'database_datetime' if key == 'visit_date'
       @result << find_visitor_entries(key, value) if value.present?
     end
 

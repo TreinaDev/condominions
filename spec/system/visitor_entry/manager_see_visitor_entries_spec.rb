@@ -96,15 +96,15 @@ describe 'manager see visitor entries list' do
     it 'with visit date filter' do
       manager = create :manager
       condo = create :condo
-      travel_to '04/07/2024' do
+      travel_to Time.zone.local(2024, 7, 4, 22, 0) do
         create :visitor_entry, condo:, full_name: 'Nome Visitante Ontem'
       end
 
-      travel_to '05/07/2024' do
+      travel_to Time.zone.local(2024, 7, 5, 22, 1) do
         create :visitor_entry, condo:, full_name: 'Nome Primeiro Visitante'
       end
 
-      travel_to '05/07/2024 00:30' do
+      travel_to Time.zone.local(2024, 7, 5, 22, 2) do
         create :visitor_entry, condo:, full_name: 'Nome Último Visitante'
 
         login_as manager, scope: :manager
@@ -136,7 +136,7 @@ describe 'manager see visitor entries list' do
     end
 
     it 'with all filters' do
-      travel_to '05/07/2024' do
+      travel_to Time.zone.local(2024, 7, 5, 22, 1) do
         manager = create :manager
         condo = create :condo
         create :visitor_entry, condo:, full_name: 'Nome Primeiro Visitante', identity_number: '145697'

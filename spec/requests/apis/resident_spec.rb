@@ -43,10 +43,8 @@ describe 'Resident API' do
                         registration_number: '076.550.640-83',
                         full_name: 'Roberto dos Santos',
                         residence: unit11
-      owner = create :resident,
-                     registration_number: '734.706.130-01',
-                     email: 'owner@email.com',
-                     properties: [unit11]
+
+      owner = create :resident, properties: [unit11]
 
       get '/api/v1/get_tenant_residence?registration_number=076.550.640-83'
 
@@ -108,8 +106,8 @@ describe 'Resident API' do
       owner = create :resident,
                      registration_number: '734.706.130-01',
                      full_name: 'Roberto dos Santos',
-                     email: 'owner@email.com',
                      properties: [unit11, unit12]
+
       resident = create :resident,
                         registration_number: '076.550.640-83',
                         full_name: 'Ednaldo Pereira',

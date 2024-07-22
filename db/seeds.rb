@@ -16,9 +16,9 @@ admin1 = Manager.create!(
 )
 
 admin2 = Manager.create!(
-  full_name: "Adroaldo Silva Santos", 
-  registration_number: '025.727.205-40', 
-  email: "adm2@teste.com", 
+  full_name: "Adroaldo Silva Santos",
+  registration_number: '025.727.205-40',
+  email: "adm2@teste.com",
   password: "teste123",
   is_super: false,
 )
@@ -365,6 +365,7 @@ resident_property_registration_pending1 = Resident.create!(
   status: :property_registration_pending,
   full_name: 'Cláudia Rodrigues Gomes',
   registration_number: '458.456.480-92',
+  properties: [tower1.floors[0].units[0]],
   residence: tower1.floors[0].units[0]
 )
 
@@ -374,6 +375,7 @@ resident_property_registration_pending2 = Resident.create!(
   status: :property_registration_pending,
   full_name: 'João da Silva',
   registration_number: '478.040.830-09',
+  properties: [tower1.floors[1].units[0]],
   residence: tower1.floors[1].units[0]
 )
 
@@ -383,6 +385,7 @@ resident_property_registration_pending3 = Resident.create!(
   status: :property_registration_pending,
   full_name: 'Maria Oliveira',
   registration_number: '231.887.610-07',
+  properties: [tower1.floors[2].units[0]],
   residence: tower1.floors[2].units[0]
 )
 
@@ -392,6 +395,7 @@ resident_property_registration_pending4 = Resident.create!(
   status: :residence_registration_pending,
   full_name: 'Pedro Alves',
   registration_number: '185.894.110-52',
+  properties: [tower1.floors[3].units[0]],
   residence: tower1.floors[3].units[0]
 )
 
@@ -724,7 +728,7 @@ common_area20 = CommonArea.create!(
   rules: 'Acompanhamento de adulto obrigatório'
 )
 
-visitor_1 = Visitor.create!(
+Visitor.create!(
   condo: resident1.residence.condo,
   resident: resident1,
   visit_date: Time.zone.today,
@@ -732,7 +736,7 @@ visitor_1 = Visitor.create!(
   identity_number: '1456987',
   category: :visitor
 )
-visitor_2 = Visitor.create!(
+Visitor.create!(
   condo: resident1.residence.condo,
   resident: resident1,
   visit_date: Time.zone.today,
@@ -741,7 +745,7 @@ visitor_2 = Visitor.create!(
   category: :employee,
   recurrence: :working_days
 )
-visitor_3 = Visitor.create!(
+Visitor.create!(
   condo: resident2.residence.condo,
   resident: resident2,
   visit_date: Time.zone.today,
@@ -749,7 +753,7 @@ visitor_3 = Visitor.create!(
   identity_number: '3214567',
   category: :visitor
 )
-visitor_4 = Visitor.create!(
+Visitor.create!(
   condo: resident2.residence.condo,
   resident: resident2,
   visit_date: 1.day.from_now.to_date,
@@ -758,7 +762,7 @@ visitor_4 = Visitor.create!(
   category: :employee,
   recurrence: :monthly
 )
-visitor_5 = Visitor.create!(
+Visitor.create!(
   condo: resident3.residence.condo,
   resident: resident3,
   visit_date: 1.day.from_now.to_date,
@@ -767,7 +771,7 @@ visitor_5 = Visitor.create!(
   category: :employee,
   recurrence: :biweekly
 )
-visitor_6 = Visitor.create!(
+Visitor.create!(
   condo: resident3.residence.condo,
   resident: resident3,
   visit_date: Time.zone.today,
@@ -775,7 +779,7 @@ visitor_6 = Visitor.create!(
   identity_number: '6901234',
   category: :visitor
 )
-visitor_7 = Visitor.create!(
+Visitor.create!(
   condo: resident3.residence.condo,
   resident: resident3,
   visit_date: 2.days.from_now.to_date,
@@ -783,7 +787,7 @@ visitor_7 = Visitor.create!(
   identity_number: '7890123',
   category: :visitor
 )
-visitor_8 = Visitor.create!(
+Visitor.create!(
   condo: resident4.residence.condo,
   resident: resident4,
   visit_date: Time.zone.today,
@@ -792,7 +796,7 @@ visitor_8 = Visitor.create!(
   category: :employee,
   recurrence: :bimonthly
 )
-visitor_9 = Visitor.create!(
+Visitor.create!(
   condo: resident4.residence.condo,
   resident: resident4,
   visit_date: 1.day.from_now,
@@ -800,7 +804,7 @@ visitor_9 = Visitor.create!(
   identity_number: '9654321',
   category: :visitor
 )
-visitor_10 = Visitor.create!(
+Visitor.create!(
   condo: resident5.residence.condo,
   resident: resident5,
   visit_date: Time.zone.today,
@@ -810,62 +814,73 @@ visitor_10 = Visitor.create!(
   recurrence: :semiannual
 )
 
-visitor_entry1 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo1,
   full_name: 'Maria Fernandes',
   identity_number: '1234567',
-  unit: tower1.floors[0].units[0]
+  unit: tower1.floors[0].units[0],
+  database_datetime: 1.day.ago
 )
-visitor_entry2 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo1,
   full_name: 'João Pereira',
   identity_number: '2345678',
-  unit: tower1.floors[0].units[1]
+  unit: tower1.floors[0].units[1],
+  database_datetime: 3.days.ago.to_datetime
+
 )
-visitor_entry3 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo1,
   full_name: 'Ana Souza',
   identity_number: '3456789',
-  unit: tower1.floors[1].units[3]
+  unit: tower1.floors[1].units[3],
+  database_datetime: 14.days.ago.to_datetime
 )
-visitor_entry4 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo1,
   full_name: 'Carlos Lima',
-  identity_number: '4567890'
+  identity_number: '4567890',
+  database_datetime: 30.days.ago.to_datetime
 )
-visitor_entry5 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo1,
   full_name: 'Patricia Mendes',
-  identity_number: '5678901'
+  identity_number: '5678901',
+  database_datetime: 1.day.ago.to_datetime
 )
-visitor_entry6 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo1,
   full_name: 'Lucas Alves',
   identity_number: '6789012',
-  unit: tower1.floors[2].units[0]
+  unit: tower1.floors[2].units[0],
+  database_datetime: 2.days.ago.to_datetime
 )
-visitor_entry7 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo1,
   full_name: 'Mariana Costa',
   identity_number: '7890123',
-  unit: tower2.floors[2].units[0]
+  unit: tower2.floors[2].units[0],
+  database_datetime: 3.days.ago.to_datetime
 )
-visitor_entry8 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo1,
   full_name: 'Fernando Gomes',
   identity_number: '8901234',
-  unit: tower2.floors[0].units[0]
+  unit: tower2.floors[0].units[0],
+  database_datetime: 4.days.ago.to_datetime
 )
-visitor_entry9 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo2,
   full_name: 'Juliana Oliveira',
   identity_number: '9012345',
-  unit: tower3.floors[0].units[0]
+  unit: tower3.floors[0].units[0],
+  database_datetime: 1.days.ago.to_datetime
 )
-visitor_entry10 = VisitorEntry.create!(
+VisitorEntry.create!(
   condo: condo2,
   full_name: 'Gustavo Ferreira',
-  identity_number: '0123456'
+  identity_number: '0123456',
+  database_datetime: 1.days.ago.to_datetime
 )
 Announcement.create!(
   title: 'Reunião de condomínio',
@@ -894,3 +909,5 @@ Announcement.create!(
   manager: admin2,
   condo: condo1
 )
+
+puts 'Seed data created successfully!'
