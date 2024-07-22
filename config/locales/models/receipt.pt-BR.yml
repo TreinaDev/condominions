@@ -6,3 +6,4 @@ pt-BR:
     receipt:
       not_sended: 'Impossível enviar o comprovante ao servidor do PagueAluguel'
       inexistent_image: 'Comprovante não pode ficar em branco'
+      not_autorized: Você não tem permissão para acessar essa página

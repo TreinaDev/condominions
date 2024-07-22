@@ -2,6 +2,8 @@ class ReceiptsController < ApplicationController
   before_action :authenticate_resident!, only: %i[create new]
   before_action :define_resident, only: %i[create new]
   before_action :set_bill_id, only: %i[create new]
+  before_action :set_unit_id, only: %i[new create]
+  before_action :autorize_resident, only: %i[new create]
   before_action :check_image_presence, only: :create
   before_action :set_breadcrumbs_for_action, only: :new
 
@@ -33,5 +35,13 @@ class ReceiptsController < ApplicationController
 
     @resident.add_error
     render 'new', status: :unprocessable_entity
+  end
+
+  def set_unit_id
+    @unit_id = params[:unit_id]
+  end
+
+  def autorize_resident
+    redirect_to root_path, alert: t('alerts.receipt.not_autorized') unless @unit_id.to_i == @resident.residence.id
   end
 end
