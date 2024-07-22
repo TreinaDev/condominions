@@ -8,7 +8,7 @@ class TenantsController < ResidentsController
   def create
     return unless update_resident_for_valid_unit
 
-    @resident.mail_not_confirmed! && send_email if @resident.residence_registration_pending?
+    return @resident.mail_not_confirmed! && send_email if @resident.residence_registration_pending?
 
     redirect_to @resident, notice: t('notices.tenant.updated')
   end
@@ -29,6 +29,8 @@ class TenantsController < ResidentsController
     random_password = SecureRandom.alphanumeric 8
     @resident.update password: random_password
     @resident.send_invitation random_password
+
+    redirect_to @resident, notice: t('notices.tenant.send_email')
   end
 
   def update_resident_for_valid_unit
