@@ -7,8 +7,8 @@ describe 'User sees superintendent details' do
       tower = create(:tower, condo:)
       unit11 = tower.floors.first.units.first
       resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-      create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                              end_date: Time.zone.today >> 2)
+      create(:superintendent, condo:, tenant: resident, start_date: Date.current,
+                              end_date: Date.current >> 2)
       manager = create :manager
 
       resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,
@@ -26,8 +26,8 @@ describe 'User sees superintendent details' do
         expect(page).to have_content 'Condomínio X'
         expect(page).to have_content 'Torre A'
         expect(page).to have_content 'Unidade: 11'
-        expect(page).to have_content I18n.l Time.zone.today
-        expect(page).to have_content I18n.l(Time.zone.today >> 2)
+        expect(page).to have_content I18n.l Date.current
+        expect(page).to have_content I18n.l(Date.current >> 2)
       end
       expect(page).to have_button 'Editar Síndico'
     end
@@ -52,8 +52,8 @@ describe 'User sees superintendent details' do
       tower = create(:tower, condo:)
       unit11 = tower.floors.first.units.first
       resident = create :resident, full_name: 'Dona Alvara', residence: unit11, email: 'alvara@email.com'
-      superintendent = create(:superintendent, condo:, tenant: resident, start_date: Time.zone.today,
-                                               end_date: Time.zone.today >> 2)
+      superintendent = create(:superintendent, condo:, tenant: resident, start_date: Date.current,
+                                               end_date: Date.current >> 2)
       resident.user_image.attach(io: Rails.root.join('spec/support/images/resident_photo.jpg').open,
                                  filename: 'resident_photo.jpg')
 
@@ -70,8 +70,8 @@ describe 'User sees superintendent details' do
         expect(page).to have_content 'Condomínio X'
         expect(page).to have_content 'Torre A'
         expect(page).to have_content 'Unidade: 11'
-        expect(page).to have_content I18n.l Time.zone.today
-        expect(page).to have_content I18n.l(Time.zone.today >> 2)
+        expect(page).to have_content I18n.l Date.current
+        expect(page).to have_content I18n.l(Date.current >> 2)
       end
 
       expect(page).not_to have_button 'Editar Síndico'

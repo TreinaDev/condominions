@@ -8,19 +8,19 @@ describe 'Manager view condo visitors list' do
     first_condo = create :condo
     second_condo = create :condo
     first_visitor = create :visitor, condo: first_condo, resident:,
-                                     visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
+                                     visit_date: Date.current, full_name: 'João da Silva', identity_number: '12467'
     second_visitor = create :visitor, condo: first_condo, resident:,
-                                      visit_date: Time.zone.today, full_name: 'Maria Oliveira', identity_number: '45977'
+                                      visit_date: Date.current, full_name: 'Maria Oliveira', identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo,
                                      visit_date: 1.day.from_now, full_name: 'Marcos Lima'
     fourth_visitor = create :visitor, condo: second_condo,
-                                      visit_date: Time.zone.today, full_name: 'Juliana Ferreira'
+                                      visit_date: Date.current, full_name: 'Juliana Ferreira'
 
     login_as manager, scope: :manager
     visit condo_path first_condo
     click_on 'Agenda de visitantes/funcionários'
 
-    expect(page).to have_content I18n.l(Time.zone.today, format: :long)
+    expect(page).to have_content I18n.l(Date.current, format: :long)
     within("#visitor-#{first_visitor.id}") do
       expect(page).to have_content 'Alberto Silveira'
       expect(page).to have_content 'João da Silva'
@@ -50,7 +50,7 @@ describe 'Manager view condo visitors list' do
     second_visitor = create :visitor, condo: first_condo, resident:,
                                       visit_date: 1.day.from_now, full_name: 'Maria Oliveira', identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo, resident:,
-                                     visit_date: Time.zone.today, full_name: 'Marcos Lima'
+                                     visit_date: Date.current, full_name: 'Marcos Lima'
     fourth_visitor = create :visitor, condo: second_condo,
                                       visit_date: 1.day.from_now, full_name: 'Juliana Ferreira'
 
@@ -58,7 +58,7 @@ describe 'Manager view condo visitors list' do
     visit find_condo_visitors_path first_condo
     click_on 'Dia Seguinte'
 
-    expect(page).to have_content I18n.l(Time.zone.today + 1.day, format: :long)
+    expect(page).to have_content I18n.l(Date.current + 1.day, format: :long)
     within("#visitor-#{first_visitor.id}") do
       expect(page).to have_content 'Alberto Silveira'
       expect(page).to have_content 'João da Silva'
@@ -84,19 +84,19 @@ describe 'Manager view condo visitors list' do
     first_condo = create :condo
     second_condo = create :condo
     first_visitor = create :visitor, condo: first_condo, resident:,
-                                     visit_date: Time.zone.today, full_name: 'João da Silva', identity_number: '12467'
+                                     visit_date: Date.current, full_name: 'João da Silva', identity_number: '12467'
     second_visitor = create :visitor, condo: first_condo, resident:,
-                                      visit_date: Time.zone.today, full_name: 'Maria Oliveira', identity_number: '45977'
+                                      visit_date: Date.current, full_name: 'Maria Oliveira', identity_number: '45977'
     third_visitor = create :visitor, condo: first_condo, resident:,
                                      visit_date: 1.day.from_now, full_name: 'Marcos Lima'
     fourth_visitor = create :visitor, condo: second_condo,
-                                      visit_date: Time.zone.today, full_name: 'Juliana Ferreira'
+                                      visit_date: Date.current, full_name: 'Juliana Ferreira'
 
     login_as manager, scope: :manager
     visit find_condo_visitors_path(first_condo, date: 1.day.from_now)
     click_on 'Dia Anterior'
 
-    expect(page).to have_content I18n.l(Time.zone.today, format: :long)
+    expect(page).to have_content I18n.l(Date.current, format: :long)
     within("#visitor-#{first_visitor.id}") do
       expect(page).to have_content 'Alberto Silveira'
       expect(page).to have_content 'João da Silva'
@@ -125,7 +125,7 @@ describe 'Manager view condo visitors list' do
 
     expect(page).to have_content 'Não é possível acessar uma data passada'
     expect(current_path).to eq find_condo_visitors_path(condo)
-    expect(page).to have_content I18n.l(Time.zone.today, format: :long)
+    expect(page).to have_content I18n.l(Date.current, format: :long)
   end
 
   it 'must be authenticated' do
@@ -163,7 +163,7 @@ describe 'Manager view condo visitors list' do
       manager = create :manager
       condo = create :condo
       resident = create(:resident, :with_residence, condo:)
-      visitor = create :visitor, condo:, resident:, visit_date: Time.zone.today, full_name: 'João Almeida'
+      visitor = create :visitor, condo:, resident:, visit_date: Date.current, full_name: 'João Almeida'
 
       login_as manager, scope: :manager
       visit find_condo_visitors_path condo

@@ -37,7 +37,7 @@ describe 'Manager confirms visitor' do
 
     it 'successfully only if associated with the condo' do
       manager = create :manager, is_super: false
-      visitor = create :visitor, visit_date: Time.zone.today
+      visitor = create :visitor, visit_date: Date.current
       manager.condos << visitor.condo
 
       login_as manager, scope: :manager
@@ -63,7 +63,7 @@ describe 'Manager confirms visitor' do
     context 'visit_date ' do
       it 'cannot be past' do
         manager = create :manager
-        visitor = create :visitor, visit_date: Time.zone.today
+        visitor = create :visitor, visit_date: Date.current
 
         login_as manager, scope: :manager
         travel_to 1.day.from_now do

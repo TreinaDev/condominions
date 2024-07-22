@@ -5,7 +5,7 @@ describe 'Manager register superintendent' do
     condo = create :condo, name: 'Condomínio X'
     resident = create(:resident, :with_residence, full_name: 'Alvus Dumbledore', condo:)
     manager = create :manager
-    date = Time.zone.today
+    date = Date.current
 
     login_as manager, scope: :manager
     visit root_path
