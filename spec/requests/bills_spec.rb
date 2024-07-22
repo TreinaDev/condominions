@@ -16,6 +16,20 @@ describe 'Bills/Receipts' do
 
       expect(response).to redirect_to new_resident_session_path
     end
+
+    it 'must be authenticated as Resident for that bill to see (other resident)' do
+      create :resident, :with_residence
+      resident = create :resident, :with_residence
+      json_data_details = Rails.root.join('spec/support/json/bill_1_details.json').read
+      response_for_unit_one = double('faraday_response', body: json_data_details, success?: true)
+
+      allow(Faraday).to receive(:get).and_return(response_for_unit_one)
+
+      login_as resident, scope: :resident
+      get bill_path 1, params: { unit_id: 1 }
+
+      expect(response).to redirect_to root_path
+    end
   end
 
   context 'GET /bills/bill_id/receipts/new' do
