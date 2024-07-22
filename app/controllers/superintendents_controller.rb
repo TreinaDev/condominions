@@ -1,11 +1,12 @@
 class SuperintendentsController < ApplicationController
-  before_action :authenticate_manager!, only: %i[new create edit update]
-  before_action :set_condo, only: %i[show new create edit update]
-  before_action :set_superintendent, only: %i[show edit update]
-  before_action :set_breadcrumbs_condo, only: %i[new create edit update]
+  before_action :authenticate_manager!, only: %i[new create ]
+  before_action :set_condo, only: %i[show new create  destroy]
+  before_action :set_superintendent, only: %i[show  destroy]
+  before_action :set_breadcrumbs_condo, only: %i[new create ]
   before_action :set_breadcrumbs_for_register, only: %i[new create]
-  before_action :set_breadcrumbs_for_edit, only: %i[edit update]
-  before_action -> { authorize_user(@condo) }, only: %i[show new create edit update]
+  before_action :set_breadcrumbs_for_edit, only: %i[]
+  before_action -> { authorize_condo_manager(@condo) }, only: %i[destroy]
+  before_action -> { authorize_user(@condo) }, only: %i[show new create ]
 
   def show
     @tenant = @superintendent.tenant
@@ -23,12 +24,8 @@ class SuperintendentsController < ApplicationController
     @tenants = @condo.tenants
   end
 
-  def edit
-    @tenants = @condo.tenants
-  end
-
   def create
-    @superintendent = Superintendent.new(superintendent_params.merge!(condo: @condo))
+    @superintendent = Superintendent.new(superintendent_params.merge!({ status: :pending, condo: @condo }))
 
     unless @superintendent.save
       @tenants = @condo.tenants
@@ -39,14 +36,9 @@ class SuperintendentsController < ApplicationController
     redirect_to condo_superintendent_path(@condo, @superintendent), notice: t('notices.superintendent.created')
   end
 
-  def update
-    unless @superintendent.update(superintendent_params)
-      @tenants = @condo.tenants
-      flash.now[:alert] = t('alerts.superintendent.not_updated')
-      return render 'new', status: :unprocessable_entity
-    end
-
-    redirect_to condo_superintendent_path(@condo, @superintendent), notice: t('notices.superintendent.updated')
+  def destroy
+    @superintendent.closed!
+    redirect_to @condo, notice: t('notices.superintendent.closed')
   end
 
   private

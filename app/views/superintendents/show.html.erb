@@ -19,7 +19,7 @@
       <div>
         <p><strong>Torre:</strong> <%= @tenant.residence.tower.name %></p>
         <p><strong>Unidade:</strong> <%= @tenant.residence.short_identifier %></p>
-        <p><strong>Ínicio do mandato:</strong> <%= I18n.l(@superintendent.start_date) %></p>
+        <p><strong>Início do mandato:</strong> <%= I18n.l(@superintendent.start_date) %></p>
         <p><strong>Fim do mandato:</strong> <%= I18n.l(@superintendent.end_date) %></p>
       </div>
     </div>
@@ -27,8 +27,8 @@
 
   <% if manager_signed_in? %>
     <div class="form-group d-flex justify-content-center">
-      <%= button_to 'Editar Síndico', edit_condo_superintendent_path(@condo, @superintendent), method: :get, class:'btn btn-dark rounded-pill px-4 mt-3' %>
-    </div>  
+      <%= button_to 'Encerrar Gestão', condo_superintendent_path(@condo, @superintendent), method: :delete, class:'btn btn-dark rounded-pill px-4 mt-3' %>
+    </div> 
   <% end %>
 
 </div>

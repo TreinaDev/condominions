@@ -5,7 +5,9 @@
     <p class="mb-1 text-secondary fs-sm">CNPJ: <%= @condo.registration_number %></p>
     <p class="mb-1 text-secondary fs-sm">Síndico: 
       <% if @condo.superintendent%>
-        <%= link_to @condo.superintendent.tenant.full_name, condo_superintendent_path(@condo, @condo.superintendent) %>
+        <%= link_to condo_superintendent_path(@condo, @condo.superintendent) do %> 
+          <%= "#{@condo.superintendent.tenant.full_name} (#{@condo.superintendent.start_date} - #{@condo.superintendent.end_date})"%>
+        <% end %>
       <% else %>
         Não há um síndico ativo
       <% end %>  

@@ -26,4 +26,32 @@ RSpec.describe Superintendent, type: :model do
       expect(superintendent.errors).to include :end_date
     end
   end
+
+  describe '#after_create' do
+    it 'superintendent action now' do
+      travel_to '2024-07-22'.to_date
+      superintendent = create :superintendent, :pending, start_date: '2024-07-22', end_date: '2024-07-25'
+
+      expect(superintendent.in_action?).to eq true
+    end
+
+    it 'program active superintendent' do
+      travel_to '2024-07-22'.to_date
+      active_superintendent_job_spy = spy 'ActiveSuperintendentJob'
+      stub_const 'ActiveSuperintendentJob', active_superintendent_job_spy
+      superintendent = create :superintendent, :pending, start_date: '2024-07-23', end_date: '2024-07-25'
+
+      expect(superintendent.pending?).to eq true
+      expect(active_superintendent_job_spy).to have_received(:set).with({ wait_until: '2024-07-23'.to_datetime })
+    end
+
+    it 'program desactive superintendent' do
+      travel_to '2024-07-22'.to_date
+      desactive_superintendent_job_spy = spy 'DesactiveSuperintendentJob'
+      stub_const 'DesactiveSuperintendentJob', desactive_superintendent_job_spy
+      create :superintendent, start_date: '2024-07-22', end_date: '2024-07-25'
+
+      expect(desactive_superintendent_job_spy).to have_received(:set).with({ wait_until: '2024-07-25'.to_datetime })
+    end
+  end
 end
