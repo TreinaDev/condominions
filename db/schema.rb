@@ -151,6 +151,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_231004) do
     t.index ["reset_password_token"], name: "index_residents_on_reset_password_token", unique: true
   end
 
+  create_table "superintendents", force: :cascade do |t|
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "condo_id", null: false
+    t.integer "tenant_id", null: false
+    t.index ["condo_id"], name: "index_superintendents_on_condo_id"
+    t.index ["tenant_id"], name: "index_superintendents_on_tenant_id"
+  end
+
   create_table "towers", force: :cascade do |t|
     t.integer "floor_quantity"
     t.string "name"
@@ -222,6 +233,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_18_231004) do
   add_foreign_key "floors", "towers"
   add_foreign_key "reservations", "common_areas"
   add_foreign_key "reservations", "residents"
+  add_foreign_key "superintendents", "condos"
+  add_foreign_key "superintendents", "residents", column: "tenant_id"
   add_foreign_key "towers", "condos"
   add_foreign_key "unit_types", "condos"
   add_foreign_key "units", "floors"

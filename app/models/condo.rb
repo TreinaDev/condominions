@@ -12,6 +12,7 @@ class Condo < ApplicationRecord
   has_many :units, through: :floors
   has_many :owners, through: :units
   has_many :tenants, through: :units
+  has_one :superintendent, dependent: :destroy
 
   delegate :city, to: :address
   delegate :state, to: :address
@@ -56,7 +57,8 @@ class Condo < ApplicationRecord
       {
         id: unit.id,
         floor: unit.floor.identifier,
-        number: unit.short_identifier
+        number: unit.short_identifier,
+        tower_name: unit.tower.name
       }
     end
   end

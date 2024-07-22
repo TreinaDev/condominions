@@ -53,6 +53,10 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark bg-medium-blue">
                   <li><%= link_to 'Cadastrar Morador', new_resident_path, class: "dropdown-item" %></li>
+                  <li><hr class="nav-divider m-0"></li>
+                  <li class="nav-item">
+                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#condoSelectPopupForSuperintendent">Cadastrar Síndico</a>
+                  </li>
                   <% if current_manager.is_super %>
                     <li><hr class="nav-divider m-0"></li>
                     <li><%= link_to 'Cadastrar Administrador', new_manager_path, class: "dropdown-item" %></li>
@@ -187,6 +191,38 @@
         </div>
       </div>
       
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="condoSelectPopupForSuperintendent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="condoSelectPopupLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="condoSelectPopupLabel">Selecione o Condomínio</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class='container-fluid'>
+          <div class='row'>
+            <% if current_manager %>
+              <% condos = current_manager.is_super ? Condo.all : current_manager.condos %>
+              <% condos.each do |condo| %>
+                <div class='col-auto'>
+                  <%= link_to new_condo_superintendent_path(condo), class:"btn btn-dark rounded-pill d-flex mb-2 shadow-sm", data: { turbo: false } do %>
+                    <i class="bi bi-bookmark-plus me-2"></i> <p style="margin: 0; font-size: 14px;"><%= condo.name %></p>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
       </div>

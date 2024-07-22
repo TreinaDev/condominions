@@ -39,7 +39,8 @@ module Api
                         id: residence.id, area: unit_type&.metreage, floor: residence.floor.identifier,
                         number: residence.short_identifier, unit_type_id: unit_type&.id,
                         description: unit_type&.description, condo_id: condo.id,
-                        condo_name: condo.name, owner_id: residence.owner&.id
+                        condo_name: condo.name, owner_id: residence.owner&.id,
+                        tower_name: residence.tower.name
                       } } }
       end
 
@@ -60,7 +61,8 @@ module Api
           id: property.id, area: unit_type&.metreage, floor: property.floor.identifier,
           number: property.short_identifier, unit_type_id: unit_type&.id,
           description: unit_type&.description, condo_id: condo.id,
-          condo_name: condo.name, tenant_id: property.tenant&.id
+          condo_name: condo.name, tenant_id: property.tenant&.id,
+          tower_name: property.tower.name
         }
       end
     end
