@@ -407,7 +407,9 @@ Exemplo de Resposta:
 <p align="justify">Retorna erro `404` caso a área comum informada não esteja cadastrada para o condomínio informado.</p>
 
 <!-- GETTING STARTED -->
+
 <div id='instalacao-e-execucao'/> 
+  
 ## Instalação e Execução
 
 <div id='pre-requisitos'/> 
@@ -475,7 +477,7 @@ bin/dev
 ```
 Agora é possível acessar a aplicação a partir da rota http://localhost:3000/
 
-*Integração com o PagueAluguel*: Essa aplicação foi construída para ser integrada com o [PagueAluguel](https://github.com/TreinaDev/pague-aluguel). Com ambas as aplicações rodando, você poderá utilizá-la com todas as suas funcionalidades!
+**Integração com o PagueAluguel**: Essa aplicação foi construída para ser integrada com o [PagueAluguel](https://github.com/TreinaDev/pague-aluguel). Com ambas as aplicações rodando, você poderá utilizá-la com todas as suas funcionalidades!
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
