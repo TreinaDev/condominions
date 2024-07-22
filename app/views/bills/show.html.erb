@@ -31,7 +31,7 @@
   </div>
   <div class="d-flex justify-content-center mt-4">
     <% if @bill.status == 'pending' %>
-      <%= link_to new_bill_receipt_path(@bill_id), class:"btn btn-dark rounded-pill d-flex align-items-baseline pb-2 mb-2 shadow-sm" do %>
+      <%= link_to new_bill_receipt_path(@bill_id, unit_id: @bill.unit_id), class:"btn btn-dark rounded-pill d-flex align-items-baseline pb-2 mb-2 shadow-sm" do %>
         <i class="bi bi-card-text me-1 fs-6"></i> <p class="m-0 fs-sm">Enviar Comprovante</p> 
       <% end %>
     <% end %>
