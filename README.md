@@ -157,7 +157,8 @@ Exemplo de resposta:
   "condo_name": "Residencial Paineiras",
   "tenant_id": 1,
   "owner_id": 1,
-  "description": "Duplex com varanda"
+  "description": "Duplex com varanda",
+  "tower_name": "Torre Sul"
 }
 
 ```
@@ -219,12 +220,14 @@ Exemplo de resposta:
     {
       "id": 1,
       "floor": 1,
-      "number": "11"
+      "number": "11",
+      "tower_name": "Torre Sul"
     },
     {
       "id": 2,
       "floor": 1,
-      "number": "12"
+      "number": "12",
+      "tower_name": "Torre Sul"
     }
   ]
 }
@@ -271,7 +274,8 @@ Retorna 200 se o CPF é de um inquilino de alguma unidade e o seguinte JSON
       "description": "unit_type.description",
       "condo_id": "condo.id",
       "condo_name": "condo.name",
-      "owner_id": "residence.owner.id"
+      "owner_id": "residence.owner.id",
+      "tower_name": "Torre Sul"
       }
   }
 }
@@ -305,7 +309,8 @@ Retorna 200 se o CPF é de um proprietário de alguma unidade e o seguinte JSON
         "description": "Duplex com varanda",
         "condo_id": 1,
         "condo_name": "Residencial Paineiras",
-        "tenant_id": 1
+        "tenant_id": 1,
+        "tower_name": "Torre Sul"
       },
       {
         "id": 16,
@@ -316,7 +321,8 @@ Retorna 200 se o CPF é de um proprietário de alguma unidade e o seguinte JSON
         "description": "Duplex com varanda",
         "condo_id": 1,
         "condo_name": "Residencial Paineiras",
-        "tenant_id": null
+        "tenant_id": null,
+        "tower_name": "Torre Sul"
       },
       {
         "id": 17,
@@ -327,7 +333,8 @@ Retorna 200 se o CPF é de um proprietário de alguma unidade e o seguinte JSON
         "description": "Duplex com varanda",
         "condo_id": 1,
         "condo_name": "Residencial Paineiras",
-        "tenant_id": null
+        "tenant_id": null,
+        "tower_name": "Torre Sul"
       }
     ]
   }
