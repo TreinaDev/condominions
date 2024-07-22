@@ -39,7 +39,7 @@ describe 'managers sets resident as tenant' do
 
     expect(page).to have_current_path resident_path(resident), wait: 3
     expect(mail).to have_received(:deliver).once
-    expect(page).to have_content 'Atualizado com sucesso!'
+    expect(page).to have_content 'Convite para cadastro de morador enviado com sucesso!'
     resident.reload
     expect(resident.residence).not_to eq nil
     expect(resident.mail_not_confirmed?).to eq true
@@ -67,7 +67,7 @@ describe 'managers sets resident as tenant' do
 
     sleep 1
     expect(current_path).to eq resident_path resident
-    expect(page).to have_content 'Atualizado com sucesso!'
+    expect(page).to have_content 'Convite para cadastro de morador enviado com sucesso!'
     resident.reload
     expect(resident.residence).to eq nil
   end

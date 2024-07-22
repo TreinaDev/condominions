@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   get '/signup_choice', to: 'home#signup'
 
   devise_for :managers
-  devise_for :residents
+  devise_for :residents, controllers: {
+    passwords: 'residents/passwords'
+  }
 
   resources :managers, only: [:new, :create] do
     get 'edit_photo', on: :member
