@@ -7,9 +7,16 @@ class Reservation < ApplicationRecord
   validates :date, presence: true
   validate :check_availability, :date_must_be_actual_or_future, on: :create
 
+  def cancel_single_charge
+    url = "#{Rails.configuration.api['base_url']}/single_charges/#{single_charge_id}/cancel"
+    Faraday.patch(url)
+  end
+
   def generate_single_charge
     url = "#{Rails.configuration.api['base_url']}/single_charges/"
-    Faraday.post(url, single_charge_json, 'Content-Type' => 'application/json')
+    response = Faraday.post(url, single_charge_json, 'Content-Type' => 'application/json')
+    self.single_charge_id = JSON.parse(response.body)['single_charge_id']
+    response
   end
 
   def single_charge_json
