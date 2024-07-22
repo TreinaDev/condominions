@@ -33,5 +33,15 @@ RSpec.describe Resident, type: :model do
       expect(resident.errors).to include :registration_number
       expect(resident.errors.full_messages).to include 'CPF deve estar no seguinte formato: XXX.XXX.XXX-XX'
     end
+
+    it 'receipt must be valid' do
+      resident = build :resident, :with_residence
+      resident.receipt.attach(io: File.open('spec/support/images/test_image.txt'),
+                              filename: 'test_image.txt')
+
+      expect(resident).not_to be_valid
+      expect(resident.errors).to include :receipt
+      expect(resident.errors.full_messages).to include 'Comprovante deve ser um PDF, JPEG, JPG, ou PNG'
+    end
   end
 end

@@ -55,9 +55,12 @@ class CondosController < ApplicationController
 
   def associate_manager
     @manager = Manager.find(params[:manager_id])
-    return redirect_to @condo, notice: I18n.t('notices.condo.manager_associated') if @condo.managers << @manager
+    if @condo.managers.exclude?(@manager) && (@condo.managers << @manager)
+      return redirect_to @condo,
+                         notice: I18n.t('notices.condo.manager_associated')
+    end
 
-    redirect_to @condo, alert: I18n.t('notices.condo.manager_not_associated')
+    redirect_to @condo, alert: I18n.t('alerts.condo.manager_not_associated')
   end
 
   def residents

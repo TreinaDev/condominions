@@ -35,10 +35,6 @@ class ApplicationController < ActionController::Base
     not_authorized_redirect unless authorize_manager(condo)
   end
 
-  def authorize_condo_resident(condo)
-    not_authorized_redirect if authorize_resident(condo)
-  end
-
   def authorize_user(condo)
     not_authorized_redirect unless authorize_manager(condo) || authorize_resident(condo)
   end
