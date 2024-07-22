@@ -107,7 +107,6 @@ describe 'manager see visitor entries list' do
       travel_to '05/07/2024 00:30' do
         create :visitor_entry, condo:, full_name: 'Nome Último Visitante'
 
-
         login_as manager, scope: :manager
         visit condo_visitor_entries_path condo
         fill_in 'Data da Visita', with: '2024-07-05'
